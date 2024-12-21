@@ -3,7 +3,6 @@ patches/.bin/*.bin
 lib/tests/.output
 
 # Logs
-TODO.md
 logs
 *.log
 npm-debug.log*

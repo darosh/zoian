@@ -1,0 +1,62 @@
+# TODO
+
+- [ ] doc banner
+- [ ] integration notes
+- [ ] og:image
+- [ ] doc included files
+- [ ] dark highlight fix
+- [ ] starred connection
+- [ ] hide unused block labels
+- [ ] fix jack connection order
+- [ ] [./lib/README.md](./lib/README.md) version of ADSR, Pitch Shifter and Clock Divider
+- [ ] check cpu values
+- [ ] modules info page?
+- [ ] sticky connections
+- [ ] mouse over connections
+- [ ] connection shape
+- [ ] connection - jack position
+- [ ] out vs in block
+- [ ] check stared items
+- [ ] add connection and starred validation to tests
+- [ ] audio vs cv vs midi vs star connection
+- [ ] block abbreviations
+- [ ] move modules abbreviations to standalone file?
+- [ ] consolidate block condition types
+- [ ] check on GH pages
+- [ ] make test patch with all modules
+- [ ] check colors
+- [ ] add color scales
+
+## Done
+
+- [x] reorg grid vs graph
+- [x] ~refactor sizes like moduleM -> M~
+- [x] doc
+- [x] check lib non-index imports
+- [x] check trademarks https://duckduckgo.com/?q=site%3Aempresseffects.com+trademark
+- [x] ~~add more factory banks?~~ no licence info
+- [x] document source sources
+- [x] add missing descriptions
+- [x] make repo
+- [x] change patch colors to enum
+- [x] check modules with different versions
+- [x] gitignore
+- [x] remove offset handling
+- [x] rename destination to target
+- [x] zip drop support
+- [x] document localStorage.menu = false, localStorage.debug='*'
+- [x] headphones symbol
+- [x] share hot key
+- [x] add drop info about client side only processing
+- [x] check offset occurrence
+- [x] fix app tsc check
+- [x] disable prev + next on single drop
+- [x] svg jack text
+- [x] try Noto font
+- [x] cpu table
+- [x] ~~hide tooltip on ctx menu~~
+- [x] patch download
+- [x] look for test patches in zoia-lib repo
+- [x] check zoia-lib repo licence: GPL v3
+- [x] remove mdi icons (if needed?)
+- [x] doc links http://localhost:3000/?link=https%3A%2F%2Fpatchstorage.com%2Fapi%2Fbeta%2Fpatches%2F181743%2Ffiles%2F181739%2Fdownload%2F

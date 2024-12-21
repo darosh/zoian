@@ -1,5 +1,5 @@
 {
-  "name": "@darosh/zoian",
+  "name": "@zoian/app",
   "version": "0.0.0",
   "dependencies": {
     "@mdi/js": "^7.4.47",

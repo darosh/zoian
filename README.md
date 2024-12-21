@@ -65,7 +65,7 @@ deno task build
 ```
 #### Publishing the build to GitHub pages
 
-Rename the build [./dist](./dist) folder to [./doc](./doc) and push to repo.
+Rename the build [./dist](./dist) folder to [./docs](./docs) and push to repo.
 
 ### Tips
 

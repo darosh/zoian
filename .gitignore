@@ -1,5 +1,5 @@
 # Patches
-patches/.bin
+patches/.bin/*.bin
 lib/tests/.output
 
 # Logs

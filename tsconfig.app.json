@@ -1,0 +1,23 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["env.d.ts",
+    "patches/**/*",
+    "lib/**/*",
+    "src/**/*",
+    "src/**/*.vue"
+  ],
+  "exclude": [
+    "lib/tests/**/*",
+    "src/**/__tests__/*"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "allowImportingTsExtensions": true,
+    "baseUrl": ".",
+    "lib": ["ES2022", "DOM"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}

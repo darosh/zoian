@@ -1,5 +1,6 @@
 # TODO
 
+- [ ] fix prev/next not blocked on shared link?
 - [ ] doc banner
 - [ ] integration notes
 - [ ] og:image

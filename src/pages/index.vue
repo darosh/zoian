@@ -454,7 +454,10 @@ export default {
     },
     sharePatch () {
       const url = new URL(window.location.href)
-      url.search = Object.entries(this.getShareQuery()).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&')
+      const q = Object.entries(this.getShareQuery()).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&')
+      // no hash
+      // url.search = q
+      url.hash = `/?${q}`
       const shared = url.toString()
       log('link', shared)
       navigator.clipboard.writeText(shared)

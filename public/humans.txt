@@ -1,0 +1,12 @@
+/* TEAM */
+Developer: Jan Forst
+GitHub: @darosh
+Location: Czech Republic
+
+/* SITE */
+Created: 2024
+Language: English
+
+/* LICENSE */
+License: GNU General Public License v3.0
+Source: https://github.com/darosh/zoian

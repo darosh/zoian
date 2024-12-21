@@ -1,5 +1,7 @@
 # TODO
 
+- [ ] get rid of google fonts tracking :(
+- [ ] default cols 3
 - [ ] fix prev/next not blocked on shared link?
 - [ ] doc banner
 - [ ] integration notes

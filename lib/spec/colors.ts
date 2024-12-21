@@ -1,0 +1,17 @@
+export enum Colors {
+  Red = 3,
+  Orange = 8,
+  Mango = 15,
+  Yellow = 4,
+  Lime = 9,
+  Green = 2,
+  Surf = 10,
+  Aqua = 5,
+  Sky = 11,
+  Blue = 1,
+  Purple = 12,
+  Magenta = 6,
+  Pink = 13,
+  Peach = 14,
+  White = 7,
+}

@@ -1,5 +1,6 @@
 # TODO
 
+- [ ] fix doc share links
 - [ ] get rid of google fonts tracking :(
 - [ ] default cols 3
 - [ ] fix prev/next not blocked on shared link?

@@ -1,9 +1,6 @@
 # TODO
 
-- [ ] fix doc share links
-- [ ] get rid of google fonts tracking :(
-- [ ] default cols 3
-- [ ] fix prev/next not blocked on shared link?
+- [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [ ] doc banner
 - [ ] integration notes
 - [ ] og:image
@@ -33,6 +30,10 @@
 
 ## Done
 
+- [x] get rid of google fonts tracking :(
+- [x] fix prev/next not blocked on shared link?
+- [x] default cols 3
+- [x] fix doc share links
 - [x] reorg grid vs graph
 - [x] ~refactor sizes like moduleM -> M~
 - [x] doc

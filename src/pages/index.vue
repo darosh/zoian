@@ -65,12 +65,14 @@
         class="x-prepend-icons">
         <v-list-item :subtitle="files ? `User patches (${files.length} loaded)` : 'Factory patches'" />
         <v-list-item
+          :disabled="files?.length === 1"
           @click="() => {}">
           Select patch
           <template #append>
             <v-icon icon="$menuRight" />
           </template>
           <v-menu
+            v-if="!(files?.length === 1)"
             no-click-animation
             min-width="240"
             :transition="false"
@@ -344,6 +346,7 @@ export default {
 
     if (file) {
       this.uint8Array = base64ToUint8Array(addBase64Padding(file), LENGTH)
+      this.files = [null] // dummy?
       this.parseArray()
     } else if (link) {
       const response = await fetch(link)
@@ -583,6 +586,26 @@ export default {
 </style>
 
 <style lang="scss">
+/* noto-sans-latin-wght-normal */
+@font-face {
+  font-family: 'Noto Sans Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/noto-sans:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* montserrat-latin-wght-normal */
+@font-face {
+  font-family: 'Montserrat Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/montserrat:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
 * {
   font-family: "Noto Sans", sans-serif !important;
 }

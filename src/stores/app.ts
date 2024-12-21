@@ -8,7 +8,7 @@ import { useLocalStorage } from '@vueuse/core'
 export const useAppStore = defineStore("app", {
   state: () => ({
     dark: useLocalStorage("dark", false),
-    columns: useLocalStorage("columns", 4),
+    columns: useLocalStorage("columns", 3),
     zebu: useLocalStorage("zebu", true),
     showConnections: useLocalStorage("showConnections", true),
     animations: useLocalStorage("animations", false),

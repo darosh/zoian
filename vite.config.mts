@@ -2,7 +2,6 @@
 import Components from 'unplugin-vue-components/vite'
 import Vue from '@vitejs/plugin-vue'
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
-import ViteFonts from 'unplugin-fonts/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 
 // Utilities
@@ -25,20 +24,6 @@ export default defineConfig({
       },
     }),
     Components(),
-    ViteFonts({
-      google: {
-        families: [
-          {
-            name: 'Montserrat',
-            styles: 'ital,wght@0,100..900;1,100..900',
-          },
-          {
-            name: 'Noto Sans',
-            styles: 'ital,wght@0,100..900;1,100..900',
-          },
-        ],
-      },
-    }),
   ],
   define: { 'process.env': {} },
   resolve: {

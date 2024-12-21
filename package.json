@@ -37,7 +37,8 @@
   "private": true,
   "scripts": {
     "build": "run-p type-check \"build-only {@}\" --",
-    "build-only": "deno run -A npm:vite build",
+    "build-gh-pages": "deno run -A npm:vite build --out-dir=docs",
+    "build-only": "deno run -A npm:vite build ",
     "deno:install": "deno install --allow-scripts",
     "dev": "vite",
     "lint:app": "deno run -A npm:eslint . --fix",

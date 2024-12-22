@@ -13,7 +13,7 @@
 - [ ] starred connection
 - [ ] hide unused block labels
 - [ ] fix jack connection order
-- [ ] [./lib/README.md](./lib/README.md) version of ADSR, Pitch Shifter and Clock Divider
+- [ ] [./lib/README.md](./lib/README.md) version of ADSR, Pitch Shifter and Clock Divider, check FW release notes
 - [ ] check cpu values
 - [ ] modules info page?
 - [ ] sticky connections

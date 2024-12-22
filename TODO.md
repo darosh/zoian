@@ -4,6 +4,7 @@
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [ ] doc banner
 - [ ] check hardcoded svg constants
+- [ ] move connection to separate svg + try canvasg
 - [ ] integration notes
 - [ ] og:image
 - [ ] doc included files

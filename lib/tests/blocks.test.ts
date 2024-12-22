@@ -1,5 +1,6 @@
 import { MODULES } from '../spec/modules.ts'
 import stringify from 'json-stringify-pretty-compact'
+import { abbreviateBlockName } from '../graph/abbreviate-block-name.ts'
 
 Deno.test.ignore('list block names', async () => {
   const list = MODULES.reduce((acc, m) => {
@@ -20,5 +21,12 @@ Deno.test.ignore('list block names', async () => {
       param: d.param.every((v) => v === true) ? true : d.param.every((v) => v === false) ? undefined : d.param,
     }))
 
-  await Deno.writeTextFile('./tests/.output/blocks.json', stringify(arr, { maxLength: 640 }))
+  const names = Object.values(arr).map(({ name }) => name)
+  const abbrs = names.reduce((acc, name) => {
+    acc[name] = abbreviateBlockName(name)
+
+    return acc
+  }, <Record<string, string>> {})
+
+  await Deno.writeTextFile('./tests/.output/blocks.json', stringify(abbrs, { maxLength: 640 }))
 })

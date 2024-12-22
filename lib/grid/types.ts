@@ -1,7 +1,11 @@
 import type { Block, JackType } from '../spec/types.ts'
 import type { PatchModule } from '../parser/types.ts'
 
-export interface Pos { page: number; x: number; y: number }
+export interface Pos {
+  page: number
+  x: number
+  y: number
+}
 
 export interface PosBlock {
   page: number
@@ -15,6 +19,7 @@ export interface PosBlock {
   module: PatchModule
   block: Block
   blockName: string
+  blockDisplay?: string
 }
 
 export interface PosJack {

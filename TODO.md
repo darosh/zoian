@@ -1,5 +1,6 @@
 # TODO
 
+- [ ] error on slow load
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [ ] doc banner
 - [ ] integration notes
@@ -21,15 +22,16 @@
 - [ ] add connection and starred validation to tests
 - [ ] audio vs cv vs midi vs star connection
 - [ ] block abbreviations
-- [ ] move modules abbreviations to standalone file?
 - [ ] consolidate block condition types
-- [ ] check on GH pages
 - [ ] make test patch with all modules
 - [ ] check colors
 - [ ] add color scales
 
 ## Done
 
+- [x] check on GH pages
+- [x] move modules abbreviations to standalone file?
+- [x] measure text
 - [x] get rid of google fonts tracking :(
 - [x] fix prev/next not blocked on shared link?
 - [x] default cols 3

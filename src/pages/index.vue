@@ -619,5 +619,7 @@ b, .g-bold {
 .g-bolder {
   font-weight: 600;
   font-family: "Montserrat", sans-serif !important;
+  letter-spacing: -0.01em;
+  word-spacing: -0.04em;
 }
 </style>

@@ -14,24 +14,22 @@ const commonMappings: Record<string, string> = {
   'sustain': 'sus',
   'release': 'rel',
   'frequency': 'frq',
-  'resonance': 'res',
+  'resonance': 'reso',
   'threshold': 'thr',
   'feedback': 'fbk',
-  'sensitivity': 'sen',
-  'bandwidth': 'bw',
-  'modulation': 'mod',
-  'oscillator': 'osc',
-  'envelope': 'env',
-  'velocity': 'vel',
-  'volume': 'vol',
-  'position': 'pos',
-  'control': 'ctl',
+  'value': 'val',
+  'width': 'wid',
   'level': 'lvl',
   'output': 'out',
+  'output_gain': 'outg',
+  'reset': 'rst',
+  'reset_in': 'rsti',
+  'reset_out': 'rsto',
+  'phase_input': 'phsi',
+  'phase_reset': 'phsr',
   'input': 'in',
   'filter': 'flt',
   'delay': 'dly',
-  'reverb': 'rvb',
   'gain': 'gn',
   'pan': 'pn',
   'step': 'st',
@@ -39,6 +37,12 @@ const commonMappings: Record<string, string> = {
 }
 
 export function abbreviateBlockName(text: string) {
+  // Special cases for audio L/R without numbers
+  if (text === 'audio_in_L') return 'ail'
+  if (text === 'audio_in_R') return 'air'
+  if (text === 'audio_out_L') return 'aol'
+  if (text === 'audio_out_R') return 'aor'
+
   // Helper to handle stereo L/R with number
   const stereoMatch = text.match(/^(.+?)_(\d+)_(L|R)$/)
   if (stereoMatch) {
@@ -47,13 +51,30 @@ export function abbreviateBlockName(text: string) {
     return `${baseAbbr}${num}${side.toLowerCase()}`
   }
 
+  // Suffix mappings for compound terms
+  const suffixMappings = {
+    'position': 'pos',
+    'time': 'tim',
+    'control': 'ctl',
+    'constant': 'con',
+  }
+
+  // Handle common compound terms
+  for (const [suffix, abbr] of Object.entries(suffixMappings)) {
+    if (text.endsWith('_' + suffix)) {
+      const base = text.slice(0, -(suffix.length + 1))
+      const baseAbbr = commonMappings[base] || base.slice(0, 4 - abbr.length)
+      return baseAbbr + abbr
+    }
+  }
+
   // Helper to extract number suffix
   const splitNumberSuffix = (str: string) => {
     const match = str.match(/^(.+?)_?(\d+)?$/)
     return [match?.[1] || '', match?.[2] || '']
   }
 
-  // Handle regular numbered suffixes
+  // Handle numbered suffixes
   const [base, num] = splitNumberSuffix(text)
 
   // Get base abbreviation

@@ -1,9 +1,10 @@
 import debug from 'debug'
 import { G, GX } from '../spec/const.ts'
-import { MODULES } from '../spec/modules.ts'
 import { blockEntries } from '../parser/utils/block-entries.ts'
 import type { Patch } from '../parser/types.ts'
 import type { PosBlock } from './types.ts'
+import { DISPLAY_MODULE } from '../spec/display-module.ts'
+import { DISPLAY_BLOCK } from '../spec/display-blocks.ts'
 
 const log = debug('zoian:grid')
 
@@ -54,12 +55,24 @@ export function getPagesGrid(patch: Patch): (PosBlock | undefined)[] {
       m.forcedLast = !map[index + 1] || (map[index + 1]?.module !== m.module)
     }
 
-    if (m.first || (m.x === 7)) {
-      const single = Object.keys(m.module.blocks).length === 1 ||
-        m.forcedLast
+    if (m.first) {
+      let space = 0
+      let i = index
 
-      m.display = ((single || m.x === 7) && MODULES[m.module.id].display1) || MODULES[m.module.id].display || m.module.type
+      while ((map[i]?.module === m.module) && ((<PosBlock> map?.[i])?.x < GX)) {
+        space++
+        i++
+
+        if (!(<PosBlock> map?.[i])?.x) {
+          break
+        }
+      }
+
+      m.display = DISPLAY_MODULE[m.module.id][space - 1] || m.module.type
     }
+
+    // m.blockDisplay = m.blockName.replaceAll('_', '').slice(0, 4)
+    m.blockDisplay = DISPLAY_BLOCK[m.blockName]
   })
 
   log('final grid size', map.length)

@@ -6,8 +6,6 @@ export interface ModuleSpec {
   cpu: number
   description: string
   name: string
-  display?: string
-  display1?: string
   zebu?: boolean
   minBlocks: number
   maxBlocks: number

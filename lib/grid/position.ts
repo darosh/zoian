@@ -1,7 +1,7 @@
 import debug from 'debug'
 
 import type { BlockPoint, PatchModule } from '../parser/types.ts'
-import type { PosJack, PosGrid } from './types.ts'
+import type { PosGrid, PosJack } from './types.ts'
 import { blockEntries } from '../parser/utils/block-entries.ts'
 import { GX } from '../spec/const.ts'
 import type { JackPoint, ModulePoint } from '../graph/types.ts'
@@ -39,7 +39,7 @@ export function getIoOrModulePointPosition(modules: PatchModule[], point: Module
       y: 0,
       module: modules[0],
       blockName: '???',
-      io: true
+      io: true,
     }
   }
 

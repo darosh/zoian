@@ -4,7 +4,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 0,
     name: 'SV Filter',
-    display1: 'SV F.',
     category: 'Audio',
     description: 'The State Variable Filter will resonate and cutoff around a set frequency.',
     defaultBlocks: 4,
@@ -26,7 +25,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 1,
     name: 'Audio In',
-    display1: 'A. In',
     category: 'Interface',
     description: 'Connect audio from the outside world into the grid.\nThis could be a guitar, bass, synth module, computer Audio, etc',
     defaultBlocks: 2,
@@ -44,7 +42,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 2,
     name: 'Audio Out',
-    display1: 'A. O.',
     category: 'Interface',
     description: 'Connect audio from your ZOIA into the outside world.\nConnect to your amplifier, a DI box, your audio interface, etc.\nAn optional gain control lets you tweak the output level.',
     defaultBlocks: 2,
@@ -63,7 +60,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 3,
     name: 'Aliaser',
-    display1: 'Alias.',
     category: 'Audio',
     description: 'Aliaser produces samples of incoming audio and compares them against each other to find imperfections.\nThese imperfections become the outgoing audio.\nAs sample count grows, so too does the thickness of the outgoing sound.\nThis effect is a signal hog so be sure to boost your connection strengths incoming and outgoing.\nTry connecting a LFO or envelope follower to the alias amount.',
     defaultBlocks: 3,
@@ -77,7 +73,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 4,
     name: 'Sequencer',
-    display1: 'Seq.',
     category: 'CV',
     description: 'The sequencer allows you to create a number of "steps" (1-32) that can be cycled through,\nand each step can be used to send a CV value out of that tracks output.\nThe sequencer can have up to 8 tracks, each with their own unique output.',
     defaultBlocks: 6,
@@ -251,7 +246,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 8,
     name: 'Audio Multiply',
-    display1: 'A. Mult.',
     category: 'Audio',
     description: 'Takes one audio input and mathematically multiplies it with the other.\nThis produces a ring mod/vocoder-like effect.\nThis module likes hot signals to be sure to bump the connection strengths.\nRemember that silence at any one of the inputs will result in silence at the output!',
     defaultBlocks: 3,
@@ -265,7 +259,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 9,
     name: 'Bit Crusher',
-    display1: 'Bit Cr.',
     category: 'Audio',
     description: 'Bit Crusher produces distortion by reducing audio bandwidth by a set number of bits.\nDistortion becomes audible around 20 bits reduced.\nThis effect can get noisy so try it with a gate.',
     defaultBlocks: 3,
@@ -279,7 +272,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 10,
     name: 'Sample and Hold',
-    display1: 'S&H',
     category: 'CV',
     description: 'Sample and Hold will take the CV value at the input and hold it in place\nat the output until triggered to look again at the input and update the output.\nConnect a LFO to the trigger to convert smooth changes in CV into stepped changes in CV.\nThe speed of the LFO will determine the perceived resolution of the CV output.',
     defaultBlocks: 3,
@@ -293,7 +285,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 11,
     name: 'OD and Distortion',
-    display1: 'OD & D.',
     category: 'Effect',
     description: 'The OD & Distortion module provides classic overdrive and distortion tones.',
     defaultBlocks: 4,
@@ -312,8 +303,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 12,
     name: 'Env Follower',
-    display1: 'En. F.',
-    display: 'Env Follow.',
     category: 'Analysis',
     description: 'Envelope Follower will interpret an incoming audio signal as a CV signal\nbased on its signal strength.\nUse this to trigger filter sweeps, audio effects parameters, LFO rates, etc.\nThe connection strength can act as a sensitivity control.',
     defaultBlocks: 2,
@@ -328,7 +317,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 13,
     name: 'Delay Line',
-    display1: 'DL',
     category: 'Audio',
     description: 'The Delay Line is a simple module that takes audio at the input and\ndelays it by a set amount of time.\nThere is no dry signal, there are no repeats.\nYou can create repeats by connecting the output back to the input,\nusing the connection strength to adjust number of repeats.',
     defaultBlocks: 3,
@@ -354,7 +342,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 14,
     name: 'Oscillator',
-    display1: 'Osc.',
     category: 'Audio',
     description: 'Generates an audio signal in the waveform of your choice.\nConnect a MIDI device, keyboard module, sequencer, pitch detector,\nLFO, or any CV source to select the frequency or note the oscillator will play.\nYou can modulate the frequency or pulse width with the optional parameters.\nNegative CV inputs (from -1 to 0) will generate sub-bass frequencies\nbetween 0.027Hz and 27.49Hz. Be careful!',
     defaultBlocks: 2,
@@ -374,7 +361,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 15,
     name: 'Pushbutton',
-    display1: 'PB',
     category: 'Interface',
     description: 'Turns a grid button into a button you can push to send a CV signal.\nTap in a tempo, open up a VCA, trigger a sequencer, or anything else.\nThe grid is your oyster!',
     defaultBlocks: 1,
@@ -388,7 +374,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 16,
     name: 'Keyboard',
-    display1: 'Keyb.',
     category: 'Interface',
     description: 'Turns grid buttons into a keyboard you can connect to an oscillator and play.\nNo external MIDI controller necessary!\nTune each keyboard button using the knob to have it play your desired note.',
     defaultBlocks: 4,
@@ -447,7 +432,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 17,
     name: 'CV Invert',
-    display1: 'CV Inv.',
     category: 'CV',
     description: 'Inverts the incoming CV.\nFor example, a CV input of 1 will output as -1.\nAn input of 0.2 will output as -0.2.',
     defaultBlocks: 2,
@@ -474,7 +458,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 19,
     name: 'Slew Limiter',
-    display1: 'Slew L.',
     category: 'CV',
     description: 'Slew Limiter is similar in behaviour to CV Filter except that the rate of\nchange in changes of CV happen linearly instead of logarithmically.\nThis is the classic portamento, and can be used anywhere CV changes occur\nto give them a different feel.\nTry using an unlinked Slew Limiter with a stomp switch module to give more\nexpression pedal-like behaviour to your stomp switch.',
     defaultBlocks: 3,
@@ -499,8 +482,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 20,
     name: 'Midi Notes In',
-    display1: 'MNI',
-    display: 'M. Notes In',
     category: 'Interface',
     description: 'Connect your MIDI keyboard controller to the ZOIA.\nConnect the note out to an oscillator to have it play your note,\nand connect the gate out to an ADSR (connected to a VCA) for a natural envelope.',
     defaultBlocks: 2,
@@ -562,7 +543,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 21,
     name: 'Midi CC In',
-    display1: 'CCI',
     category: 'Interface',
     description: 'Connect encoder knobs and sliders on a MIDI interface.\nTake note of the outgoing CC number of each control and enter it into the controller option.',
     defaultBlocks: 1,
@@ -576,7 +556,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 22,
     name: 'Multiplier',
-    display1: 'Mult.',
     category: 'CV',
     description: "Multiply will take the CV signal present at each input and multiply\nthem together at the output.\nIn this way you can use one CV source to amplify, tame, or modulate another.\nRemember that a value of 0 at any input will result in 0 at the output.\nIt's math!",
     defaultBlocks: 3,
@@ -601,7 +580,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 23,
     name: 'Compressor',
-    display1: 'Comp.',
     category: 'Effect',
     description: "Compression is a vastly useful audio tool that controls your signal level\naccording to changes in input level.\nYou can create natural reductions in gain to help things mix better, help\ntame or enhance transients in synth or instrument signals, etc.\nThe optional stereo side will trigger the module's functions in unison on both\nchannels, creating true stereo compression.",
     defaultBlocks: 3,
@@ -639,7 +617,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 24,
     name: 'Multi Filter',
-    display1: 'Multi F.',
     category: 'Audio',
     description: 'A general purpose filter with gain, frequency, and Q controls.\nConfigurable as a high pass, low pass, band pass, bell, hi shelf, or low shelf.',
     defaultBlocks: 4,
@@ -666,7 +643,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 25,
     name: 'Plate Reverb',
-    display1: 'P. Rev.',
     category: 'Effect',
     description: 'Bask in the ebb and flow of steel molecules as they vibrate with the warm vintage\nvibe of so many classic recordings.',
     defaultBlocks: 8,
@@ -689,7 +665,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 26,
     name: 'Buffer Delay',
-    display1: 'Buf. D.',
     category: 'Audio',
     description: 'Delays internal audio signal by N buffer(s).\nThis module is inaudible, but useful anywhere you need to line up\ninternal parallel audio connections precisely.',
     defaultBlocks: 2,
@@ -703,7 +678,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 27,
     name: 'All Pass Filter',
-    display1: 'AP F.',
     category: 'Audio',
     description: 'All Pass Filter passes through all frequencies at equal gain,\nbut changes phase relationship between them.',
     defaultBlocks: 3,
@@ -717,7 +691,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 28,
     name: 'Quantizer',
-    display1: 'Quant.',
     category: 'CV',
     description: 'Quantizer will interpret incoming CV and send its nearest equivalent note as a CV output.',
     defaultBlocks: 2,
@@ -802,7 +775,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 31,
     name: 'In Switch',
-    display1: 'In Sw.',
     category: 'CV',
     description: 'In Switch takes a selected quantity of CV inputs and allows you\nto switch between them to a single CV output.\nYou can use this to select between LFOs to a CV source, external CV modules,\nor use in conjunction with the CV out switch to choose between ADSRs\nor other CV module chains',
     defaultBlocks: 3,
@@ -836,7 +808,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 32,
     name: 'Out Switch',
-    display1: 'Out Sw.',
     category: 'CV',
     description: 'Out Switch takes a CV input and routes it between a set quantity of CV outputs.\nYou can use it to select which sequencers, ADSRs, or tap tempos to send triggers to, etc',
     defaultBlocks: 3,
@@ -870,7 +841,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 33,
     name: 'Audio In Switch',
-    display1: 'A. In Sw.',
     category: 'Audio',
     description: "Audio In Switch takes a selected quantity of audio inputs and allows you\nto switch between them to a single output.\nYou can use this to select between instruments at your input jacks,\nuse it in conjunction with the Audio Out Switch to select between\neffects chains, or use it anywhere you'd like to be able to select\nbetween incoming audio sources using CV.",
     defaultBlocks: 3,
@@ -904,7 +874,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 34,
     name: 'Audio Out Switch',
-    display1: 'A. Out Sw.',
     category: 'Audio',
     description: "Audio Out Switch takes an audio input and routes it between a set\nquantity of audio outputs.\nYou can use it at your output jacks to select between amplifiers\nor mixer channels, use it in conjunction with the Audio In Switch to\nselect between effects chains, or use it anywhere you'd like to be able\nto select an outgoing audio path using CV.",
     defaultBlocks: 3,
@@ -938,7 +907,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 35,
     name: 'Midi Pressure',
-    display1: 'Pres.',
     category: 'Interface',
     description: "Many MIDI keyboards have an aftertouch feature that can be triggered\nby pressing down on a note after it's fully depressed.\nYou can use after touch to trigger a little extra pizazz in your sound.",
     defaultBlocks: 1,
@@ -952,7 +920,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 36,
     name: 'Onset Detector',
-    display1: 'Ons. D.',
     category: 'Analysis',
     description: 'Onset Detector looks for incoming audio signal and generates a CV trigger at the peaks.\nUse a regular audio source to advance a sequencer, tap a tempo, etc',
     defaultBlocks: 2,
@@ -967,7 +934,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 37,
     name: 'Rhythm',
-    display1: 'Rhy.',
     category: 'CV',
     description: 'Rhythm will take an incoming CV signal, interpret it as a series of triggers,\nrecord those triggers and play them back at the output.',
     defaultBlocks: 4,
@@ -988,7 +954,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 38,
     name: 'Noise',
-    display1: 'Nois.',
     category: 'Audio',
     description: 'Generates white noise from a single button.\nUse the strength of your connection as a level control.\nHelpful in connection with VCAs and ADSRs in creating drum sounds, etc.',
     defaultBlocks: 1,
@@ -1002,7 +967,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 39,
     name: 'Random',
-    display1: 'Rnd.',
     category: 'CV',
     description: 'Random will generate numbers continuously or when triggered with the option trigger in.\nConnect an LFO to the trigger in to get regularly updated random numbers.\nTry it with a CV in switch to toggle some randomness into  your life.',
     defaultBlocks: 1,
@@ -1113,8 +1077,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 43,
-    name: 'Delay w Mod',
-    display1: 'DwM',
+    name: 'Delay w/ Mod',
     category: 'Effect',
     description: 'Delay is one of the classic delay effects.\nDelay w/Mod differs from the Delay Line module found in Audio Out in\nthat it runs a dry signal alongside the wet, has a feedback section,\nand a modulation section.\nSet the delay time either by tap or rotary/CV input.\nOptional stereo outputs round out the list of features.\nYou can change the character of the delay effect with the "type"\noption, and/or by setting your mix to wet only, adding tone control\nand other effects to the output, and connecting your audio source\ndirectly to your output (bypassing the delay module) to act as the dry signal.',
     defaultBlocks: 7,
@@ -1150,7 +1113,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 44,
     name: 'Stompswitch',
-    display1: 'Sto.',
     category: 'Interface',
     description: 'Use this module to connect a stomp switch to other modules.\nThis can be any of ZOIA\'s 3 stomp switches or an external one.\nIf using an external, remember to set it up in the Config Menu.\nOnce placed, the Scroll and Bypass stomp switches must be "switched to"\nby holding them both on together for 2 seconds, this will allow them to\nfunction in the modules instead of as ZOIA\'s main user interface.\nHold again for 2 seconds to switch back.',
     defaultBlocks: 1,
@@ -1164,7 +1126,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 45,
     name: 'Value',
-    display1: 'Val.',
     category: 'CV',
     description: 'Value allows you to connect to multiple modules and adjust their\nparameters simultaneously from one CV adjustment at the input.',
     defaultBlocks: 2,
@@ -1234,7 +1195,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 49,
     name: 'Clock Divider',
-    display1: 'CD',
     category: 'CV',
     description: 'Clock Divider module will detect tempo of incoming CV upward changes,\ndivide it by a user determined ratio, and output CV triggers at the resulting tempo.\nThis can be a handy way of getting a tap tempo from a slightly irregular waveform.',
     defaultBlocks: 5,
@@ -1316,7 +1276,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 54,
     name: 'CPort Exp CV In',
-    display1: 'CPI',
     category: 'Interface',
     description: 'Connect your expression pedal or a control voltage signal from an external source.\nRemember to set CPort to either exp or cv in the Config Menu.',
     defaultBlocks: 1,
@@ -1330,7 +1289,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 55,
     name: 'CPort CV Out',
-    display1: 'CPO',
     category: 'Interface',
     description: 'This module interprets internal CV and sends it down the ring of a 1/4"\nTRS connector in the control port as a standard CV signal of 0-5 volts.\nRemember to set CPort to cv in the Config Menu.',
     defaultBlocks: 1,
@@ -1344,7 +1302,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 56,
     name: 'UI Button',
-    display1: 'UI B.',
     category: 'Interface',
     description:
       'UI Button can function in a couple different ways.\nIt can show you a specific colour at a specific brightness based on the\nsetting of or CV sent to the input.\nIt can also act as a pushbutton with output enabled.\nTo use as a visualizing pixel, connect CV and send the following values:\nEXTENDED RANGE:\nRed: 0 - 0.049 (max bright 0.0375),\nOrange: 0.05 - 0.099 (max bright 0.0875),\nMango: 0.10 - 0.149 (max bright 0.1375),\nYellow: 0.15 - 0.199 (max bright 0.1875),\nLime: 0.20 - 0.249 (max bright 0.2375),\nGreen: 0.25 - 0.299 (max bright 0.2875),\nSurf: 0.30 - 0.349 (max bright 0.3375),\nAqua: 0.35 - 0.399 (max bright 0.3875),\nSky: 0.40 - 0.449 (max bright 0.4375),\nBlue: 0.45 - 0.499 (max bright 0.4875),\nPurple: 0.50 - 0.549 (max bright 0.5375),\nMagenta: 0.55 - 0.599 (max bright 0.5875),\nPink: 0.60 - 0.649 (max bright 0.6375),\nPeach: 0.65 - 0.699 (max bright 0.6875),\nWhite: 0.70 - 0.749 (max bright 0.7375).\nBASIC RANGE:\nBlue = 0 to 0.099 (0.74 max brightness),\nGreen = 0.1 to 0.199 (0.174 max brightness),\nRed = 0.2 to 0.299 (0.274 max brightness),\nYellow = 0.3 to 0.399 (0.374 max brightness),\nCyan = 0.4 to 0.499 (0.474 max brightness),\nMagenta = 0.5 to 0.599 (0.574 max brightness),\nWhite = 0.6 to 0.699 (0.6 to 0.674 brightness).',
@@ -1380,7 +1337,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 58,
     name: 'Pitch Detector',
-    display: 'Pitch Det.',
     category: 'Analysis',
     description: 'Pitch Detector interprets the pitch of a connected audio signal as a CV note output,\nwhich can be sent to an oscillator or quantizer.\nYou can affect the tracking by changing the connection strength between\nthe audio source and the audio input, and transpose which note the oscillator\nwill generate using the connection strength to the oscillator.\nClick knob to toggle display between frequency in Hz and note.',
     defaultBlocks: 2,
@@ -1394,7 +1350,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 59,
     name: 'Pitch Shifter',
-    display1: 'P. Sh.',
     category: 'Audio',
     description: "Pitch Shifter transposes the pitch of incoming audio.\nClick the knob on the pitch shift parameter to cycle views of\nCV value, semitones, or cents.\nConnect an LFO to produce a vibrato effect, or connect whatever you'd like!",
     defaultBlocks: 3,
@@ -1408,7 +1363,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 60,
     name: 'Midi Note Out',
-    display: 'M. Note Out',
     category: 'Interface',
     description: "Send MIDI notes out to external MIDI enabled gear through ZOIA's MIDI outputs.",
     defaultBlocks: 2,
@@ -1423,8 +1377,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 61,
     name: 'Midi CC Out',
-    display1: 'CCO',
-    display: 'M. CC Out',
     category: 'Interface',
     description: "Send Control Change messages to external MIDI enabled gear through ZOIA's MIDI outputs.",
     defaultBlocks: 1,
@@ -1438,7 +1390,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 62,
     name: 'Midi PC Out',
-    display: 'M. PC Out',
     category: 'Interface',
     description: "Send Program Change messages to external MIDI enabled gear.\nSelect the Program Change value and send a CV signal to trigger\nin to send message through ZOIA's MIDI outputs.",
     defaultBlocks: 2,
@@ -1905,7 +1856,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 81,
     name: 'Pixel',
-    display1: 'PX',
     category: 'Interface',
     description: 'Puts a coloured block on the grid.\nThe brightness can be controlled by a cv signal or an audio signal.\nPixel is a simple, elegant way to create a more visually\ninteractive user interface for your patch.',
     defaultBlocks: 1,
@@ -1920,7 +1870,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 82,
     name: 'Midi Clock In',
-    display1: 'MCI',
     category: 'Interface',
     description: 'Connect MIDI clock to sync your patches to the outside world.',
     defaultBlocks: 1,
@@ -1940,7 +1889,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 83,
     name: 'Granular',
-    display1: 'Gran.',
     category: 'Audio',
     description: 'Granular breaks up incoming audio into tiny little grains and\nspits them back out in the quantity and shape of your choosing.\nGo from modest textures to completely unrecognizable oscillations.\nGranular can also be used as a granular delay by creating a feedback\npath from the output back to the input...',
     defaultBlocks: 8,
@@ -1971,7 +1919,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 84,
     name: 'Midi Clock Out',
-    display1: 'MCO',
     category: 'Interface',
     description: "Generate MIDI clock to sync outside devices to your ZOIA.\nClock sends directly to ZOIA's MIDI output.",
     defaultBlocks: 3,
@@ -2011,7 +1958,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 86,
     name: 'Midi Pitch Bend In',
-    display1: 'PBI',
     category: 'Interface',
     description: 'Collects MIDI data from pitch bend wheel on keyboards,\ncan be applied to oscillator frequency in parallel with MIDI note data,\nor used in other ways.',
     defaultBlocks: 1,
@@ -2026,7 +1972,6 @@ export const MODULES: ModuleSpec[] = [
     id: 87,
     zebu: true,
     name: 'Euro CV Out 4',
-    display1: 'CO4',
     category: 'Interface',
     description: '',
     defaultBlocks: 1,
@@ -2041,7 +1986,6 @@ export const MODULES: ModuleSpec[] = [
     id: 88,
     zebu: true,
     name: 'Euro CV In 1',
-    display1: 'CI1',
     category: 'Interface',
     description: '',
     defaultBlocks: 1,
@@ -2061,7 +2005,6 @@ export const MODULES: ModuleSpec[] = [
     id: 89,
     zebu: true,
     name: 'Euro CV In 2',
-    display1: 'CI2',
     category: 'Interface',
     description: '',
     defaultBlocks: 1,
@@ -2081,7 +2024,6 @@ export const MODULES: ModuleSpec[] = [
     id: 90,
     zebu: true,
     name: 'Euro CV In 3',
-    display1: 'CI3',
     category: 'Interface',
     description: '',
     defaultBlocks: 1,
@@ -2101,7 +2043,6 @@ export const MODULES: ModuleSpec[] = [
     id: 91,
     zebu: true,
     name: 'Euro CV In 4',
-    display1: 'CI4',
     category: 'Interface',
     description: '',
     defaultBlocks: 1,
@@ -2121,7 +2062,6 @@ export const MODULES: ModuleSpec[] = [
     id: 92,
     zebu: true,
     name: 'Euro Headphone Amp',
-    display1: 'EHA',
     category: 'Interface',
     description: '',
     defaultBlocks: 1,
@@ -2136,7 +2076,6 @@ export const MODULES: ModuleSpec[] = [
     id: 93,
     zebu: true,
     name: 'Euro Audio Input 1',
-    display1: 'EI1',
     category: 'Interface',
     description: 'Connect audio from the outside world into the grid.\nThis could be a guitar, bass, synth module, computer Audio, etc',
     defaultBlocks: 1,
@@ -2151,7 +2090,6 @@ export const MODULES: ModuleSpec[] = [
     id: 94,
     zebu: true,
     name: 'Euro Audio Input 2',
-    display1: 'EI2',
     category: 'Interface',
     description: 'Connect audio from the outside world into the grid.\nThis could be a guitar, bass, synth module, computer Audio, etc',
     defaultBlocks: 1,
@@ -2166,7 +2104,6 @@ export const MODULES: ModuleSpec[] = [
     id: 95,
     zebu: true,
     name: 'Euro Audio Output 1',
-    display1: 'EO1',
     category: 'Interface',
     description: 'Connect audio from your ZOIA into the outside world.\nConnect to your amplifier, a DI box, your audio interface, etc.',
     defaultBlocks: 1,
@@ -2181,7 +2118,6 @@ export const MODULES: ModuleSpec[] = [
     id: 96,
     zebu: true,
     name: 'Euro Audio Output 2',
-    display1: 'EO2',
     category: 'Interface',
     description: 'Connect audio from your ZOIA into the outside world.\nConnect to your amplifier, a DI box, your audio interface, etc.',
     defaultBlocks: 1,
@@ -2196,7 +2132,6 @@ export const MODULES: ModuleSpec[] = [
     id: 97,
     zebu: true,
     name: 'Euro Pushbutton 1',
-    display1: 'EB1',
     category: 'Interface',
     description: 'Turns a grid button into a button you can push to send a CV signal.\nTap in a tempo, open up a VCA, trigger a sequencer, or anything else.\nThe grid is your oyster!',
     defaultBlocks: 1,
@@ -2211,7 +2146,6 @@ export const MODULES: ModuleSpec[] = [
     id: 98,
     zebu: true,
     name: 'Euro Pushbutton 2',
-    display1: 'EB2',
     category: 'Interface',
     description: 'Turns a grid button into a button you can push to send a CV signal.\nTap in a tempo, open up a VCA, trigger a sequencer, or anything else.\nThe grid is your oyster!',
     defaultBlocks: 1,
@@ -2226,7 +2160,6 @@ export const MODULES: ModuleSpec[] = [
     id: 99,
     zebu: true,
     name: 'Euro CV Out 1',
-    display1: 'CO1',
     category: 'Interface',
     description: '',
     defaultBlocks: 1,
@@ -2241,7 +2174,6 @@ export const MODULES: ModuleSpec[] = [
     id: 100,
     zebu: true,
     name: 'Euro CV Out 2',
-    display1: 'CO2',
     category: 'Interface',
     description: '',
     defaultBlocks: 1,
@@ -2256,7 +2188,6 @@ export const MODULES: ModuleSpec[] = [
     id: 101,
     zebu: true,
     name: 'Euro CV Out 3',
-    display1: 'CO3',
     category: 'Interface',
     description: '',
     defaultBlocks: 1,
@@ -2324,7 +2255,6 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 103,
     name: 'Device Control',
-    display1: 'DC',
     category: 'Interface',
     description: 'Perform logical operations with CV inputs. Operations include: AND, OR, NOT, NOR, NAND, XOR, XNOR.',
     defaultBlocks: 1,

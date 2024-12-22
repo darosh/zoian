@@ -234,12 +234,12 @@
           <!-- block label -->
           <text
             v-if="true"
-            dy="14"
+            :dy="moduleS - moduleMH"
             :dx="moduleSH"
             text-anchor="middle"
-            dominant-baseline="hanging"
-            :font-size="margin / 3"
-            :transform="`translate(${gridPos(sg)})`">{{ sg.blockName.replaceAll('_', '').slice(0, 4) }}
+            dominant-baseline="text-after-edge"
+            :font-size="moduleF2"
+            :transform="`translate(${gridPos(sg)})`">{{ sg.blockDisplay }}
           </text>
         </template>
         <rect
@@ -276,13 +276,12 @@
         <template v-if="tg">
           <text
             v-if="tg.first"
-            dy="4"
-            dx="3"
+            :dy="moduleM"
+            :dx="moduleM3Q"
             class="g-bolder"
             dominant-baseline="hanging"
-            :font-size="margin / 3"
+            :font-size="moduleF"
             :transform="`translate(${gridPos(tg)})`">
-            <!--            {{ tg.module.name ? `${tg.module.name} (${tg.module.type})` : tg.module.type }}-->
             {{ tg.display }}
           </text>
         </template>
@@ -464,6 +463,14 @@ export default {
       type: Number,
       default: 24
     },
+    moduleF: {
+      type: Number,
+      default: 8
+    },
+    moduleF2: {
+      type: Number,
+      default: 7
+    },
     moduleR: {
       type: Number,
       default: 6
@@ -579,6 +586,9 @@ export default {
     },
     moduleMHH () {
       return this.moduleM / 4
+    },
+    moduleM3Q () {
+      return this.moduleM / 4 * 3
     },
     moduleZebu () {
       return (this.moduleS + this.moduleM) * 8 / ZEBU_X - this.moduleM

@@ -5,6 +5,7 @@ import type { Patch } from '../parser/types.ts'
 import type { PosBlock } from './types.ts'
 import { DISPLAY_MODULE } from '../spec/display-module.ts'
 import { DISPLAY_BLOCK } from '../spec/display-blocks.ts'
+import { BLOCK_COLORS } from './rgb-colors.ts'
 
 const log = debug('zoian:grid')
 
@@ -42,6 +43,7 @@ export function getPagesGrid(patch: Patch): (PosBlock | undefined)[] {
         block,
         blockName,
         page: module.page + offsetPage,
+        colors: BLOCK_COLORS[module.color],
       }
     })
   })
@@ -73,6 +75,7 @@ export function getPagesGrid(patch: Patch): (PosBlock | undefined)[] {
 
     // m.blockDisplay = m.blockName.replaceAll('_', '').slice(0, 4)
     m.blockDisplay = DISPLAY_BLOCK[m.blockName]
+    m.colors = BLOCK_COLORS[m.module.color]
   })
 
   log('final grid size', map.length)

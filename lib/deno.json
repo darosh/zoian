@@ -12,6 +12,8 @@
     "test": "deno test --node-modules-dir=none --allow-env --allow-read --allow-write --env-file=.env.debug"
   },
   "imports": {
+    "@types/d3-interpolate": "npm:@types/d3-interpolate",
+    "d3-interpolate": "npm:d3-interpolate@^3.0.1",
     "debug": "npm:debug@^4.4.0",
     "json-stringify-pretty-compact": "npm:json-stringify-pretty-compact"
   }

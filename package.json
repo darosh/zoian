@@ -13,6 +13,8 @@
     "vuetify": "^3.6.14"
   },
   "devDependencies": {
+    "d3-interpolate": "^3.0.1",
+    "@types/d3-interpolate": "^3.0.4",
     "@eslint/js": "^9.14.0",
     "@tsconfig/node22": "^22.0.0",
     "@types/debug": "^4.1.12",

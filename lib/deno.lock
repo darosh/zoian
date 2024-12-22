@@ -22,6 +22,8 @@
   },
   "workspace": {
     "dependencies": [
+      "npm:@types/d3-interpolate@*",
+      "npm:d3-interpolate@^3.0.1",
       "npm:debug@^4.4.0",
       "npm:json-stringify-pretty-compact@*"
     ]

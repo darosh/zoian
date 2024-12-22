@@ -10,18 +10,6 @@
     @mousemove="onMouseMove"
     @mouseout="onMouseOut">
 
-    <rect
-      v-if="cursor && cursorBlock && (selectedModule || showCursorBlock)"
-      id="highlighted-block"
-      fill="rgba(0,0,0,.25)"
-      :x="-moduleMH"
-      :rx="zebuOrIo(cursorBlock) ? 4 : 8"
-      :ry="zebuOrIo(cursorBlock) ? 4 : 8"
-      :y="-moduleMH"
-      :transform="`translate(${gridPosOrZebu(cursorBlock)})`"
-      :width="(zebuOrIo(cursorBlock) ? moduleZebu : moduleS) + moduleM"
-      :height="(zebuOrIo(cursorBlock) ? moduleZebu : moduleS) + moduleM" />
-
     <!-- gridPosOrZebu test -->
     <template v-if="false">
       <rect
@@ -140,12 +128,11 @@
             <rect
               v-else-if="(zg.type === JackType.Button) && zg.module"
               :stroke-width="px"
-              :fill="RGBColors[zg.module.color]"
+              :fill="dark ? zg.colors.dark : zg.colors.light"
               rx="2"
               ry="2"
               :width="moduleZebu"
               :height="moduleZebu"
-              fill-opacity=".5"
               :y="0"
               :transform="`translate(${gridPosZebu(zg)})`" />
             <x-svg-symbol
@@ -205,18 +192,16 @@
           <!-- mid block -->
           <rect
             v-if="!(sg.first || sg.last)"
-            :fill="RGBColors[sg.module.color]"
+            :fill="dark ? sg.colors.dark : sg.colors.light"
             :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * (moduleMH)"
             :height="moduleS"
-            fill-opacity=".5"
             :x="(sg.x > 0) * -moduleMH"
             :y="0"
             :transform="`translate(${gridPos(sg)})`" />
           <!-- single block -->
           <rect
             v-else-if="sg.first && sg.last"
-            :fill="RGBColors[sg.module.color]"
-            fill-opacity=".5"
+            :fill="dark ? sg.colors.dark : sg.colors.light"
             :width="moduleS"
             :height="moduleS"
             :rx="moduleR"
@@ -228,14 +213,14 @@
           <path
             v-else
             :d="rectPath({left: sg.first, right: sg.last, size: { width: moduleS + ((sg.x > 0 || sg.first) && (sg.x < 7 || sg.last) && !sg.forcedLast) * moduleMH, height: moduleS}, radius: moduleR})"
-            :fill="RGBColors[sg.module.color]"
-            fill-opacity=".5"
+            :fill="dark ? sg.colors.dark : sg.colors.light"
             :transform="`translate(${gridPos(sg)}) translate(${sg.last ? (sg.x > 0) * -moduleMH : 0},0)`" />
           <!-- block label -->
           <text
             v-if="true"
             :dy="moduleS - moduleMH"
             :dx="moduleSH"
+            :fill-opacity="dark ? .87 : .6"
             text-anchor="middle"
             dominant-baseline="text-after-edge"
             :font-size="moduleF2"
@@ -286,6 +271,18 @@
           </text>
         </template>
       </template>
+
+      <rect
+        v-if="cursor && cursorBlock && (selectedModule || showCursorBlock)"
+        id="highlighted-block"
+        :fill="dark ? 'rgba(255,255,255,.18)' : 'rgba(0,0,0,.12)'"
+        :x="-moduleMHH"
+        :rx="zebuOrIo(cursorBlock) ? 3 : 7"
+        :ry="zebuOrIo(cursorBlock) ? 3 : 7"
+        :y="-moduleMHH"
+        :transform="`translate(${gridPosOrZebu(cursorBlock)})`"
+        :width="(zebuOrIo(cursorBlock) ? moduleZebu : moduleS) + moduleMH"
+        :height="(zebuOrIo(cursorBlock) ? moduleZebu : moduleS) + moduleMH" />
 
       <!-- connections -->
       <g
@@ -435,18 +432,18 @@
 import { svgRect } from '@/utils/svg-rect.js'
 import { getTooltipPosition } from '@/utils/tooltip.js'
 import {
-  getCpuTable,
-  G,
+  getPagePosition,
+  getPagesGrid,
+  getEuroGrid,
+  getIoGrid,
   getPagesConnections,
   getEuroConnections,
+  getIoConnections,
+  getCpuTable,
   getStarredTable,
-  getPagesGrid,
-  getPagePosition,
-  getIoGrid,
   JackType,
-  RGBColors,
-  ZEBU_X,
-  getEuroGrid, getIoConnections
+  G,
+  ZEBU_X
 } from '../../lib/index.ts'
 
 export default {
@@ -531,9 +528,6 @@ export default {
   computed: {
     JackType () {
       return JackType
-    },
-    RGBColors () {
-      return RGBColors
     },
     pages () {
       return this?.patch?.pages?.length || 1

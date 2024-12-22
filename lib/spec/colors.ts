@@ -15,3 +15,21 @@ export enum Colors {
   Peach = 14,
   White = 7,
 }
+
+export const COLOR_ORDER = [
+  Colors.Red,
+  Colors.Orange,
+  Colors.Mango,
+  Colors.Yellow,
+  Colors.Lime,
+  Colors.Green,
+  Colors.Surf,
+  Colors.Aqua,
+  Colors.Sky,
+  Colors.Blue,
+  Colors.Purple,
+  Colors.Magenta,
+  Colors.Pink,
+  Colors.Peach,
+  Colors.White,
+]

@@ -1,6 +1,7 @@
-import { Colors } from '../spec/colors.ts'
+import { COLOR_ORDER, Colors } from '../spec/colors.ts'
+import { interpolateCubehelix, interpolateHsl, interpolateRgb } from 'd3-interpolate'
 
-export const RGBColors = {
+export const RGBColors: Record<Colors, string> = {
   [Colors.Red]: '#ec4244',
   [Colors.Orange]: '#EE8C5C',
   [Colors.Mango]: '#F3B18A',
@@ -17,3 +18,263 @@ export const RGBColors = {
   [Colors.Peach]: '#E769B6',
   [Colors.White]: '#d8d8d8',
 }
+
+export const ColorScales = {
+  [Colors.Red]: {
+    900: '#2D0D0E',
+    800: '#531718',
+    700: '#7A2123',
+    600: '#A12B2D',
+    500: '#C83538',
+    400: '#E14E50',
+    300: '#F76769',
+    200: '#FF8082',
+    100: '#FFB3B4',
+  },
+  [Colors.Orange]: {
+    900: '#2D1B11',
+    800: '#53311F',
+    700: '#7A482D',
+    600: '#A15F3B',
+    500: '#C87649',
+    400: '#E18D5C',
+    300: '#F7A46F',
+    200: '#FFBB82',
+    100: '#FFD2B4',
+  },
+  [Colors.Mango]: {
+    900: '#2D1D15',
+    800: '#533626',
+    700: '#7A4F38',
+    600: '#A16849',
+    500: '#C8815B',
+    400: '#E19A6E',
+    300: '#F7B381',
+    200: '#FFCC94',
+    100: '#FFE5B7',
+  },
+  [Colors.Yellow]: {
+    900: '#2D2B15',
+    800: '#534F26',
+    700: '#7A7439',
+    600: '#A1994B',
+    500: '#C8BE5E',
+    400: '#E1D571',
+    300: '#F7EC84',
+    200: '#FFF497',
+    100: '#FFFBBA',
+  },
+  [Colors.Lime]: {
+    900: '#1F2D15',
+    800: '#395326',
+    700: '#537A39',
+    600: '#6DA14B',
+    500: '#87C85E',
+    400: '#A1E171',
+    300: '#BBF784',
+    200: '#D4FF97',
+    100: '#EEFFBA',
+  },
+  [Colors.Green]: {
+    900: '#15291D',
+    800: '#264B35',
+    700: '#396E4E',
+    600: '#4B9167',
+    500: '#5EB380',
+    400: '#71C693',
+    300: '#84D9A6',
+    200: '#97ECB9',
+    100: '#BAFFDC',
+  },
+  [Colors.Surf]: {
+    900: '#152929',
+    800: '#264B4B',
+    700: '#386E6E',
+    600: '#4B9191',
+    500: '#5EB3B3',
+    400: '#71C6C6',
+    300: '#84D9D9',
+    200: '#97ECEC',
+    100: '#BAFFFF',
+  },
+  [Colors.Aqua]: {
+    900: '#15232D',
+    800: '#264053',
+    700: '#385E7A',
+    600: '#4B7CA1',
+    500: '#5E9AC8',
+    400: '#71B8E1',
+    300: '#84D6F7',
+    200: '#97F4FF',
+    100: '#BAFDFF',
+  },
+  [Colors.Sky]: {
+    900: '#151F2D',
+    800: '#263953',
+    700: '#38537A',
+    600: '#4B6DA1',
+    500: '#5E87C8',
+    400: '#71A1E1',
+    300: '#84BBF7',
+    200: '#97D5FF',
+    100: '#BAE9FF',
+  },
+  [Colors.Blue]: {
+    900: '#0D1B2D',
+    800: '#183153',
+    700: '#234879',
+    600: '#2E5FA0',
+    500: '#3976C6',
+    400: '#4F8DDD',
+    300: '#65A4F4',
+    200: '#7BBBFF',
+    100: '#A8D2FF',
+  },
+  [Colors.Purple]: {
+    900: '#1D1329',
+    800: '#35244B',
+    700: '#4E356E',
+    600: '#674791',
+    500: '#8058B3',
+    400: '#986ACA',
+    300: '#B17CE1',
+    200: '#C98EF8',
+    100: '#E2B1FF',
+  },
+  [Colors.Magenta]: {
+    900: '#29152B',
+    800: '#4B264F',
+    700: '#6E3974',
+    600: '#914B99',
+    500: '#B35DBE',
+    400: '#CA70D5',
+    300: '#E182EC',
+    200: '#F894FF',
+    100: '#FFB7FF',
+  },
+  [Colors.Pink]: {
+    900: '#2D1520',
+    800: '#53263B',
+    700: '#7A3856',
+    600: '#A14971',
+    500: '#C85B8C',
+    400: '#E16EA7',
+    300: '#F781C2',
+    200: '#FF94DD',
+    100: '#FFB7F4',
+  },
+  [Colors.Peach]: {
+    900: '#2D1518',
+    800: '#53262C',
+    700: '#7A3840',
+    600: '#A14954',
+    500: '#C85B68',
+    400: '#E16E7C',
+    300: '#F78190',
+    200: '#FF94A4',
+    100: '#FFB7C7',
+  },
+  [Colors.White]: {
+    900: '#292929',
+    800: '#404040',
+    700: '#575757',
+    600: '#6E6E6E',
+    500: '#858585',
+    400: '#9C9C9C',
+    300: '#B3B3B3',
+    200: '#CACACA',
+    100: '#E1E1E1',
+  },
+}
+
+export const DocColors = [
+  'rgb(255,43,43)',
+  'rgb(238,157,34)',
+  'rgb(236,189,31)',
+  'rgb(241,203,88)',
+  'rgb(172,239,87)',
+  'rgb(128,245,117)',
+  'rgb(117,155,163)',
+  'rgb(75,115,179)',
+  'rgb(105,162,214)',
+  'rgb(74,74,255)',
+  'rgb(149,129,200)',
+  'rgb(255,66,255)',
+  'rgb(129,54,101)',
+  'rgb(113,76,69)',
+  'rgb(128,128,128)',
+]
+
+export const AdjustedColors: string[] = [
+  RGBColors[Colors.Red],
+  interpolateCubehelix(RGBColors[Colors.Orange], DocColors[1])(.5),
+  interpolateCubehelix(RGBColors[Colors.Mango], DocColors[2])(.8),
+  interpolateCubehelix(RGBColors[Colors.Yellow], 'yellow')(.08),
+  interpolateCubehelix(RGBColors[Colors.Lime], 'yellow')(.08),
+  interpolateCubehelix(RGBColors[Colors.Green], DocColors[5])(.5),
+  interpolateCubehelix(RGBColors[Colors.Surf], ColorScales[Colors.Surf][400])(0.06),
+  interpolateCubehelix(RGBColors[Colors.Aqua], ColorScales[Colors.Aqua][400])(.5),
+  interpolateCubehelix(RGBColors[Colors.Sky], DocColors[8])(.1),
+  interpolateCubehelix(RGBColors[Colors.Blue], DocColors[9])(.2),
+  interpolateCubehelix(RGBColors[Colors.Purple], DocColors[8])(.1),
+  interpolateCubehelix(RGBColors[Colors.Magenta], DocColors[11])(.7),
+  interpolateCubehelix(RGBColors[Colors.Pink], ColorScales[Colors.Pink][400])(.05),
+  interpolateCubehelix(RGBColors[Colors.Peach], ColorScales[Colors.Mango][400])(.4),
+  RGBColors[Colors.White],
+]
+
+export const LightColors: string[] = [
+  interpolateCubehelix(AdjustedColors[0], '#fff')(.65),
+  interpolateCubehelix(AdjustedColors[1], '#fff')(.57),
+  interpolateCubehelix(AdjustedColors[2], '#fff')(.5),
+  interpolateCubehelix(AdjustedColors[3], '#fff')(.4),
+  interpolateCubehelix(AdjustedColors[4], '#fff')(.45),
+  interpolateCubehelix(AdjustedColors[5], '#fff')(.5),
+  interpolateCubehelix(AdjustedColors[6], '#fff')(.45),
+  interpolateCubehelix(AdjustedColors[7], '#fff')(.5),
+  interpolateCubehelix(AdjustedColors[8], '#fff')(.5),
+  interpolateCubehelix(AdjustedColors[9], '#fff')(.5),
+  interpolateCubehelix(AdjustedColors[10], '#fff')(.6),
+  interpolateCubehelix(AdjustedColors[11], '#fff')(.66),
+  interpolateCubehelix(AdjustedColors[12], '#fff')(.55),
+  interpolateCubehelix(AdjustedColors[13], '#fff')(.66),
+  interpolateCubehelix(AdjustedColors[14], '#fff')(.75),
+]
+
+export const DarkColors: string[] = [
+  interpolateCubehelix(AdjustedColors[0], '#000')(.3),
+  interpolateCubehelix(AdjustedColors[1], '#000')(.3),
+  interpolateCubehelix(AdjustedColors[2], '#000')(.3),
+  interpolateCubehelix(AdjustedColors[3], '#000')(.3),
+  interpolateCubehelix(AdjustedColors[4], '#000')(.4),
+  interpolateCubehelix(AdjustedColors[5], '#000')(.5),
+  interpolateCubehelix(AdjustedColors[6], '#000')(.45),
+  interpolateCubehelix(AdjustedColors[7], '#000')(.4),
+  interpolateCubehelix(AdjustedColors[8], '#000')(.4),
+  interpolateCubehelix(AdjustedColors[9], '#000')(.4),
+  interpolateCubehelix(AdjustedColors[10], '#000')(.4),
+  interpolateCubehelix(AdjustedColors[11], '#000')(.5),
+  interpolateCubehelix(AdjustedColors[12], '#000')(.4),
+  interpolateCubehelix(AdjustedColors[13], '#000')(.4),
+  interpolateCubehelix(AdjustedColors[14], '#000')(.5),
+]
+
+export const DesaColors: string[] = LightColors.map((c) => interpolateRgb.gamma(2.2)(interpolateCubehelix(c, '#888')(.06), '#ddd')(.25))
+
+export const DesaDarkColors: string[] = DarkColors.map((c) => {
+  let d = interpolateHsl(c, '#000')(.12)
+  d = interpolateRgb.gamma(2.1)(d, 'rgb(18,18,18)')(.4)
+
+  return d
+})
+
+type ColorDic = Record<string, { light: string; dark: string; base: string }>
+
+export const BLOCK_COLORS: ColorDic = COLOR_ORDER.reduce((acc, v, i) => {
+  acc[v] = {
+    light: DesaColors[i],
+    dark: DesaDarkColors[i],
+    base: AdjustedColors[i],
+  }
+  return acc
+}, <ColorDic> {})

@@ -4,6 +4,7 @@
     "npm:@eslint/js@^9.14.0": "9.17.0",
     "npm:@mdi/js@^7.4.47": "7.4.47",
     "npm:@tsconfig/node22@22": "22.0.0",
+    "npm:@types/d3-interpolate@^3.0.4": "3.0.4",
     "npm:@types/debug@^4.1.12": "4.1.12",
     "npm:@types/node@^22.9.0": "22.10.2",
     "npm:@vitejs/plugin-vue@^5.1.4": "5.2.1_vite@5.4.11__@types+node@22.10.2__sass@1.77.8__sass-embedded@1.82.0_vue@3.5.13__typescript@5.6.3_@types+node@22.10.2_sass@1.77.8_sass-embedded@1.82.0_typescript@5.6.3",
@@ -11,6 +12,7 @@
     "npm:@vue/tsconfig@~0.5.1": "0.5.1",
     "npm:@vueuse/core@12": "12.0.0_typescript@5.6.3",
     "npm:core-js@^3.37.1": "3.39.0",
+    "npm:d3-interpolate@^3.0.1": "3.0.1",
     "npm:debug@^4.4.0": "4.4.0",
     "npm:eslint-plugin-vue@^9.30.0": "9.32.0_eslint@9.17.0",
     "npm:eslint@^9.14.0": "9.17.0",
@@ -286,6 +288,15 @@
     },
     "@tsconfig/node22@22.0.0": {
       "integrity": "sha512-twLQ77zevtxobBOD4ToAtVmuYrpeYUh3qh+TEp+08IWhpsrIflVHqQ1F1CiPxQGL7doCdBIOOCF+1Tm833faNg=="
+    },
+    "@types/d3-color@3.1.3": {
+      "integrity": "sha512-iO90scth9WAbmgv7ogoq57O9YpKmFBbmoEoCHDB2xMBY0+/KVrqAaCDyCE16dUspeOvIxFFRI+0sEtqDqy2b4A=="
+    },
+    "@types/d3-interpolate@3.0.4": {
+      "integrity": "sha512-mgLPETlrpVV1YRJIglr4Ez47g7Yxjl1lj7YKsiMCb27VJH9W8NVM6Bb9d8kkpG/uAQS5AmbA48q2IAolKKo1MA==",
+      "dependencies": [
+        "@types/d3-color"
+      ]
     },
     "@types/debug@4.1.12": {
       "integrity": "sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==",
@@ -718,6 +729,15 @@
     },
     "csstype@3.1.3": {
       "integrity": "sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw=="
+    },
+    "d3-color@3.1.0": {
+      "integrity": "sha512-zg/chbXyeBtMQ1LbD/WSoW2DpC3I0mpmPdW+ynRTj/x2DAWYrIY7qeZIHidozwV24m4iavr15lNwIwLxRmOxhA=="
+    },
+    "d3-interpolate@3.0.1": {
+      "integrity": "sha512-3bYs1rOD33uo8aqJfKP3JWPAibgw8Zm2+L9vBKEHJ2Rg+viTR7o5Mmv5mZcieN+FRYaAOWX5SJATX6k1PWz72g==",
+      "dependencies": [
+        "d3-color"
+      ]
     },
     "de-indent@1.0.2": {
       "integrity": "sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg=="
@@ -1763,6 +1783,7 @@
         "npm:@eslint/js@^9.14.0",
         "npm:@mdi/js@^7.4.47",
         "npm:@tsconfig/node22@22",
+        "npm:@types/d3-interpolate@^3.0.4",
         "npm:@types/debug@^4.1.12",
         "npm:@types/node@^22.9.0",
         "npm:@vitejs/plugin-vue@^5.1.4",
@@ -1770,6 +1791,7 @@
         "npm:@vue/tsconfig@~0.5.1",
         "npm:@vueuse/core@12",
         "npm:core-js@^3.37.1",
+        "npm:d3-interpolate@^3.0.1",
         "npm:debug@^4.4.0",
         "npm:eslint-plugin-vue@^9.30.0",
         "npm:eslint@^9.14.0",

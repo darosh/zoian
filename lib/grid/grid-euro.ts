@@ -2,8 +2,9 @@ import { type Jack, JackType } from '../spec/types.ts'
 import type { PatchModule } from '../parser/types.ts'
 import { JACKS_ZEBU } from '../spec/jacks-euro.ts'
 import { ZEBU_X } from '../spec/const.ts'
-import type { PosJack } from './types.ts'
+import type { PosBlock, PosJack } from './types.ts'
 import { getActive } from './active-jack.ts'
+import { BLOCK_COLORS } from './rgb-colors.ts'
 
 // deno-fmt-ignore
 const ZEBU = [
@@ -32,7 +33,11 @@ export function getEuroGrid(modules: PatchModule[]): PosJack[] {
     } else if (<number> v > 1) {
       o = {
         type: JackType.Button,
-        module: modules.find((d) => d.id === v),
+        module: <PatchModule> modules.find((d) => d.id === v),
+      }
+
+      if (o.module) {
+        ;(<PosBlock> <unknown> o).colors = BLOCK_COLORS[o.module.color]
       }
     } else {
       o = {

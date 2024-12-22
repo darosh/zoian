@@ -20,6 +20,7 @@ export interface PosBlock {
   block: Block
   blockName: string
   blockDisplay?: string
+  colors: { light: string; dark: string }
 }
 
 export interface PosJack {

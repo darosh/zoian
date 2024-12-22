@@ -16,19 +16,19 @@
 - [ ] sticky connections
 - [ ] mouse over connections
 - [ ] connection shape
-- [ ] connection - jack position
 - [ ] out vs in block
 - [ ] check stared items
 - [ ] add connection and starred validation to tests
 - [ ] audio vs cv vs midi vs star connection
-- [ ] block abbreviations
 - [ ] consolidate block condition types
 - [ ] make test patch with all modules
-- [ ] check colors
-- [ ] add color scales
 
 ## Done
 
+- [x] block abbreviations
+- [x] connection - jack position
+- [x] check colors
+- [x] add color scales
 - [x] check on GH pages
 - [x] move modules abbreviations to standalone file?
 - [x] measure text

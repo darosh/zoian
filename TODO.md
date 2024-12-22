@@ -3,6 +3,7 @@
 - [ ] error on slow load
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [ ] doc banner
+- [ ] check hardcoded svg constants
 - [ ] integration notes
 - [ ] og:image
 - [ ] doc included files

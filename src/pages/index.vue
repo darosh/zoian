@@ -207,7 +207,7 @@
     v-model="showWelcomeToast"
     class="mt-8"
     :color="dark ? 'grey-darken-4' : null"
-    timer="grey"
+    :timer="dark ? 'grey' : 'grey-lighten-1'"
     :timeout="8000"
     location="bottom right">
     <div

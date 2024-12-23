@@ -117,9 +117,9 @@
 <script>
 
 import { defineComponent } from 'vue'
-import {
-  COLOR_ORDER,
-  Colors,
+import { COLOR_ORDER, Colors, getColors } from '../../lib/index.ts'
+
+const {
   RGBColors,
   ColorScales,
   DocColors,
@@ -128,7 +128,7 @@ import {
   DesaColors,
   DarkColors,
   DesaDarkColors
-} from '../../lib/index.ts'
+} = getColors()
 
 export default defineComponent({
   computed: {

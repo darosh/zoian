@@ -156,7 +156,7 @@
 </template>
 
 <script lang="js">
-import { JackLocation, JackType, RGBColors } from '../../lib/index.ts'
+import { JackLocation, JackType } from '../../lib/index.ts'
 import { generateStarPath } from '@/utils/svg-star.js'
 import { describeArc } from '@/utils/svg-arc.js'
 import { getGeometricChar } from '@/utils/svg-symbols.js'
@@ -208,9 +208,6 @@ export default {
     }
   },
   computed: {
-    RGBColors () {
-      return RGBColors
-    },
     JackLocation () {
       return JackLocation
     },

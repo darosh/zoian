@@ -1,10 +1,10 @@
 import { type Jack, JackType } from '../spec/types.ts'
-import type { PatchModule } from '../parser/types.ts'
 import { JACKS_EURO } from '../spec/jacks-euro.ts'
 import { EURO_X } from '../spec/const.ts'
 import type { PosBlock, PosJack } from './types.ts'
 import { getActive } from './active-jack.ts'
 import { BLOCK_COLORS } from './rgb-colors.ts'
+import type { ModuleView, PatchView } from '../graph/types.ts'
 
 // deno-fmt-ignore
 const EURO = [
@@ -19,7 +19,7 @@ const EURO = [
   0, JACKS_EURO[14], // 7
 ]
 
-export function getEuroGrid(modules: PatchModule[]): PosJack[] {
+export function getEuroGrid(view: PatchView): PosJack[] {
   return EURO.map((v, index) => {
     const x = index % EURO_X
     const y = (index - x) / EURO_X
@@ -31,9 +31,11 @@ export function getEuroGrid(modules: PatchModule[]): PosJack[] {
     } else if (v === 1) {
       o = { type: JackType.Button }
     } else if (<number> v > 1) {
+      const moduleView = <ModuleView> view.modules.find((d) => d.module.id === v)
+
       o = {
         type: JackType.Button,
-        module: <PatchModule> modules.find((d) => d.id === v),
+        module: moduleView.module,
       }
 
       if (o.module) {
@@ -42,7 +44,7 @@ export function getEuroGrid(modules: PatchModule[]): PosJack[] {
     } else {
       o = {
         ...<Jack> v,
-        active: getActive(<Jack> v, modules),
+        active: getActive(<Jack> v, view.modules),
       }
     }
 

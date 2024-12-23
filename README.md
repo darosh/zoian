@@ -40,6 +40,8 @@ ZOIA and ZOIA Euroburo are modular digital effect pedals and Eurorack modules ma
 
 Blocks and their connections may be displayed incorrectly (incorrect blocks and/or their incorrect order, see [./lib/README.md](./lib/README.md) for more information)
 
+So far only tested with Chrome browser.
+
 ## Development
 
 ### Prerequisites

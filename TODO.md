@@ -1,8 +1,9 @@
 # TODO
 
-## Bugs
+## Parser
 
 - [ ] 050 airport wind patch corrupted page names?
+- [ ] [./lib/README.md](./lib/README.md) version of ADSR, Pitch Shifter and Clock Divider, check FW release notes
 
 ## Improvements
 
@@ -12,7 +13,6 @@
 ## Doc
 
 - [ ] doc banner
-- [ ] add chrome note
 - [ ] integration notes
 - [ ] og:image
 - [ ] test pages
@@ -37,7 +37,6 @@
 
 ## Testing
 
-- [ ] [./lib/README.md](./lib/README.md) version of ADSR, Pitch Shifter and Clock Divider, check FW release notes
 - [ ] check cpu values
 - [ ] check stared items
 - [ ] add connection and starred validation to tests
@@ -45,6 +44,7 @@
 
 ## Done
 
+- [x] add chrome note
 - [x] consolidate colors
 - [x] adjust green color
 - [x] check hardcoded svg constants

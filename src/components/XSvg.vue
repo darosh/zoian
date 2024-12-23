@@ -435,10 +435,14 @@
   </v-card>
 </template>
 <script lang="js">
+import debug from 'debug'
+
 import { svgRect } from '@/utils/svg-rect.js'
 import { getTooltipPosition } from '@/utils/tooltip.js'
 import { JackType, G, EURO_X, getPagePosition, patchView, gridView } from '../../lib/index.ts'
 import { equals } from 'rambdax'
+
+const log = debug('zoian:svg')
 
 export default {
   props: {
@@ -729,6 +733,7 @@ export default {
     },
     selectedModule (newVal, oldVal) {
       this.transitionTooltip = newVal && oldVal
+      log('selected module', newVal)
     }
   },
   mounted () {

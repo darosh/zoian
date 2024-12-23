@@ -43,6 +43,7 @@ export interface ConnectionView {
 
 export interface BlockView {
   name: string
+  index: number
   block: Block
   from: ConnectionView[]
   to: ConnectionView[]

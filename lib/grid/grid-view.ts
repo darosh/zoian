@@ -14,7 +14,7 @@ const log = debug('zoian:grid:view')
 export function gridView(patchView: PatchView): GridView {
   log('gridView()')
 
-  const pagesGrid = getPagesGrid(patchView.patch)
+  const pagesGrid = getPagesGrid(patchView)
   const euroGrid = getEuroGrid(patchView.patch.modules)
   const ioGrid = getIoGrid(patchView.patch.modules)
 

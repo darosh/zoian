@@ -5,7 +5,7 @@ import type { PatchModule } from '../parser/types.ts'
 import { blockEntries } from '../parser/utils/block-entries.ts'
 import type { IoConnection } from './types.ts'
 
-const log = debug('zoian:graph:io')
+const log = debug('zoian:io')
 
 export function graphIoConnections(JACKS: Jack[], patchModules: PatchModule[]): IoConnection[] {
   const connections: IoConnection[] = []

@@ -15,9 +15,10 @@ export function patchView(patch: Patch): PatchView {
       spec: MODULES[module.id],
       from: <ConnectionView[]> [],
       to: <ConnectionView[]> [],
-      blocks: blockEntries(module.blocks).map(([name, block]) => {
+      blocks: blockEntries(module.blocks).map(([name, block], index) => {
         return {
           name,
+          index,
           block,
           from: [],
           to: [],

@@ -1,52 +1,51 @@
 import debug from 'debug'
 import { G, GX } from '../spec/const.ts'
-import { blockEntries } from '../parser/utils/block-entries.ts'
-import type { Patch } from '../parser/types.ts'
 import type { PosBlock } from './types.ts'
 import { DISPLAY_MODULE } from '../spec/display-module.ts'
 import { DISPLAY_BLOCK } from '../spec/display-blocks.ts'
 import { BLOCK_COLORS } from './rgb-colors.ts'
+import type { PatchView } from '../graph/types.ts'
 
 const log = debug('zoian:grid')
 
-export function getPagesGrid(patch: Patch): (PosBlock | undefined)[] {
-  const map: (PosBlock | undefined)[] = Array.from({ length: patch.pages.length * G })
+export function getPagesGrid(view: PatchView): (PosBlock | undefined)[] {
+  const map: (PosBlock | undefined)[] = Array.from({ length: view.patch.pages.length * G })
 
-  log('pages', patch.pages.length)
+  log('pages', view.patch.pages.length)
   log('grid size', map.length)
 
-  patch.modules.forEach((module) => {
-    const startPage = module.page * G
-    const startPosition = module.position[0]
+  for (const moduleView of view.modules) {
+    const startPage = moduleView.module.page * G
+    const startPosition = moduleView.module.position[0]
 
-    const blocks = blockEntries(module.blocks)
-    const offsetPage = patch.euro ? 1 : 0
+    const blocks = moduleView.blocks
+    const offsetPage = view.patch.euro ? 1 : 0
 
-    blocks.forEach(([blockName, block], index) => {
-      const position = startPosition + index
+    for (const blockView of blocks) {
+      const position = startPosition + blockView.index
       const x = position % GX
       const y = (position - x) / GX
 
       if (position >= G) {
-        return
+        continue
       }
 
-      const first = position === module.position[0]
+      const first = position === moduleView.module.position[0]
 
       map[startPage + position + offsetPage * G] = {
         position,
         x,
         y,
         first,
-        last: position === module.position.at(-1),
-        module,
-        block,
-        blockName,
-        page: module.page + offsetPage,
-        colors: BLOCK_COLORS[module.color],
+        last: position === moduleView.module.position.at(-1),
+        module: moduleView.module,
+        block: blockView.block,
+        blockName: blockView.name,
+        page: moduleView.module.page + offsetPage,
+        colors: BLOCK_COLORS[moduleView.module.color],
       }
-    })
-  })
+    }
+  }
 
   map.forEach((m, index) => {
     if (!m) {

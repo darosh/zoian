@@ -22,6 +22,7 @@
 
 ## Ref 
 
+- [ ] migrate to model/view
 - [ ] check hardcoded svg constants
 
 ## Features
@@ -36,6 +37,7 @@
 - [ ] hide unused block labels
 - [ ] audio vs cv vs midi vs star connection
 - [ ] connection count?
+- [ ] offline support
 
 ## Testing
 

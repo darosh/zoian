@@ -189,7 +189,6 @@
         v-for="(sg, sgIndex) of showGrid"
         :key="sgIndex">
         <template v-if="sg">
-          <!-- mid block -->
           <!--
           More correct would be:
           :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * (moduleMH) - sg.forcedLast * moduleMH"
@@ -199,6 +198,27 @@
           I would even add some torn like side shape
           to make the overlapped modules more pronounced
           -->
+
+          <!--          <path-->
+          <!--            v-if="sg.forcedLast && !(sg.first || sg.last)"-->
+          <!--            :d="rectPath({broken: true, left: false, right: false, size: { width: moduleS + ((sg.x > 0 || sg.first) && (sg.x < 7 || sg.last) && !sg.forcedLast) * moduleMH + moduleMH, height: moduleS}, radius: 0})"-->
+          <!--            :fill="dark ? sg.colors.dark : sg.colors.light"-->
+          <!--            :transform="`translate(${gridPos(sg)}) translate(${(sg.x > 0) * -moduleMH},0)`" />-->
+          <!--          <rect-->
+          <!--            v-else-if="!(sg.first || sg.last)"-->
+          <!--            :fill="dark ? sg.colors.dark : sg.colors.light"-->
+          <!--            :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * (moduleMH)"-->
+          <!--            :height="moduleS"-->
+          <!--            :x="(sg.x > 0) * -moduleMH"-->
+          <!--            :y="0"-->
+          <!--            :transform="`translate(${gridPos(sg)})`" />-->
+          <!--          <path-->
+          <!--            v-else-->
+          <!--            :d="rectPath({broken: sg.forcedLast, left: sg.first, right: sg.last, size: { width: moduleS + ((sg.x > 0 || sg.first) && (sg.x < 7 || sg.last) && !sg.forcedLast) * moduleMH, height: moduleS}, radius: moduleR})"-->
+          <!--            :fill="dark ? sg.colors.dark : sg.colors.light"-->
+          <!--            :transform="`translate(${gridPos(sg)}) translate(${sg.last ? (sg.x > 0) * -moduleMH : 0},0)`" />-->
+
+          <!-- mid block -->
           <rect
             v-if="!(sg.first || sg.last)"
             :fill="dark ? sg.colors.dark : sg.colors.light"

@@ -10,6 +10,7 @@
 - [ ] move connection to separate svg + try canvasg
 - [ ] consolidate block condition types
 - [ ] consolidate colors
+- [ ] drop info timing
 
 ## Doc
 
@@ -17,6 +18,7 @@
 - [ ] add chrome note
 - [ ] integration notes
 - [ ] og:image
+- [ ] test pages
 
 ## Ref 
 

@@ -4,12 +4,14 @@
 
 - [ ] error on slow load
 - [ ] fix jack connection order
+- [ ] adjust green color
 
 ## Improvements
 
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [ ] move connection to separate svg + try canvasg
 - [ ] consolidate block condition types
+- [ ] consolidate colors
 
 ## Doc
 

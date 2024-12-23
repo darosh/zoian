@@ -3,6 +3,7 @@
 ## Bugs
 
 - [ ] adjust green color
+- [ ] 050 airport wind patch corrupted page names?
 
 ## Improvements
 

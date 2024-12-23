@@ -2,7 +2,6 @@
 
 ## Bugs
 
-- [ ] error on slow load
 - [ ] fix jack connection order
 - [ ] adjust green color
 
@@ -47,6 +46,7 @@
 
 ## Done
 
+- [x] error on slow load
 - [x] dark highlight fix
 - [x] doc included files
 - [x] block abbreviations

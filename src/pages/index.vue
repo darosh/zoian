@@ -339,8 +339,13 @@ export default {
     }
   },
   async mounted () {
+    this.showWelcomeToast = true
+
+    // await new Promise(r => setTimeout(() => r), 1e6)
+
     const { patches } = await import('../../patches/patches.ts')
     this.patches = patches
+
     const file = this.$route.query.file
     const link = this.$route.query.link
 
@@ -364,7 +369,6 @@ export default {
     }
 
     this.loading = false
-    this.showWelcomeToast = true
   },
   created () {
     window.addEventListener('keydown', this.onKey)

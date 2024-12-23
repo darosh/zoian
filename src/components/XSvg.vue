@@ -609,7 +609,7 @@ export default {
       return getStarredTable(this.patch)
     },
     selectedModule () {
-      if (!this.cursorBlock) {
+      if (!this.patch || !this.cursorBlock) {
         return null
       }
 

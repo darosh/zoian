@@ -2,7 +2,6 @@
 
 ## Bugs
 
-- [ ] fix jack connection order
 - [ ] adjust green color
 
 ## Improvements
@@ -46,6 +45,7 @@
 
 ## Done
 
+- [x] fix jack connection order
 - [x] error on slow load
 - [x] dark highlight fix
 - [x] doc included files

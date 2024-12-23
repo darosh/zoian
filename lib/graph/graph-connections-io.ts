@@ -15,6 +15,7 @@ export function graphIoConnections(JACKS: Jack[], patchModules: PatchModule[]): 
     const jackPoint: [string] = [jack.id]
 
     for (const jackModuleOrNumber of jack.modules) {
+      // Used for ios
       if (Number.isInteger(jackModuleOrNumber)) {
         log('numbered module', jackModuleOrNumber)
 
@@ -24,32 +25,43 @@ export function graphIoConnections(JACKS: Jack[], patchModules: PatchModule[]): 
           const block = <[string, Block]> blockEntries(module.blocks).at(-1)
           const modulePoint: [number, number] = [module.number, block[1].position]
 
-          log('connection found')
+          log('numbered module connection found')
           connections.push({
-            source: jack.input ? modulePoint : jackPoint,
-            target: jack.input ? jackPoint : modulePoint,
+            source: jack.input ? jackPoint : modulePoint,
+            target: jack.input ? modulePoint : jackPoint,
           })
         }
 
         continue
       }
 
+      const blockName = <string> (<JackModule> jackModuleOrNumber).block
+      const propName = (<JackModule> jackModuleOrNumber).prop
+      const value = (<JackModule> jackModuleOrNumber).value
+
+      if (!(propName && value) && !blockName) {
+        log('jack not found!')
+
+        continue
+      }
+
       const candidateModules = patchModules.filter((v) => v.id === (<JackModule> jackModuleOrNumber).id)
 
-      if ((<JackModule> jackModuleOrNumber).prop && (<JackModule> jackModuleOrNumber).value) {
+      // Used for stomp switches
+      if (propName && value) {
         log('prop module', jackModuleOrNumber)
 
         for (const module of candidateModules) {
-          const match = module.options[<string> (<JackModule> jackModuleOrNumber).prop] === (<JackModule> jackModuleOrNumber).value
+          const match = module.options[propName] === value
 
           if (match) {
             const block = <[string, Block]> blockEntries(module.blocks).at(-1)
             const modulePoint: [number, number] = [module.number, block[1].position]
 
-            log('connection found')
+            log('prop module connection found')
             connections.push({
-              source: jack.input ? modulePoint : jackPoint,
-              target: jack.input ? jackPoint : modulePoint,
+              source: jack.input ? jackPoint : modulePoint,
+              target: jack.input ? modulePoint : jackPoint,
             })
           }
         }
@@ -57,18 +69,25 @@ export function graphIoConnections(JACKS: Jack[], patchModules: PatchModule[]): 
         continue
       }
 
-      log('block module', jackModuleOrNumber, candidateModules)
+      if (!blockName) {
+        log('jack not found!')
+
+        continue
+      }
+
+      // Used for non Euro audio modules to IO
+      // log('block module', jackModuleOrNumber, candidateModules)
 
       for (const module of candidateModules) {
-        const block = module.blocks[<string> (<JackModule> jackModuleOrNumber).block]
+        const block = module.blocks[blockName]
 
         if (block) {
           const modulePoint: [number, number] = [module.number, block.position]
 
-          log('connection found')
+          log('block module connection found')
           connections.push({
-            source: jack.input ? modulePoint : jackPoint,
-            target: jack.input ? jackPoint : modulePoint,
+            source: jack.input ? jackPoint : modulePoint,
+            target: jack.input ? modulePoint : jackPoint,
           })
         }
       }

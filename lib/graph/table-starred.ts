@@ -1,13 +1,6 @@
-import type { Patch, PatchModule } from '../parser/types.ts'
+import type { Patch } from '../parser/types.ts'
 import { blockEntries } from '../parser/utils/block-entries.ts'
-import type { Block } from '../spec/types.ts'
-
-export interface StarredRow {
-  block: number
-  cc?: number
-  module: PatchModule
-  blockEntry: [string, Block]
-}
+import type { StarredRow } from './types.ts'
 
 export function getStarredTable(patch: Patch): StarredRow[] {
   return patch.starred.map((s) => {

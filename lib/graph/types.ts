@@ -17,6 +17,22 @@ export interface ConnectionPos {
   target: PosGrid
 }
 
+export interface CpuRow {
+  id: number
+  count: number
+  cpu: number
+  pages: number[]
+  pageDisplay: string
+  cpuSum: number
+}
+
+export interface StarredRow {
+  block: number
+  cc?: number
+  module: PatchModule
+  blockEntry: [string, Block]
+}
+
 export interface ConnectionView {
   connection: Connection
   fromModule: ModuleView
@@ -45,4 +61,6 @@ export interface PatchView {
   modules: ModuleView[]
   connections: ConnectionView[]
   orphanConnections: ConnectionView[]
+  cpuTable: CpuRow[]
+  starredTable: StarredRow[]
 }

@@ -2,6 +2,8 @@ import type { Patch } from '../parser/types.ts'
 import type { ConnectionView, ModuleView, PatchView } from './types.ts'
 import { MODULES } from '../spec/modules.ts'
 import { blockEntries } from '../parser/utils/block-entries.ts'
+import { getCpuTable } from './cpu-table.ts'
+import { getStarredTable } from './table-starred.ts'
 
 export function patchView(patch: Patch): PatchView {
   const connections: ConnectionView[] = []
@@ -53,11 +55,12 @@ export function patchView(patch: Patch): PatchView {
       orphanConnections.push(cv)
     }
   }
-
   return {
     patch,
     modules,
     connections,
     orphanConnections,
+    cpuTable: getCpuTable(patch),
+    starredTable: getStarredTable(patch),
   }
 }

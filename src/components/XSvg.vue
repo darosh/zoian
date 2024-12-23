@@ -386,7 +386,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="({ type, cpu, count, pagesDisplay, cpuSum }, cpuIndex) of cpuTable(patch)"
+              v-for="({ type, cpu, count, pagesDisplay, cpuSum }, cpuIndex) of cpuTable"
               :key="cpuIndex">
               <td class="g-bolder">
                 {{ type }}
@@ -431,20 +431,7 @@
 <script lang="js">
 import { svgRect } from '@/utils/svg-rect.js'
 import { getTooltipPosition } from '@/utils/tooltip.js'
-import {
-  getPagePosition,
-  getPagesGrid,
-  getEuroGrid,
-  getIoGrid,
-  getPagesConnections,
-  getEuroConnections,
-  getIoConnections,
-  getCpuTable,
-  getStarredTable,
-  JackType,
-  G,
-  EURO_X
-} from '../../lib/index.ts'
+import { JackType, G, EURO_X, getPagePosition, patchView, gridView } from '../../lib/index.ts'
 
 export default {
   props: {
@@ -555,20 +542,6 @@ export default {
     offsetTop () {
       return this.moduleS * 2 + this.moduleM
     },
-    grid () {
-      return getPagesGrid(this.patch)
-    },
-    euroMode () {
-      return this.euro && this?.patch?.euro
-    },
-    showGrid () {
-      return !this.euroMode
-        ? this.grid
-        : this.grid.slice(40)
-    },
-    showEuro () {
-      return getEuroGrid(this.patch.modules)
-    },
     px () {
       return Math.round(this.w / window.innerWidth * 100) / 100
     },
@@ -593,23 +566,40 @@ export default {
     moduleEHH () {
       return this.moduleE / 4
     },
+    scale () {
+      return window.innerWidth / this.w
+    },
     pageWidth () {
       return 7 * (this.moduleM + this.moduleS) + this.moduleS
     },
     pageHeight () {
       return 4 * (this.moduleM + this.moduleS) + this.moduleS
     },
+    euroMode () {
+      return this.euro && this?.patch?.euro
+    },
+    view () {
+      return gridView(patchView(this.patch))
+    },
+    showGrid () {
+      return !this.euroMode
+        ? this.view.pagesGrid
+        : this.view.pagesGrid.slice(40)
+    },
+    showEuro () {
+      return this.view.euroGrid
+    },
     ioGrid () {
-      return getIoGrid(this.patch.modules)
+      return this.view.ioGrid
     },
     cursorBlock () {
       return this.cursor ? this.svgToGrid(...this.cursor) : null
     },
-    scale () {
-      return window.innerWidth / this.w
+    cpuTable () {
+      return this.view.patchView.cpuTable
     },
     starred () {
-      return getStarredTable(this.patch)
+      return this.view.patchView.starredTable
     },
     selectedModule () {
       if (!this.patch || !this.cursorBlock) {
@@ -674,10 +664,10 @@ export default {
       return { x: x * this.scale, y: y * this.scale }
     },
     ioAndBlocksConnections () {
-      return [...getPagesConnections(this.patch), ...getIoConnections(this.patch)]
+      return [...this.view.pagesConnections, ...this.view.ioConnections]
     },
     euroConnections () {
-      return getEuroConnections(this.patch, this.showEuro)
+      return this.view.euroConnections
     },
     connections () {
       return (this.euroMode ? [...this.ioAndBlocksConnections, ...this.euroConnections] : this.ioAndBlocksConnections)
@@ -698,7 +688,6 @@ export default {
     }
   },
   methods: {
-    cpuTable: getCpuTable,
     rectPath: svgRect,
     connectionPos (point, id) {
       if (this.patch.euro && !point.io) {

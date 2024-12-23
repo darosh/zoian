@@ -10,8 +10,10 @@ export { blockEntries } from './parser/utils/block-entries.ts'
 // graph
 export { getCpuTable } from './graph/cpu-table.ts'
 export { getStarredTable } from './graph/table-starred.ts'
+export { patchView } from './graph/patch-view.ts'
 
 // grid
+export { gridView } from './grid/grid-view.ts'
 export { getPagesGrid } from './grid/grid-pages.ts'
 export { getEuroGrid } from './grid/grid-euro.ts'
 export { getIoGrid } from './grid/grid-io.ts'

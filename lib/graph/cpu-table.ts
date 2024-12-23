@@ -1,13 +1,5 @@
 import type { Patch } from '../parser/types.ts'
-
-interface CpuRow {
-  id: number
-  count: number
-  cpu: number
-  pages: number[]
-  pageDisplay: string
-  cpuSum: number
-}
+import type { CpuRow } from './types.ts'
 
 export function getCpuTable(patch: Patch): CpuRow[] {
   const r = new Map()

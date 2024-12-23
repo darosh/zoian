@@ -20,7 +20,7 @@ export function getPagesGrid(patch: Patch): (PosBlock | undefined)[] {
     const startPosition = module.position[0]
 
     const blocks = blockEntries(module.blocks)
-    const offsetPage = patch.zebu ? 1 : 0
+    const offsetPage = patch.euro ? 1 : 0
 
     blocks.forEach(([blockName, block], index) => {
       const position = startPosition + index

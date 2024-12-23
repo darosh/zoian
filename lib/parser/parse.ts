@@ -86,7 +86,7 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
         (cursor + (size - 4)) * 4 + 16,
       )),
       version: longs[cursor + 2],
-      zebu: MODULES[moduleId].zebu,
+      euro: MODULES[moduleId].euro,
       cpu: MODULES[moduleId].cpu,
       size: longs[cursor],
       dataSize: longs[cursor + 7],
@@ -150,13 +150,13 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
       module.page = module.page > 127 ? 127 - module.page : module.page
     }
 
-    if (module.zebu) {
-      log('zebu module on page', module.page)
+    if (module.euro) {
+      log('euro module on page', module.page)
       module.page = module.page >= 127 ? -1 : module.page
     }
   }
 
-  const zebu = modules.some((m) => m.zebu)
+  const euro = modules.some((m) => m.euro)
   const range = calculatePages(modules)
   log('pages %o', range)
   const numPages = longs[cursor]
@@ -174,7 +174,7 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
 
   let pages = pageNames.map((name, index) => ({ name, index }))
 
-  if (zebu) {
+  if (euro) {
     pages = [{ name: '', index: -1 }, ...pages]
   }
 
@@ -210,7 +210,7 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
   return {
     name,
     size: patchSize,
-    zebu,
+    euro,
     cpu: calculateCpu(modules),
     pages,
     modules,

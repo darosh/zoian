@@ -6,7 +6,7 @@ export interface ModuleSpec {
   cpu: number
   description: string
   name: string
-  zebu?: boolean
+  euro?: boolean
   minBlocks: number
   maxBlocks: number
   defaultBlocks: number
@@ -65,7 +65,7 @@ export interface JackModule {
 export interface Jack {
   id: string
   input?: boolean
-  zebu?: boolean
+  euro?: boolean
   type: JackType
   text?: string
   title: string

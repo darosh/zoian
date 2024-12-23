@@ -1,6 +1,6 @@
 import { type Jack, JackType } from './types.ts'
 
-export const JACKS_ZEBU: Jack[] = [
+export const JACKS_EURO: Jack[] = [
   {
     id: 'eu-in-l',
     type: JackType.Audio,

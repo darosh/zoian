@@ -46,9 +46,9 @@ export function getIoOrModulePointPosition(modules: PatchModule[], point: Module
   return getPointPosition(modules, point)
 }
 
-export function getEuroOrModulePointPosition(modules: PatchModule[], zebuGrid: PosJack[], point: ModulePoint | JackPoint): PosGrid {
+export function getEuroOrModulePointPosition(modules: PatchModule[], euroGrid: PosJack[], point: ModulePoint | JackPoint): PosGrid {
   if (point.length === 1) {
-    const bj = <PosJack> zebuGrid.find((x) => x?.id === point[0])
+    const bj = <PosJack> euroGrid.find((x) => x?.id === point[0])
 
     return {
       page: -1,

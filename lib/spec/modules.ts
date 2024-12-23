@@ -1970,7 +1970,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 87,
-    zebu: true,
+    euro: true,
     name: 'Euro CV Out 4',
     category: 'Interface',
     description: '',
@@ -1984,7 +1984,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 88,
-    zebu: true,
+    euro: true,
     name: 'Euro CV In 1',
     category: 'Interface',
     description: '',
@@ -2003,7 +2003,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 89,
-    zebu: true,
+    euro: true,
     name: 'Euro CV In 2',
     category: 'Interface',
     description: '',
@@ -2022,7 +2022,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 90,
-    zebu: true,
+    euro: true,
     name: 'Euro CV In 3',
     category: 'Interface',
     description: '',
@@ -2041,7 +2041,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 91,
-    zebu: true,
+    euro: true,
     name: 'Euro CV In 4',
     category: 'Interface',
     description: '',
@@ -2060,7 +2060,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 92,
-    zebu: true,
+    euro: true,
     name: 'Euro Headphone Amp',
     category: 'Interface',
     description: '',
@@ -2074,7 +2074,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 93,
-    zebu: true,
+    euro: true,
     name: 'Euro Audio Input 1',
     category: 'Interface',
     description: 'Connect audio from the outside world into the grid.\nThis could be a guitar, bass, synth module, computer Audio, etc',
@@ -2088,7 +2088,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 94,
-    zebu: true,
+    euro: true,
     name: 'Euro Audio Input 2',
     category: 'Interface',
     description: 'Connect audio from the outside world into the grid.\nThis could be a guitar, bass, synth module, computer Audio, etc',
@@ -2102,7 +2102,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 95,
-    zebu: true,
+    euro: true,
     name: 'Euro Audio Output 1',
     category: 'Interface',
     description: 'Connect audio from your ZOIA into the outside world.\nConnect to your amplifier, a DI box, your audio interface, etc.',
@@ -2116,7 +2116,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 96,
-    zebu: true,
+    euro: true,
     name: 'Euro Audio Output 2',
     category: 'Interface',
     description: 'Connect audio from your ZOIA into the outside world.\nConnect to your amplifier, a DI box, your audio interface, etc.',
@@ -2130,7 +2130,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 97,
-    zebu: true,
+    euro: true,
     name: 'Euro Pushbutton 1',
     category: 'Interface',
     description: 'Turns a grid button into a button you can push to send a CV signal.\nTap in a tempo, open up a VCA, trigger a sequencer, or anything else.\nThe grid is your oyster!',
@@ -2144,7 +2144,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 98,
-    zebu: true,
+    euro: true,
     name: 'Euro Pushbutton 2',
     category: 'Interface',
     description: 'Turns a grid button into a button you can push to send a CV signal.\nTap in a tempo, open up a VCA, trigger a sequencer, or anything else.\nThe grid is your oyster!',
@@ -2158,7 +2158,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 99,
-    zebu: true,
+    euro: true,
     name: 'Euro CV Out 1',
     category: 'Interface',
     description: '',
@@ -2172,7 +2172,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 100,
-    zebu: true,
+    euro: true,
     name: 'Euro CV Out 2',
     category: 'Interface',
     description: '',
@@ -2186,7 +2186,7 @@ export const MODULES: ModuleSpec[] = [
   },
   {
     id: 101,
-    zebu: true,
+    euro: true,
     name: 'Euro CV Out 3',
     category: 'Interface',
     description: '',

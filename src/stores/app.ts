@@ -9,7 +9,7 @@ export const useAppStore = defineStore("app", {
   state: () => ({
     dark: useLocalStorage("dark", false),
     columns: useLocalStorage("columns", 3),
-    zebu: useLocalStorage("zebu", true),
+    euro: useLocalStorage("euro", true),
     showConnections: useLocalStorage("showConnections", true),
     animations: useLocalStorage("animations", false),
   }),

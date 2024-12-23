@@ -49,6 +49,7 @@
 
 ## Done
 
+- [x] rename zebu to euro
 - [x] drop info timing
 - [x] fix jack connection order
 - [x] error on slow load

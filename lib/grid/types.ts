@@ -39,7 +39,7 @@ export interface PosIo {
   x: number
   y: 0
   input?: boolean
-  zebu?: boolean
+  euro?: boolean
   active: boolean
   text?: string
   type: JackType

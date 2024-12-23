@@ -4,7 +4,7 @@ import type { Colors } from '../spec/colors.ts'
 export interface Patch {
   name?: string
   size?: number
-  zebu?: boolean
+  euro?: boolean
   cpu: number
   pages: { name: string; index: number }[]
   starred: Starred[]
@@ -18,7 +18,7 @@ export interface PatchModule {
   type: string
   name: string
   version: number
-  zebu?: boolean
+  euro?: boolean
   cpu: number
   size: number
   dataSize: number

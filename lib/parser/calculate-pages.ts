@@ -3,7 +3,7 @@ import type { PatchModule } from './types.ts'
 
 export function calculatePages(modules: PatchModule[]) {
   const pages = modules
-    .filter((m) => !m.zebu)
+    .filter((m) => !m.euro)
     .map((m) => modulePage(m))
 
   return { first: Math.min(...pages), last: Math.max(...pages) }

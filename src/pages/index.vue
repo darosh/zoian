@@ -24,7 +24,7 @@
       ref="svg"
       :style="{ opacity: isDragging || isDraggingInfo ? .06 : null }"
       style="transition: opacity .2s ease-in-out;"
-      :zebu="zebu"
+      :euro="euro"
       :cols-max="columns"
       :show-connections="showConnections"
       :animations="animations"
@@ -164,8 +164,8 @@
           </template>
         </v-list-item>
         <v-list-item
-          :prepend-icon="zebu ? '$checkboxOn' : '$checkboxOff'"
-          @click="zebu = !zebu">
+          :prepend-icon="euro ? '$checkboxOn' : '$checkboxOff'"
+          @click="euro = !euro">
           Euroburo layout
           <template #append>
             <v-kbd>E</v-kbd>
@@ -278,7 +278,7 @@ export default {
   }),
   computed: {
     ...mapWritableState(useAppStore, [
-      'dark', 'columns', 'zebu', 'showConnections', 'animations'
+      'dark', 'columns', 'euro', 'showConnections', 'animations'
     ]),
     patchNumber () {
       const i = this.files?.indexOf(this.file)
@@ -537,7 +537,7 @@ export default {
       } else if (e.key === 'd') {
         this.dark = !this.dark
       } else if (e.key === 'e') {
-        this.zebu = !this.zebu
+        this.euro = !this.euro
       } else if (e.key === 'c') {
         this.showConnections = !this.showConnections
       } else if (e.key === 'a') {

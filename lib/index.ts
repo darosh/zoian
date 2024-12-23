@@ -1,5 +1,5 @@
 // spec
-export { G, GX, GY, LENGTH, ZEBU_X, ZEBU_Y } from './spec/const.ts'
+export { EURO_X, EURO_Y, G, GX, GY, LENGTH } from './spec/const.ts'
 export { COLOR_ORDER, Colors } from './spec/colors.ts'
 export { JackLocation, JackType } from './spec/types.ts'
 

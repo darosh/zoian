@@ -10,21 +10,21 @@
     @mousemove="onMouseMove"
     @mouseout="onMouseOut">
 
-    <!-- gridPosOrZebu test -->
+    <!-- gridPosOrEuro test -->
     <template v-if="false">
       <rect
         fill="red"
-        :transform="`translate(${gridPosOrZebu({x:0,y:0,page: -1})})`"
+        :transform="`translate(${gridPosOrEuro({x:0,y:0,page: -1})})`"
         :width="moduleM"
         :height="moduleM" />
       <rect
         fill="red"
-        :transform="`translate(${gridPosOrZebu({x:0,y:0,page: -2})})`"
+        :transform="`translate(${gridPosOrEuro({x:0,y:0,page: -2})})`"
         :width="moduleM"
         :height="moduleM" />
       <rect
         fill="red"
-        :transform="`translate(${gridPosOrZebu({x:0,y:0,page: 0})})`"
+        :transform="`translate(${gridPosOrEuro({x:0,y:0,page: 0})})`"
         :width="moduleM"
         :height="moduleM" />
     </template>
@@ -86,9 +86,9 @@
           :input="iog.input"
           :px="px"
           :dark="dark"
-          :size="moduleZebu"
+          :size="moduleE"
           :active="iog.active"
-          :position="gridPosOrZebu(iog)" />
+          :position="gridPosOrEuro(iog)" />
       </template>
 
       <x-svg-symbol
@@ -97,10 +97,10 @@
         :text="patch?.cpu >= 100 ? '%' : '%'"
         :px="px"
         :dark="dark"
-        :size="moduleZebu"
+        :size="moduleE"
         :progress="patch?.cpu"
         :active="true"
-        :position="gridPosZebu({x: 0, y: 0, page: -2}, true)" />
+        :position="gridPosEuro({x: 0, y: 0, page: -2}, true)" />
 
       <x-svg-symbol
         v-if="patch?.starred?.length"
@@ -108,43 +108,43 @@
         :location="0"
         :px="px"
         :dark="dark"
-        :size="moduleZebu"
+        :size="moduleE"
         :active="!!patch?.starred?.length"
-        :position="gridPosZebu({x: 1, y: 0, page: -2}, true)" />
+        :position="gridPosEuro({x: 1, y: 0, page: -2}, true)" />
 
-      <!-- zebu -->
-      <template v-if="zebuMode">
+      <!-- euro -->
+      <template v-if="euroMode">
         <template
-          v-for="(zg, zgIndex) of showZebu"
+          v-for="(zg, zgIndex) of showEuro"
           :key="zgIndex">
           <template v-if="zg">
             <circle
               v-if="(zg.type === JackType.Button) && !zg.module"
               fill="rgba(128,128,128,.3)"
-              :cx="moduleZebuH"
-              :cy="moduleZebuH"
-              :r="moduleZebuH / 2"
-              :transform="`translate(${gridPosZebu(zg)})`" />
+              :cx="moduleEH"
+              :cy="moduleEH"
+              :r="moduleEHH"
+              :transform="`translate(${gridPosEuro(zg)})`" />
             <rect
               v-else-if="(zg.type === JackType.Button) && zg.module"
               :stroke-width="px"
               :fill="dark ? zg.colors.dark : zg.colors.light"
               rx="2"
               ry="2"
-              :width="moduleZebu"
-              :height="moduleZebu"
+              :width="moduleE"
+              :height="moduleE"
               :y="0"
-              :transform="`translate(${gridPosZebu(zg)})`" />
+              :transform="`translate(${gridPosEuro(zg)})`" />
             <x-svg-symbol
               v-else-if="zg.type"
               :type="zg.type"
               :input="zg.input"
-              :position="gridPosZebu(zg)"
+              :position="gridPosEuro(zg)"
               :location="zg.x === 11 ? 2 : 0"
               :active="zg.active"
               :px="px"
               :dark="dark"
-              :size="moduleZebu"
+              :size="moduleE"
               :text="zg.text === 'H' ? 'HEADPHONES' : zg.text" />
           </template>
         </template>
@@ -277,12 +277,12 @@
         id="highlighted-block"
         :fill="dark ? 'rgba(255,255,255,.18)' : 'rgba(0,0,0,.12)'"
         :x="-moduleMHH"
-        :rx="zebuOrIo(cursorBlock) ? 3 : 7"
-        :ry="zebuOrIo(cursorBlock) ? 3 : 7"
+        :rx="euroOrIo(cursorBlock) ? 3 : 7"
+        :ry="euroOrIo(cursorBlock) ? 3 : 7"
         :y="-moduleMHH"
-        :transform="`translate(${gridPosOrZebu(cursorBlock)})`"
-        :width="(zebuOrIo(cursorBlock) ? moduleZebu : moduleS) + moduleMH"
-        :height="(zebuOrIo(cursorBlock) ? moduleZebu : moduleS) + moduleMH" />
+        :transform="`translate(${gridPosOrEuro(cursorBlock)})`"
+        :width="(euroOrIo(cursorBlock) ? moduleE : moduleS) + moduleMH"
+        :height="(euroOrIo(cursorBlock) ? moduleE : moduleS) + moduleMH" />
 
       <!-- connections -->
       <g
@@ -443,7 +443,7 @@ import {
   getStarredTable,
   JackType,
   G,
-  ZEBU_X
+  EURO_X
 } from '../../lib/index.ts'
 
 export default {
@@ -484,7 +484,7 @@ export default {
       type: Number,
       default: 5
     },
-    zebu: {
+    euro: {
       type: Boolean,
       default: false
     },
@@ -558,15 +558,15 @@ export default {
     grid () {
       return getPagesGrid(this.patch)
     },
-    zebuMode () {
-      return this.zebu && this?.patch?.zebu
+    euroMode () {
+      return this.euro && this?.patch?.euro
     },
     showGrid () {
-      return !this.zebuMode
+      return !this.euroMode
         ? this.grid
         : this.grid.slice(40)
     },
-    showZebu () {
+    showEuro () {
       return getEuroGrid(this.patch.modules)
     },
     px () {
@@ -584,11 +584,14 @@ export default {
     moduleM3Q () {
       return this.moduleM / 4 * 3
     },
-    moduleZebu () {
-      return (this.moduleS + this.moduleM) * 8 / ZEBU_X - this.moduleM
+    moduleE () {
+      return (this.moduleS + this.moduleM) * 8 / EURO_X - this.moduleM
     },
-    moduleZebuH () {
-      return this.moduleZebu / 2
+    moduleEH () {
+      return this.moduleE / 2
+    },
+    moduleEHH () {
+      return this.moduleE / 4
     },
     pageWidth () {
       return 7 * (this.moduleM + this.moduleS) + this.moduleS
@@ -615,8 +618,8 @@ export default {
 
       const { x, y, page } = this.cursorBlock
 
-      if (this.zebuMode && page === 0) {
-        const m = this.showZebu.find(z => z.x === x && z.y === y)
+      if (this.euroMode && page === 0) {
+        const m = this.showEuro.find(z => z.x === x && z.y === y)
 
         if (!m.module) {
           if (m.type >= JackType.Audio) {
@@ -648,15 +651,15 @@ export default {
 
       const tt = this.$refs.tooltip.$el.getBoundingClientRect()
 
-      const [blockX, blockY] = this.gridPosOrZebu(this.cursorBlock)
-      const z = this.zebuOrIo(this.cursorBlock)
+      const [blockX, blockY] = this.gridPosOrEuro(this.cursorBlock)
+      const z = this.euroOrIo(this.cursorBlock)
 
       const { x, y } = getTooltipPosition(
         {
           x: blockX,
           y: blockY,
-          width: z ? this.moduleZebu : this.moduleS,
-          height: z ? this.moduleZebu : this.moduleS
+          width: z ? this.moduleE : this.moduleS,
+          height: z ? this.moduleE : this.moduleS
         },
         // this.tooltipWidth / this.scale,
         // this.tooltipHeight / this.scale,
@@ -673,13 +676,11 @@ export default {
     ioAndBlocksConnections () {
       return [...getPagesConnections(this.patch), ...getIoConnections(this.patch)]
     },
-    zebuConnections () {
-      return getEuroConnections(this.patch, this.showZebu)
+    euroConnections () {
+      return getEuroConnections(this.patch, this.showEuro)
     },
     connections () {
-      return (this.zebuMode ? [...this.ioAndBlocksConnections, ...this.zebuConnections] : this.ioAndBlocksConnections)
-        // return (this.zebuMode ? [...this.ioAndBlocksConnections ] : this.ioAndBlocksConnections)
-        // return (this.zebuMode ? [...this.zebuConnections ] : this.ioAndBlocksConnections)
+      return (this.euroMode ? [...this.ioAndBlocksConnections, ...this.euroConnections] : this.ioAndBlocksConnections)
         .map(({ source, target, connection }) => {
           const sid = source.id || this.patch.modules[connection.source[0]]?.id
           const did = target.id || this.patch.modules[connection.target[0]]?.id
@@ -700,7 +701,7 @@ export default {
     cpuTable: getCpuTable,
     rectPath: svgRect,
     connectionPos (point, id) {
-      if (this.patch.zebu && !point.io) {
+      if (this.patch.euro && !point.io) {
         point = { ...point }
         point.page++
       }
@@ -708,18 +709,18 @@ export default {
       let zFrom
       let fs = this.moduleSH
 
-      if (this.zebuMode && !point.page) {
+      if (this.euroMode && !point.page) {
         id = id || point.id
-        const g = this.showZebu.find(g => (g?.module?.id === id) || (g?.id === id))
-        zFrom = this.gridPosZebu(g)
-        fs = this.moduleZebuH
+        const g = this.showEuro.find(g => (g?.module?.id === id) || (g?.id === id))
+        zFrom = this.gridPosEuro(g)
+        fs = this.moduleEH
       }
 
       if (point.page === -1) {
-        fs = this.moduleZebuH
+        fs = this.moduleEH
       }
 
-      const from = zFrom || (this.gridPosOrZebu(point))
+      const from = zFrom || (this.gridPosOrEuro(point))
 
       return [from[0] + fs, from[1] + fs]
     },
@@ -754,23 +755,23 @@ export default {
       ]
     },
     gridPosNum (gridIndex) {
-      return this.gridPos(getPagePosition(gridIndex + (this.zebuMode ? G : 0)))
+      return this.gridPos(getPagePosition(gridIndex + (this.euroMode ? G : 0)))
     },
-    gridPosZebu (grid) {
+    gridPosEuro (grid) {
       const [x, y] = this.pagePos(grid.page)
 
       return [
-        x + grid.x * (this.moduleZebu + this.moduleM),
-        y + grid.y * (this.moduleZebu + this.moduleM)
+        x + grid.x * (this.moduleE + this.moduleM),
+        y + grid.y * (this.moduleE + this.moduleM)
       ]
     },
-    gridPosOrZebu (grid) {
-      return this.zebuOrIo(grid)
-        ? this.gridPosZebu(grid, grid.page < 0)
+    gridPosOrEuro (grid) {
+      return this.euroOrIo(grid)
+        ? this.gridPosEuro(grid, grid.page < 0)
         : this.gridPos(grid)
     },
-    zebuOrIo (grid) {
-      return (this.zebuMode && (grid.page === 0))
+    euroOrIo (grid) {
+      return (this.euroMode && (grid.page === 0))
         || grid.page === -1 || grid.page === -2
     },
     // First, convert SVG coordinates to page coordinates
@@ -814,8 +815,8 @@ export default {
       const relativeX = x - pageX
       const relativeY = y - pageY
 
-      const z = this.zebuOrIo({ page: pageIndex })
-      const div = z ? (this.moduleZebu + this.moduleM) : (this.moduleS + this.moduleM)
+      const z = this.euroOrIo({ page: pageIndex })
+      const div = z ? (this.moduleE + this.moduleM) : (this.moduleS + this.moduleM)
       const X = z ? 12 : 8
       const Y = z ? 7 : 5
 

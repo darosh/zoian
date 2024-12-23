@@ -190,6 +190,15 @@
         :key="sgIndex">
         <template v-if="sg">
           <!-- mid block -->
+          <!--
+          More correct would be:
+          :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * (moduleMH) - sg.forcedLast * moduleMH"
+
+          But I like it as it is
+
+          I would even add some torn like side shape
+          to make the overlapped modules more pronounced
+          -->
           <rect
             v-if="!(sg.first || sg.last)"
             :fill="dark ? sg.colors.dark : sg.colors.light"

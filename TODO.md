@@ -10,7 +10,6 @@
 - [ ] move connection to separate svg + try canvasg
 - [ ] consolidate block condition types
 - [ ] consolidate colors
-- [ ] drop info timing
 
 ## Doc
 
@@ -47,6 +46,7 @@
 
 ## Done
 
+- [x] drop info timing
 - [x] fix jack connection order
 - [x] error on slow load
 - [x] dark highlight fix

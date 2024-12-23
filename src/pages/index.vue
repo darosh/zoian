@@ -39,7 +39,7 @@
       style="font-size: 24px; line-height: 48px; opacity: .87;"
       @dragover="dragover"
       @drop="drop">
-      <v-slide-y-transition>
+      <v-fade-transition hide-on-leave>
         <div
           v-if="isDraggingInfoText"
           class="pa-16"
@@ -48,7 +48,7 @@
           <br>
           All processing happens in your browser &mdash; no data is sent to any server.
         </div>
-      </v-slide-y-transition>
+      </v-fade-transition>
     </div>
   </div>
   <v-menu
@@ -332,7 +332,7 @@ export default {
 
         setTimeout(() => {
           this.isDraggingInfoText = true
-        }, 120)
+        }, 25)
       }
 
       this.isDraggingInfoDebounced(newValue)

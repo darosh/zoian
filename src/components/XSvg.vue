@@ -273,16 +273,16 @@
       </template>
 
       <rect
-        v-if="cursor && cursorBlock && (selectedModule || showCursorBlock)"
+        v-if="cursorBlock && (selectedModule || showCursorBlock)"
         id="highlighted-block"
         :fill="dark ? 'rgba(255,255,255,.18)' : 'rgba(0,0,0,.12)'"
         :x="-moduleMHH"
-        :rx="euroOrIo(cursorBlock) ? 3 : 7"
-        :ry="euroOrIo(cursorBlock) ? 3 : 7"
+        :rx="cursorBlockEuro ? 3 : 7"
+        :ry="cursorBlockEuro ? 3 : 7"
         :y="-moduleMHH"
-        :transform="`translate(${gridPosOrEuro(cursorBlock)})`"
-        :width="(euroOrIo(cursorBlock) ? moduleE : moduleS) + moduleMH"
-        :height="(euroOrIo(cursorBlock) ? moduleE : moduleS) + moduleMH" />
+        :style="`transform: translate3d(${cursorBlockPos[0]}px,${cursorBlockPos[1]}px, 0px);`"
+        :width="(cursorBlockEuro ? moduleE : moduleS) + moduleMH"
+        :height="(cursorBlockEuro ? moduleE : moduleS) + moduleMH" />
 
       <!-- connections -->
       <g
@@ -317,13 +317,12 @@
   <v-card
     v-show="positionTooltip"
     ref="tooltip"
-    style="position: absolute; pointer-events: none; transition: left 100ms ease-out, top 100ms ease-out, opacity 100ms ease-out;"
+    style="transform: translate3d(0,0,0); position: absolute; pointer-events: none;"
     :style="{
-      left: `${positionTooltip?.x || cursor?.[0] || 0}px`,
-      top: `${positionTooltip?.y || cursor?.[1] || 0}px`,
+      left: `${positionTooltip?.x || 0}px`,
+      top: `${positionTooltip?.y || 0}px`,
       opacity: selectedModule ? 1 : 0,
-      // width: `${tooltipWidth}px`,
-      // height: `${tooltipHeight}px`
+      transition: transitionTooltip ? `left 100ms ease-out, top 100ms ease-out, opacity 100ms ease-out` : 'opacity 100ms ease-out'
     }"
     elevation="1">
     <template v-if="selectedModule?.starred">
@@ -432,6 +431,7 @@
 import { svgRect } from '@/utils/svg-rect.js'
 import { getTooltipPosition } from '@/utils/tooltip.js'
 import { JackType, G, EURO_X, getPagePosition, patchView, gridView } from '../../lib/index.ts'
+import { equals } from 'rambdax'
 
 export default {
   props: {
@@ -506,11 +506,14 @@ export default {
   },
   data: () => ({
     cursor: null,
+    cursorBlock: null,
     showTooltip: false,
-    tooltipWidth: 200,
-    tooltipHeight: 200,
+    transitionTooltip: false,
     showCursor: false,
-    showCursorBlock: false
+    showCursorBlock: false,
+    scrollY: window.scrollY,
+    pendingScroll: false,
+    pendingMove: false,
   }),
   computed: {
     JackType () {
@@ -575,6 +578,14 @@ export default {
     pageHeight () {
       return 4 * (this.moduleM + this.moduleS) + this.moduleS
     },
+    bounding () {
+      return {
+        left: 0,
+        top: -this.scrollY,
+        width: this.w * this.scale,
+        height: this.h * this.scale
+      }
+    },
     euroMode () {
       return this.euro && this?.patch?.euro
     },
@@ -592,14 +603,17 @@ export default {
     ioGrid () {
       return this.view.ioGrid
     },
-    cursorBlock () {
-      return this.cursor ? this.svgToGrid(...this.cursor) : null
-    },
     cpuTable () {
       return this.view.patchView.cpuTable
     },
     starred () {
       return this.view.patchView.starredTable
+    },
+    cursorBlockPos () {
+      return this.gridPosOrEuro(this.cursorBlock)
+    },
+    cursorBlockEuro () {
+      return this.euroOrIo(this.cursorBlock)
     },
     selectedModule () {
       if (!this.patch || !this.cursorBlock) {
@@ -616,12 +630,12 @@ export default {
             return m
           }
 
-          return
+          return null
         }
 
         return m
       } else if (page === -1) {
-        return this.ioGrid[x]
+        return this.ioGrid[x] || null
       } else if (page === -2 && x === 1 && y === 0) {
         if (this.patch.starred.length) {
           return { starred: true }
@@ -632,7 +646,7 @@ export default {
         return { cpu: true }
       }
 
-      return this.showGrid.find(g => g?.page === page && g?.x === x && g?.y === y)
+      return this.showGrid.find(g => g?.page === page && g?.x === x && g?.y === y) || null
     },
     positionTooltip () {
       if (!this.cursorBlock) {
@@ -685,7 +699,17 @@ export default {
   watch: {
     patch () {
       this.cursor = null
+    },
+    selectedModule (newVal, oldVal) {
+      this.transitionTooltip = newVal && oldVal
     }
+  },
+  mounted () {
+    // this.onMouseMove = debounce(this.onMouseMoveInternal, 0)
+    window.addEventListener('scroll', this.onScroll)
+  },
+  unmounted () {
+    window.removeEventListener('scroll', this.onScroll)
   },
   methods: {
     rectPath: svgRect,
@@ -838,15 +862,16 @@ export default {
     },
     getEventPosition (event) {
       // Get the SVG element's bounding rectangle
-      const svgRect = event.currentTarget.getBoundingClientRect()
+      // rect = rect || event.currentTarget.getBoundingClientRect()
+      const rect = this.bounding
 
       // Calculate the scale ratio between viewBox and actual SVG size
-      const scaleX = this.w / svgRect.width  // w is your viewBox width
-      const scaleY = this.h / svgRect.height // h is your viewBox height
+      const scaleX = this.w / rect.width  // w is your viewBox width
+      const scaleY = this.h / rect.height // h is your viewBox height
 
       // Get mouse position relative to SVG element
-      const mouseX = event.clientX - svgRect.left
-      const mouseY = event.clientY - svgRect.top
+      const mouseX = event.clientX - rect.left
+      const mouseY = event.clientY - rect.top
 
       // Convert to viewBox coordinates
       const viewBoxX = mouseX * scaleX
@@ -855,8 +880,30 @@ export default {
       // viewBoxX and viewBoxY are now in viewBox coordinate space
       return [viewBoxX, viewBoxY]
     },
+    onScroll () {
+      if (!this.pendingScroll) {
+        this.pendingScroll = true
+        requestAnimationFrame(() => {
+          this.pendingScroll = false
+          this.scrollY = window.scrollY
+        })
+      }
+    },
     onMouseMove (event) {
-      this.cursor = this.getEventPosition(event)
+      if (!this.pendingMove) {
+        this.pendingMove = true
+
+        requestAnimationFrame(() => {
+          this.pendingMove = false
+          const cursor = this.getEventPosition(event)
+          const cursorBlock = cursor ? this.svgToGrid(...cursor) : null
+          // this.cursor = cursor
+
+          if (!equals(cursorBlock, this.cursorBlock)) {
+            this.cursorBlock = cursorBlock
+          }
+        })
+      }
     },
     onMouseOut () {
       // this.cursor = null // breaks transition

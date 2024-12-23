@@ -8,7 +8,6 @@
 ## Improvements
 
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
-- [ ] move connection to separate svg + try canvasg
 - [ ] consolidate block condition types
 - [ ] consolidate colors
 
@@ -49,6 +48,7 @@
 
 ## Done
 
+- [x] translate3d() ~~move connection to separate svg + try canvasg~~
 - [x] rename zebu to euro
 - [x] drop info timing
 - [x] fix jack connection order

@@ -1,5 +1,6 @@
 import type { Block, JackType } from '../spec/types.ts'
 import type { PatchModule } from '../parser/types.ts'
+import type { ConnectionPos, PatchView } from '../graph/types.ts'
 
 export interface Pos {
   page: number
@@ -53,4 +54,14 @@ export interface PosGrid {
   module?: PatchModule
   blockName: string
   io?: boolean
+}
+
+export interface GridView {
+  patchView: PatchView
+  pagesGrid: (PosBlock | undefined)[]
+  euroGrid: PosJack[]
+  ioGrid: PosIo[]
+  pagesConnections: ConnectionPos[]
+  euroConnections: ConnectionPos[]
+  ioConnections: ConnectionPos[]
 }

@@ -22,7 +22,6 @@
 ## Ref 
 
 - [ ] migrate to model/view
-- [ ] check hardcoded svg constants
 
 ## Features
 
@@ -48,6 +47,7 @@
 
 ## Done
 
+- [x] check hardcoded svg constants
 - [x] translate3d() ~~move connection to separate svg + try canvasg~~
 - [x] rename zebu to euro
 - [x] drop info timing

@@ -32,7 +32,7 @@
     <!-- file name and number -->
     <text
       :transform="`translate(${[w - margin, margin + moduleS * .8]})`"
-      :font-size="moduleS * .4"
+      :font-size="moduleFileName"
       text-anchor="end"
       dominant-baseline="hanging">
       <tspan
@@ -41,7 +41,7 @@
         fill-opacity=".67">{{ patchNumber }}.
       </tspan>
       <tspan
-        :dx="moduleS * .1"
+        :dx="moduleSD"
         fill-opacity=".6"
         :style="{
           fill: error ? 'red' : null
@@ -53,7 +53,7 @@
       <!-- patch name  -->
       <text
         :transform="`translate(${[w - margin, margin]})`"
-        :font-size="moduleS * .7"
+        :font-size="modulePatchName"
         text-anchor="end"
         class="x-text-large"
         dominant-baseline="hanging">{{ patch?.modules?.length ? patch.name : '&lt;empty patch&gt;' }}
@@ -65,8 +65,8 @@
         :key="pageIndex"
         :transform="`translate(${pagePos(pageIndex)})`">
         <text
-          :dy="-margin / 4"
-          :font-size="margin / 2"
+          :dy="-marginHH"
+          :font-size="marginH"
           :fill-opacity="page.index === -1 ? .3 : .67"
           alignment-baseline="baseline">
           <template v-if="page.index > -1">{{ page.index }}. {{ page.name }}</template>
@@ -129,8 +129,8 @@
               v-else-if="(zg.type === JackType.Button) && zg.module"
               :stroke-width="px"
               :fill="dark ? zg.colors.dark : zg.colors.light"
-              rx="2"
-              ry="2"
+              :rx="moduleER"
+              :ry="moduleER"
               :width="moduleE"
               :height="moduleE"
               :y="0"
@@ -140,7 +140,7 @@
               :type="zg.type"
               :input="zg.input"
               :position="gridPosEuro(zg)"
-              :location="zg.x === 11 ? 2 : 0"
+              :location="zg.side || 0"
               :active="zg.active"
               :px="px"
               :dark="dark"
@@ -276,13 +276,11 @@
         v-if="cursorBlock && (selectedModule || showCursorBlock)"
         id="highlighted-block"
         :fill="dark ? 'rgba(255,255,255,.18)' : 'rgba(0,0,0,.12)'"
-        :x="-moduleMHH"
-        :rx="cursorBlockEuro ? 3 : 7"
-        :ry="cursorBlockEuro ? 3 : 7"
-        :y="-moduleMHH"
+        :rx="cursorBlockEuro ? ((selectedModule?.type > 1 ||selectedModule?.starred || selectedModule?.cpu) ? moduleEH :moduleER) : moduleR"
+        :ry="cursorBlockEuro ? ((selectedModule?.type > 1 ||selectedModule?.starred || selectedModule?.cpu) ? moduleEH :moduleER) : moduleR"
         :style="`transform: translate3d(${cursorBlockPos[0]}px,${cursorBlockPos[1]}px, 0px);`"
-        :width="(cursorBlockEuro ? moduleE : moduleS) + moduleMH"
-        :height="(cursorBlockEuro ? moduleE : moduleS) + moduleMH" />
+        :width="(cursorBlockEuro ? moduleE : moduleS)"
+        :height="(cursorBlockEuro ? moduleE : moduleS)" />
 
       <!-- connections -->
       <g
@@ -459,6 +457,10 @@ export default {
       type: Number,
       default: 6
     },
+    moduleER: {
+      type: Number,
+      default: 2
+    },
     moduleM: {
       type: Number,
       default: 4
@@ -514,6 +516,9 @@ export default {
     scrollY: window.scrollY,
     pendingScroll: false,
     pendingMove: false,
+    observer: null,
+    tipWidth: 0,
+    tipHeight: 0
   }),
   computed: {
     JackType () {
@@ -568,6 +573,21 @@ export default {
     },
     moduleEHH () {
       return this.moduleE / 4
+    },
+    moduleSD () {
+      return this.moduleS / 10
+    },
+    moduleFileName () {
+      return this.moduleS * .4
+    },
+    modulePatchName () {
+      return this.moduleS * .7
+    },
+    marginH () {
+      return this.margin / 2
+    },
+    marginHH () {
+      return this.margin / 4
     },
     scale () {
       return window.innerWidth / this.w
@@ -653,8 +673,6 @@ export default {
         return null
       }
 
-      const tt = this.$refs.tooltip.$el.getBoundingClientRect()
-
       const [blockX, blockY] = this.gridPosOrEuro(this.cursorBlock)
       const z = this.euroOrIo(this.cursorBlock)
 
@@ -667,8 +685,8 @@ export default {
         },
         // this.tooltipWidth / this.scale,
         // this.tooltipHeight / this.scale,
-        tt.width / this.scale,
-        tt.height / this.scale,
+        this.tipWidth.width / this.scale,
+        this.tipHeight / this.scale,
         this.w,
         this.h,
         this.scale,
@@ -705,8 +723,17 @@ export default {
     }
   },
   mounted () {
-    // this.onMouseMove = debounce(this.onMouseMoveInternal, 0)
     window.addEventListener('scroll', this.onScroll)
+
+    this.observer = new ResizeObserver((entries) => {
+      this.tipWidth = entries[0].contentRect.width
+      this.tipHeight = entries[0].contentRect.height
+    })
+
+    this.observer.observe(this.$refs.tooltip.$el)
+  },
+  beforeUnmount () {
+    this.observer.unobserve(this.$refs.tooltip.$el)
   },
   unmounted () {
     window.removeEventListener('scroll', this.onScroll)
@@ -897,7 +924,7 @@ export default {
           this.pendingMove = false
           const cursor = this.getEventPosition(event)
           const cursorBlock = cursor ? this.svgToGrid(...cursor) : null
-          // this.cursor = cursor
+          this.cursor = cursor
 
           if (!equals(cursorBlock, this.cursorBlock)) {
             this.cursorBlock = cursorBlock

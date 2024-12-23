@@ -65,6 +65,7 @@ export interface JackModule {
 export interface Jack {
   id: string
   input?: boolean
+  side?: JackLocation.Side
   euro?: boolean
   type: JackType
   text?: string

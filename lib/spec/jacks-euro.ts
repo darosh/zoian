@@ -1,4 +1,4 @@
-import { type Jack, JackType } from './types.ts'
+import { type Jack, JackLocation, JackType } from './types.ts'
 
 export const JACKS_EURO: Jack[] = [
   {
@@ -7,6 +7,7 @@ export const JACKS_EURO: Jack[] = [
     text: 'L',
     title: 'Audio In L',
     input: true,
+    side: JackLocation.Side,
     modules: [{
       id: 1,
       block: 'output_L',
@@ -18,6 +19,7 @@ export const JACKS_EURO: Jack[] = [
     text: 'R',
     title: 'Audio In R',
     input: true,
+    side: JackLocation.Side,
     modules: [{
       id: 1,
       block: 'output_R',
@@ -28,6 +30,7 @@ export const JACKS_EURO: Jack[] = [
     type: JackType.Audio,
     text: 'L',
     title: 'Audio Out L',
+    side: JackLocation.Side,
     modules: [{
       id: 2,
       block: 'input_L',
@@ -38,6 +41,7 @@ export const JACKS_EURO: Jack[] = [
     type: JackType.Audio,
     text: 'R',
     title: 'Audio Out R',
+    side: JackLocation.Side,
     modules: [{
       id: 2,
       block: 'input_R',
@@ -48,6 +52,7 @@ export const JACKS_EURO: Jack[] = [
     type: JackType.Headphones,
     text: 'H',
     title: 'Headphones',
+    side: JackLocation.Side,
     modules: [2, 95, 96],
   },
   {
@@ -55,6 +60,7 @@ export const JACKS_EURO: Jack[] = [
     type: JackType.Midi,
     title: 'Midi In',
     input: true,
+    side: JackLocation.Side,
     modules: [20, 21, 35, 82, 86],
   },
   {
@@ -121,6 +127,7 @@ export const JACKS_EURO: Jack[] = [
     id: 'eu-midi-out',
     title: 'Midi Out',
     type: JackType.Midi,
+    side: JackLocation.Side,
     modules: [60, 61, 62, 84],
   },
 ]

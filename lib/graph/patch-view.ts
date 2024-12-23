@@ -58,6 +58,6 @@ export function patchView(patch: Patch): PatchView {
     patch,
     modules,
     connections,
-    orphanConnections
+    orphanConnections,
   }
 }

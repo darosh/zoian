@@ -5,7 +5,7 @@ import { patchView } from '../graph/patch-view.ts'
 
 const log = debug('zoian:test')
 
-Deno.test.ignore('views', async () => {
+Deno.test.ignore('views', () => {
   for (const patch of patches) {
     const view = patchView(patch)
 

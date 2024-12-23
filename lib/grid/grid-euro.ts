@@ -35,7 +35,7 @@ export function getEuroGrid(view: PatchView): PosJack[] {
 
       o = {
         type: JackType.Button,
-        module: moduleView.module,
+        module: moduleView?.module,
       }
 
       if (o.module) {

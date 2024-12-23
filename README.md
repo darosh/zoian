@@ -71,6 +71,8 @@ Rename the build [./dist](./dist) folder to [./docs](./docs) and push to repo.
 
 - both /lib and /src app are using [debug](https://www.npmjs.com/package/debug) package, the log can be turned on with ```localStorage.debug='*'```
 - disable app context menu (to restore native one) with ```localStorage.menu = false```
+- color mixing: http://localhost:3000/#/test-colors
+- display test of module name abbreviations: http://localhost:3000/#/test-display
 
 ## Licence
 

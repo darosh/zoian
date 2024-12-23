@@ -2,14 +2,12 @@
 
 ## Bugs
 
-- [ ] adjust green color
 - [ ] 050 airport wind patch corrupted page names?
 
 ## Improvements
 
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [ ] consolidate block condition types
-- [ ] consolidate colors
 
 ## Doc
 
@@ -47,6 +45,8 @@
 
 ## Done
 
+- [x] consolidate colors
+- [x] adjust green color
 - [x] check hardcoded svg constants
 - [x] translate3d() ~~move connection to separate svg + try canvasg~~
 - [x] rename zebu to euro

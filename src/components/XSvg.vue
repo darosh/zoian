@@ -245,7 +245,7 @@
             :transform="`translate(${gridPos(sg)}) translate(${sg.last ? (sg.x > 0) * -moduleMH : 0},0)`" />
           <!-- block label -->
           <text
-            v-if="true"
+            v-if="sg.blockView.from.length || sg.blockView.to.length"
             :dy="moduleS - moduleMH"
             :dx="moduleSH"
             :fill-opacity="dark ? .87 : .6"
@@ -773,18 +773,20 @@ export default {
   watch: {
     patch () {
       this.cursor = null
+      this.cursorBlock = null
+      this.connectedBlock = null
     },
     selectedModule (newVal, oldVal) {
       this.transitionTooltip = newVal && oldVal
       log('selected block', toRaw(newVal))
 
       if (!newVal || newVal.cpu || newVal.starred) {
-        // this.connectedBlock = []
+        // this.connectedBlock = null
         return
       }
 
       if (!newVal.blockView && !newVal.jackView) {
-        this.connectedBlock = []
+        this.connectedBlock = null
         console.log('missing block view', newVal)
         return
       }

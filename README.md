@@ -73,8 +73,12 @@ Rename the build [./dist](./dist) folder to [./docs](./docs) and push to repo.
 
 - both /lib and /src app are using [debug](https://www.npmjs.com/package/debug) package, the log can be turned on with ```localStorage.debug='*'```
 - disable app context menu (to restore native one) with ```localStorage.menu = false```
-- color mixing: http://localhost:3000/#/test-colors
-- display test of module name abbreviations: http://localhost:3000/#/test-display
+- color mixing: 
+  - [localhost:3000/#/test-colors](http://localhost:3000/#/test-colors) 
+  - or [darosh.github.io/zoian/#/test-colors](https://darosh.github.io/zoian/#/test-colors)
+- display test of module name abbreviations: 
+  - [localhost:3000/#/test-display](http://localhost:3000/#/test-display) 
+  - or [darosh.github.io/zoian/#/test-display](https://darosh.github.io/zoian/#/test-display)
 
 ## Licence
 

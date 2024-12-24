@@ -9,6 +9,7 @@
 
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [ ] consolidate block condition types
+- [ ] hide patch during loading
 
 ## Doc
 
@@ -17,23 +18,18 @@
 - [ ] og:image
 - [ ] test pages
 
-## Ref 
-
-- [ ] migrate to model/view
-
 ## Features
 
 - [ ] mouse over connections
-- [ ] embed view?
 - [ ] connection shape
 - [ ] out vs in block
 - [ ] modules info page?
 - [ ] starred connection
 - [ ] sticky connections
-- [ ] hide unused block labels
 - [ ] audio vs cv vs midi vs star connection
 - [ ] connection count?
 - [ ] offline support
+- [ ] embed view?
 
 ## Testing
 
@@ -44,6 +40,8 @@
 
 ## Done
 
+- [x] migrate to model/view
+- [x] hide unused block labels
 - [x] add chrome note
 - [x] consolidate colors
 - [x] adjust green color

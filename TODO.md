@@ -12,6 +12,10 @@
 - [ ] hide patch during loading
 - [ ] connect HP jack to module
 
+## Ref
+
+- [ ] connection v-keys
+
 ## Doc
 
 - [ ] doc banner

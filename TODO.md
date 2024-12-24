@@ -30,6 +30,7 @@
 - [ ] audio vs cv vs midi vs star connection
 - [ ] connection count?
 - [ ] offline support
+- [ ] disconnected modules list?
 - [ ] embed view?
 
 ## Testing

@@ -8,17 +8,18 @@ import type { PatchView } from '../graph/types.ts'
 
 const log = debug('zoian:grid')
 
-export function getPagesGrid(view: PatchView): (PosBlock | undefined)[] {
+export function getPagesGrid(view: PatchView): [(PosBlock | undefined)[], PosBlock[]] {
   const map: (PosBlock | undefined)[] = Array.from({ length: view.patch.pages.length * G })
+  const hidden: PosBlock[] = []
 
   log('pages', view.patch.pages.length)
   log('grid size', map.length)
 
-  for (const moduleView of view.modules) {
+  for (const moduleView of view.moduleViews) {
     const startPage = moduleView.module.page * G
     const startPosition = moduleView.module.position[0]
 
-    const blocks = moduleView.blocks
+    const blocks = moduleView.blockViews
     const offsetPage = view.patch.euro ? 1 : 0
 
     for (const blockView of blocks) {
@@ -32,10 +33,12 @@ export function getPagesGrid(view: PatchView): (PosBlock | undefined)[] {
 
       const first = position === moduleView.module.position[0]
 
-      map[startPage + position + offsetPage * G] = {
-        position,
+      const pos: PosBlock = {
+        pos: 'block',
+        page: moduleView.module.page + offsetPage,
         x,
         y,
+        position,
         first,
         last: position === moduleView.module.position.at(-1),
         module: moduleView.module,
@@ -43,9 +46,16 @@ export function getPagesGrid(view: PatchView): (PosBlock | undefined)[] {
         block: blockView.block,
         blockName: blockView.name,
         blockView: blockView,
-        page: moduleView.module.page + offsetPage,
         colors: BLOCK_COLORS[moduleView.module.color],
       }
+
+      const order = startPage + position + offsetPage * G
+
+      if (map[order]) {
+        hidden.push(map[order])
+      }
+
+      map[order] = pos
     }
   }
 
@@ -81,5 +91,5 @@ export function getPagesGrid(view: PatchView): (PosBlock | undefined)[] {
 
   log('final grid size', map.length)
 
-  return map
+  return [map, hidden]
 }

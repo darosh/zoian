@@ -251,6 +251,7 @@ import { downloadUint8Array } from '@/utils/array-download.js'
 import { LENGTH, parse } from '../../lib/index.ts'
 
 import XSvg from '@/components/XSvg.vue'
+// import { SIMPLE_PATCH } from '../../lib/tests/fixtures/simple-patch.ts'
 
 const log = debug('zoian:app')
 
@@ -366,6 +367,7 @@ export default {
     } else {
       const factory = this.$route.query.factory
       this.patch = this.patches[factory ? parseInt(factory, 10) : 0]
+      // this.patch = SIMPLE_PATCH
     }
 
     this.loading = false

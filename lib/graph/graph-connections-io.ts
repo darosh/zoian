@@ -6,19 +6,7 @@ import type { IoConnection, ModuleView } from './types.ts'
 
 const log = debug('zoian:io')
 
-export function graphIoConnections(JACKS: Jack[], viewModules: ModuleView[]): IoConnection[] {
-  const connections: IoConnection[] = []
-
-  for (const jack of JACKS) {
-    log('jack %o', jack)
-
-    connections.push(...graphJackConnections(jack, viewModules))
-  }
-
-  return connections
-}
-
-function graphJackConnections(jack: Jack, viewModules: ModuleView[]): IoConnection[] {
+export function graphJackConnections(jack: Jack, viewModules: ModuleView[]): IoConnection[] {
   const jackPoint: [string] = [jack.id]
   const connections: IoConnection[] = []
 

@@ -1,28 +1,22 @@
 import debug from 'npm:debug'
 
-import { patches } from '../../patches/patches.ts'
 import { patchView } from '../graph/patch-view.ts'
 import { EMPTY_PATCH } from './fixtures/empty-patch.ts'
 import { SIMPLE_PATCH } from './fixtures/simple-patch.ts'
+import { gridView } from '../grid/grid-view.ts'
 
 const log = debug('zoian:test')
 
-Deno.test.ignore('views', () => {
-  for (const patch of patches) {
-    const view = patchView(patch)
-
-    log('view %O', view)
-
-    break
-  }
-})
-
 Deno.test.ignore('empty', () => {
   const view = patchView(EMPTY_PATCH)
-  log('view %O', view)
+  const grid = gridView(view)
+
+  log('view %O', grid)
 })
 
-Deno.test.ignore('simple', () => {
+Deno.test('simple', () => {
   const view = patchView(SIMPLE_PATCH)
-  log('view %O', view)
+  const grid = gridView(view)
+
+  log('view %O', grid)
 })

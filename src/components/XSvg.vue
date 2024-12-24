@@ -76,18 +76,17 @@
 
       <!-- io -->
       <template
-        v-for="(iog, iogIndex) of ioGrid"
+        v-for="(iog, iogIndex) of patch?.modules?.length ? ioGrid : []"
         :key="iogIndex">
         <x-svg-symbol
-          v-if="patch?.modules?.length"
-          :type="iog.type"
-          :text="iog?.text?.[0]"
+          :type="iog.jackView.spec.type"
+          :text="iog?.jackView.spec?.text?.[0]"
           :location="0"
-          :input="iog.input"
+          :input="iog.jackView.spec.input"
           :px="px"
           :dark="dark"
           :size="moduleE"
-          :active="iog.active"
+          :active="iog.jackView.jack.active"
           :position="gridPosOrEuro(iog)" />
       </template>
 
@@ -119,14 +118,14 @@
           :key="zgIndex">
           <template v-if="zg">
             <circle
-              v-if="(zg.type === JackType.Button) && !zg.module"
+              v-if="(zg.type === JackType.Button) && !zg.blockView"
               fill="rgba(128,128,128,.3)"
               :cx="moduleEH"
               :cy="moduleEH"
               :r="moduleEHH"
               :transform="`translate(${gridPosEuro(zg)})`" />
             <rect
-              v-else-if="(zg.type === JackType.Button) && zg.module"
+              v-else-if="(zg.type === JackType.Button) && zg.blockView"
               :stroke-width="px"
               :fill="dark ? zg.colors.dark : zg.colors.light"
               :rx="moduleER"
@@ -138,14 +137,14 @@
             <x-svg-symbol
               v-else-if="zg.type"
               :type="zg.type"
-              :input="zg.input"
+              :input="zg.jackView.spec.input"
               :position="gridPosEuro(zg)"
-              :location="zg.side || 0"
-              :active="zg.active"
+              :location="zg.jackView.spec.side || 0"
+              :active="zg.jackView.jack.active"
               :px="px"
               :dark="dark"
               :size="moduleE"
-              :text="zg.text === 'H' ? 'HEADPHONES' : zg.text" />
+              :text="zg.jackView.spec.text === 'H' ? 'HEADPHONES' : zg.jackView.spec.text" />
           </template>
         </template>
       </template>
@@ -444,23 +443,31 @@
         </v-table>
       </div>
     </template>
-    <template v-else-if="selectedModule?.type >= JackType.Audio">
+    <template v-else-if="selectedModule?.jackView">
       <div
         class="px-4 py-2"
         style="min-width: 160px;">
-        <span class="g-bolder">{{ selectedModule.title }}</span>
-        <!--      <pre>{{ selectedModule }}</pre>-->
+        <span class="g-bolder">{{ selectedModule.jackView.spec.title }}</span>
+        <!--        <pre>{{ inspect(selectedModule.jackView) }}</pre>-->
+        <template v-if="selectedModule.jackView.to.length">
+          <br>Incoming: {{ selectedModule.jackView.to.length }}
+        </template>
+        <template v-if="selectedModule.jackView.from.length">
+          <br>Outgoing: {{ selectedModule.jackView.from.length }}
+        </template>
       </div>
     </template>
     <template v-else-if="selectedModule">
       <div
         class="px-4 py-2"
         style="min-width: 160px;">
-        <span class="g-bolder">{{ selectedModule.module.type }}</span><span
-          v-if="selectedModule.module.name">: {{ selectedModule.module.name }}</span>
+        <span class="g-bolder">{{ selectedModule.blockView.moduleView.module.type }}</span><span
+          v-if="selectedModule.blockView.moduleView.module.name">: {{
+          selectedModule.blockView.moduleView.module.name
+        }}</span>
         <br>
-        {{ selectedModule.blockName }}
-        <!--      <pre>{{ selectedModule.module }}</pre>-->
+        {{ selectedModule.blockView.name }}
+        <!--        <pre>{{ inspect(selectedModule) }}</pre>-->
       </div>
     </template>
   </v-card>
@@ -469,10 +476,20 @@
 import debug from 'debug'
 
 import { toRaw } from 'vue'
+import { equals } from 'rambdax'
+import { inspect } from 'util'
 import { svgRect } from '@/utils/svg-rect.js'
 import { getTooltipPosition } from '@/utils/tooltip.js'
-import { JackType, G, EURO_X, getPagePosition, patchView, gridView, getConnectedBlocks } from '../../lib/index.ts'
-import { equals } from 'rambdax'
+import {
+  JackType,
+  G,
+  EURO_X,
+  getPagePosition,
+  patchView,
+  gridView,
+  getConnectedPos,
+  getConnectedPosEuro
+} from '../../lib/index.ts'
 
 const log = debug('zoian:svg')
 
@@ -638,12 +655,6 @@ export default {
     scale () {
       return window.innerWidth / this.w
     },
-    pageWidth () {
-      return 7 * (this.moduleM + this.moduleS) + this.moduleS
-    },
-    pageHeight () {
-      return 4 * (this.moduleM + this.moduleS) + this.moduleS
-    },
     bounding () {
       return {
         left: 0,
@@ -695,15 +706,11 @@ export default {
       if (this.euroMode && page === 0) {
         const m = this.showEuro.find(z => z.x === x && z.y === y)
 
-        if (!m.module) {
-          if (m.type >= JackType.Audio) {
-            return m
-          }
-
-          return null
+        if (m.blockView || m.jackView) {
+          return m
         }
 
-        return m
+        return null
       } else if (page === -1) {
         return this.ioGrid[x] || null
       } else if (page === -2 && x === 1 && y === 0) {
@@ -733,8 +740,6 @@ export default {
           width: z ? this.moduleE : this.moduleS,
           height: z ? this.moduleE : this.moduleS
         },
-        // this.tooltipWidth / this.scale,
-        // this.tooltipHeight / this.scale,
         this.tipWidth.width / this.scale,
         this.tipHeight / this.scale,
         this.w,
@@ -745,21 +750,22 @@ export default {
 
       return { x: x * this.scale, y: y * this.scale }
     },
-    ioAndBlocksConnections () {
-      return [...this.view.pagesConnections, ...this.view.ioConnections]
-    },
-    euroConnections () {
-      return this.view.euroConnections
-    },
     connections () {
-      return (this.euroMode ? [...this.ioAndBlocksConnections, ...this.euroConnections] : this.ioAndBlocksConnections)
-        .map(({ source, target, connection }) => {
-          const sid = source.id || this.patch.modules[connection.source[0]]?.id
-          const did = target.id || this.patch.modules[connection.target[0]]?.id
+      return (this.euroMode ? this.view.connectionsEuro : this.view.connections)
+        .map(([source, target]) => {
+          const sh = this.euroOrIo(source) ? this.moduleEH : this.moduleSH
+          const th = this.euroOrIo(target) ? this.moduleEH : this.moduleSH
+          const from = this.gridPosOrEuro(source)
+          const to = this.gridPosOrEuro(target)
+
+          from[0] += sh
+          from[1] += sh
+          to[0] += th
+          to[1] += th
 
           return {
-            from: this.connectionPos(source, sid),
-            to: this.connectionPos(target, did)
+            from,
+            to
           }
         })
     }
@@ -773,24 +779,28 @@ export default {
       log('selected block', toRaw(newVal))
 
       if (!newVal || newVal.cpu || newVal.starred) {
+        // this.connectedBlock = []
         return
       }
 
-      if (!newVal.blockView) {
+      if (!newVal.blockView && !newVal.jackView) {
         this.connectedBlock = []
-        log('missing block view')
+        console.log('missing block view', newVal)
+        return
       }
 
-      const connectedBlock = getConnectedBlocks(newVal.blockView)
-      const connectedGrid = connectedBlock
-        .map(bv => this.view.blockMap.get(bv))
-        .filter(x => x)
+      const connectedPos = this.euroMode
+        ? getConnectedPosEuro(newVal.blockView || newVal.jackView, this.view.blockMap)
+        : getConnectedPos(newVal.blockView || newVal.jackView, this.view.blockMap)
+
+      const connectedGrid = connectedPos
         .map(g => ({
           pos: this.gridPosOrEuro(g),
           euroOrIo: this.euroOrIo(g)
         }))
 
-      log('connected blocks', toRaw(connectedBlock), toRaw(connectedGrid))
+      log('connected pos', toRaw(connectedPos))
+      log('connected grids', toRaw(connectedGrid))
 
       this.connectedBlock = connectedGrid
     }
@@ -812,31 +822,8 @@ export default {
     window.removeEventListener('scroll', this.onScroll)
   },
   methods: {
+    inspect: inspect,
     rectPath: svgRect,
-    connectionPos (point, id) {
-      if (this.patch.euro && !point.io) {
-        point = { ...point }
-        point.page++
-      }
-
-      let zFrom
-      let fs = this.moduleSH
-
-      if (this.euroMode && !point.page) {
-        id = id || point.id
-        const g = this.showEuro.find(g => (g?.module?.id === id) || (g?.id === id))
-        zFrom = this.gridPosEuro(g)
-        fs = this.moduleEH
-      }
-
-      if (point.page === -1) {
-        fs = this.moduleEH
-      }
-
-      const from = zFrom || (this.gridPosOrEuro(point))
-
-      return [from[0] + fs, from[1] + fs]
-    },
     pagePos (pageIndex) {
       // IO
       if (pageIndex === -1) {

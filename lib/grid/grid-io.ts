@@ -1,20 +1,14 @@
-import { JACKS_IO } from '../spec/jacks-io.ts'
 import type { PosIo } from './types.ts'
-import { getActive } from './active-jack.ts'
-import type { PatchView } from '../graph/types.ts'
+import type { JackView, PatchView } from '../graph/types.ts'
 
 export function getIoGrid(patchView: PatchView): PosIo[] {
-  return JACKS_IO.map((j, x) => {
+  return patchView.ioJackViews.map((jackView: JackView, x) => {
     return {
-      ...j,
-      active: getActive(j, patchView.modules),
+      pos: 'io',
       page: -1,
       x,
       y: 0,
-      blockView: {
-        from: [],
-        to: [],
-      },
+      jackView,
     }
   })
 }

@@ -1,21 +1,5 @@
 import type { Connection, Patch, PatchModule } from '../parser/types.ts'
-import type { PosGrid } from '../grid/types.ts'
 import type { Block, Jack, ModuleSpec } from '../spec/types.ts'
-
-export type ModulePoint = [mod: number, blo?: number]
-
-export type JackPoint = [jack: string]
-
-export interface IoConnection {
-  source: ModulePoint | JackPoint
-  target: ModulePoint | JackPoint
-}
-
-export interface ConnectionPos {
-  connection: Connection
-  source: PosGrid
-  target: PosGrid
-}
 
 export interface CpuRow {
   id: number
@@ -33,19 +17,26 @@ export interface StarredRow {
   blockEntry: [string, Block]
 }
 
+export type ModulePoint = [mod: number, blo?: number]
+
+export type JackPoint = [jack: string]
+
+export interface IoConnection {
+  source: ModulePoint | JackPoint
+  target: ModulePoint | JackPoint
+}
+
 export interface ConnectionView {
-  connection: Connection
-  fromModule: ModuleView
-  fromBlock?: BlockView
-  toModule: ModuleView
-  toBlock?: BlockView
+  connection: Connection | IoConnection
+  fromBlock?: BlockView | JackView
+  toBlock?: BlockView | JackView
 }
 
 export interface BlockView {
   name: string
   index: number
   block: Block
-  module: ModuleView
+  moduleView: ModuleView
   from: ConnectionView[]
   to: ConnectionView[]
 }
@@ -55,11 +46,14 @@ export interface ModuleView {
   spec: ModuleSpec
   from: ConnectionView[]
   to: ConnectionView[]
-  blocks: BlockView[]
+  blockViews: BlockView[]
 }
 
 export interface PatchJack {
   active: boolean
+  id: string
+  io?: boolean
+  euro?: boolean
 }
 
 export interface JackView {
@@ -67,13 +61,13 @@ export interface JackView {
   spec: Jack
   from: ConnectionView[]
   to: ConnectionView[]
-  blocks: BlockView[]
 }
 
 export interface PatchView {
   patch: Patch
-  modules: ModuleView[]
-  ios: JackView[]
+  moduleViews: ModuleView[]
+  blockViews: BlockView[]
+  ioJackViews: JackView[]
   connections: ConnectionView[]
   orphanConnections: ConnectionView[]
   cpuTable: CpuRow[]

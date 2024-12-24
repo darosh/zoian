@@ -1,10 +1,15 @@
+import debug from 'debug'
+
 import { type Jack, JackType } from '../spec/types.ts'
 import { JACKS_EURO } from '../spec/jacks-euro.ts'
 import { EURO_X } from '../spec/const.ts'
-import type { PosJack } from './types.ts'
-import { getActive } from './active-jack.ts'
+import type { PosEuro } from './types.ts'
 import { BLOCK_COLORS } from './rgb-colors.ts'
-import type { BlockView, ModuleView, PatchView } from '../graph/types.ts'
+import type { JackView, ModuleView, PatchView } from '../graph/types.ts'
+import { graphJackConnections } from '../graph/graph-connections-io.ts'
+import { linkJack } from './link-jack.ts'
+
+const log = debug('zoian:euro')
 
 // deno-fmt-ignore
 const EURO = [
@@ -19,43 +24,78 @@ const EURO = [
   0, JACKS_EURO[14], // 7
 ]
 
-export function getEuroGrid(view: PatchView): PosJack[] {
-  return EURO.map((v, index) => {
-    const x = index % EURO_X
-    const y = (index - x) / EURO_X
+export function getEuroGrid(view: PatchView): PosEuro[] {
+  const pos = EURO
+    .map((v, index) => mapEuro(v, index, view))
 
-    let o
+  // for (const p of pos) {
+  //   if (pos.)
+  // }
 
-    if (v === 0) {
-      o = { type: JackType.Blank }
-    } else if (v === 1) {
-      o = { type: JackType.Button }
-    } else if (<number> v > 1) {
-      const moduleView = <ModuleView> view.modules.find((d) => d.module.id === v)
+  return pos
+}
 
-      o = {
-        type: JackType.Button,
-        module: moduleView?.module,
-        blockView: moduleView?.blocks?.[0],
-        colors: moduleView?.module?.color ? BLOCK_COLORS[moduleView?.module?.color] : undefined,
-      }
-    } else {
-      o = {
-        ...<Jack> v,
-        active: getActive(<Jack> v, view.modules),
-        blockView: <BlockView> <never> {
-          from: [],
-          to: [],
-        },
-      }
-    }
+function mapEuro(v: number | Jack, index: number, { moduleViews, blockViews }: PatchView): PosEuro {
+  const x = index % EURO_X
+  const y = (index - x) / EURO_X
 
+  if (v === 0) {
     return {
-      ...o,
-      index,
+      pos: 'euro',
       page: 0,
       x,
       y,
+      index,
+      type: JackType.Blank,
     }
-  })
+  } else if (v === 1) {
+    return {
+      pos: 'euro',
+      page: 0,
+      x,
+      y,
+      index,
+      type: JackType.Button,
+    }
+  } else if (<number> v > 1) {
+    const moduleView = <ModuleView> moduleViews.find((d) => d.module.id === v)
+
+    return {
+      pos: 'euro',
+      page: 0,
+      x,
+      y,
+      index,
+      type: JackType.Button,
+      blockView: moduleView?.blockViews?.[0],
+      colors: moduleView?.module?.color ? BLOCK_COLORS[moduleView?.module?.color] : undefined,
+    }
+  } else {
+    const connections = graphJackConnections(<Jack> v, moduleViews)
+
+    log('connections', connections)
+
+    const o: PosEuro = {
+      pos: 'euro',
+      page: 0,
+      x,
+      y,
+      index,
+      type: (<Jack> v).type,
+      jackView: {
+        spec: <Jack> v,
+        jack: {
+          id: (<Jack> v).id,
+          euro: true,
+          active: connections.length > 0,
+        },
+        to: [],
+        from: [],
+      },
+    }
+
+    linkJack(connections, <JackView> o.jackView, blockViews)
+
+    return o
+  }
 }

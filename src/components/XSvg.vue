@@ -327,6 +327,17 @@
           stroke-width="px"
           class="x-connection" />
       </g>
+
+      <rect
+        v-for="(cb, i) of (connectedBlock || [])"
+        :key="i"
+        fill="none"
+        :stroke="dark ? 'rgba(255,255,255,.8)' : 'rgba(0,0,0,.8)'"
+        :stroke-width="moduleMH"
+        :width="cb.euroOrIo ? moduleE : moduleS"
+        :height="cb.euroOrIo ? moduleE : moduleS"
+        :transform="`translate(${cb.pos})`" />
+
     </template>
 
     <!-- cursor helper -->
@@ -457,9 +468,10 @@
 <script lang="js">
 import debug from 'debug'
 
+import { toRaw } from 'vue'
 import { svgRect } from '@/utils/svg-rect.js'
 import { getTooltipPosition } from '@/utils/tooltip.js'
-import { JackType, G, EURO_X, getPagePosition, patchView, gridView } from '../../lib/index.ts'
+import { JackType, G, EURO_X, getPagePosition, patchView, gridView, getConnectedBlocks } from '../../lib/index.ts'
 import { equals } from 'rambdax'
 
 const log = debug('zoian:svg')
@@ -551,7 +563,8 @@ export default {
     pendingMove: false,
     observer: null,
     tipWidth: 0,
-    tipHeight: 0
+    tipHeight: 0,
+    connectedBlock: null
   }),
   computed: {
     JackType () {
@@ -643,7 +656,11 @@ export default {
       return this.euro && this?.patch?.euro
     },
     view () {
-      return gridView(patchView(this.patch))
+      const view = gridView(patchView(this.patch))
+
+      log('view', toRaw(view))
+
+      return view
     },
     showGrid () {
       return !this.euroMode
@@ -753,7 +770,29 @@ export default {
     },
     selectedModule (newVal, oldVal) {
       this.transitionTooltip = newVal && oldVal
-      log('selected module', newVal)
+      log('selected block', toRaw(newVal))
+
+      if (!newVal || newVal.cpu || newVal.starred) {
+        return
+      }
+
+      if (!newVal.blockView) {
+        this.connectedBlock = []
+        log('missing block view')
+      }
+
+      const connectedBlock = getConnectedBlocks(newVal.blockView)
+      const connectedGrid = connectedBlock
+        .map(bv => this.view.blockMap.get(bv))
+        .filter(x => x)
+        .map(g => ({
+          pos: this.gridPosOrEuro(g),
+          euroOrIo: this.euroOrIo(g)
+        }))
+
+      log('connected blocks', toRaw(connectedBlock), toRaw(connectedGrid))
+
+      this.connectedBlock = connectedGrid
     }
   },
   mounted () {

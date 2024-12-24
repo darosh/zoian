@@ -39,8 +39,10 @@ export function getPagesGrid(view: PatchView): (PosBlock | undefined)[] {
         first,
         last: position === moduleView.module.position.at(-1),
         module: moduleView.module,
+        moduleView: moduleView,
         block: blockView.block,
         blockName: blockView.name,
+        blockView: blockView,
         page: moduleView.module.page + offsetPage,
         colors: BLOCK_COLORS[moduleView.module.color],
       }

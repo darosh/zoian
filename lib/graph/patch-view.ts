@@ -1,5 +1,5 @@
 import type { Patch } from '../parser/types.ts'
-import type { ConnectionView, ModuleView, PatchView } from './types.ts'
+import type { BlockView, ConnectionView, JackView, ModuleView, PatchView } from './types.ts'
 import { MODULES } from '../spec/modules.ts'
 import { blockEntries } from '../parser/utils/block-entries.ts'
 import { getCpuTable } from './cpu-table.ts'
@@ -10,21 +10,28 @@ export function patchView(patch: Patch): PatchView {
   const orphanConnections: ConnectionView[] = []
 
   const modules: ModuleView[] = patch.modules.map((module) => {
-    return {
+    const moduleView: Record<string, unknown> = {
       module,
       spec: MODULES[module.id],
       from: <ConnectionView[]> [],
       to: <ConnectionView[]> [],
-      blocks: blockEntries(module.blocks).map(([name, block], index) => {
+      blocks: <BlockView[]> [],
+    }
+
+    moduleView.blocks = blockEntries(module.blocks)
+      .map(([name, block], index) => {
         return {
+          module,
           name,
           index,
+          moduleView,
           block,
           from: [],
           to: [],
         }
-      }),
-    }
+      })
+
+    return <ModuleView> <unknown> moduleView
   })
 
   for (const connection of patch.connections) {
@@ -56,9 +63,23 @@ export function patchView(patch: Patch): PatchView {
       orphanConnections.push(cv)
     }
   }
+
+  const ios: JackView[] = []
+
+  // for (const j of JACKS_IO) {
+  //   const cons = getJackConnections(j, modules)
+  //
+  //   const jv: JackView = {
+  //     spec: j,
+  //   }
+  //
+  //   ios.push(jv)
+  // }
+
   return {
     patch,
     modules,
+    ios,
     connections,
     orphanConnections,
     cpuTable: getCpuTable(patch),

@@ -7,28 +7,49 @@ import { getEuroGrid } from './grid-euro.ts'
 import { getIoGrid } from './grid-io.ts'
 import { getPagesConnections } from './connections-pages.ts'
 import { getEuroConnections } from './connections-euro.ts'
-import { getIoConnections } from './connections.-io.ts'
+import { getIoConnections } from './connections.io.ts'
 
 const log = debug('zoian:grid:view')
 
-export function gridView(patchView: PatchView): GridView {
+export function gridView(view: PatchView): GridView {
   log('gridView()')
 
-  const pagesGrid = getPagesGrid(patchView)
-  const euroGrid = getEuroGrid(patchView)
-  const ioGrid = getIoGrid(patchView)
+  const pagesGrid = getPagesGrid(view)
+  const euroGrid = getEuroGrid(view)
+  const ioGrid = getIoGrid(view)
 
-  const pagesConnections = getPagesConnections(patchView.patch)
-  const euroConnections = getEuroConnections(patchView.patch, euroGrid)
-  const ioConnections = getIoConnections(patchView.patch)
+  const pagesConnections = getPagesConnections(view.patch)
+  const euroConnections = getEuroConnections(view, euroGrid)
+  const ioConnections = getIoConnections(view)
+
+  const blockMap = new Map()
+
+  for (const pos of pagesGrid) {
+    if (pos?.blockView) {
+      blockMap.set(pos?.blockView, pos)
+    }
+  }
+
+  for (const pos of euroGrid) {
+    if (pos?.blockView) {
+      blockMap.set(pos?.blockView, pos)
+    }
+  }
+
+  for (const pos of ioGrid) {
+    if (pos?.blockView) {
+      blockMap.set(pos?.blockView, pos)
+    }
+  }
 
   return {
-    patchView,
+    patchView: view,
     pagesGrid,
     euroGrid,
     ioGrid,
     pagesConnections,
     euroConnections,
     ioConnections,
+    blockMap,
   }
 }

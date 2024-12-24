@@ -1,6 +1,6 @@
 import type { Connection, Patch, PatchModule } from '../parser/types.ts'
 import type { PosGrid } from '../grid/types.ts'
-import type { Block, ModuleSpec } from '../spec/types.ts'
+import type { Block, Jack, ModuleSpec } from '../spec/types.ts'
 
 export type ModulePoint = [mod: number, blo?: number]
 
@@ -45,6 +45,7 @@ export interface BlockView {
   name: string
   index: number
   block: Block
+  module: ModuleView
   from: ConnectionView[]
   to: ConnectionView[]
 }
@@ -57,9 +58,22 @@ export interface ModuleView {
   blocks: BlockView[]
 }
 
+export interface PatchJack {
+  active: boolean
+}
+
+export interface JackView {
+  jack: PatchJack
+  spec: Jack
+  from: ConnectionView[]
+  to: ConnectionView[]
+  blocks: BlockView[]
+}
+
 export interface PatchView {
   patch: Patch
   modules: ModuleView[]
+  ios: JackView[]
   connections: ConnectionView[]
   orphanConnections: ConnectionView[]
   cpuTable: CpuRow[]

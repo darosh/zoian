@@ -10,6 +10,7 @@
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [ ] consolidate block condition types
 - [ ] hide patch during loading
+- [ ] round io hover highlight
 
 ## Ref
 

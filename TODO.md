@@ -10,6 +10,7 @@
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [ ] consolidate block condition types
 - [ ] trim module names
+- [ ] hidden connected blocks count / list
 
 ## Ref
 

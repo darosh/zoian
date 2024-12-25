@@ -38,6 +38,7 @@
 - [ ] disconnected modules list?
 - [ ] embed view?
 - [ ] highlight starred error
+- [ ] list MIDI channels
 
 ## Testing
 

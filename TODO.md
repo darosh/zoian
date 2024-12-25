@@ -45,6 +45,7 @@
 - [ ] add connection and starred validation to tests
 - [ ] make test patch with all modules
 - [ ] check corrupted names and starred items 105255.bin
+- [ ] check memleaks
 
 ## Bugs
 

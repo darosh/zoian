@@ -354,6 +354,8 @@
         fill="none"
         :stroke="dark ? 'rgba(255,255,255,.8)' : 'rgba(0,0,0,.8)'"
         :stroke-width="moduleMH"
+        :rx="(cb.type && (cb.type !== JackType.Stomp)) ? moduleEH : null"
+        :ry="(cb.type && (cb.type !== JackType.Stomp)) ? moduleEH : null"
         :width="cb.euroOrIo ? moduleE : moduleS"
         :height="cb.euroOrIo ? moduleE : moduleS"
         :transform="`translate(${cb.pos})`" />
@@ -871,6 +873,7 @@ export default {
       const connectedGrid = connectedPos
         .map(g => ({
           pos: this.gridPosOrEuro(g),
+          type: g?.jackView?.spec?.type,
           euroOrIo: this.euroOrIo(g)
         }))
 

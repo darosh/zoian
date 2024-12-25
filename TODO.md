@@ -9,8 +9,6 @@
 
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [ ] consolidate block condition types
-- [ ] hide patch during loading
-- [ ] round connected highlights
 
 ## Ref
 
@@ -47,6 +45,8 @@
 
 ## Done
 
+- [x] hide patch during loading
+- [x] round connected highlights
 - [x] highlight starred error
 - [x] round io hover highlight
 - [x] ~revert~ smaller patch num shift

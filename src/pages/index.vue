@@ -22,7 +22,10 @@
       accept=".bin">
     <x-svg
       ref="svg"
-      :style="{ opacity: isDragging || isDraggingInfo ? .06 : null }"
+      :style="{
+        opacity: isDragging || isDraggingInfo ? .06 : null,
+        visibility: loadingDrop ? 'hidden' : null
+      }"
       style="transition: opacity .2s ease-in-out;"
       :euro="euro"
       :cols-max="columns"
@@ -49,6 +52,12 @@
           All processing happens in your browser &mdash; no data is sent to any server.
         </div>
       </v-fade-transition>
+      <div
+        v-if="isLoadingInfoText"
+        class="pa-16"
+        style="pointer-events: none">
+        Loading&hellip;
+      </div>
     </div>
   </div>
   <v-menu
@@ -263,11 +272,13 @@ export default {
     isDraggingInfo: false,
     isDraggingInfoDebounced: null,
     isDraggingInfoText: false,
+    isLoadingInfoText: false,
     file: null,
     items: null,
     files: null,
     patches: null,
     loading: true,
+    loadingDrop: false,
     error: false,
     uint8Array: null,
     showCopyToast: false,
@@ -410,9 +421,12 @@ export default {
       e.preventDefault()
       this.$refs.file.files = e.dataTransfer.files
       this.items = e.dataTransfer.items
+      this.isDraggingInfoText = false
+      this.isLoadingInfoText = true
       await this.onChange()
     },
     async onChange () {
+      this.loadingDrop = true
       const list = this.items ? await handleDrop(this.items) : this.$refs.file.files
       const files = list.filter(f => f.name.endsWith('.bin'))
       files.sort((a, b) => a.name.localeCompare(b.name))
@@ -421,6 +435,8 @@ export default {
       this.showDropToast = true
       const file = this.files.at(0)
       await this.selectFile(file)
+      this.isLoadingInfoText = false
+      this.loadingDrop = false
     },
     async selectFile (file) {
       this.file = file

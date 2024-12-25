@@ -103,13 +103,34 @@
 
       <x-svg-symbol
         v-if="patch?.starred?.length"
-        star
+        :star="!view.patchView.starredTable?.error"
+        :text="view.patchView.starredTable?.error ? 'ERROR' : null"
         :location="0"
         :px="px"
         :dark="dark"
         :size="moduleE"
         :active="!!patch?.starred?.length"
         :position="gridPosEuro({x: 1, y: 0, page: -2}, true)" />
+
+      <x-svg-symbol
+        v-if="false"
+        text="CONNECTION"
+        :location="0"
+        :px="px"
+        :dark="dark"
+        :size="moduleE"
+        :active="true"
+        :position="gridPosEuro({x: 2, y: 0, page: -2}, true)" />
+
+      <x-svg-symbol
+        v-if="false"
+        text="CONNECTION_ERROR"
+        :location="0"
+        :px="px"
+        :dark="dark"
+        :size="moduleE"
+        :active="true"
+        :position="gridPosEuro({x: 3, y: 0, page: -2}, true)" />
 
       <!-- euro -->
       <template v-if="euroMode">

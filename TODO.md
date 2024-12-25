@@ -33,9 +33,9 @@
 - [ ] audio vs cv vs midi vs star connection
 - [ ] connection count?
 - [ ] offline support
+- [ ] connection counts?
 - [ ] disconnected modules list?
 - [ ] embed view?
-- [ ] highlight starred error
 
 ## Testing
 
@@ -46,6 +46,7 @@
 
 ## Done
 
+- [x] highlight starred error
 - [x] round io hover highlight
 - [x] ~revert~ smaller patch num shift
 - [x] round SVG values

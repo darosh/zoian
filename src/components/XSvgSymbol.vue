@@ -6,7 +6,7 @@
       'x-active': active
     }">
     <circle
-      v-if="type === JackType.Audio || type === JackType.Headphones || type === JackType.CPort || type === JackType.Midi || star || progress"
+      v-if="showCircle"
       :r="sizeH"
       :cx="sizeH + x"
       :cy="sizeH + y" />
@@ -202,6 +202,9 @@ export default {
     star :{
       type: Boolean
     },
+    error :{
+      type: Boolean
+    },
     progress :{
       type: Number,
       default: null
@@ -228,6 +231,10 @@ export default {
     },
     y () {
       return this.position[1]
+    },
+    showCircle () {
+      return [JackType.Audio, JackType.Headphones, JackType.CPort, JackType.Midi].includes(this.type)
+      || ['ERROR', 'CONNECTION', 'CONNECTION_ERROR'].includes(this.text)
     }
   },
   methods: { getGeometricChar, describeArc, generateStarPath }

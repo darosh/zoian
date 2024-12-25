@@ -48,6 +48,7 @@
 ## Bugs
 
 - [ ] zero loaded fixes
+- [ ] mixed connections in demo 9. non linear
 
 ## Done
 

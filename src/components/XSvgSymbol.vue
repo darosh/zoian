@@ -151,7 +151,7 @@
       :d="describeArc(sizeH + x, sizeH + y, sizeH + px, 0, (Math.min(progress, 100) / 100) * 360)"
       fill="none"
       class="x-progress"
-      :stroke-width="3 * px" />
+      :stroke-width="1.5 * px" />
   </g>
 </template>
 

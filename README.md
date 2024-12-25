@@ -79,6 +79,9 @@ Rename the build [./dist](./dist) folder to [./docs](./docs) and push to repo.
 - display test of module name abbreviations: 
   - [localhost:3000/#/test-display](http://localhost:3000/#/test-display) 
   - or [darosh.github.io/zoian/#/test-display](https://darosh.github.io/zoian/#/test-display)
+- display module and block data: 
+  - [localhost:3000/#/test-modules](http://localhost:3000/#/test-modules) 
+  - or [darosh.github.io/zoian/#/test-modules](https://darosh.github.io/zoian/#/test-modules)
 
 ## Licence
 

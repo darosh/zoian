@@ -20,7 +20,6 @@
 - [ ] doc banner
 - [ ] integration notes
 - [ ] og:image
-- [ ] test pages
 
 ## Features
 
@@ -33,7 +32,6 @@
 - [ ] audio vs cv vs midi vs star connection
 - [ ] connection count?
 - [ ] offline support
-- [ ] connection counts?
 - [ ] disconnected modules list?
 - [ ] embed view?
 
@@ -53,6 +51,9 @@
 
 ## Done
 
+- [x] test pages
+- [x] modules test page
+- [x] connection counts?
 - [x] hide patch during loading
 - [x] round connected highlights
 - [x] highlight starred error

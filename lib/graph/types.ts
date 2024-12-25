@@ -1,6 +1,14 @@
 import type { Connection, Patch, PatchModule } from '../parser/types.ts'
 import type { Block, Jack, ModuleSpec } from '../spec/types.ts'
 
+export enum ConnectionType {
+  Missing = -2,
+  Mixed = -1,
+  Unknown,
+  CV,
+  Audio,
+}
+
 export interface CpuRow {
   id: number
   count: number
@@ -26,6 +34,18 @@ export interface MidiRow {
 export interface MidiTable {
   output: MidiRow[]
   input: MidiRow[]
+}
+
+export interface ConnectionTable {
+  counts: {
+    audio: number
+    cv: number
+    mixed: number
+    unknown: number
+    missing: number
+  }
+  rows: { type: ConnectionType; count: number }[]
+  total: number
 }
 
 export type ModulePoint = [mod: number, blo?: number]
@@ -84,4 +104,5 @@ export interface PatchView {
   midiTable: MidiTable
   cpuTable: CpuRow[]
   starredTable: StarredRow[]
+  connectionTable: ConnectionTable
 }

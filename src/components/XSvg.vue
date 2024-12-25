@@ -102,6 +102,16 @@
         :position="gridPosEuro({x: 0, y: 0, page: -2}, true)" />
 
       <x-svg-symbol
+        v-if="view?.patchView?.connectionTable?.total"
+        :text="view?.patchView?.connectionTable?.counts?.missing || view?.patchView?.connectionTable?.counts?.mixed || view?.patchView?.connectionTable?.counts?.unknown ? 'CONNECTION_ERROR' : 'CONNECTION'"
+        :location="0"
+        :px="px"
+        :dark="dark"
+        :size="moduleE"
+        :active="true"
+        :position="gridPosEuro({x: 1, y: 0, page: -2}, true)" />
+
+      <x-svg-symbol
         v-if="patch?.starred?.length"
         :star="!view.patchView.starredTable?.error"
         :text="view.patchView.starredTable?.error ? 'ERROR' : null"
@@ -110,27 +120,7 @@
         :dark="dark"
         :size="moduleE"
         :active="!!patch?.starred?.length"
-        :position="gridPosEuro({x: 1, y: 0, page: -2}, true)" />
-
-      <x-svg-symbol
-        v-if="false"
-        text="CONNECTION"
-        :location="0"
-        :px="px"
-        :dark="dark"
-        :size="moduleE"
-        :active="true"
         :position="gridPosEuro({x: 2, y: 0, page: -2}, true)" />
-
-      <x-svg-symbol
-        v-if="false"
-        text="CONNECTION_ERROR"
-        :location="0"
-        :px="px"
-        :dark="dark"
-        :size="moduleE"
-        :active="true"
-        :position="gridPosEuro({x: 3, y: 0, page: -2}, true)" />
 
       <!-- euro -->
       <template v-if="euroMode">
@@ -466,6 +456,34 @@
         </v-table>
       </div>
     </template>
+    <template v-else-if="selectedModule?.connection">
+      <v-table
+        density="compact"
+        class="my-1">
+        <thead style="opacity: .75">
+          <tr>
+            <td class="pl-5">
+              Connections
+            </td>
+            <td class="pr-5 text-right g-bold">
+              {{ view.patchView.connectionTable.total }}
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="(cr, sIndex) of view.patchView.connectionTable.rows"
+            :key="sIndex">
+            <td class="pl-5 g-bolder">
+              {{ ConnectionType[cr.type] }}
+            </td>
+            <td class="pr-5 text-right">
+              {{ cr.count }}
+            </td>
+          </tr>
+        </tbody>
+      </v-table>
+    </template>
     <template v-else-if="selectedModule?.jackView">
       <div
         class="px-4 py-2"
@@ -551,7 +569,8 @@ import {
   patchView,
   gridView,
   getConnectedPos,
-  getConnectedPosEuro
+  getConnectedPosEuro,
+  ConnectionType
 } from '../../lib/index.ts'
 
 const log = debug('zoian:svg')
@@ -647,6 +666,9 @@ export default {
     connectedBlock: null
   }),
   computed: {
+    ConnectionType () {
+      return ConnectionType
+    },
     JackType () {
       return JackType
     },
@@ -788,7 +810,7 @@ export default {
         return null
       } else if (page === -1) {
         return this.ioGrid[x] || null
-      } else if (page === -2 && x === 1 && y === 0) {
+      } else if (page === -2 && x === 2 && y === 0) {
         if (this.patch.starred.length) {
           return { starred: true }
         } else {
@@ -796,6 +818,8 @@ export default {
         }
       } else if (page === -2 && x === 0 && y === 0) {
         return { cpu: true }
+      } else if (page === -2 && x === 1 && y === 0) {
+        return { connection: true }
       }
 
       return this.showGrid.find(g => g?.page === page && g?.x === x && g?.y === y) || null

@@ -10,6 +10,7 @@ import { JACKS_IO } from '../spec/jacks-io.ts'
 import { graphJackConnections } from './graph-connections-io.ts'
 import { linkJack } from '../grid/link-jack.ts'
 import { getMidiTable } from './table-midi.ts'
+import { getConnectionsTable } from './table-connection.ts'
 
 const log = debug('zoian:view')
 
@@ -61,6 +62,7 @@ export function patchView(patch: Patch): PatchView {
     midiTable: getMidiTable(patch),
     cpuTable: getCpuTable(patch),
     starredTable: getStarredTable(patch),
+    connectionTable: getConnectionsTable(patch),
   }
 }
 

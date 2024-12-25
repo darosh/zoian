@@ -3,6 +3,7 @@ import type { ModuleSpecConditions } from './types-conditions.ts'
 export interface ModuleSpec {
   id: number
   category: string
+  in?: boolean
   cpu: number
   description: string
   name: string

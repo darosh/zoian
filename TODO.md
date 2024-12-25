@@ -38,7 +38,6 @@
 - [ ] disconnected modules list?
 - [ ] embed view?
 - [ ] highlight starred error
-- [ ] list MIDI channels
 
 ## Testing
 
@@ -49,6 +48,7 @@
 
 ## Done
 
+- [x] list MIDI channels
 - [x] update on window resize
 - [x] hide tooltip on drop
 - [x] amb set 3 / 029 029_zoia_Hvitserkur

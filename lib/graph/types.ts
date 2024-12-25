@@ -17,6 +17,17 @@ export interface StarredRow {
   blockEntry: [string, Block]
 }
 
+export interface MidiRow {
+  input: boolean
+  module: PatchModule
+  channel: number
+}
+
+export interface MidiTable {
+  output: MidiRow[]
+  input: MidiRow[]
+}
+
 export type ModulePoint = [mod: number, blo?: number]
 
 export type JackPoint = [jack: string]
@@ -70,6 +81,7 @@ export interface PatchView {
   ioJackViews: JackView[]
   connections: ConnectionView[]
   orphanConnections: ConnectionView[]
+  midiTable: MidiTable
   cpuTable: CpuRow[]
   starredTable: StarredRow[]
 }

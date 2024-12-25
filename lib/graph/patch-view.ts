@@ -4,11 +4,12 @@ import type { Patch } from '../parser/types.ts'
 import type { BlockView, ConnectionView, IoConnection, JackView, ModuleView, PatchView } from './types.ts'
 import { MODULES } from '../spec/modules.ts'
 import { blockEntries } from '../parser/utils/block-entries.ts'
-import { getCpuTable } from './cpu-table.ts'
+import { getCpuTable } from './table-cpu.ts'
 import { getStarredTable } from './table-starred.ts'
 import { JACKS_IO } from '../spec/jacks-io.ts'
 import { graphJackConnections } from './graph-connections-io.ts'
 import { linkJack } from '../grid/link-jack.ts'
+import { getMidiTable } from './table-midi.ts'
 
 const log = debug('zoian:view')
 
@@ -57,6 +58,7 @@ export function patchView(patch: Patch): PatchView {
     ioJackViews,
     connections,
     orphanConnections,
+    midiTable: getMidiTable(patch),
     cpuTable: getCpuTable(patch),
     starredTable: getStarredTable(patch),
   }

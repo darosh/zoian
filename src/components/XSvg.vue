@@ -456,6 +456,46 @@
           <br>Outgoing: {{ selectedModule.jackView.from.length }}
         </template>
       </div>
+      <div v-if="selectedModule.jackView.jack.active && (selectedModule.jackView.spec.type === JackType.Midi)">
+        <v-divider class="mt-1" />
+        <v-table
+          density="compact"
+          class="my-1">
+          <thead style="opacity: .75">
+            <tr>
+              <td class="pl-5">
+                Module
+              </td>
+              <td class="text-right">
+                Page
+              </td>
+              <td class="pr-5 text-right">
+                Channel
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(md, mdIndex) of (selectedModule.jackView.spec.input ? view.patchView.midiTable.input : view.patchView.midiTable.output)"
+              :key="mdIndex">
+              <td class="pl-5">
+                <template v-if="md?.module?.name">
+                  <b class="g-bolder">{{ md.module.name }}</b>: {{ md.module.type }}
+                </template>
+                <b
+                  v-else
+                  class="g-bolder">{{ md.module.type }}</b>
+              </td>
+              <td class="text-right">
+                {{ md.module.page }}
+              </td>
+              <td class="text-right pr-5">
+                {{ md.channel }}
+              </td>
+            </tr>
+          </tbody>
+        </v-table>
+      </div>
     </template>
     <template v-else-if="selectedModule">
       <div

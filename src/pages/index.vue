@@ -397,6 +397,8 @@ export default {
     dragover (e) {
       e.preventDefault()
       this.$refs.svg.cursor = null
+      this.$refs.svg.cursorBlock = null
+      this.$refs.svg.connectedBlock = null
       this.isDragging = true
       this.showWelcomeToast = false
     },

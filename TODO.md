@@ -48,6 +48,8 @@
 
 ## Done
 
+- [x] update on window resize
+- [x] hide tooltip on drop
 - [x] amb set 3 / 029 029_zoia_Hvitserkur
 - [x] migrate to model/view
 - [x] hide unused block labels

@@ -614,7 +614,7 @@ export default {
       return this.moduleS * 2 + this.moduleM
     },
     px () {
-      return Math.round(this.w / window.innerWidth * 100) / 100
+      return Math.round(this.w / this.$vuetify.display.width * 100) / 100
     },
     moduleSH () {
       return this.moduleS / 2
@@ -653,7 +653,7 @@ export default {
       return this.margin / 4
     },
     scale () {
-      return window.innerWidth / this.w
+      return this.$vuetify.display.width / this.w
     },
     bounding () {
       return {

@@ -11,6 +11,7 @@
 - [ ] consolidate block condition types
 - [ ] hide patch during loading
 - [ ] connect HP jack to module
+- [ ] revert patch num shift
 
 ## Ref
 

@@ -183,40 +183,40 @@
           :x2="0" />
       </template>
 
+      <!--
+      More correct would be:
+      :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * (moduleMH) - sg.forcedLast * moduleMH"
+
+      But I like it as it is
+
+      I would even add some torn like side shape
+      to make the overlapped modules more pronounced
+      -->
+
+      <!--          <path-->
+      <!--            v-if="sg.forcedLast && !(sg.first || sg.last)"-->
+      <!--            :d="rectPath({broken: true, left: false, right: false, size: { width: moduleS + ((sg.x > 0 || sg.first) && (sg.x < 7 || sg.last) && !sg.forcedLast) * moduleMH + moduleMH, height: moduleS}, radius: 0})"-->
+      <!--            :fill="dark ? sg.colors.dark : sg.colors.light"-->
+      <!--            :transform="`translate(${gridPos(sg)}) translate(${(sg.x > 0) * -moduleMH},0)`" />-->
+      <!--          <rect-->
+      <!--            v-else-if="!(sg.first || sg.last)"-->
+      <!--            :fill="dark ? sg.colors.dark : sg.colors.light"-->
+      <!--            :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * (moduleMH)"-->
+      <!--            :height="moduleS"-->
+      <!--            :x="(sg.x > 0) * -moduleMH"-->
+      <!--            :y="0"-->
+      <!--            :transform="`translate(${gridPos(sg)})`" />-->
+      <!--          <path-->
+      <!--            v-else-->
+      <!--            :d="rectPath({broken: sg.forcedLast, left: sg.first, right: sg.last, size: { width: moduleS + ((sg.x > 0 || sg.first) && (sg.x < 7 || sg.last) && !sg.forcedLast) * moduleMH, height: moduleS}, radius: moduleR})"-->
+      <!--            :fill="dark ? sg.colors.dark : sg.colors.light"-->
+      <!--            :transform="`translate(${gridPos(sg)}) translate(${sg.last ? (sg.x > 0) * -moduleMH : 0},0)`" />-->
+
       <!-- grid -->
       <template
         v-for="(sg, sgIndex) of showGrid"
         :key="sgIndex">
         <template v-if="sg">
-          <!--
-          More correct would be:
-          :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * (moduleMH) - sg.forcedLast * moduleMH"
-
-          But I like it as it is
-
-          I would even add some torn like side shape
-          to make the overlapped modules more pronounced
-          -->
-
-          <!--          <path-->
-          <!--            v-if="sg.forcedLast && !(sg.first || sg.last)"-->
-          <!--            :d="rectPath({broken: true, left: false, right: false, size: { width: moduleS + ((sg.x > 0 || sg.first) && (sg.x < 7 || sg.last) && !sg.forcedLast) * moduleMH + moduleMH, height: moduleS}, radius: 0})"-->
-          <!--            :fill="dark ? sg.colors.dark : sg.colors.light"-->
-          <!--            :transform="`translate(${gridPos(sg)}) translate(${(sg.x > 0) * -moduleMH},0)`" />-->
-          <!--          <rect-->
-          <!--            v-else-if="!(sg.first || sg.last)"-->
-          <!--            :fill="dark ? sg.colors.dark : sg.colors.light"-->
-          <!--            :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * (moduleMH)"-->
-          <!--            :height="moduleS"-->
-          <!--            :x="(sg.x > 0) * -moduleMH"-->
-          <!--            :y="0"-->
-          <!--            :transform="`translate(${gridPos(sg)})`" />-->
-          <!--          <path-->
-          <!--            v-else-->
-          <!--            :d="rectPath({broken: sg.forcedLast, left: sg.first, right: sg.last, size: { width: moduleS + ((sg.x > 0 || sg.first) && (sg.x < 7 || sg.last) && !sg.forcedLast) * moduleMH, height: moduleS}, radius: moduleR})"-->
-          <!--            :fill="dark ? sg.colors.dark : sg.colors.light"-->
-          <!--            :transform="`translate(${gridPos(sg)}) translate(${sg.last ? (sg.x > 0) * -moduleMH : 0},0)`" />-->
-
           <!-- mid block -->
           <rect
             v-if="!(sg.first || sg.last)"
@@ -654,7 +654,7 @@ export default {
       return this.moduleS * 2 + this.moduleM
     },
     px () {
-      return Math.round(this.w / this.$vuetify.display.width * 100) / 100
+      return this.round(this.w / this.$vuetify.display.width)
     },
     moduleSH () {
       return this.moduleS / 2
@@ -669,7 +669,7 @@ export default {
       return this.moduleM / 4 * 3
     },
     moduleE () {
-      return (this.moduleS + this.moduleM) * 8 / EURO_X - this.moduleM
+      return this.round((this.moduleS + this.moduleM) * 8 / EURO_X - this.moduleM)
     },
     moduleEH () {
       return this.moduleE / 2
@@ -678,13 +678,13 @@ export default {
       return this.moduleE / 4
     },
     moduleSD () {
-      return this.moduleS / 10
+      return this.round(this.moduleS / 12)
     },
     moduleFileName () {
-      return this.moduleS * .4
+      return this.round(this.moduleS * .4)
     },
     modulePatchName () {
-      return this.moduleS * .7
+      return this.round(this.moduleS * .7)
     },
     marginH () {
       return this.margin / 2
@@ -866,6 +866,9 @@ export default {
   methods: {
     inspect: inspect,
     rectPath: svgRect,
+    round (x) {
+      return Math.round(x * 100) / 100
+    },
     pagePos (pageIndex) {
       // IO
       if (pageIndex === -1) {

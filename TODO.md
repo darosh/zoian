@@ -10,8 +10,6 @@
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [ ] consolidate block condition types
 - [ ] hide patch during loading
-- [ ] revert patch num shift
-- [ ] round SVG values
 
 ## Ref
 
@@ -48,6 +46,8 @@
 
 ## Done
 
+- [x] ~revert~ smaller patch num shift
+- [x] round SVG values
 - [x] connect HP jack to module
 - [x] list MIDI channels
 - [x] update on window resize

@@ -322,21 +322,35 @@
         :height="(cursorBlockEuro ? moduleE : moduleS)" />
 
       <!-- connections -->
-      <g
-        v-if="showConnections"
-        :class="{
+      <template v-if="showConnections">
+        <g
+          v-if="straightLines"
+          :class="{
           'x-connection-animation': animations
         }">
-        <line
-          v-for="(c, cIndex) in connections"
-          :key="cIndex"
-          :x1="c.from[0]"
-          :y1="c.from[1]"
-          :x2="c.to[0]"
-          :y2="c.to[1]"
-          stroke-width="px"
-          class="x-connection" />
-      </g>
+          <line
+            v-for="(c, cIndex) in connections"
+            :key="cIndex"
+            :x1="c.source.x"
+            :y1="c.source.y"
+            :x2="c.target.x"
+            :y2="c.target.y"
+            stroke-width="px"
+            class="x-connection" />
+        </g>
+        <g
+          v-else
+          :class="{
+          'x-connection-animation': animations
+        }">
+          <path
+            v-for="(c, cIndex) in connections"
+            :key="cIndex"
+            :d="c.d"
+            stroke-width="px"
+            class="x-connection" />
+        </g>
+      </template>
 
       <rect
         v-for="(cb, i) of (connectedBlock || [])"
@@ -380,37 +394,37 @@
         density="compact"
         class="my-1">
         <thead style="opacity: .75">
-          <tr>
-            <td class="pl-5">
-              Starred
-            </td>
-            <td class="text-right">
-              Page
-            </td>
-            <td class="pr-5 text-right">
-              CC
-            </td>
-          </tr>
+        <tr>
+          <td class="pl-5">
+            Starred
+          </td>
+          <td class="text-right">
+            Page
+          </td>
+          <td class="pr-5 text-right">
+            CC
+          </td>
+        </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(s, sIndex) of starred"
-            :key="sIndex">
-            <td class="pl-5">
-              <template v-if="s?.module?.name">
-                <b class="g-bolder">{{ s.module.name }}</b>: {{ s.module.type }}
-              </template>
-              <template v-else>
-                {{ s?.module?.type ?? 'ERROR' }}
-              </template>
-            </td>
-            <td class="text-right">
-              {{ s?.module?.page }}
-            </td>
-            <td class="pr-5 text-right">
-              {{ s.cc }}
-            </td>
-          </tr>
+        <tr
+          v-for="(s, sIndex) of starred"
+          :key="sIndex">
+          <td class="pl-5">
+            <template v-if="s?.module?.name">
+              <b class="g-bolder">{{ s.module.name }}</b>: {{ s.module.type }}
+            </template>
+            <template v-else>
+              {{ s?.module?.type ?? 'ERROR' }}
+            </template>
+          </td>
+          <td class="text-right">
+            {{ s?.module?.page }}
+          </td>
+          <td class="pr-5 text-right">
+            {{ s.cc }}
+          </td>
+        </tr>
         </tbody>
       </v-table>
     </template>
@@ -421,37 +435,37 @@
           density="compact"
           class="my-2">
           <thead style="opacity: .75">
-            <tr>
-              <td>CPU usage</td>
-              <td class="pr-0">
-                Pages
-              </td>
-              <td
-                colspan="2"
-                class="pr-5 text-right">
-                <b>{{ patch.cpu }}%</b>
-              </td>
-            </tr>
+          <tr>
+            <td>CPU usage</td>
+            <td class="pr-0">
+              Pages
+            </td>
+            <td
+              colspan="2"
+              class="pr-5 text-right">
+              <b>{{ patch.cpu }}%</b>
+            </td>
+          </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="({ type, cpu, count, pagesDisplay, cpuSum }, cpuIndex) of cpuTable"
-              :key="cpuIndex">
-              <td class="g-bolder">
-                {{ type }}
-              </td>
-              <td class="pr-0">
-                {{ pagesDisplay }}
-              </td>
-              <td class="text-right pr-0">
-                <template v-if="count > 1">
-                  {{ count }} <span style="opacity: .6;">&times;</span> {{ cpu }} <span style="opacity: .6;">=</span>
-                </template>
-              </td>
-              <td class="text-right pl-1 pr-5">
-                {{ cpuSum }}
-              </td>
-            </tr>
+          <tr
+            v-for="({ type, cpu, count, pagesDisplay, cpuSum }, cpuIndex) of cpuTable"
+            :key="cpuIndex">
+            <td class="g-bolder">
+              {{ type }}
+            </td>
+            <td class="pr-0">
+              {{ pagesDisplay }}
+            </td>
+            <td class="text-right pr-0">
+              <template v-if="count > 1">
+                {{ count }} <span style="opacity: .6;">&times;</span> {{ cpu }} <span style="opacity: .6;">=</span>
+              </template>
+            </td>
+            <td class="text-right pl-1 pr-5">
+              {{ cpuSum }}
+            </td>
+          </tr>
           </tbody>
         </v-table>
       </div>
@@ -461,26 +475,26 @@
         density="compact"
         class="my-1">
         <thead style="opacity: .75">
-          <tr>
-            <td class="pl-5">
-              Connections
-            </td>
-            <td class="pr-5 text-right g-bold">
-              {{ view.patchView.connectionTable.total }}
-            </td>
-          </tr>
+        <tr>
+          <td class="pl-5">
+            Connections
+          </td>
+          <td class="pr-5 text-right g-bold">
+            {{ view.patchView.connectionTable.total }}
+          </td>
+        </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(cr, sIndex) of view.patchView.connectionTable.rows"
-            :key="sIndex">
-            <td class="pl-5 g-bolder">
-              {{ ConnectionType[cr.type] }}
-            </td>
-            <td class="pr-5 text-right">
-              {{ cr.count }}
-            </td>
-          </tr>
+        <tr
+          v-for="(cr, sIndex) of view.patchView.connectionTable.rows"
+          :key="sIndex">
+          <td class="pl-5 g-bolder">
+            {{ ConnectionType[cr.type] }}
+          </td>
+          <td class="pr-5 text-right">
+            {{ cr.count }}
+          </td>
+        </tr>
         </tbody>
       </v-table>
     </template>
@@ -503,37 +517,37 @@
           density="compact"
           class="my-1">
           <thead style="opacity: .75">
-            <tr>
-              <td class="pl-5">
-                Module
-              </td>
-              <td class="text-right">
-                Page
-              </td>
-              <td class="pr-5 text-right">
-                Channel
-              </td>
-            </tr>
+          <tr>
+            <td class="pl-5">
+              Module
+            </td>
+            <td class="text-right">
+              Page
+            </td>
+            <td class="pr-5 text-right">
+              Channel
+            </td>
+          </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(md, mdIndex) of (selectedModule.jackView.spec.input ? view.patchView.midiTable.input : view.patchView.midiTable.output)"
-              :key="mdIndex">
-              <td class="pl-5">
-                <template v-if="md?.module?.name">
-                  <b class="g-bolder">{{ md.module.name }}</b>: {{ md.module.type }}
-                </template>
-                <b
-                  v-else
-                  class="g-bolder">{{ md.module.type }}</b>
-              </td>
-              <td class="text-right">
-                {{ md.module.page }}
-              </td>
-              <td class="text-right pr-5">
-                {{ md.channel }}
-              </td>
-            </tr>
+          <tr
+            v-for="(md, mdIndex) of (selectedModule.jackView.spec.input ? view.patchView.midiTable.input : view.patchView.midiTable.output)"
+            :key="mdIndex">
+            <td class="pl-5">
+              <template v-if="md?.module?.name">
+                <b class="g-bolder">{{ md.module.name }}</b>: {{ md.module.type }}
+              </template>
+              <b
+                v-else
+                class="g-bolder">{{ md.module.type }}</b>
+            </td>
+            <td class="text-right">
+              {{ md.module.page }}
+            </td>
+            <td class="text-right pr-5">
+              {{ md.channel }}
+            </td>
+          </tr>
           </tbody>
         </v-table>
       </div>
@@ -543,7 +557,7 @@
         class="px-4 py-2"
         style="min-width: 160px;">
         <span class="g-bolder">{{ selectedModule.blockView.moduleView.module.type }}</span><span
-          v-if="selectedModule.blockView.moduleView.module.name">: {{
+        v-if="selectedModule.blockView.moduleView.module.name">: {{
           selectedModule.blockView.moduleView.module.name
         }}</span>
         <br>
@@ -570,7 +584,7 @@ import {
   gridView,
   getConnectedPos,
   getConnectedPosEuro,
-  ConnectionType
+  ConnectionType, getConnectionPoints, getCablePath, getCablePath2
 } from '../../lib/index.ts'
 
 const log = debug('zoian:svg')
@@ -663,7 +677,8 @@ export default {
     observer: null,
     tipWidth: 0,
     tipHeight: 0,
-    connectedBlock: null
+    connectedBlock: null,
+    straightLines: false
   }),
   computed: {
     ConnectionType () {
@@ -851,21 +866,24 @@ export default {
     },
     connections () {
       return (this.euroMode ? this.view.connectionsEuro : this.view.connections)
-        .map(([source, target]) => {
+        .map(([source, target], index) => {
           const sh = this.euroOrIo(source) ? this.moduleEH : this.moduleSH
           const th = this.euroOrIo(target) ? this.moduleEH : this.moduleSH
           const from = this.gridPosOrEuro(source)
           const to = this.gridPosOrEuro(target)
 
-          from[0] += sh
-          from[1] += sh
-          to[0] += th
-          to[1] += th
-
-          return {
-            from,
-            to
+          const p = {
+            source: { x: from[0] + sh, y: from[1] + sh },
+            target: { x: to[0] += th, y: to[1] += th },
           }
+
+          const s = getConnectionPoints(p, sh, th)
+
+          if (!this.straightLines) {
+            s.d = getCablePath2(s.source, s.target, { index })
+          }
+
+          return s
         })
     }
   },
@@ -1115,13 +1133,15 @@ export default {
 }
 
 .x-connection {
-  stroke-dasharray: 2 4;
   stroke: black;
-  stroke-opacity: .5;
+  stroke-opacity: .14;
+  fill: none;
 }
 
 .x-connection-animation {
   .x-connection {
+    stroke-dasharray: 3 2;
+    stroke-opacity: .2;
     animation-name: stroke;
     animation-duration: .8s;
     animation-timing-function: linear;

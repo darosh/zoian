@@ -304,8 +304,8 @@
         v-if="cursorBlock && (selectedModule || showCursorBlock)"
         id="highlighted-block"
         :fill="dark ? 'rgba(255,255,255,.18)' : 'rgba(0,0,0,.12)'"
-        :rx="cursorBlockEuro ? ((selectedModule?.type > 1 ||selectedModule?.starred || selectedModule?.cpu) ? moduleEH :moduleER) : moduleR"
-        :ry="cursorBlockEuro ? ((selectedModule?.type > 1 ||selectedModule?.starred || selectedModule?.cpu) ? moduleEH :moduleER) : moduleR"
+        :rx="cursorBlockR"
+        :ry="cursorBlockR"
         :style="`transform: translate3d(${cursorBlockPos[0]}px,${cursorBlockPos[1]}px, 0px);`"
         :width="(cursorBlockEuro ? moduleE : moduleS)"
         :height="(cursorBlockEuro ? moduleE : moduleS)" />
@@ -735,6 +735,18 @@ export default {
     },
     cursorBlockEuro () {
       return this.euroOrIo(this.cursorBlock)
+    },
+    cursorBlockR () {
+      if (!this.cursorBlockEuro) {
+        return this.moduleR
+      }
+
+      if (!this.selectedModule?.blockView
+        && ![JackType.Button, JackType.Stomp].includes(this.selectedModule?.jackView?.spec?.type)) {
+        return this.moduleEH
+      }
+
+      return this.moduleER
     },
     selectedModule () {
       if (!this.patch || !this.cursorBlock) {

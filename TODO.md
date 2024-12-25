@@ -39,6 +39,7 @@
 
 ## Testing
 
+- [ ] check module overflow to another page
 - [ ] check cpu values
 - [ ] check stared items
 - [ ] add connection and starred validation to tests

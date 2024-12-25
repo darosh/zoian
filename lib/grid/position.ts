@@ -52,7 +52,7 @@ interface P {
   target: Pos
 }
 
-export function getConnectionPoints(connection: P, sh: number, th: number) {
+export function getConnectionPoints(connection: P, sh: number, th: number): P {
   const { sourceSide, targetSide } = determineConnectionSide(connection)
 
   return {

@@ -3,9 +3,15 @@ import { blockEntries } from '../parser/utils/block-entries.ts'
 import type { StarredRow } from './types.ts'
 
 export function getStarredTable(patch: Patch): StarredRow[] {
-  return patch.starred.map((s) => {
+  let err = false
+
+  const arr: unknown = patch.starred.map((s) => {
     const module = patch.modules[s.module]
-    const blockEntry = blockEntries(module.blocks)[s.block]
+    const blockEntry = module ? blockEntries(module.blocks)[s.block] : undefined
+
+    if (!module) {
+      err = true
+    }
 
     return {
       ...s,
@@ -13,4 +19,10 @@ export function getStarredTable(patch: Patch): StarredRow[] {
       blockEntry,
     }
   })
+
+  if (err) {
+    ;(<Record<string, boolean>> arr).error = err
+  }
+
+  return <StarredRow[]> arr
 }

@@ -36,6 +36,7 @@
 - [ ] offline support
 - [ ] disconnected modules list?
 - [ ] embed view?
+- [ ] highlight starred error
 
 ## Testing
 
@@ -46,6 +47,7 @@
 
 ## Done
 
+- [x] amb set 3 / 029 029_zoia_Hvitserkur
 - [x] migrate to model/view
 - [x] hide unused block labels
 - [x] add chrome note

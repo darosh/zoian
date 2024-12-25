@@ -384,15 +384,15 @@
             v-for="(s, sIndex) of starred"
             :key="sIndex">
             <td class="pl-5">
-              <template v-if="s.module.name">
+              <template v-if="s?.module?.name">
                 <b class="g-bolder">{{ s.module.name }}</b>: {{ s.module.type }}
               </template>
               <template v-else>
-                {{ s.module.type }}
+                {{ s?.module?.type ?? 'ERROR' }}
               </template>
             </td>
             <td class="text-right">
-              {{ s.module.page }}
+              {{ s?.module?.page }}
             </td>
             <td class="pr-5 text-right">
               {{ s.cc }}

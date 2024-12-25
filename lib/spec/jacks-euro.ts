@@ -53,7 +53,7 @@ export const JACKS_EURO: Jack[] = [
     text: 'H',
     title: 'Headphones',
     side: JackLocation.Side,
-    modules: [2, 95, 96],
+    modules: [2, 92, 95, 96],
   },
   {
     id: 'eu-midi-in',

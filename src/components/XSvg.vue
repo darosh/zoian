@@ -576,15 +576,17 @@ import { inspect } from 'util'
 import { svgRect } from '@/utils/svg-rect.js'
 import { getTooltipPosition } from '@/utils/tooltip.js'
 import {
-  JackType,
   G,
   EURO_X,
+  JackType,
+  ConnectionType,
   getPagePosition,
   patchView,
   gridView,
   getConnectedPos,
   getConnectedPosEuro,
-  ConnectionType, getConnectionPoints, getCablePath, getCablePath2
+  getConnectionPoints,
+  getCablePath
 } from '../../lib/index.ts'
 
 const log = debug('zoian:svg')
@@ -880,7 +882,7 @@ export default {
           const s = getConnectionPoints(p, sh, th)
 
           if (!this.straightLines) {
-            s.d = getCablePath2(s.source, s.target, { index })
+            s.d = getCablePath(s.source, s.target, { index })
           }
 
           return s

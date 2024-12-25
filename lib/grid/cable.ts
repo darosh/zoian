@@ -37,52 +37,6 @@ export function getCablePath(start: Point, end: Point, options: CableOptions = {
     gravity = 0.1,
   } = options
 
-  // Calculate the distance between points
-  const dx = end.x - start.x
-  const dy = end.y - start.y
-  const distance = Math.sqrt(dx * dx + dy * dy)
-
-  // Calculate control points for a cubic Bezier curve
-  const controlDistance = distance * bendFactor
-
-  // Base control points
-  const control1: Point = {
-    x: start.x + controlDistance,
-    y: start.y,
-  }
-
-  const control2: Point = {
-    x: end.x - controlDistance,
-    y: end.y,
-  }
-
-  // Apply tension (pulls control points closer to the line between start and end)
-  const midPoint = {
-    x: (start.x + end.x) / 2,
-    y: (start.y + end.y) / 2,
-  }
-
-  control1.x = control1.x * (1 - tension) + midPoint.x * tension
-  control1.y = control1.y * (1 - tension) + midPoint.y * tension
-  control2.x = control2.x * (1 - tension) + midPoint.x * tension
-  control2.y = control2.y * (1 - tension) + midPoint.y * tension
-
-  // Apply gravity (pulls control points downward)
-  const gravityPull = distance * gravity
-  control1.y += gravityPull
-  control2.y += gravityPull
-
-  // Generate the SVG path data
-  return `M ${start.x} ${start.y} C ${control1.x} ${control1.y}, ${control2.x} ${control2.y}, ${end.x} ${end.y}`
-}
-
-export function getCablePath2(start: Point, end: Point, options: CableOptions = {}): string {
-  const {
-    bendFactor = 0.1,
-    tension = 0.8,
-    gravity = 0.1,
-  } = options
-
   const isVertical = start.x === end.x
   // Calculate the distance between points
   const dx = end.x - start.x

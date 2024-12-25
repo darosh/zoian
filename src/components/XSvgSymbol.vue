@@ -234,7 +234,9 @@ export default {
     },
     showCircle () {
       return [JackType.Audio, JackType.Headphones, JackType.CPort, JackType.Midi].includes(this.type)
-      || ['ERROR', 'CONNECTION', 'CONNECTION_ERROR'].includes(this.text)
+      || [
+        // 'ERROR', 'CONNECTION', 'CONNECTION_ERROR'
+        ].includes(this.text)
     }
   },
   methods: { getGeometricChar, describeArc, generateStarPath }

@@ -43,6 +43,10 @@
 - [ ] add connection and starred validation to tests
 - [ ] make test patch with all modules
 
+## Bugs
+
+- [ ] zero loaded fixes
+
 ## Done
 
 - [x] hide patch during loading

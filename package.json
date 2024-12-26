@@ -11,7 +11,7 @@
     "rambdax": "^11.3.0",
     "util": "^0.12.5",
     "vue": "^3.4.31",
-    "vuetify": "^3.6.14"
+    "vuetify": "^3.7.6"
   },
   "devDependencies": {
     "d3-interpolate": "^3.0.1",

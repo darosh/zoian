@@ -11,6 +11,7 @@
 - [ ] consolidate block condition types
 - [ ] trim module names
 - [ ] hidden connected blocks count / list
+- [ ] keep tooltip on next/prev (for tool row)
 
 ## Ref
 

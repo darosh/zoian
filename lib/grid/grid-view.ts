@@ -75,15 +75,17 @@ function getConnections(view: PatchView, map: BlockMap, include: PosKind[]): [Po
       if (!fs) {
         const m = (<BlockView> c?.fromBlock)?.moduleView
         const first = m?.blockViews?.[0]
-        log('alternative from block', first)
         fs = map.get(first)?.find((d) => include.includes(d.pos))
+        // fs = <PosBlock>{ ...fs, blockView: <BlockView>c?.fromBlock }
+        log('alternative to block', fs)
       }
 
       if (!ts) {
         const m = (<BlockView> c?.toBlock)?.moduleView
         const first = m?.blockViews?.[0]
-        log('alternative to block', first)
         ts = map.get(first)?.find((d) => include.includes(d.pos))
+        // ts = <PosBlock>{ ...ts, blockView: <BlockView>c?.toBlock }
+        log('alternative to block', ts)
       }
 
       if (!fs || !ts) {
@@ -116,10 +118,26 @@ function getConnectionsEuro(view: PatchView, map: BlockMap): [PosAny, PosAny][] 
         return
       }
 
-      const fs = map.get(c.fromBlock)?.find(include)
-      const ts = map.get(c.toBlock)?.find(include)
+      let fs = map.get(c.fromBlock)?.find(include)
+      let ts = map.get(c.toBlock)?.find(include)
 
       // log(fs, ts)
+
+      if (!fs) {
+        const m = (<BlockView> c?.fromBlock)?.moduleView
+        const first = m?.blockViews?.[0]
+        fs = map.get(first)?.find(include)
+        // fs = <PosBlock>{ ...fs, blockView: <BlockView>c?.fromBlock }
+        log('alternative to block', fs)
+      }
+
+      if (!ts) {
+        const m = (<BlockView> c?.toBlock)?.moduleView
+        const first = m?.blockViews?.[0]
+        ts = map.get(first)?.find(include)
+        // ts = <PosBlock>{ ...ts, blockView: <BlockView>c?.toBlock }
+        log('alternative to block', ts)
+      }
 
       if (!fs || !ts) {
         return

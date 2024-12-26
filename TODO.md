@@ -15,6 +15,7 @@
 - [ ] cable bundling?
 - [ ] verify alternative connections are hidden
 - [ ] dotted arrow for outgoing to hidden 
+- [ ] io should not affect Euro module state
 
 ## Ref
 

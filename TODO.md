@@ -17,6 +17,8 @@
 - [ ] dotted arrow for outgoing to hidden 
 - [ ] io should not affect Euro module state
 - [ ] mi note out abbr
+- [ ] user select none on tip
+- [ ] click to hide tip
 
 ## Ref
 

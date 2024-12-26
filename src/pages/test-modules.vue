@@ -26,11 +26,10 @@
         :key="m.id">
         <tr>
           <td
-            :rowspan="bes.length"
             class="text-no-wrap g-bolder">
             {{ m.name }}
           </td>
-          <td :rowspan="bes.length">
+          <td>
             {{ m.category }}
           </td>
           <td :rowspan="bes.length">
@@ -58,9 +57,18 @@
           <td>{{ bes[0][1].param }}</td>
           <td>{{ bes[0][1].initial }}</td>
         </tr>
+        <tr v-if="bes.slice(1).length === 0">
+          <td  class="pt-2" style="vertical-align: top" v-if="!ii" colspan="2">
+            {{m.description}}
+          </td>
+          <td colspan="10"></td>
+        </tr>
         <tr
-          v-for="[bn, be, bt] of bes.slice(1)"
+          v-for="([bn, be, bt], ii) of bes.slice(1)"
           :key="bn">
+          <td  class="pt-2" style="vertical-align: top" v-if="!ii" :rowspan="bes.length - 1" colspan="2">
+            {{m.description}}
+          </td>
           <td class="text-right">
             {{ be.position }}.
           </td>

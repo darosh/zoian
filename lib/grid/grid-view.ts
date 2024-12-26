@@ -1,10 +1,11 @@
 import debug from 'debug'
 
-import type { BlockView, PatchView } from '../graph/types.ts'
+import type { BlockView, ConnectionView, PatchView } from '../graph/types.ts'
 import type { BlockMap, GridView, PosAny, PosBlock, PosEuro, PosIo, PosKind } from './types.ts'
 import { getPagesGrid } from './grid-pages.ts'
 import { getEuroGrid } from './grid-euro.ts'
 import { getIoGrid } from './grid-io.ts'
+import type { Connection } from '../parser/types.ts'
 
 const log = debug('zoian:grid-view')
 
@@ -13,11 +14,11 @@ export function gridView(view: PatchView): GridView {
   const euroGrid = getEuroGrid(view)
   const ioGrid = getIoGrid(view)
   const blockMap: BlockMap = new Map()
-  // const hiddenMap: BlockMap = new Map()
+  const hiddenMap: BlockMap = new Map()
 
   mapPos(blockMap, pagesGrid)
   // mapPos(blockMap, hiddenGrid)
-  // mapPos(hiddenMap, hiddenGrid)
+  mapPos(hiddenMap, hiddenGrid)
   mapPos(blockMap, euroGrid)
   mapPos(blockMap, ioGrid)
 
@@ -25,6 +26,32 @@ export function gridView(view: PatchView): GridView {
 
   const connections = getConnections(view, blockMap, ['block', 'io'])
   const connectionsEuro = getConnectionsEuro(view, blockMap)
+
+  function getConnected(pos: PosBlock) {
+    const current = mapConnections(pos.blockView)
+
+    if (pos.first) {
+      const hiddenBlocks = <BlockView[]> pos.moduleView.blockViews
+        .map((bv) => hiddenMap.has(bv) ? bv : false)
+        .filter(Boolean)
+
+      const hidden = []
+
+      for (const hb of hiddenBlocks) {
+        const name = hb.name.replaceAll('_', ' ')
+        hidden.push(...mapConnections(hb, name))
+      }
+
+      return {
+        current,
+        hidden: hidden.length ? hidden : undefined,
+      }
+    }
+
+    return {
+      current,
+    }
+  }
 
   return {
     patchView: view,
@@ -35,6 +62,7 @@ export function gridView(view: PatchView): GridView {
     connections,
     connectionsEuro,
     blockMap,
+    getConnected,
   }
 }
 
@@ -149,4 +177,22 @@ function getConnectionsEuro(view: PatchView, map: BlockMap): [PosAny, PosAny][] 
       ]
     })
     .filter((x) => x)
+}
+
+function mapConnections(blockView: BlockView, name?: string) {
+  return [
+    ...blockView?.from.map((b: ConnectionView) => ({
+      name,
+      module: (<BlockView> b.toBlock).moduleView?.spec?.name,
+      block: (<BlockView> b.toBlock).name?.replaceAll('_', ' '),
+      from: true,
+      strength: (<Connection> b.connection)?.strength,
+    })) ?? [],
+    ...blockView?.to.map((b) => ({
+      name,
+      module: (<BlockView> b.fromBlock).moduleView?.spec?.name,
+      block: (<BlockView> b.fromBlock).name?.replaceAll('_', ' '),
+      strength: (<Connection> b.connection)?.strength,
+    })) ?? [],
+  ].filter((x) => x.module)
 }

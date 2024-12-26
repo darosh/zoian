@@ -524,7 +524,8 @@
     </template>
     <template v-else-if="selectedModule?.jackView">
       <div
-        class="px-4 py-2"
+        class="px-4 pt-2"
+        :class="selectedModule.jackView.from.length || selectedModule.jackView.to.length ? 'pb-3' : 'pb-2'"
         style="min-width: 160px;">
         <span class="g-bolder">{{ selectedModule.jackView.spec.title }}</span>
         <!--        <pre>{{ inspect(selectedModule.jackView) }}</pre>-->
@@ -578,16 +579,70 @@
     </template>
     <template v-else-if="selectedModule">
       <div
-        class="px-4 py-2"
+        class="px-4 pt-2"
+        :class="{'pb-1': selectedModule.blockTitle}"
         style="min-width: 160px;">
         <span class="g-bolder">{{ selectedModule.blockView.moduleView.module.type }}</span><span
           v-if="selectedModule.blockView.moduleView.module.name">: {{
           selectedModule.blockView.moduleView.module.name
         }}</span>
-        <br>
-        {{ selectedModule.blockView.name }}
-        <!--        <pre>{{ inspect(selectedModule) }}</pre>-->
+        <template v-if="selectedModule.blockTitle">
+          <br>
+          <small><span class="g-bold">{{ selectedModule.blockTitle }}</span> <span
+            v-if="selectedModule.blockDisplay && (selectedModule.blockDisplay !== selectedModule.blockTitle)"
+            style="opacity: .87">&ensp;[&thinsp;{{ selectedModule.blockDisplay }}&thinsp;]</span></small>
+        </template>
       </div>
+      <v-table
+        v-if="selectedConnections"
+        style="font-size: 80%;"
+        density="compact"
+        class="mb-2">
+        <tbody>
+          <tr
+            v-for="(r, rIndex) in selectedConnections.current"
+            :key="rIndex">
+            <td class="pl-5 pr-2" />
+            <td
+              class="px-2"
+              style="font-size: 24px; opacity: .8">
+              {{ !r.from ? '←' : '→' }}
+            </td>
+            <td class="px-2">
+              {{ r.module }}
+            </td>
+            <td class="px-2">
+              {{ r.block }}
+            </td>
+            <td class="text-right pl-2 pr-5">
+              {{ r.strength }}&thinsp;%
+            </td>
+          </tr>
+          <template v-if="selectedConnections.hidden">
+            <tr
+              v-for="(r, rIndex) in selectedConnections.hidden"
+              :key="rIndex">
+              <td class="pl-5 pr-2">
+                {{ r.name }}
+              </td>
+              <td
+                class="px-2"
+                style="font-size: 24px; opacity: .8">
+                {{ !r.from ? '⇠' : '⇢' }}
+              </td>
+              <td class="px-2">
+                {{ r.module }}
+              </td>
+              <td class="px-2">
+                {{ r.block }}
+              </td>
+              <td class="text-right pl-2 pr-5">
+                {{ r.strength }}&thinsp;%
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </v-table>
     </template>
   </v-card>
 </template>
@@ -693,7 +748,6 @@ export default {
   data: () => ({
     cursor: null,
     cursorBlock: null,
-    showTooltip: false,
     transitionTooltip: false,
     showCursor: false,
     showCursorBlock: false,
@@ -704,7 +758,8 @@ export default {
     tipWidth: 0,
     tipHeight: 0,
     connectedBlock: null,
-    straightLines: false
+    straightLines: false,
+    selectedConnections: null
   }),
   computed: {
     ConnectionType () {
@@ -886,7 +941,7 @@ export default {
           width: z ? this.moduleE : this.moduleS,
           height: z ? this.moduleE : this.moduleS
         },
-        this.tipWidth.width / this.scale,
+        this.tipWidth / this.scale,
         this.tipHeight / this.scale,
         this.w,
         this.h,
@@ -980,11 +1035,13 @@ export default {
 
       if (!newVal || newVal.cpu || newVal.starred) {
         // this.connectedBlock = null
+        this.selectedConnections = null
         return
       }
 
       if (!newVal.blockView && !newVal.jackView) {
         this.connectedBlock = null
+        this.selectedConnections = null
         console.log('missing block view', newVal)
         return
       }
@@ -1004,6 +1061,7 @@ export default {
       log('connected grids', toRaw(connectedGrid))
 
       this.connectedBlock = connectedGrid
+      this.selectedConnections = this.view.getConnected(newVal)
     }
   },
   mounted () {

@@ -25,6 +25,7 @@ export interface PosBlock {
   moduleView: ModuleView
   block: Block
   blockName: string
+  blockTitle: string
   blockView: BlockView
   colors: BlockColors
 
@@ -71,4 +72,5 @@ export interface GridView {
   connections: [PosAny, PosAny][]
   connectionsEuro: [PosAny, PosAny][]
   blockMap: BlockMap
+  getConnected: unknown
 }

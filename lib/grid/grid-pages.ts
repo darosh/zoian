@@ -47,6 +47,7 @@ export function getPagesGrid(view: PatchView): [(PosBlock | undefined)[], PosBlo
         moduleView: moduleView,
         block: blockView.block,
         blockName: blockView.name,
+        blockTitle: blockView.name.replaceAll('_', ' '),
         blockView: blockView,
         colors: BLOCK_COLORS[moduleView.module.color],
       }

@@ -1,5 +1,6 @@
 import { GX, GXL, GYL } from '../spec/const.ts'
-import type { Pos, PosAny } from './types.ts'
+import type { Pos, PosAny, PosIo } from './types.ts'
+import { JackType } from '../spec/types.ts'
 
 enum Side {
   Left,
@@ -187,8 +188,10 @@ export function getPointsSides(connections: ConnectionVecPos[], small: number, l
       continue
     }
 
+    const w = (<PosIo> a.pos).jackView.spec.type === JackType.Stomp ? small : small * .7
+
     a.best = getSide(a.sides)
-    a.dot = getConnectionPointCorner(a.svg, a.best, a.sides, small * .7)
+    a.dot = getConnectionPointCorner(a.svg, a.best, a.sides, w)
   }
 
   for (const a of INDEX.block) {

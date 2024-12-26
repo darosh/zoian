@@ -19,6 +19,7 @@
 - [ ] mi note out abbr
 - [ ] user select none on tip
 - [ ] click to hide tip
+- [ ] esc cancel highlights
 
 ## Ref
 

@@ -866,27 +866,45 @@ export default {
 
       return { x: x * this.scale, y: y * this.scale }
     },
+    connectionPos () {
+      return this.euroMode ? this.view.connectionsEuro : this.view.connections
+    },
+    connectionPosCenters () {
+      return this.connectionPos.map(([source, target]) => {
+        const sh = this.euroOrIo(source) ? this.moduleEH : this.moduleSH
+        const th = this.euroOrIo(target) ? this.moduleEH : this.moduleSH
+        const from = this.gridPosOrEuro(source)
+        const to = this.gridPosOrEuro(target)
+
+        return {
+          source: { x: from[0] + sh, y: from[1] + sh },
+          target: { x: to[0] += th, y: to[1] += th },
+          sourcePos: source,
+          targetPos: target,
+          sh,
+          th
+        }
+      })
+    },
+    connectionPosDots () {
+      return this.connectionPosCenters.map((p) => {
+        return  getConnectionPoints(p, p.sh, p.th)
+      })
+    },
+    connectionPosDotsCurves () {
+      return this.connectionPosDots.map((s) => {
+        return {
+          ...s,
+          d: getCablePath(s.source, s.target)
+        }
+      })
+    },
     connections () {
-      return (this.euroMode ? this.view.connectionsEuro : this.view.connections)
-        .map(([source, target], index) => {
-          const sh = this.euroOrIo(source) ? this.moduleEH : this.moduleSH
-          const th = this.euroOrIo(target) ? this.moduleEH : this.moduleSH
-          const from = this.gridPosOrEuro(source)
-          const to = this.gridPosOrEuro(target)
+      if (this.straightLines) {
+        return this.connectionPosDots
+      }
 
-          const p = {
-            source: { x: from[0] + sh, y: from[1] + sh },
-            target: { x: to[0] += th, y: to[1] += th },
-          }
-
-          const s = getConnectionPoints(p, sh, th)
-
-          if (!this.straightLines) {
-            s.d = getCablePath(s.source, s.target, { index })
-          }
-
-          return s
-        })
+      return  this.connectionPosDotsCurves
     }
   },
   watch: {

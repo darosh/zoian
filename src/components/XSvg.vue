@@ -525,7 +525,7 @@
     <template v-else-if="selectedModule?.jackView">
       <div
         class="px-4 pt-2"
-        :class="selectedModule.jackView.from.length || selectedModule.jackView.to.length ? 'pb-3' : 'pb-2'"
+        :class="selectedModule.jackView.from.length || selectedModule.jackView.to.length ? 'x-pb-2-5' : 'pb-2'"
         style="min-width: 160px;">
         <span class="g-bolder">{{ selectedModule.jackView.spec.title }}</span>
         <!--        <pre>{{ inspect(selectedModule.jackView) }}</pre>-->
@@ -580,7 +580,10 @@
     <template v-else-if="selectedModule">
       <div
         class="px-4 pt-2"
-        :class="{'pb-1': selectedModule.blockTitle}"
+        :class="{
+          'x-pb-1-5': selectedModule.blockTitle,
+          'pb-1': !selectedModule.blockTitle
+        }"
         style="min-width: 160px;">
         <span class="g-bolder">{{ selectedModule.blockView.moduleView.module.type }}</span><span
           v-if="selectedModule.blockView.moduleView.module.name">: {{
@@ -597,7 +600,7 @@
         v-if="selectedConnections"
         style="font-size: 80%;"
         density="compact"
-        class="mb-2">
+        class="mb-1">
         <tbody>
           <tr
             v-for="(r, rIndex) in selectedConnections.current"
@@ -1355,5 +1358,13 @@ text {
     fill: #000;
     stroke: #fff;
   }
+}
+
+.x-pb-1-5 {
+  padding-bottom: 6px;
+}
+
+.x-pb-2-5 {
+  padding-bottom: 10px;
 }
 </style>

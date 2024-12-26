@@ -326,7 +326,8 @@
         <g
           v-if="straightLines"
           :class="{
-            'x-connection-animation': animations
+            'x-connection-animation': animations,
+            'x-connection-selected': selectedBlockView
           }">
           <line
             v-for="(c, cIndex) in connections"
@@ -335,22 +336,36 @@
             :y1="c.source.y"
             :x2="c.target.x"
             :y2="c.target.y"
-            stroke-width="px"
+            :stroke-width="pxl"
             class="x-connection" />
         </g>
         <g
           v-else
           :class="{
-            'x-connection-animation': animations
+            'x-connection-animation': animations,
+            'x-connection-selected': selectedBlockView
           }">
           <path
             v-for="(c, cIndex) in connections"
             :key="cIndex"
             :d="c.d"
-            stroke-width="px"
+            :stroke-width="pxl"
             class="x-connection" />
         </g>
       </template>
+
+      <!-- connected -->
+      <rect
+        v-for="(cb, i) of (connectedBlock || [])"
+        :key="i"
+        fill="none"
+        :stroke="dark ? 'rgba(255,255,255,.96)' : 'rgba(0,0,0,.87)'"
+        :stroke-width="moduleMH"
+        :rx="(cb.type && (cb.type !== JackType.Stomp)) ? moduleEH : null"
+        :ry="(cb.type && (cb.type !== JackType.Stomp)) ? moduleEH : null"
+        :width="cb.euroOrIo ? moduleE : moduleS"
+        :height="cb.euroOrIo ? moduleE : moduleS"
+        :transform="`translate(${cb.pos})`" />
 
       <!-- dots -->
       <template v-if="showConnections">
@@ -372,18 +387,6 @@
             :r="3 * px" />
         </g>
       </template>
-
-      <rect
-        v-for="(cb, i) of (connectedBlock || [])"
-        :key="i"
-        fill="none"
-        :stroke="dark ? 'rgba(255,255,255,.96)' : 'rgba(0,0,0,.87)'"
-        :stroke-width="moduleMH"
-        :rx="(cb.type && (cb.type !== JackType.Stomp)) ? moduleEH : null"
-        :ry="(cb.type && (cb.type !== JackType.Stomp)) ? moduleEH : null"
-        :width="cb.euroOrIo ? moduleE : moduleS"
-        :height="cb.euroOrIo ? moduleE : moduleS"
-        :transform="`translate(${cb.pos})`" />
 
     </template>
 
@@ -739,6 +742,9 @@ export default {
     px () {
       return this.round(this.w / this.$vuetify.display.width)
     },
+    pxl () {
+      return this.selectedBlockView ? this.px * 2 : this.px * 2
+    },
     moduleSH () {
       return this.moduleS / 2
     },
@@ -831,6 +837,9 @@ export default {
 
       return this.moduleER
     },
+    selectedBlockView () {
+      return this.selectedModule?.blockView || this.selectedModule?.jackView
+    },
     selectedModule () {
       if (!this.patch || !this.cursorBlock) {
         return null
@@ -919,7 +928,15 @@ export default {
         .filter(Boolean)
         .map(x => ({ dot: x.dot, isSource: x.isSource }))
 
-      const lines = this.connectionPosCenters.map((p) => {
+      let lines = this.connectionPosCenters
+
+      if (this.selectedBlockView) {
+        lines = lines.filter(l => ((l.sourcePos.blockView || l.sourcePos.jackView) === this.selectedBlockView)
+          || ((l.targetPos.blockView || l.targetPos.jackView) === this.selectedBlockView)
+        )
+      }
+
+      lines = lines.map((p) => {
         const source = sides[p.sourcePos.pos][p.sourcePos.index].dot
         const target = sides[p.targetPos.pos][p.targetPos.index].dot
 
@@ -1211,6 +1228,12 @@ export default {
   }
 }
 
+.x-connection-selected {
+  .x-connection {
+    stroke-opacity: .87;
+  }
+}
+
 text {
   pointer-events: none;
   user-select: none;
@@ -1244,6 +1267,12 @@ text {
   .x-connection-animation {
     .x-connection {
       stroke-opacity: .27;
+    }
+  }
+
+  .x-connection-selected {
+    .x-connection {
+      stroke-opacity: .87;
     }
   }
 }

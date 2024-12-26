@@ -1,6 +1,6 @@
 import debug from 'debug'
 
-import type { BlockView, ModuleView, PatchView } from '../graph/types.ts'
+import type { BlockView, PatchView } from '../graph/types.ts'
 import type { BlockMap, GridView, PosAny, PosBlock, PosEuro, PosIo, PosKind } from './types.ts'
 import { getPagesGrid } from './grid-pages.ts'
 import { getEuroGrid } from './grid-euro.ts'
@@ -73,14 +73,14 @@ function getConnections(view: PatchView, map: BlockMap, include: PosKind[]): [Po
       // log(fs, ts)
 
       if (!fs) {
-        const m = (<BlockView>c?.fromBlock)?.moduleView
+        const m = (<BlockView> c?.fromBlock)?.moduleView
         const first = m?.blockViews?.[0]
         log('alternative from block', first)
         fs = map.get(first)?.find((d) => include.includes(d.pos))
       }
 
       if (!ts) {
-        const m = (<BlockView>c?.toBlock)?.moduleView
+        const m = (<BlockView> c?.toBlock)?.moduleView
         const first = m?.blockViews?.[0]
         log('alternative to block', first)
         ts = map.get(first)?.find((d) => include.includes(d.pos))

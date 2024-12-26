@@ -394,37 +394,37 @@
         density="compact"
         class="my-1">
         <thead style="opacity: .75">
-          <tr>
-            <td class="pl-5">
-              Starred
-            </td>
-            <td class="text-right">
-              Page
-            </td>
-            <td class="pr-5 text-right">
-              CC
-            </td>
-          </tr>
+        <tr>
+          <td class="pl-5">
+            Starred
+          </td>
+          <td class="text-right">
+            Page
+          </td>
+          <td class="pr-5 text-right">
+            CC
+          </td>
+        </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(s, sIndex) of starred"
-            :key="sIndex">
-            <td class="pl-5">
-              <template v-if="s?.module?.name">
-                <b class="g-bolder">{{ s.module.name }}</b>: {{ s.module.type }}
-              </template>
-              <template v-else>
-                {{ s?.module?.type ?? 'ERROR' }}
-              </template>
-            </td>
-            <td class="text-right">
-              {{ s?.module?.page }}
-            </td>
-            <td class="pr-5 text-right">
-              {{ s.cc }}
-            </td>
-          </tr>
+        <tr
+          v-for="(s, sIndex) of starred"
+          :key="sIndex">
+          <td class="pl-5">
+            <template v-if="s?.module?.name">
+              <b class="g-bolder">{{ s.module.name }}</b>: {{ s.module.type }}
+            </template>
+            <template v-else>
+              {{ s?.module?.type ?? 'ERROR' }}
+            </template>
+          </td>
+          <td class="text-right">
+            {{ s?.module?.page }}
+          </td>
+          <td class="pr-5 text-right">
+            {{ s.cc }}
+          </td>
+        </tr>
         </tbody>
       </v-table>
     </template>
@@ -435,37 +435,37 @@
           density="compact"
           class="my-2">
           <thead style="opacity: .75">
-            <tr>
-              <td>CPU usage</td>
-              <td class="pr-0">
-                Pages
-              </td>
-              <td
-                colspan="2"
-                class="pr-5 text-right">
-                <b>{{ patch.cpu }}%</b>
-              </td>
-            </tr>
+          <tr>
+            <td>CPU usage</td>
+            <td class="pr-0">
+              Pages
+            </td>
+            <td
+              colspan="2"
+              class="pr-5 text-right">
+              <b>{{ patch.cpu }}%</b>
+            </td>
+          </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="({ type, cpu, count, pagesDisplay, cpuSum }, cpuIndex) of cpuTable"
-              :key="cpuIndex">
-              <td class="g-bolder">
-                {{ type }}
-              </td>
-              <td class="pr-0">
-                {{ pagesDisplay }}
-              </td>
-              <td class="text-right pr-0">
-                <template v-if="count > 1">
-                  {{ count }} <span style="opacity: .6;">&times;</span> {{ cpu }} <span style="opacity: .6;">=</span>
-                </template>
-              </td>
-              <td class="text-right pl-1 pr-5">
-                {{ cpuSum }}
-              </td>
-            </tr>
+          <tr
+            v-for="({ type, cpu, count, pagesDisplay, cpuSum }, cpuIndex) of cpuTable"
+            :key="cpuIndex">
+            <td class="g-bolder">
+              {{ type }}
+            </td>
+            <td class="pr-0">
+              {{ pagesDisplay }}
+            </td>
+            <td class="text-right pr-0">
+              <template v-if="count > 1">
+                {{ count }} <span style="opacity: .6;">&times;</span> {{ cpu }} <span style="opacity: .6;">=</span>
+              </template>
+            </td>
+            <td class="text-right pl-1 pr-5">
+              {{ cpuSum }}
+            </td>
+          </tr>
           </tbody>
         </v-table>
       </div>
@@ -475,26 +475,26 @@
         density="compact"
         class="my-1">
         <thead style="opacity: .75">
-          <tr>
-            <td class="pl-5">
-              Connections
-            </td>
-            <td class="pr-5 text-right g-bold">
-              {{ view.patchView.connectionTable.total }}
-            </td>
-          </tr>
+        <tr>
+          <td class="pl-5">
+            Connections
+          </td>
+          <td class="pr-5 text-right g-bold">
+            {{ view.patchView.connectionTable.total }}
+          </td>
+        </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(cr, sIndex) of view.patchView.connectionTable.rows"
-            :key="sIndex">
-            <td class="pl-5 g-bolder">
-              {{ ConnectionType[cr.type] }}
-            </td>
-            <td class="pr-5 text-right">
-              {{ cr.count }}
-            </td>
-          </tr>
+        <tr
+          v-for="(cr, sIndex) of view.patchView.connectionTable.rows"
+          :key="sIndex">
+          <td class="pl-5 g-bolder">
+            {{ ConnectionType[cr.type] }}
+          </td>
+          <td class="pr-5 text-right">
+            {{ cr.count }}
+          </td>
+        </tr>
         </tbody>
       </v-table>
     </template>
@@ -517,37 +517,37 @@
           density="compact"
           class="my-1">
           <thead style="opacity: .75">
-            <tr>
-              <td class="pl-5">
-                Module
-              </td>
-              <td class="text-right">
-                Page
-              </td>
-              <td class="pr-5 text-right">
-                Channel
-              </td>
-            </tr>
+          <tr>
+            <td class="pl-5">
+              Module
+            </td>
+            <td class="text-right">
+              Page
+            </td>
+            <td class="pr-5 text-right">
+              Channel
+            </td>
+          </tr>
           </thead>
           <tbody>
-            <tr
-              v-for="(md, mdIndex) of (selectedModule.jackView.spec.input ? view.patchView.midiTable.input : view.patchView.midiTable.output)"
-              :key="mdIndex">
-              <td class="pl-5">
-                <template v-if="md?.module?.name">
-                  <b class="g-bolder">{{ md.module.name }}</b>: {{ md.module.type }}
-                </template>
-                <b
-                  v-else
-                  class="g-bolder">{{ md.module.type }}</b>
-              </td>
-              <td class="text-right">
-                {{ md.module.page }}
-              </td>
-              <td class="text-right pr-5">
-                {{ md.channel }}
-              </td>
-            </tr>
+          <tr
+            v-for="(md, mdIndex) of (selectedModule.jackView.spec.input ? view.patchView.midiTable.input : view.patchView.midiTable.output)"
+            :key="mdIndex">
+            <td class="pl-5">
+              <template v-if="md?.module?.name">
+                <b class="g-bolder">{{ md.module.name }}</b>: {{ md.module.type }}
+              </template>
+              <b
+                v-else
+                class="g-bolder">{{ md.module.type }}</b>
+            </td>
+            <td class="text-right">
+              {{ md.module.page }}
+            </td>
+            <td class="text-right pr-5">
+              {{ md.channel }}
+            </td>
+          </tr>
           </tbody>
         </v-table>
       </div>
@@ -557,7 +557,7 @@
         class="px-4 py-2"
         style="min-width: 160px;">
         <span class="g-bolder">{{ selectedModule.blockView.moduleView.module.type }}</span><span
-          v-if="selectedModule.blockView.moduleView.module.name">: {{
+        v-if="selectedModule.blockView.moduleView.module.name">: {{
           selectedModule.blockView.moduleView.module.name
         }}</span>
         <br>
@@ -1127,7 +1127,7 @@ export default {
 <style scoped>
 @keyframes stroke {
   from {
-    stroke-dashoffset: 6;
+    stroke-dashoffset: 5;
   }
   to {
     stroke-dashoffset: 0;
@@ -1142,8 +1142,8 @@ export default {
 
 .x-connection-animation {
   .x-connection {
-    stroke-dasharray: 3 2;
     stroke-opacity: .2;
+    stroke-dasharray: 3 2;
     animation-name: stroke;
     animation-duration: .8s;
     animation-timing-function: linear;
@@ -1178,6 +1178,13 @@ text {
 
   .x-connection {
     stroke: #fff;
+    stroke-opacity: .2;
+  }
+
+  .x-connection-animation {
+    .x-connection {
+      stroke-opacity: .27;
+    }
   }
 }
 </style>

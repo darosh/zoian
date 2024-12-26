@@ -13,6 +13,7 @@
 - [ ] hidden connected blocks count / list
 - [ ] keep tooltip on next/prev (for tool row)
 - [ ] cable bundling?
+- [ ] verify alternative connections are hidden
 
 ## Ref
 

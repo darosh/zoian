@@ -1,6 +1,6 @@
 import debug from 'debug'
 
-import type { PatchView } from '../graph/types.ts'
+import type { BlockView, ModuleView, PatchView } from '../graph/types.ts'
 import type { BlockMap, GridView, PosAny, PosBlock, PosEuro, PosIo, PosKind } from './types.ts'
 import { getPagesGrid } from './grid-pages.ts'
 import { getEuroGrid } from './grid-euro.ts'
@@ -13,9 +13,11 @@ export function gridView(view: PatchView): GridView {
   const euroGrid = getEuroGrid(view)
   const ioGrid = getIoGrid(view)
   const blockMap: BlockMap = new Map()
+  // const hiddenMap: BlockMap = new Map()
 
   mapPos(blockMap, pagesGrid)
-  mapPos(blockMap, hiddenGrid)
+  // mapPos(blockMap, hiddenGrid)
+  // mapPos(hiddenMap, hiddenGrid)
   mapPos(blockMap, euroGrid)
   mapPos(blockMap, ioGrid)
 
@@ -65,12 +67,27 @@ function getConnections(view: PatchView, map: BlockMap, include: PosKind[]): [Po
         return
       }
 
-      const fs = map.get(c.fromBlock)?.find((d) => include.includes(d.pos))
-      const ts = map.get(c.toBlock)?.find((d) => include.includes(d.pos))
+      let fs = map.get(c.fromBlock)?.find((d) => include.includes(d.pos))
+      let ts = map.get(c.toBlock)?.find((d) => include.includes(d.pos))
 
-      log(fs, ts)
+      // log(fs, ts)
+
+      if (!fs) {
+        const m = (<BlockView>c?.fromBlock)?.moduleView
+        const first = m?.blockViews?.[0]
+        log('alternative from block', first)
+        fs = map.get(first)?.find((d) => include.includes(d.pos))
+      }
+
+      if (!ts) {
+        const m = (<BlockView>c?.toBlock)?.moduleView
+        const first = m?.blockViews?.[0]
+        log('alternative to block', first)
+        ts = map.get(first)?.find((d) => include.includes(d.pos))
+      }
 
       if (!fs || !ts) {
+        log('skipping connection')
         return
       }
 
@@ -102,7 +119,7 @@ function getConnectionsEuro(view: PatchView, map: BlockMap): [PosAny, PosAny][] 
       const fs = map.get(c.fromBlock)?.find(include)
       const ts = map.get(c.toBlock)?.find(include)
 
-      log(fs, ts)
+      // log(fs, ts)
 
       if (!fs || !ts) {
         return

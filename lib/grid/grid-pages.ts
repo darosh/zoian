@@ -32,12 +32,14 @@ export function getPagesGrid(view: PatchView): [(PosBlock | undefined)[], PosBlo
       }
 
       const first = position === moduleView.module.position[0]
+      const page = moduleView.module.page + offsetPage
 
       const pos: PosBlock = {
         pos: 'block',
-        page: moduleView.module.page + offsetPage,
+        page,
         x,
         y,
+        index: page * G + y * GX + x,
         position,
         first,
         last: position === moduleView.module.position.at(-1),

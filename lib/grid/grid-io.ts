@@ -8,6 +8,7 @@ export function getIoGrid(patchView: PatchView): PosIo[] {
       page: -1,
       x,
       y: 0,
+      index: x,
       jackView,
     }
   })

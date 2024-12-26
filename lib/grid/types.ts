@@ -15,6 +15,8 @@ export interface PosBlock {
   page: number
   x: number
   y: number
+  index: number
+
   position: number
   first: boolean
   last: boolean
@@ -37,6 +39,7 @@ export interface PosEuro {
   x: number
   y: number
   index: number
+
   type: JackType
   blockView?: BlockView
   jackView?: JackView
@@ -48,6 +51,8 @@ export interface PosIo {
   page: -1
   x: number
   y: 0
+  index: number
+
   jackView: JackView
 }
 

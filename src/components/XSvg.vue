@@ -352,6 +352,27 @@
         </g>
       </template>
 
+      <!-- dots -->
+      <template v-if="showConnections">
+        <g class="x-dots-source">
+          <circle
+            v-for="({dot}, sdIndex) in connectionPosDots.sourceDots"
+            :key="sdIndex"
+            :cx="dot.x"
+            :cy="dot.y"
+            :r="3 * px" />
+        </g>
+        <g class="x-dots-target">
+          <circle
+            v-for="({dot}, sdIndex) in connectionPosDots.targetDots"
+            :key="sdIndex"
+            :cx="dot.x"
+            :cy="dot.y"
+            :stroke-width="px"
+            :r="3 * px" />
+        </g>
+      </template>
+
       <rect
         v-for="(cb, i) of (connectedBlock || [])"
         :key="i"
@@ -394,37 +415,37 @@
         density="compact"
         class="my-1">
         <thead style="opacity: .75">
-        <tr>
-          <td class="pl-5">
-            Starred
-          </td>
-          <td class="text-right">
-            Page
-          </td>
-          <td class="pr-5 text-right">
-            CC
-          </td>
-        </tr>
+          <tr>
+            <td class="pl-5">
+              Starred
+            </td>
+            <td class="text-right">
+              Page
+            </td>
+            <td class="pr-5 text-right">
+              CC
+            </td>
+          </tr>
         </thead>
         <tbody>
-        <tr
-          v-for="(s, sIndex) of starred"
-          :key="sIndex">
-          <td class="pl-5">
-            <template v-if="s?.module?.name">
-              <b class="g-bolder">{{ s.module.name }}</b>: {{ s.module.type }}
-            </template>
-            <template v-else>
-              {{ s?.module?.type ?? 'ERROR' }}
-            </template>
-          </td>
-          <td class="text-right">
-            {{ s?.module?.page }}
-          </td>
-          <td class="pr-5 text-right">
-            {{ s.cc }}
-          </td>
-        </tr>
+          <tr
+            v-for="(s, sIndex) of starred"
+            :key="sIndex">
+            <td class="pl-5">
+              <template v-if="s?.module?.name">
+                <b class="g-bolder">{{ s.module.name }}</b>: {{ s.module.type }}
+              </template>
+              <template v-else>
+                {{ s?.module?.type ?? 'ERROR' }}
+              </template>
+            </td>
+            <td class="text-right">
+              {{ s?.module?.page }}
+            </td>
+            <td class="pr-5 text-right">
+              {{ s.cc }}
+            </td>
+          </tr>
         </tbody>
       </v-table>
     </template>
@@ -435,37 +456,37 @@
           density="compact"
           class="my-2">
           <thead style="opacity: .75">
-          <tr>
-            <td>CPU usage</td>
-            <td class="pr-0">
-              Pages
-            </td>
-            <td
-              colspan="2"
-              class="pr-5 text-right">
-              <b>{{ patch.cpu }}%</b>
-            </td>
-          </tr>
+            <tr>
+              <td>CPU usage</td>
+              <td class="pr-0">
+                Pages
+              </td>
+              <td
+                colspan="2"
+                class="pr-5 text-right">
+                <b>{{ patch.cpu }}%</b>
+              </td>
+            </tr>
           </thead>
           <tbody>
-          <tr
-            v-for="({ type, cpu, count, pagesDisplay, cpuSum }, cpuIndex) of cpuTable"
-            :key="cpuIndex">
-            <td class="g-bolder">
-              {{ type }}
-            </td>
-            <td class="pr-0">
-              {{ pagesDisplay }}
-            </td>
-            <td class="text-right pr-0">
-              <template v-if="count > 1">
-                {{ count }} <span style="opacity: .6;">&times;</span> {{ cpu }} <span style="opacity: .6;">=</span>
-              </template>
-            </td>
-            <td class="text-right pl-1 pr-5">
-              {{ cpuSum }}
-            </td>
-          </tr>
+            <tr
+              v-for="({ type, cpu, count, pagesDisplay, cpuSum }, cpuIndex) of cpuTable"
+              :key="cpuIndex">
+              <td class="g-bolder">
+                {{ type }}
+              </td>
+              <td class="pr-0">
+                {{ pagesDisplay }}
+              </td>
+              <td class="text-right pr-0">
+                <template v-if="count > 1">
+                  {{ count }} <span style="opacity: .6;">&times;</span> {{ cpu }} <span style="opacity: .6;">=</span>
+                </template>
+              </td>
+              <td class="text-right pl-1 pr-5">
+                {{ cpuSum }}
+              </td>
+            </tr>
           </tbody>
         </v-table>
       </div>
@@ -475,26 +496,26 @@
         density="compact"
         class="my-1">
         <thead style="opacity: .75">
-        <tr>
-          <td class="pl-5">
-            Connections
-          </td>
-          <td class="pr-5 text-right g-bold">
-            {{ view.patchView.connectionTable.total }}
-          </td>
-        </tr>
+          <tr>
+            <td class="pl-5">
+              Connections
+            </td>
+            <td class="pr-5 text-right g-bold">
+              {{ view.patchView.connectionTable.total }}
+            </td>
+          </tr>
         </thead>
         <tbody>
-        <tr
-          v-for="(cr, sIndex) of view.patchView.connectionTable.rows"
-          :key="sIndex">
-          <td class="pl-5 g-bolder">
-            {{ ConnectionType[cr.type] }}
-          </td>
-          <td class="pr-5 text-right">
-            {{ cr.count }}
-          </td>
-        </tr>
+          <tr
+            v-for="(cr, sIndex) of view.patchView.connectionTable.rows"
+            :key="sIndex">
+            <td class="pl-5 g-bolder">
+              {{ ConnectionType[cr.type] }}
+            </td>
+            <td class="pr-5 text-right">
+              {{ cr.count }}
+            </td>
+          </tr>
         </tbody>
       </v-table>
     </template>
@@ -517,37 +538,37 @@
           density="compact"
           class="my-1">
           <thead style="opacity: .75">
-          <tr>
-            <td class="pl-5">
-              Module
-            </td>
-            <td class="text-right">
-              Page
-            </td>
-            <td class="pr-5 text-right">
-              Channel
-            </td>
-          </tr>
+            <tr>
+              <td class="pl-5">
+                Module
+              </td>
+              <td class="text-right">
+                Page
+              </td>
+              <td class="pr-5 text-right">
+                Channel
+              </td>
+            </tr>
           </thead>
           <tbody>
-          <tr
-            v-for="(md, mdIndex) of (selectedModule.jackView.spec.input ? view.patchView.midiTable.input : view.patchView.midiTable.output)"
-            :key="mdIndex">
-            <td class="pl-5">
-              <template v-if="md?.module?.name">
-                <b class="g-bolder">{{ md.module.name }}</b>: {{ md.module.type }}
-              </template>
-              <b
-                v-else
-                class="g-bolder">{{ md.module.type }}</b>
-            </td>
-            <td class="text-right">
-              {{ md.module.page }}
-            </td>
-            <td class="text-right pr-5">
-              {{ md.channel }}
-            </td>
-          </tr>
+            <tr
+              v-for="(md, mdIndex) of (selectedModule.jackView.spec.input ? view.patchView.midiTable.input : view.patchView.midiTable.output)"
+              :key="mdIndex">
+              <td class="pl-5">
+                <template v-if="md?.module?.name">
+                  <b class="g-bolder">{{ md.module.name }}</b>: {{ md.module.type }}
+                </template>
+                <b
+                  v-else
+                  class="g-bolder">{{ md.module.type }}</b>
+              </td>
+              <td class="text-right">
+                {{ md.module.page }}
+              </td>
+              <td class="text-right pr-5">
+                {{ md.channel }}
+              </td>
+            </tr>
           </tbody>
         </v-table>
       </div>
@@ -557,7 +578,7 @@
         class="px-4 py-2"
         style="min-width: 160px;">
         <span class="g-bolder">{{ selectedModule.blockView.moduleView.module.type }}</span><span
-        v-if="selectedModule.blockView.moduleView.module.name">: {{
+          v-if="selectedModule.blockView.moduleView.module.name">: {{
           selectedModule.blockView.moduleView.module.name
         }}</span>
         <br>
@@ -585,8 +606,8 @@ import {
   gridView,
   getConnectedPos,
   getConnectedPosEuro,
-  getConnectionPoints,
-  getCablePath
+  getCablePath,
+  getPointsSides
 } from '../../lib/index.ts'
 
 const log = debug('zoian:svg')
@@ -887,12 +908,35 @@ export default {
       })
     },
     connectionPosDots () {
-      return this.connectionPosCenters.map((p) => {
-        return  getConnectionPoints(p, p.sh, p.th)
+      const sides = getPointsSides(this.connectionPosCenters, this.moduleEH, this.moduleSH)
+      log('side', toRaw(sides))
+
+      const all = [
+        ...sides.io,
+        ...sides.euro,
+        ...sides.block
+      ]
+        .filter(Boolean)
+        .map(x => ({ dot: x.dot, isSource: x.isSource }))
+
+      const lines = this.connectionPosCenters.map((p) => {
+        const source = sides[p.sourcePos.pos][p.sourcePos.index].dot
+        const target = sides[p.targetPos.pos][p.targetPos.index].dot
+
+        return {
+          source,
+          target
+        }
       })
+
+      return {
+        lines,
+        sourceDots: all.filter(x => x.isSource),
+        targetDots: all.filter(x => !x.isSource)
+      }
     },
     connectionPosDotsCurves () {
-      return this.connectionPosDots.map((s) => {
+      return this.connectionPosDots.lines.map((s) => {
         return {
           ...s,
           d: getCablePath(s.source, s.target)
@@ -901,10 +945,10 @@ export default {
     },
     connections () {
       if (this.straightLines) {
-        return this.connectionPosDots
+        return this.connectionPosDots.lines
       }
 
-      return  this.connectionPosDotsCurves
+      return this.connectionPosDotsCurves
     }
   },
   watch: {
@@ -957,8 +1001,6 @@ export default {
   },
   beforeUnmount () {
     this.observer.unobserve(this.$refs.tooltip.$el)
-  },
-  unmounted () {
     window.removeEventListener('scroll', this.onScroll)
   },
   methods: {
@@ -1203,6 +1245,28 @@ text {
     .x-connection {
       stroke-opacity: .27;
     }
+  }
+}
+
+.x-dots-source circle {
+  fill: #000;
+  fill-opacity: 1;
+}
+
+.x-dots-target circle {
+  fill: #fff;
+  stroke: #000;
+  fill-opacity: 1;
+}
+
+.x-dark {
+  .x-dots-source circle {
+    fill: #fff;
+  }
+
+  .x-dots-target circle {
+    fill: #000;
+    stroke: #fff;
   }
 }
 </style>

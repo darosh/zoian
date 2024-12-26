@@ -383,7 +383,7 @@ export default {
 
     this.loading = false
   },
-  created () {
+  beforeMount () {
     window.addEventListener('keydown', this.onKey)
   },
   beforeUnmount () {

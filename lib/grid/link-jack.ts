@@ -1,5 +1,5 @@
-import { connectionView } from '../graph/patch-view.ts'
-import type { BlockView, ConnectionView, IoConnection, JackView } from '../graph/types.ts'
+import { connectionView } from '../view/patch-view.ts'
+import type { BlockView, ConnectionView, IoConnection, JackView } from '../view/types.ts'
 import debug from 'debug'
 
 const log = debug('zoian:link')

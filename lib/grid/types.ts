@@ -1,6 +1,6 @@
 import type { Block, JackType } from '../spec/types.ts'
 import type { PatchModule } from '../parser/types.ts'
-import type { BlockView, JackView, ModuleView, PatchView } from '../graph/types.ts'
+import type { BlockView, JackView, ModuleView, PatchView } from '../view/types.ts'
 
 export interface Pos {
   page: number

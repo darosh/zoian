@@ -4,7 +4,7 @@ import type { PosBlock } from './types.ts'
 import { DISPLAY_MODULE } from '../spec/display-module.ts'
 import { DISPLAY_BLOCK } from '../spec/display-blocks.ts'
 import { BLOCK_COLORS } from './rgb-colors.ts'
-import type { PatchView } from '../graph/types.ts'
+import type { PatchView } from '../view/types.ts'
 
 const log = debug('zoian:grid')
 

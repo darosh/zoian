@@ -7,7 +7,7 @@ import { blockEntries } from '../parser/utils/block-entries.ts'
 import { getCpuTable } from './table-cpu.ts'
 import { getStarredTable } from './table-starred.ts'
 import { JACKS_IO } from '../spec/jacks-io.ts'
-import { graphJackConnections } from './graph-connections-io.ts'
+import { getIoConnections } from './connections-io.ts'
 import { linkJack } from '../grid/link-jack.ts'
 import { getMidiTable } from './table-midi.ts'
 import { getConnectionsTable } from './table-connection.ts'
@@ -145,7 +145,7 @@ function getJackViews(moduleViews: ModuleView[], blockViews: BlockView[]) {
   const jackViews: JackView[] = []
 
   for (const j of JACKS_IO) {
-    const connections = graphJackConnections(j, moduleViews)
+    const connections = getIoConnections(j, moduleViews)
 
     const jv: JackView = {
       jack: {

@@ -1,6 +1,6 @@
 import debug from 'debug'
 
-import type { BlockView, ConnectionView, PatchView } from '../graph/types.ts'
+import type { BlockView, ConnectionView, PatchView } from '../view/types.ts'
 import type { BlockMap, GridView, PosAny, PosBlock, PosEuro, PosIo, PosKind } from './types.ts'
 import { getPagesGrid } from './grid-pages.ts'
 import { getEuroGrid } from './grid-euro.ts'

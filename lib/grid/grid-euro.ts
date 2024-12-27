@@ -5,8 +5,8 @@ import { JACKS_EURO } from '../spec/jacks-euro.ts'
 import { EURO_X } from '../spec/const.ts'
 import type { PosEuro } from './types.ts'
 import { BLOCK_COLORS } from './rgb-colors.ts'
-import type { JackView, ModuleView, PatchView } from '../graph/types.ts'
-import { graphJackConnections } from '../graph/graph-connections-io.ts'
+import type { JackView, ModuleView, PatchView } from '../view/types.ts'
+import { getIoConnections } from '../view/connections-io.ts'
 import { linkJack } from './link-jack.ts'
 
 const log = debug('zoian:euro')
@@ -71,7 +71,7 @@ function mapEuro(v: number | Jack, index: number, { moduleViews, blockViews }: P
       colors: moduleView?.module?.color ? BLOCK_COLORS[moduleView?.module?.color] : undefined,
     }
   } else {
-    const connections = graphJackConnections(<Jack> v, moduleViews)
+    const connections = getIoConnections(<Jack> v, moduleViews)
 
     log('connections', connections)
 

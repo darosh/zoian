@@ -9,8 +9,8 @@ export { parse } from './parser/parse.ts'
 export { blockEntries } from './parser/utils/block-entries.ts'
 
 // graph
-export { patchView } from './graph/patch-view.ts'
-export { ConnectionType } from './graph/types.ts'
+export { patchView } from './view/patch-view.ts'
+export { ConnectionType } from './view/types.ts'
 
 // grid
 export { gridView } from './grid/grid-view.ts'

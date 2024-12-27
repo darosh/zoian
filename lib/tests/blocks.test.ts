@@ -1,6 +1,6 @@
 import { MODULES } from '../spec/modules.ts'
 import stringify from 'json-stringify-pretty-compact'
-import { abbreviateBlockName } from '../graph/abbreviate-block-name.ts'
+import { abbreviateBlockName } from '../view/abbreviate-block-name.ts'
 
 Deno.test.ignore('list block names', async () => {
   const list = MODULES.reduce((acc, m) => {

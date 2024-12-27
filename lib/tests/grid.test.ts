@@ -1,6 +1,6 @@
 import debug from 'npm:debug'
 
-import { patchView } from '../graph/patch-view.ts'
+import { patchView } from '../view/patch-view.ts'
 import { EMPTY_PATCH } from './fixtures/empty-patch.ts'
 import { SIMPLE_PATCH } from './fixtures/simple-patch.ts'
 import { gridView } from '../grid/grid-view.ts'

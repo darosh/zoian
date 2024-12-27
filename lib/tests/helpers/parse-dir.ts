@@ -1,6 +1,8 @@
 import debug from 'npm:debug'
 import { parse } from '../../parser/parse.ts'
 import stringify from 'npm:json-stringify-pretty-compact@4.0.0'
+import { getGrid } from '../../grid/grid.ts'
+import { getView } from '../../view/patch-view.ts'
 
 const log = debug('zoian:test')
 
@@ -46,6 +48,22 @@ export async function convertDir(src: string, tgt?: string, index = false) {
         versions[m.type][m.version] = versions[m.type][m.version] || 0
         versions[m.type][m.version]++
       })
+
+
+      const view = getView(parsed)
+      const grid = getGrid(view)
+
+      if (grid.view.connectionTable.counts.unknown) {
+        log('unknown', grid.view.connectionTable.counts.unknown)
+      }
+
+      if (grid.view.connectionTable.counts.mixed) {
+        log('mixed', grid.view.connectionTable.counts.mixed)
+      }
+
+      if (grid.view.connectionTable.counts.missing) {
+        log('missing', grid.view.connectionTable.counts.missing)
+      }
     } catch {
       log('FAILED', f.name)
       failed.push(p)

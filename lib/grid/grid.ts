@@ -24,7 +24,7 @@ export function getGrid(view: PatchView): Grid {
   mapPos(blockMap, euroGrid)
   mapPos(blockMap, ioGrid)
 
-  log('block map', blockMap)
+  log('block map', blockMap.size)
 
   const connections = getConnections(view, blockMap, hiddenMap, ['block', 'io'])
   const connectionsEuro = view.patch.euro ? getConnectionsEuro(view, blockMap, hiddenMap) : []

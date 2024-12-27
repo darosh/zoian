@@ -1,4 +1,4 @@
-import type { BlockView } from '../graph/types.ts'
+import type { BlockView } from '../view/types.ts'
 import type { BlockMap, PosAny, PosBlock } from './types.ts'
 
 export function getConnectedBlocks(block: BlockView): BlockView[] {

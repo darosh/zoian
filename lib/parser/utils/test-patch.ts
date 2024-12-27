@@ -42,7 +42,6 @@ export function getTestPatch(): Patch {
   })
 
   return {
-    cpu: 50,
     modules,
     pages: Array.from({ length: page + 1 }).map((_c, index) => ({
       name: '',

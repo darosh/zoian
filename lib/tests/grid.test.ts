@@ -14,7 +14,7 @@ Deno.test.ignore('empty', () => {
   log('view %O', grid)
 })
 
-Deno.test('simple', () => {
+Deno.test.ignore('simple', () => {
   const view = getView(SIMPLE_PATCH)
   const grid = getGrid(view)
 

@@ -25,7 +25,7 @@ export async function convertDir(src: string, tgt?: string, index = false) {
     await Deno.mkdir(tgt, { recursive: true })
   }
 
-  const versions: Record<string, Record<string, number>> = {}
+  const versions: Record<string, Record<string, { count: number; file: string | null }>> = {}
   const indexLines = []
   const list = await readDir(src)
 
@@ -45,10 +45,10 @@ export async function convertDir(src: string, tgt?: string, index = false) {
 
       parsed.modules.forEach((m) => {
         versions[m.type] = versions[m.type] || {}
-        versions[m.type][m.version] = versions[m.type][m.version] || 0
-        versions[m.type][m.version]++
+        versions[m.type][m.version] = versions[m.type][m.version] || { count: 0, file: null }
+        versions[m.type][m.version].count++
+        versions[m.type][m.version].file = f.name
       })
-
 
       const view = getView(parsed)
       const grid = getGrid(view)
@@ -88,5 +88,6 @@ export async function convertDir(src: string, tgt?: string, index = false) {
   }
 
   log('Failed %O', failed)
-  log('Versions %O', Object.entries(versions).filter(([, v]) => Object.keys(v).length > 1))
+  log('Versions %O', Object.entries(versions)
+    .filter(([, v]) => Object.keys(v).length > 1))
 }

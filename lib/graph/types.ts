@@ -18,6 +18,11 @@ export interface CpuRow {
   cpuSum: number
 }
 
+export interface CpuTable {
+  rows: CpuRow[]
+  sum: number
+}
+
 export interface StarredRow {
   block: number
   cc?: number
@@ -102,7 +107,7 @@ export interface PatchView {
   connections: ConnectionView[]
   orphanConnections: ConnectionView[]
   midiTable: MidiTable
-  cpuTable: CpuRow[]
+  cpuTable: CpuTable
   starredTable: StarredRow[]
   connectionTable: ConnectionTable
 }

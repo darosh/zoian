@@ -5,7 +5,6 @@ export interface Patch {
   name?: string
   size?: number
   euro?: boolean
-  cpu: number
   pages: { name: string; index: number }[]
   starred: Starred[]
   modules: PatchModule[]
@@ -19,7 +18,6 @@ export interface PatchModule {
   name: string
   version: number
   euro?: boolean
-  cpu: number
   size: number
   dataSize: number
   page: number

@@ -30,9 +30,9 @@
 ## Improvements
 
 - [ ] verify alternative connections are hidden
-- [ ] remove redundant props from Patch model
 - [ ] [POSTPONED] consolidate block condition types
 - [ ] [POSTPONED] cable bundling?
+- [ ] [POSTPONED] check with Empress v5 factory set licence
 
 ## Ref
 
@@ -50,6 +50,7 @@
 
 ## Done
 
+- [x] remove redundant props from Patch model
 - [x] euro audio dots
 - [x] recalc connected on euro switch
 - [x] always show lines on hover

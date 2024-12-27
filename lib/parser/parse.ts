@@ -9,7 +9,6 @@ import { parseString } from './parse-string.ts'
 import { parsePages } from './parse-pages.ts'
 import { parseParameters, renameParamDict } from './parse-parameters.ts'
 
-import { calculateCpu } from './calculate-cpu.ts'
 import { calculateBlocks } from './calculate-block.ts'
 import { calculatePages } from './calculate-pages.ts'
 import { calculatePositions } from './calculate-positions.ts'
@@ -87,7 +86,6 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
       )),
       version: longs[cursor + 2],
       euro: MODULES[moduleId].euro,
-      cpu: MODULES[moduleId].cpu,
       size: longs[cursor],
       dataSize: longs[cursor + 7],
       page: longs[cursor + 3],
@@ -211,7 +209,6 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
     name,
     size: patchSize,
     euro,
-    cpu: calculateCpu(modules),
     pages,
     modules,
     connections,

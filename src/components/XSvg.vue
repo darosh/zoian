@@ -93,11 +93,11 @@
       <x-svg-symbol
         v-if="patch?.modules?.length"
         :location="0"
-        :text="patch?.cpu >= 100 ? '%' : '%'"
+        text="%"
         :px="px"
         :dark="dark"
         :size="moduleE"
-        :progress="patch?.cpu"
+        :progress="cpuTable.sum"
         :active="true"
         :position="gridPosEuro({x: 0, y: 0, page: -2}, true)" />
 
@@ -467,13 +467,13 @@
               <td
                 colspan="2"
                 class="pr-5 text-right">
-                <b>{{ patch.cpu }}%</b>
+                <b>{{ cpuTable.sum }}%</b>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr
-              v-for="({ type, cpu, count, pagesDisplay, cpuSum }, cpuIndex) of cpuTable"
+              v-for="({ type, cpu, count, pagesDisplay, cpuSum }, cpuIndex) of cpuTable.rows"
               :key="cpuIndex">
               <td class="g-bolder">
                 {{ type }}

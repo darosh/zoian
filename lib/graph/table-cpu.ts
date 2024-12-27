@@ -1,28 +1,37 @@
 import type { Patch } from '../parser/types.ts'
-import type { CpuRow } from './types.ts'
+import type { CpuTable } from './types.ts'
+import { MODULES } from '../spec/modules.ts'
 
-export function getCpuTable(patch: Patch): CpuRow[] {
+export function getCpuTable(patch: Patch): CpuTable {
   const r = new Map()
+  let sum = 0
 
-  for (const { id, type, cpu, page } of patch.modules) {
+  for (const { id, type, page } of patch.modules) {
+    const cpu = MODULES[id].cpu
     const m = r.has(id) ? r.get(id) : r.set(id, { id, type, cpu, pages: new Set(), count: 0 }).get(id)
 
+    sum += cpu
     m.count++
     m.pages.add(page)
   }
 
-  return [...r.values()]
-    .map((d) => {
-      const pages = [...d.pages]
+  return {
+    sum: Math.round(sum * 10) / 10,
+    rows: [
+      ...r.values(),
+    ]
+      .map((d) => {
+        const pages = [...d.pages]
 
-      return {
-        ...d,
-        pages,
-        pagesDisplay: formatPageNumbers([...d.pages]),
-        cpuSum: Math.round(d.cpu * d.count * 10) / 10,
-      }
-    })
-    .sort((a, b) => b.cpuSum - a.cpuSum)
+        return {
+          ...d,
+          pages,
+          pagesDisplay: formatPageNumbers([...d.pages]),
+          cpuSum: Math.round(d.cpu * d.count * 10) / 10,
+        }
+      })
+      .sort((a, b) => b.cpuSum - a.cpuSum),
+  }
 }
 
 function formatPageNumbers(pages: number[]) {

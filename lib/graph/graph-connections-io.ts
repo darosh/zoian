@@ -23,8 +23,8 @@ export function graphJackConnections(jack: Jack, viewModules: ModuleView[]): IoC
 
         log('numbered module connection found')
         connections.push({
-          source: jack.input ? jackPoint : modulePoint,
-          target: jack.input ? modulePoint : jackPoint,
+          source: !jack.input ? jackPoint : modulePoint,
+          target: !jack.input ? modulePoint : jackPoint,
         })
       }
 

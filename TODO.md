@@ -50,6 +50,7 @@
 
 ## Done
 
+- [x] euro audio dots
 - [x] recalc connected on euro switch
 - [x] always show lines on hover
 - [x] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))

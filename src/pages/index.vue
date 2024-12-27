@@ -257,11 +257,12 @@ import { handleDrop } from '@/utils/file-drop.js'
 import { getUint8ArrayFromFile } from '@/utils/array-from-file.js'
 import { addBase64Padding, base64ToUint8Array, removePadding, uint8ArrayToBase64 } from '@/utils/base64-array-utils.js'
 import { downloadUint8Array } from '@/utils/array-download.js'
+import { gzipUint8Array, resizeUint8Array, ungzipUint8Array } from '@/utils/gzp-array.js'
 
 import { parse } from '../../lib/index.ts'
 
 import XSvg from '@/components/XSvg.vue'
-import { gzipUint8Array, ungzipUint8Array } from '@/utils/gzp-array.js'
+
 // import { SIMPLE_PATCH } from '../../lib/tests/fixtures/simple-patch.ts'
 
 const log = debug('zoian:app')
@@ -371,6 +372,8 @@ export default {
       } catch (e) {
         console.error(e)
       }
+
+      uint8Array = resizeUint8Array(uint8Array)
 
       this.uint8Array = uint8Array
 

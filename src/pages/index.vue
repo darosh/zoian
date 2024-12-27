@@ -259,7 +259,7 @@ import { addBase64Padding, base64ToUint8Array, removePadding, uint8ArrayToBase64
 import { downloadUint8Array } from '@/utils/array-download.js'
 import { gzipUint8Array, resizeUint8Array, ungzipUint8Array } from '@/utils/gzp-array.js'
 
-import { parse } from '../../lib/index.ts'
+import { LENGTH, parse } from '../../lib/index.ts'
 
 import XSvg from '@/components/XSvg.vue'
 
@@ -373,7 +373,7 @@ export default {
         console.error(e)
       }
 
-      uint8Array = resizeUint8Array(uint8Array)
+      uint8Array = resizeUint8Array(uint8Array, LENGTH)
 
       this.uint8Array = uint8Array
 

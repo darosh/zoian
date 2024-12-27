@@ -1076,7 +1076,7 @@ export default {
       this.transitionTooltip = newVal && oldVal
       log('selected block', toRaw(newVal))
 
-      if (!newVal || newVal.cpu || newVal.starred) {
+      if (!newVal || newVal.cpu || newVal.starred || newVal.connection) {
         // this.connectedBlock = null
         this.selectedConnections = null
         return
@@ -1085,7 +1085,7 @@ export default {
       if (!newVal.blockView && !newVal.jackView) {
         this.connectedBlock = null
         this.selectedConnections = null
-        console.log('missing block view', newVal)
+        log('missing block view', newVal)
         return
       }
 

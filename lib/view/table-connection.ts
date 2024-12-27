@@ -39,7 +39,7 @@ export function getConnectionsTable(patch: Patch): ConnectionTable {
     } else if (ct === ConnectionType.Unknown || dt === ConnectionType.Unknown) {
       unknown++
     } else if (ct !== dt) {
-      log('mixed %s %s', srcBB?.[0], tgtBB?.[0])
+      log('mixed %s %s', srcBB?.[0], tgtBB?.[0], con)
       mixed++
     } else if (ct === ConnectionType.CV) {
       cv++

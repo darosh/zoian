@@ -12,13 +12,11 @@
 
 ## Bugs
 
-- [ ] mixed connections in demo 9. non linear
 - [ ] 050 airport wind patch corrupted page names?
 - [ ] [./lib/README.md](./lib/README.md) version of ADSR, Pitch Shifter and Clock Divider, check FW release notes
 
 ## Improvements
 
-- [ ] verify alternative connections are hidden
 - [ ] [POSTPONED] consolidate block condition types
 - [ ] [POSTPONED] cable bundling?
 - [ ] [POSTPONED] check with Empress v5 factory set licence
@@ -36,6 +34,8 @@
 
 ## Done
 
+- [x] mixed connections in demo 9. non linear
+- [x] verify alternative connections are hidden
 - [x] zero loaded fixes
 - [x] integration notes
 - [x] doc banner

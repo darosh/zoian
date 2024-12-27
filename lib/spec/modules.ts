@@ -893,7 +893,7 @@ export const MODULES: ModuleSpec[] = [
     maxBlocks: 3,
     params: 1,
     cpu: 0.7,
-    blocks: { audio_in: { initial: true, position: 0 }, sensitivity: { param: true, position: 1 }, audio_out: { initial: true, position: 2 } },
+    blocks: { audio_in: { initial: true, position: 0 }, sensitivity: { param: true, position: 1 }, cv_out: { initial: true, position: 2 } },
     options: { sensitivity: { slot: 0, values: ['off', 'on'] } },
     conditions: { sensitivity: { type: 'toggle', option: 'sensitivity' } },
   },

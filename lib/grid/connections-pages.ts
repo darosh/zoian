@@ -39,14 +39,14 @@ export function getConnections(view: PatchView, map: BlockMap, hidden: BlockMap,
         // ts = <PosBlock>{ ...ts, blockView: <BlockView>c?.toBlock }
 
         if (hidden.has(c?.toBlock)) {
-          log('alternative to hidden block', c?.toBlock, fs)
+          log('alternative to hidden block', c?.toBlock, ts)
         } else {
-          log('alternative to UNKNOWN block', c?.toBlock, fs)
+          log('alternative to UNKNOWN block', c?.toBlock, ts)
         }
       }
 
       if (!fs || !ts) {
-        log('skipping connection')
+        log('MISSING connection!')
         return
       }
 

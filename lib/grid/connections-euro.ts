@@ -47,13 +47,14 @@ export function getConnectionsEuro(view: PatchView, map: BlockMap, hidden: Block
         // ts = <PosBlock>{ ...ts, blockView: <BlockView>c?.toBlock }
 
         if (hidden.has(c?.toBlock)) {
-          log('alternative to hidden block', c?.toBlock, fs)
+          log('alternative to hidden block', c?.toBlock, ts)
         } else {
-          log('alternative to UNKNOWN block', c?.toBlock, fs)
+          log('alternative to UNKNOWN block', c?.toBlock, ts)
         }
       }
 
       if (!fs || !ts) {
+        log('MISSING connection!')
         return
       }
 

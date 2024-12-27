@@ -1,15 +1,15 @@
 import debug from 'debug'
 
 import type { BlockView, ConnectionView, PatchView } from '../view/types.ts'
-import type { BlockMap, GridView, PosAny, PosBlock, PosEuro, PosIo, PosKind } from './types.ts'
+import type { BlockMap, Grid, PosAny, PosBlock, PosEuro, PosIo, PosKind } from './types.ts'
 import { getPagesGrid } from './grid-pages.ts'
 import { getEuroGrid } from './grid-euro.ts'
 import { getIoGrid } from './grid-io.ts'
 import type { Connection } from '../parser/types.ts'
 
-const log = debug('zoian:grid-view')
+const log = debug('zoian:grid')
 
-export function gridView(view: PatchView): GridView {
+export function getGrid(view: PatchView): Grid {
   const [pagesGrid, hiddenGrid] = getPagesGrid(view)
   const euroGrid = getEuroGrid(view)
   const ioGrid = getIoGrid(view)
@@ -54,7 +54,7 @@ export function gridView(view: PatchView): GridView {
   }
 
   return {
-    patchView: view,
+    view,
     pagesGrid,
     hiddenGrid,
     euroGrid,

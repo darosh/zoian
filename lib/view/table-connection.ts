@@ -6,7 +6,7 @@ import { type ConnectionTable, ConnectionType } from './types.ts'
 import type { Block } from '../spec/types.ts'
 import { MODULES } from '../spec/modules.ts'
 
-const log = debug('zoian:connection-table')
+const log = debug('zoian:view-connection-table')
 
 const AUDIO = 'audio'
 const CV = 'cv'

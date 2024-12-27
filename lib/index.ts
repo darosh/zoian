@@ -9,11 +9,11 @@ export { parse } from './parser/parse.ts'
 export { blockEntries } from './parser/utils/block-entries.ts'
 
 // graph
-export { patchView } from './view/patch-view.ts'
+export { getView } from './view/patch-view.ts'
 export { ConnectionType } from './view/types.ts'
 
 // grid
-export { gridView } from './grid/grid-view.ts'
+export { getGrid } from './grid/grid.ts'
 export { getPagePosition } from './grid/position-page.ts'
 export { BLOCK_COLORS, getColors } from './grid/rgb-colors.ts'
 export { getConnectedBlocks, getConnectedPos, getConnectedPosEuro } from './grid/connected-blocks.ts'

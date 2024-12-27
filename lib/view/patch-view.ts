@@ -14,7 +14,7 @@ import { getConnectionsTable } from './table-connection.ts'
 
 const log = debug('zoian:view')
 
-export function patchView(patch: Patch): PatchView {
+export function getView(patch: Patch): PatchView {
   const blockViews: BlockView[] = []
 
   const moduleViews: ModuleView[] = patch.modules.map((module) => {

@@ -63,8 +63,8 @@ export type BlockMap = Map<BlockView | JackView, PosAny[]>
 
 export type PosKind = 'block' | 'euro' | 'io'
 
-export interface GridView {
-  patchView: PatchView
+export interface Grid {
+  view: PatchView
   pagesGrid: (PosBlock | undefined)[]
   hiddenGrid: PosBlock[]
   euroGrid: PosEuro[]

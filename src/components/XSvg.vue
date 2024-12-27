@@ -102,8 +102,8 @@
         :position="gridPosEuro({x: 0, y: 0, page: -2}, true)" />
 
       <x-svg-symbol
-        v-if="view?.patchView?.connectionTable?.total"
-        :text="view?.patchView?.connectionTable?.counts?.missing || view?.patchView?.connectionTable?.counts?.mixed || view?.patchView?.connectionTable?.counts?.unknown ? 'CONNECTION_ERROR' : 'CONNECTION'"
+        v-if="grid?.view?.connectionTable?.total"
+        :text="grid?.view?.connectionTable?.counts?.missing || grid?.view?.connectionTable?.counts?.mixed || grid?.view?.connectionTable?.counts?.unknown ? 'CONNECTION_ERROR' : 'CONNECTION'"
         :location="0"
         :px="px"
         :dark="dark"
@@ -113,8 +113,8 @@
 
       <x-svg-symbol
         v-if="patch?.starred?.length"
-        :star="!view.patchView.starredTable?.error"
-        :text="view.patchView.starredTable?.error ? 'ERROR' : null"
+        :star="!grid.view.starredTable?.error"
+        :text="grid.view.starredTable?.error ? 'ERROR' : null"
         :location="0"
         :px="px"
         :dark="dark"
@@ -504,13 +504,13 @@
               Connections
             </td>
             <td class="pr-5 text-right g-bold">
-              {{ view.patchView.connectionTable.total }}
+              {{ grid.view.connectionTable.total }}
             </td>
           </tr>
         </thead>
         <tbody>
           <tr
-            v-for="(cr, sIndex) of view.patchView.connectionTable.rows"
+            v-for="(cr, sIndex) of grid.view.connectionTable.rows"
             :key="sIndex">
             <td class="pl-5 g-bolder">
               {{ ConnectionType[cr.type] }}
@@ -556,7 +556,7 @@
           </thead>
           <tbody>
             <tr
-              v-for="(md, mdIndex) of (selectedModule.jackView.spec.input ? view.patchView.midiTable.input : view.patchView.midiTable.output)"
+              v-for="(md, mdIndex) of (selectedModule.jackView.spec.input ? grid.view.midiTable.input : grid.view.midiTable.output)"
               :key="mdIndex">
               <td class="pl-5">
                 <template v-if="md?.module?.name">
@@ -675,8 +675,8 @@ import {
   JackType,
   ConnectionType,
   getPagePosition,
-  patchView,
-  gridView,
+  getView,
+  getGrid,
   getConnectedPos,
   getConnectedPosEuro,
   getCablePath,
@@ -873,29 +873,29 @@ export default {
     euroMode () {
       return this.euro && this?.patch?.euro
     },
-    view () {
-      const view = gridView(patchView(this.patch))
+    grid () {
+      const view = getGrid(getView(this.patch))
 
-      log('view', toRaw(view))
+      log('grid', toRaw(view))
 
       return view
     },
     showGrid () {
       return !this.euroMode
-        ? this.view.pagesGrid
-        : this.view.pagesGrid.slice(40)
+        ? this.grid.pagesGrid
+        : this.grid.pagesGrid.slice(40)
     },
     showEuro () {
-      return this.view.euroGrid
+      return this.grid.euroGrid
     },
     ioGrid () {
-      return this.view.ioGrid
+      return this.grid.ioGrid
     },
     cpuTable () {
-      return this.view.patchView.cpuTable
+      return this.grid.view.cpuTable
     },
     starred () {
-      return this.view.patchView.starredTable
+      return this.grid.view.starredTable
     },
     cursorBlockPos () {
       return this.gridPosOrEuro(this.cursorBlock)
@@ -975,7 +975,7 @@ export default {
       return { x: x * this.scale, y: y * this.scale }
     },
     connectionPos () {
-      return this.euroMode ? this.view.connectionsEuro : this.view.connections
+      return this.euroMode ? this.grid.connectionsEuro : this.grid.connections
     },
     connectionPosCenters () {
       return this.connectionPos.map(([source, target], id) => {
@@ -1171,8 +1171,8 @@ export default {
     },
     recalcConnectedBlock () {
       const connectedPos = this.euroMode
-        ? getConnectedPosEuro(this.selectedModule.blockView || this.selectedModule.jackView, this.view.blockMap)
-        : getConnectedPos(this.selectedModule.blockView || this.selectedModule.jackView, this.view.blockMap)
+        ? getConnectedPosEuro(this.selectedModule.blockView || this.selectedModule.jackView, this.grid.blockMap)
+        : getConnectedPos(this.selectedModule.blockView || this.selectedModule.jackView, this.grid.blockMap)
 
       const connectedGrid = connectedPos
         .map(g => ({
@@ -1185,7 +1185,7 @@ export default {
       log('connected grids', toRaw(connectedGrid))
 
       this.connectedBlock = connectedGrid
-      this.selectedConnections = this.view.getConnected(this.selectedModule)
+      this.selectedConnections = this.grid.getConnected(this.selectedModule)
     },
     // First, convert SVG coordinates to page coordinates
     svgToPage (x, y) {

@@ -4,7 +4,7 @@ import type { Block, Jack, JackModule } from '../spec/types.ts'
 import { blockEntries } from '../parser/utils/block-entries.ts'
 import type { IoConnection, ModuleView } from './types.ts'
 
-const log = debug('zoian:io')
+const log = debug('zoian:view-io')
 
 export function getIoConnections(jack: Jack, viewModules: ModuleView[]): IoConnection[] {
   const jackPoint: [string] = [jack.id]

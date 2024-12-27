@@ -5,7 +5,6 @@ export interface ModuleSpec {
   category: string
   in?: boolean
   cpu: number
-  description: string
   name: string
   euro?: boolean
   minBlocks: number

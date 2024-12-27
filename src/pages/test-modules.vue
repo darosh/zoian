@@ -22,7 +22,7 @@
     </thead>
     <tbody>
       <template
-        v-for="{m, bes} of MODULES"
+        v-for="{m, description, tip, bes} of MODULES"
         :key="m.id">
         <tr>
           <td
@@ -32,17 +32,16 @@
           <td>
             {{ m.category }}
           </td>
-          <td :rowspan="bes.length">
+          <td>
             {{ m.euro }}
           </td>
-          <td :rowspan="bes.length">
+          <td>
             {{ m.in }}
           </td>
-          <td :rowspan="bes.length">
+          <td>
             {{ !!m.conditions || undefined }}
           </td>
           <td
-            :rowspan="bes.length"
             class="text-right">
             {{ m.cpu }}
           </td>
@@ -59,11 +58,12 @@
         </tr>
         <tr v-if="bes.slice(1).length === 0">
           <td
-            v-if="!ii"
-            class="pt-2"
+            class="pt-2 pl-8 pb-2"
             style="vertical-align: top"
             colspan="2">
-            {{ m.description }}
+            {{ tip }}
+            <v-divider class="my-2" />
+            {{ description || '[UNDEFINED]' }}
           </td>
           <td colspan="10" />
         </tr>
@@ -72,11 +72,13 @@
           :key="bn">
           <td
             v-if="!ii"
-            class="pt-2"
+            class="pt-2 pl-8 pb-2"
             style="vertical-align: top"
             :rowspan="bes.length - 1"
-            colspan="2">
-            {{ m.description }}
+            colspan="6">
+            {{ tip }}
+            <v-divider class="my-2" />
+            {{ description || '[UNDEFINED]' }}
           </td>
           <td class="text-right">
             {{ be.position }}.
@@ -99,6 +101,8 @@
 import { MODULES } from '../../lib/spec/modules.ts'
 import { blockEntries } from '../../lib/index.ts'
 import { DISPLAY_BLOCK } from '../../lib/spec/display-blocks.ts'
+import { DESCRIPTIONS } from '../../lib/spec/display-descriptions.ts'
+import { TIPS } from '../../lib/spec/display-tips.ts'
 import { getConnectionType } from '../../lib/graph/table-connection.ts'
 import { ConnectionType } from '../../lib/graph/types.ts'
 
@@ -108,8 +112,10 @@ export default {
       return DISPLAY_BLOCK
     },
     MODULES () {
-      return MODULES.map(m => ({
+      return MODULES.map((m, i) => ({
         m,
+        tip: TIPS[i],
+        description: DESCRIPTIONS[i],
         bes: blockEntries(m.blocks).map(x => [...x, ConnectionType[getConnectionType(x, m.id)]])
       }))
     }

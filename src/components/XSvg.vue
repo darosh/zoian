@@ -524,7 +524,7 @@
     </template>
     <template v-else-if="selectedModule?.jackView">
       <div
-        class="px-4 pt-2"
+        class="px-4 pt-2 pb-2"
         :class="selectedModule.jackView.from.length || selectedModule.jackView.to.length ? 'x-pb-2-5' : 'pb-2'"
         style="min-width: 160px;">
         <span class="g-bolder">{{ selectedModule.jackView.spec.title }}</span>
@@ -579,10 +579,21 @@
     </template>
     <template v-else-if="selectedModule">
       <div
-        class="px-4 pt-2"
+        v-if="tips && (selectedModule.first || selectedModule.pos === 'euro')"
+        class="font-italic px-4 pt-3"
+        style="max-width: 360px; font-size: 15px; opacity: .78">
+        {{ TIPS[selectedModule.blockView.moduleView.module.id] }}
+      </div>
+      <v-divider
+        v-if="tips && (selectedModule.first || selectedModule.pos === 'euro')"
+        class="mt-3" />
+      <div
+        class="px-4"
         :class="{
-          'x-pb-1-5': selectedModule.blockTitle,
-          'pb-1': !selectedModule.blockTitle
+          'pt-2': tips && selectedModule.first,
+          'pt-3': !(tips && selectedModule.first),
+          'x-pb-2-5': selectedModule.blockTitle,
+          'pb-3': !selectedModule.blockTitle
         }"
         style="min-width: 160px;">
         <span class="g-bolder">{{ selectedModule.blockView.moduleView.module.type }}</span><span
@@ -597,10 +608,10 @@
         </template>
       </div>
       <v-table
-        v-if="selectedConnections"
+        v-if="selectedConnections?.current?.length || selectedConnections?.hidden?.length"
         style="font-size: 80%;"
         density="compact"
-        class="mb-1">
+        class="mb-2">
         <tbody>
           <tr
             v-for="(r, rIndex) in selectedConnections.current"
@@ -660,6 +671,7 @@ import { getTooltipPosition } from '@/utils/tooltip.js'
 import {
   G,
   EURO_X,
+  TIPS,
   JackType,
   ConnectionType,
   getPagePosition,
@@ -719,6 +731,10 @@ export default {
       type: Boolean,
       default: false
     },
+    tips: {
+      type: Boolean,
+      default: false
+    },
     patch: {
       type: Object,
       default: null
@@ -771,6 +787,9 @@ export default {
     },
     JackType () {
       return JackType
+    },
+    TIPS () {
+      return TIPS
     },
     pages () {
       return this?.patch?.pages?.length || 1

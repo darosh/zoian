@@ -1,6 +1,7 @@
 // spec
 export { EURO_X, EURO_Y, G, GX, GY, LENGTH } from './spec/const.ts'
 export { COLOR_ORDER, Colors } from './spec/colors.ts'
+export { TIPS } from './spec/display-tips.ts'
 export { JackLocation, JackType } from './spec/types.ts'
 
 // parser

@@ -5,12 +5,13 @@ import { useLocalStorage } from '@vueuse/core'
 // but it's best to use the name of the store and surround it with `use`
 // and `Store` (e.g. `useUserStore`, `useCartStore`, `useProductStore`)
 // the first argument is a unique id of the store across your application
-export const useAppStore = defineStore("app", {
+export const useAppStore = defineStore('app', {
   state: () => ({
-    dark: useLocalStorage("dark", false),
-    columns: useLocalStorage("columns", 3),
-    euro: useLocalStorage("euro", true),
-    showConnections: useLocalStorage("showConnections", true),
-    animations: useLocalStorage("animations", false),
+    dark: useLocalStorage('dark', false),
+    columns: useLocalStorage('columns', 3),
+    euro: useLocalStorage('euro', true),
+    showConnections: useLocalStorage('showConnections', true),
+    showTips: useLocalStorage('showTips', false),
+    animations: useLocalStorage('animations', false),
   }),
-});
+})

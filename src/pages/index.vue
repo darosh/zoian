@@ -29,6 +29,7 @@
       }"
       style="transition: opacity .2s ease-in-out;"
       :euro="euro"
+      :tips="showTips"
       :cols-max="columns"
       :show-connections="showConnections"
       :animations="animations"
@@ -181,6 +182,11 @@
             <v-kbd>E</v-kbd>
           </template>
         </v-list-item>
+        <v-list-item
+          :prepend-icon="showTips ? '$checkboxOn' : '$checkboxOff'"
+          @click="showTips = !showTips">
+          Module description
+        </v-list-item>
         <v-list-item>
           Max columns
           <template #append>
@@ -293,7 +299,7 @@ export default {
   }),
   computed: {
     ...mapWritableState(useAppStore, [
-      'dark', 'columns', 'euro', 'showConnections', 'animations'
+      'dark', 'columns', 'euro', 'showConnections', 'animations', 'showTips'
     ]),
     patchNumber () {
       const i = this.files?.indexOf(this.file)

@@ -1,14 +1,5 @@
 # TODO
 
-## Parser
-
-- [ ] 050 airport wind patch corrupted page names?
-- [ ] [./lib/README.md](./lib/README.md) version of ADSR, Pitch Shifter and Clock Divider, check FW release notes
-
-## Doc
-
-- [ ] integration notes
-
 ## Testing
 
 - [ ] check cpu values
@@ -23,6 +14,8 @@
 
 - [ ] zero loaded fixes
 - [ ] mixed connections in demo 9. non linear
+- [ ] 050 airport wind patch corrupted page names?
+- [ ] [./lib/README.md](./lib/README.md) version of ADSR, Pitch Shifter and Clock Divider, check FW release notes
 
 ## Improvements
 
@@ -39,10 +32,12 @@
 - [ ] [POSTPONED] starred connection
 - [ ] [POSTPONED] embed view?
 - [ ] [POSTPONED] offline support
-- [ ] [POSTPONED?] audio vs cv vs midi vs star connection
+- [ ] [POSTPONED] audio vs cv vs midi vs star connection
+- [ ] [POSTPONED] favorites stored in browser?
 
 ## Done
 
+- [x] integration notes
 - [x] doc banner
 - [x] og:image
 - [x] doc click and esc

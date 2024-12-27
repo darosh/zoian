@@ -23,6 +23,7 @@
 
 ## Bugs
 
+- [ ] recalc connected on euro switch
 - [ ] zero loaded fixes
 - [ ] mixed connections in demo 9. non linear
 

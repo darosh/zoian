@@ -8,11 +8,10 @@
 - [ ] make test patch with all modules
 - [ ] check corrupted names and starred items 105255.bin
 - [ ] check memleaks
-- [ ] review tooltip copywriting
+- [ ] review modules tooltip copywriting
 
 ## Bugs
 
-- [ ] zero loaded fixes
 - [ ] mixed connections in demo 9. non linear
 - [ ] 050 airport wind patch corrupted page names?
 - [ ] [./lib/README.md](./lib/README.md) version of ADSR, Pitch Shifter and Clock Divider, check FW release notes
@@ -37,6 +36,7 @@
 
 ## Done
 
+- [x] zero loaded fixes
 - [x] integration notes
 - [x] doc banner
 - [x] og:image

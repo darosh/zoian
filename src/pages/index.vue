@@ -454,7 +454,15 @@ export default {
       this.files = files
       this.showDropToast = true
       const file = this.files.at(0)
-      await this.selectFile(file)
+
+      if (file) {
+        try {
+          await this.selectFile(file)
+        } catch (e) {
+          console.error(e)
+        }
+      }
+
       this.isLoadingInfoText = false
       this.loadingDrop = false
     },

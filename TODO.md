@@ -8,22 +8,13 @@
 ## Improvements
 
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
-- [ ] consolidate block condition types
-- [ ] trim module names
-- [ ] hidden connected blocks count / list
-- [ ] keep tooltip on next/prev (for tool row)
-- [ ] cable bundling?
 - [ ] verify alternative connections are hidden
-- [ ] dotted arrow for outgoing to hidden 
-- [ ] io should not affect Euro module state
-- [ ] mi note out abbr
-- [ ] user select none on tip
-- [ ] click to hide tip
-- [ ] esc cancel highlights
+- [ ] [POSTPONED] consolidate block condition types
+- [ ] [POSTPONED] cable bundling?
 
 ## Ref
 
-- [ ] connection v-keys
+- [ ] [POSTPONED] lib / grid reorg
 
 ## Doc
 
@@ -33,17 +24,12 @@
 
 ## Features
 
-- [ ] mouse over connections
-- [ ] connection shape
-- [ ] out vs in block
-- [ ] modules info page?
-- [ ] starred connection
-- [ ] sticky connections
-- [ ] audio vs cv vs midi vs star connection
 - [ ] connection count?
-- [ ] offline support
-- [ ] disconnected modules list?
-- [ ] embed view?
+- [ ] [POSTPONED] disconnected modules list?
+- [ ] [POSTPONED] starred connection
+- [ ] [POSTPONED] embed view?
+- [ ] [POSTPONED] offline support
+- [ ] [POSTPONED?] audio vs cv vs midi vs star connection
 
 ## Testing
 
@@ -62,6 +48,21 @@
 
 ## Done
 
+- [x] connection v-keys
+- [x] hidden connected blocks count / list
+- [x] mouse over connections
+- [x] connection shape
+- [x] out vs in block
+- [x] modules ~~info~~ test page?
+- [x] ~~sticky connections~~
+- [x] keep tooltip on next/prev (for tool row)
+- [x] dotted arrow for outgoing to hidden
+- [x] trim module names
+- [x] user select none on tip
+- [x] click to hide tip
+- [x] esc cancel highlights
+- [x] mi note out abbr
+- [x] io should not affect Euro module state
 - [x] test pages
 - [x] modules test page
 - [x] connection counts?

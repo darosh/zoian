@@ -330,8 +330,8 @@
             'x-connection-selected': selectedBlockView
           }">
           <line
-            v-for="(c, cIndex) in connections"
-            :key="cIndex"
+            v-for="c in connections"
+            :key="c.id"
             :x1="c.source.x"
             :y1="c.source.y"
             :x2="c.target.x"
@@ -346,8 +346,8 @@
             'x-connection-selected': selectedBlockView
           }">
           <path
-            v-for="(c, cIndex) in connections"
-            :key="cIndex"
+            v-for="c in connections"
+            :key="c.id"
             :d="c.d"
             :stroke-width="pxl"
             class="x-connection" />
@@ -371,16 +371,16 @@
       <template v-if="showConnections">
         <g class="x-dots-source">
           <circle
-            v-for="({dot}, sdIndex) in connectionPosDots.sourceDots"
-            :key="sdIndex"
+            v-for="{dot, id} in connectionPosDots.sourceDots"
+            :key="id"
             :cx="dot.x"
             :cy="dot.y"
             :r="3 * px" />
         </g>
         <g class="x-dots-target">
           <circle
-            v-for="({dot}, sdIndex) in connectionPosDots.targetDots"
-            :key="sdIndex"
+            v-for="{dot, id} in connectionPosDots.targetDots"
+            :key="id"
             :cx="dot.x"
             :cy="dot.y"
             :stroke-width="px"
@@ -403,9 +403,9 @@
   </svg>
 
   <v-card
-    v-show="positionTooltip"
+    v-show="positionTooltip && !hideTooltip"
     ref="tooltip"
-    style="transform: translate3d(0,0,0); position: absolute; pointer-events: none;"
+    style="transform: translate3d(0,0,0); position: absolute; pointer-events: none; user-select: none;"
     :style="{
       left: `${positionTooltip?.x || 0}px`,
       top: `${positionTooltip?.y || 0}px`,
@@ -609,7 +609,7 @@
             <td
               class="px-2"
               style="font-size: 24px; opacity: .8">
-              {{ !r.from ? '←' : '→' }}
+              {{ r.hidden ? (!r.from ? '⇠' : '⇢') : (!r.from ? '←' : '→') }}
             </td>
             <td class="px-2">
               {{ r.module }}
@@ -752,6 +752,7 @@ export default {
     cursor: null,
     cursorBlock: null,
     transitionTooltip: false,
+    hideTooltip: false,
     showCursor: false,
     showCursorBlock: false,
     scrollY: window.scrollY,
@@ -958,7 +959,7 @@ export default {
       return this.euroMode ? this.view.connectionsEuro : this.view.connections
     },
     connectionPosCenters () {
-      return this.connectionPos.map(([source, target]) => {
+      return this.connectionPos.map(([source, target], id) => {
         const sh = this.euroOrIo(source) ? this.moduleEH : this.moduleSH
         const th = this.euroOrIo(target) ? this.moduleEH : this.moduleSH
         const from = this.gridPosOrEuro(source)
@@ -970,7 +971,8 @@ export default {
           sourcePos: source,
           targetPos: target,
           sh,
-          th
+          th,
+          id
         }
       })
     },
@@ -984,7 +986,7 @@ export default {
         ...sides.block
       ]
         .filter(Boolean)
-        .map(x => ({ dot: x.dot, isSource: x.isSource }))
+        .map((x, id) => ({ dot: x.dot, isSource: x.isSource, id }))
 
       let lines = this.connectionPosCenters
 
@@ -999,6 +1001,7 @@ export default {
         const target = sides[p.targetPos.pos][p.targetPos.index].dot
 
         return {
+          id: p.id,
           source,
           target
         }
@@ -1028,6 +1031,10 @@ export default {
   },
   watch: {
     patch () {
+      if (this.cursorBlock?.page === -2) {
+        return
+      }
+
       this.cursor = null
       this.cursorBlock = null
       this.connectedBlock = null
@@ -1251,6 +1258,7 @@ export default {
 
           if (!equals(cursorBlock, this.cursorBlock)) {
             this.cursorBlock = cursorBlock
+            this.hideTooltip = false
           }
         })
       }

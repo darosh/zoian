@@ -28,7 +28,7 @@ export function gridView(view: PatchView): GridView {
   const connectionsEuro = getConnectionsEuro(view, blockMap)
 
   function getConnected(pos: PosBlock) {
-    const current = mapConnections(pos.blockView)
+    const current = mapConnections(pos.blockView, hiddenMap)
 
     if (pos.first) {
       const hiddenBlocks = <BlockView[]> pos.moduleView.blockViews
@@ -39,7 +39,7 @@ export function gridView(view: PatchView): GridView {
 
       for (const hb of hiddenBlocks) {
         const name = hb.name.replaceAll('_', ' ')
-        hidden.push(...mapConnections(hb, name))
+        hidden.push(...mapConnections(hb, hiddenMap, name))
       }
 
       return {
@@ -179,7 +179,7 @@ function getConnectionsEuro(view: PatchView, map: BlockMap): [PosAny, PosAny][] 
     .filter((x) => x)
 }
 
-function mapConnections(blockView: BlockView, name?: string) {
+function mapConnections(blockView: BlockView, hiddenMap: BlockMap, name?: string) {
   return [
     ...blockView?.from.map((b: ConnectionView) => ({
       name,
@@ -187,12 +187,14 @@ function mapConnections(blockView: BlockView, name?: string) {
       block: (<BlockView> b.toBlock).name?.replaceAll('_', ' '),
       from: true,
       strength: (<Connection> b.connection)?.strength,
+      hidden: hiddenMap.has(<BlockView> b.toBlock),
     })) ?? [],
     ...blockView?.to.map((b) => ({
       name,
       module: (<BlockView> b.fromBlock).moduleView?.spec?.name,
       block: (<BlockView> b.fromBlock).name?.replaceAll('_', ' '),
       strength: (<Connection> b.connection)?.strength,
+      hidden: hiddenMap.has(<BlockView> b.fromBlock),
     })) ?? [],
   ].filter((x) => x.module)
 }

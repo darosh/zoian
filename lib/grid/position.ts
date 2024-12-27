@@ -11,7 +11,7 @@ enum Side {
 
 type BestSides = [number, number, number, number]
 
-type SideJob = { pos: PosAny; sides: BestSides; best: number; svg: Pos; dot: Pos }
+type SideJob = { pos: PosAny; sides: BestSides; best: number; svg: Pos; dot: Pos; isSource: boolean }
 
 export interface SideIndex {
   block: SideJob[]
@@ -93,6 +93,11 @@ export function getPointsSides(connections: ConnectionVecPos[], small: number, l
     const i = pos.index
     INDEX[pos.pos][i] = INDEX[pos.pos][i] || { pos, sides: [0, 0, 0, 0], best: 0, isSource, svg }
     INDEX[pos.pos][i].sides[s] = +.5
+
+    if (pos.pos !== 'io') {
+      INDEX[pos.pos][i].isSource = isSource
+      INDEX[pos.pos][i].pos = pos
+    }
   }
 
   for (const con of connections) {

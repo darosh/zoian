@@ -59,7 +59,7 @@ export const DISPLAY_MODULE: string[][] = [
   ['AP', 'Audio Pan'],
   ['PD', 'Pitch Det'],
   ['PS'],
-  ['NO', 'Mi Note Out'],
+  ['NO', 'Mi Note Ou'],
   ['CO'],
   ['MPO'],
   ['BM', 'Bit Mod'],

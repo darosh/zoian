@@ -9,6 +9,7 @@
   <div
     id="x-wrap"
     style="min-height: calc(100vh);"
+    @click="onClick"
     @contextmenu="onContextMenu"
     @dragover="dragover"
     @dragleave="dragleave"
@@ -537,6 +538,11 @@ export default {
         this.patch = this.patches[0]
       }
     },
+    onClick(e) {
+      e.preventDefault()
+      e.stopPropagation()
+      this.$refs.svg.hideTooltip = !this.$refs.svg.hideTooltip
+    },
     onKey (e) {
       const COLS = { 2: 2, 3: 3, 4: 4, 5: 5, 6: 6 }
       const c = COLS[e.key]
@@ -566,6 +572,10 @@ export default {
         this.sharePatch()
       } else if (c) {
         this.columns = c
+      } else if (e.key === 'Escape') {
+        this.$refs.svg.cursorBlock = null
+        this.$refs.svg.connectedBlock = null
+        unknown = true
       } else {
         unknown = true
       }

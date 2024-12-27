@@ -25,6 +25,7 @@
 ## Features
 
 - [ ] connection count?
+- [ ] [POSTPONED] straight lines option
 - [ ] [POSTPONED] disconnected modules list?
 - [ ] [POSTPONED] starred connection
 - [ ] [POSTPONED] embed view?

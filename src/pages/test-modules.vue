@@ -103,8 +103,8 @@ import { blockEntries } from '../../lib/index.ts'
 import { DISPLAY_BLOCK } from '../../lib/spec/display-blocks.ts'
 import { DESCRIPTIONS } from '../../lib/spec/display-descriptions.ts'
 import { TIPS } from '../../lib/spec/display-tips.ts'
-import { getConnectionType } from '../../lib/graph/table-connection.ts'
-import { ConnectionType } from '../../lib/graph/types.ts'
+import { getConnectionType } from '../../lib/view/table-connection.ts'
+import { ConnectionType } from '../../lib/view/types.ts'
 
 export default {
   computed: {

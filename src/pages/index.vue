@@ -258,9 +258,10 @@ import { getUint8ArrayFromFile } from '@/utils/array-from-file.js'
 import { addBase64Padding, base64ToUint8Array, removePadding, uint8ArrayToBase64 } from '@/utils/base64-array-utils.js'
 import { downloadUint8Array } from '@/utils/array-download.js'
 
-import { LENGTH, parse } from '../../lib/index.ts'
+import { parse } from '../../lib/index.ts'
 
 import XSvg from '@/components/XSvg.vue'
+import { gzipUint8Array, ungzipUint8Array } from '@/utils/gzp-array.js'
 // import { SIMPLE_PATCH } from '../../lib/tests/fixtures/simple-patch.ts'
 
 const log = debug('zoian:app')
@@ -363,7 +364,16 @@ export default {
     const link = this.$route.query.link
 
     if (file) {
-      this.uint8Array = base64ToUint8Array(addBase64Padding(file), LENGTH)
+      let uint8Array = base64ToUint8Array(addBase64Padding(file))
+
+      try {
+        uint8Array = await ungzipUint8Array(uint8Array)
+      } catch (e) {
+        console.error(e)
+      }
+
+      this.uint8Array = uint8Array
+
       this.files = [null] // dummy?
       this.parseArray()
     } else if (link) {
@@ -465,7 +475,7 @@ export default {
       this.error = false
       this.patch = this.patches[0]
     },
-    getShareQuery () {
+    async getShareQuery () {
       if (!this.files) {
         const factory = this.patches.indexOf(this.patch)
 
@@ -478,17 +488,19 @@ export default {
         .subarray(0, this.patch.size * 4)
         .slice()
 
-      return { file: removePadding(uint8ArrayToBase64(uint8Array)) }
+      const gz = await gzipUint8Array(uint8Array)
+
+      return { file: removePadding(uint8ArrayToBase64(gz)) }
     },
-    sharePatch () {
+    async sharePatch () {
       const url = new URL(window.location.href)
-      const q = Object.entries(this.getShareQuery()).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&')
+      const q = Object.entries(await this.getShareQuery()).map(([k, v]) => `${k}=${encodeURIComponent(v)}`).join('&')
       // no hash
       // url.search = q
       url.hash = `/?${q}`
       const shared = url.toString()
       log('link', shared)
-      navigator.clipboard.writeText(shared)
+      await navigator.clipboard.writeText(shared)
       this.showCopyToast = true
     },
     downloadPatch () {

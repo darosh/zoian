@@ -5,33 +5,11 @@
 - [ ] 050 airport wind patch corrupted page names?
 - [ ] [./lib/README.md](./lib/README.md) version of ADSR, Pitch Shifter and Clock Divider, check FW release notes
 
-## Improvements
-
-- [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
-- [ ] verify alternative connections are hidden
-- [ ] remove redundant props from Patch model
-- [ ] [POSTPONED] consolidate block condition types
-- [ ] [POSTPONED] cable bundling?
-
-## Ref
-
-- [ ] [POSTPONED] lib / grid reorg
-
 ## Doc
 
 - [ ] doc banner
 - [ ] integration notes
 - [ ] og:image
-
-## Features
-
-- [ ] connection count?
-- [ ] [POSTPONED] straight lines option
-- [ ] [POSTPONED] disconnected modules list?
-- [ ] [POSTPONED] starred connection
-- [ ] [POSTPONED] embed view?
-- [ ] [POSTPONED] offline support
-- [ ] [POSTPONED?] audio vs cv vs midi vs star connection
 
 ## Testing
 
@@ -48,8 +26,30 @@
 - [ ] zero loaded fixes
 - [ ] mixed connections in demo 9. non linear
 
+## Improvements
+
+- [ ] verify alternative connections are hidden
+- [ ] remove redundant props from Patch model
+- [ ] [POSTPONED] consolidate block condition types
+- [ ] [POSTPONED] cable bundling?
+
+## Ref
+
+- [ ] [POSTPONED] lib / grid reorg
+
+## Features
+
+- [ ] connection count?
+- [ ] [POSTPONED] straight lines option
+- [ ] [POSTPONED] disconnected modules list?
+- [ ] [POSTPONED] starred connection
+- [ ] [POSTPONED] embed view?
+- [ ] [POSTPONED] offline support
+- [ ] [POSTPONED?] audio vs cv vs midi vs star connection
+
 ## Done
 
+- [x] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [x] connection v-keys
 - [x] hidden connected blocks count / list
 - [x] mouse over connections

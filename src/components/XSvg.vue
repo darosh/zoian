@@ -581,7 +581,7 @@
       <div
         v-if="tips && (selectedModule.first || selectedModule.pos === 'euro')"
         class="font-italic px-4 pt-3"
-        style="max-width: 360px; font-size: 15px; opacity: .78">
+        style="max-width: 360px; font-size: 15px; opacity: .78; margin-right: 3px;">
         {{ TIPS[selectedModule.blockView.moduleView.module.id] }}
       </div>
       <v-divider

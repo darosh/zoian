@@ -10,7 +10,6 @@
 - [ ] doc banner
 - [ ] integration notes
 - [ ] og:image
-- [ ] click and esc
 
 ## Testing
 
@@ -20,6 +19,7 @@
 - [ ] make test patch with all modules
 - [ ] check corrupted names and starred items 105255.bin
 - [ ] check memleaks
+- [ ] review tooltip copywriting
 
 ## Bugs
 
@@ -45,6 +45,7 @@
 
 ## Done
 
+- [x] doc click and esc
 - [x] lib / grid reorg
 - [x] check module overflow to another page
 - [x] remove redundant props from Patch model

@@ -1411,10 +1411,6 @@ text {
   }
 }
 
-.x-pb-1-5 {
-  padding-bottom: 6px;
-}
-
 .x-pb-2-5 {
   padding-bottom: 10px;
 }

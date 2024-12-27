@@ -530,10 +530,10 @@
         <span class="g-bolder">{{ selectedModule.jackView.spec.title }}</span>
         <!--        <pre>{{ inspect(selectedModule.jackView) }}</pre>-->
         <template v-if="selectedModule.jackView.to.length">
-          <br><small>incoming: <b>{{ selectedModule.jackView.to.length }}</b></small>
+          <br><small>outgoing: <b>{{ selectedModule.jackView.to.length }}</b></small>
         </template>
         <template v-if="selectedModule.jackView.from.length">
-          <br><small>outgoing: <b>{{ selectedModule.jackView.from.length }}</b></small>
+          <br><small>incoming: <b>{{ selectedModule.jackView.from.length }}</b></small>
         </template>
       </div>
       <div v-if="selectedModule.jackView.jack.active && (selectedModule.jackView.spec.type === JackType.Midi)">

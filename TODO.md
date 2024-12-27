@@ -10,6 +10,7 @@
 - [ ] doc banner
 - [ ] integration notes
 - [ ] og:image
+- [ ] click and esc
 
 ## Testing
 
@@ -23,7 +24,6 @@
 
 ## Bugs
 
-- [ ] recalc connected on euro switch
 - [ ] zero loaded fixes
 - [ ] mixed connections in demo 9. non linear
 
@@ -50,6 +50,8 @@
 
 ## Done
 
+- [x] recalc connected on euro switch
+- [x] always show lines on hover
 - [x] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [x] connection v-keys
 - [x] hidden connected blocks count / list

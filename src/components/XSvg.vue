@@ -322,37 +322,37 @@
         :height="(cursorBlockEuro ? moduleE : moduleS)" />
 
       <!-- connections -->
-      <template v-if="showConnections">
-        <g
-          v-if="straightLines"
-          :class="{
-            'x-connection-animation': animations,
-            'x-connection-selected': selectedBlockView
-          }">
-          <line
-            v-for="c in connections"
-            :key="c.id"
-            :x1="c.source.x"
-            :y1="c.source.y"
-            :x2="c.target.x"
-            :y2="c.target.y"
-            :stroke-width="pxl"
-            class="x-connection" />
-        </g>
-        <g
-          v-else
-          :class="{
-            'x-connection-animation': animations,
-            'x-connection-selected': selectedBlockView
-          }">
-          <path
-            v-for="c in connections"
-            :key="c.id"
-            :d="c.d"
-            :stroke-width="pxl"
-            class="x-connection" />
-        </g>
-      </template>
+      <!--      <template v-if="showConnections">-->
+      <g
+        v-if="straightLines"
+        :class="{
+          'x-connection-animation': animations,
+          'x-connection-selected': selectedBlockView
+        }">
+        <line
+          v-for="c in connections"
+          :key="c.id"
+          :x1="c.source.x"
+          :y1="c.source.y"
+          :x2="c.target.x"
+          :y2="c.target.y"
+          :stroke-width="pxl"
+          class="x-connection" />
+      </g>
+      <g
+        v-else
+        :class="{
+          'x-connection-animation': animations,
+          'x-connection-selected': selectedBlockView
+        }">
+        <path
+          v-for="c in connections"
+          :key="c.id"
+          :d="c.d"
+          :stroke-width="pxl"
+          class="x-connection" />
+      </g>
+      <!--      </template>-->
 
       <!-- connected -->
       <rect
@@ -368,25 +368,25 @@
         :transform="`translate(${cb.pos})`" />
 
       <!-- dots -->
-      <template v-if="showConnections">
-        <g class="x-dots-source">
-          <circle
-            v-for="{dot, id} in connectionPosDots.sourceDots"
-            :key="id"
-            :cx="dot.x"
-            :cy="dot.y"
-            :r="3 * px" />
-        </g>
-        <g class="x-dots-target">
-          <circle
-            v-for="{dot, id} in connectionPosDots.targetDots"
-            :key="id"
-            :cx="dot.x"
-            :cy="dot.y"
-            :stroke-width="px"
-            :r="3 * px" />
-        </g>
-      </template>
+      <!--      <template v-if="showConnections">-->
+      <g class="x-dots-source">
+        <circle
+          v-for="{dot, id} in connectionPosDots.sourceDots"
+          :key="id"
+          :cx="dot.x"
+          :cy="dot.y"
+          :r="3 * px" />
+      </g>
+      <g class="x-dots-target">
+        <circle
+          v-for="{dot, id} in connectionPosDots.targetDots"
+          :key="id"
+          :cx="dot.x"
+          :cy="dot.y"
+          :stroke-width="px"
+          :r="3 * px" />
+      </g>
+      <!--      </template>-->
 
     </template>
 
@@ -980,20 +980,34 @@ export default {
       const sides = getPointsSides(this.connectionPosCenters, this.moduleEH, this.moduleSH)
       log('side', toRaw(sides))
 
-      const all = [
+      let all = [
         ...sides.io,
         ...sides.euro,
         ...sides.block
       ]
         .filter(Boolean)
-        .map((x, id) => ({ dot: x.dot, isSource: x.isSource, id }))
+        .map((x, id) => ({ pos: x.pos, dot: x.dot, isSource: x.isSource, id }))
 
       let lines = this.connectionPosCenters
 
       if (this.selectedBlockView) {
-        lines = lines.filter(l => ((l.sourcePos.blockView || l.sourcePos.jackView) === this.selectedBlockView)
-          || ((l.targetPos.blockView || l.targetPos.jackView) === this.selectedBlockView)
-        )
+        lines = lines
+          .filter(l => ((l.sourcePos.blockView || l.sourcePos.jackView) === this.selectedBlockView)
+            || ((l.targetPos.blockView || l.targetPos.jackView) === this.selectedBlockView)
+          )
+
+        if (!this.showConnections) {
+          const inc = []
+
+          for(const l of lines) {
+            inc.push(l.sourcePos, l.targetPos)
+          }
+
+          all = all.filter(x => inc.includes(x.pos))
+        }
+      } else if (!this.showConnections) {
+        lines = []
+        all = []
       }
 
       lines = lines.map((p) => {
@@ -1056,22 +1070,14 @@ export default {
         return
       }
 
-      const connectedPos = this.euroMode
-        ? getConnectedPosEuro(newVal.blockView || newVal.jackView, this.view.blockMap)
-        : getConnectedPos(newVal.blockView || newVal.jackView, this.view.blockMap)
-
-      const connectedGrid = connectedPos
-        .map(g => ({
-          pos: this.gridPosOrEuro(g),
-          type: g?.jackView?.spec?.type,
-          euroOrIo: this.euroOrIo(g)
-        }))
-
-      log('connected pos', toRaw(connectedPos))
-      log('connected grids', toRaw(connectedGrid))
-
-      this.connectedBlock = connectedGrid
-      this.selectedConnections = this.view.getConnected(newVal)
+      this.recalcConnectedBlock()
+    },
+    euro () {
+      if (this.selectedModule) {
+        this.recalcConnectedBlock()
+      } else {
+        this.connectedBlock = null
+      }
     }
   },
   mounted () {
@@ -1143,6 +1149,24 @@ export default {
     euroOrIo (grid) {
       return (this.euroMode && (grid.page === 0))
         || grid.page === -1 || grid.page === -2
+    },
+    recalcConnectedBlock () {
+      const connectedPos = this.euroMode
+        ? getConnectedPosEuro(this.selectedModule.blockView || this.selectedModule.jackView, this.view.blockMap)
+        : getConnectedPos(this.selectedModule.blockView || this.selectedModule.jackView, this.view.blockMap)
+
+      const connectedGrid = connectedPos
+        .map(g => ({
+          pos: this.gridPosOrEuro(g),
+          type: g?.jackView?.spec?.type,
+          euroOrIo: this.euroOrIo(g)
+        }))
+
+      log('connected pos', toRaw(connectedPos))
+      log('connected grids', toRaw(connectedGrid))
+
+      this.connectedBlock = connectedGrid
+      this.selectedConnections = this.view.getConnected(this.selectedModule)
     },
     // First, convert SVG coordinates to page coordinates
     svgToPage (x, y) {

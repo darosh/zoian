@@ -9,6 +9,7 @@
 
 - [ ] try shorter gzip link // inputReadableStream.pipeThrough(new CompressionStream("gzip"))
 - [ ] verify alternative connections are hidden
+- [ ] remove redundant props from Patch model
 - [ ] [POSTPONED] consolidate block condition types
 - [ ] [POSTPONED] cable bundling?
 

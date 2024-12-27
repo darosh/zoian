@@ -1110,7 +1110,7 @@ export default {
     this.observer.observe(this.$refs.tooltip.$el)
   },
   beforeUnmount () {
-    this.observer.unobserve(this.$refs.tooltip.$el)
+    this.observer.unobserve(this.$refs?.tooltip?.$el)
     window.removeEventListener('scroll', this.onScroll)
   },
   methods: {

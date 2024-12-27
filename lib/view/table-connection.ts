@@ -12,7 +12,7 @@ const AUDIO = 'audio'
 const CV = 'cv'
 const LR = ['L', 'R']
 
-const audios = ['lowpass_out', 'hipass_out', 'bandpass_out', 'fm_input']
+const audios = ['lowpass_out', 'hipass_out', 'bandpass_out', 'fm_input', 'sidechain_in']
 
 export function getConnectionsTable(patch: Patch): ConnectionTable {
   let audio = 0

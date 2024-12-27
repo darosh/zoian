@@ -110,7 +110,7 @@ The app supports two methods for integrating specific patch views:
 
 Access patches via direct URL:
 
-```javascript
+```
 https://darosh.github.io/zoian/#/?link=<encoded-file-url>
 ```
 
@@ -125,7 +125,7 @@ Requirements:
 
 Embed patch data directly in URL using base64-encoded gzipped content:
 
-```javascript
+```
 https://darosh.github.io/zoian/#/?file=<base64-gzipped-content>
 ```
 

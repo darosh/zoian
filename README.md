@@ -6,6 +6,8 @@
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+![](./public/banner.png)
+
 ## About
 
 ZOIA and ZOIA Euroburo are modular digital effect pedals and Eurorack modules manufactured by Empress Effects. This application, deployed at [darosh.github.io/zoian](https://darosh.github.io/zoian/) allows users to explore their .BIN patch files.

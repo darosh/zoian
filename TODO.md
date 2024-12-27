@@ -7,9 +7,7 @@
 
 ## Doc
 
-- [ ] doc banner
 - [ ] integration notes
-- [ ] og:image
 
 ## Testing
 
@@ -45,6 +43,8 @@
 
 ## Done
 
+- [x] doc banner
+- [x] og:image
 - [x] doc click and esc
 - [x] lib / grid reorg
 - [x] check module overflow to another page

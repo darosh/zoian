@@ -14,7 +14,6 @@
 
 ## Testing
 
-- [ ] check module overflow to another page
 - [ ] check cpu values
 - [ ] check stared items
 - [ ] add connection and starred validation to tests
@@ -34,10 +33,6 @@
 - [ ] [POSTPONED] cable bundling?
 - [ ] [POSTPONED] check with Empress v5 factory set licence
 
-## Ref
-
-- [ ] [POSTPONED] lib / grid reorg
-
 ## Features
 
 - [ ] connection count?
@@ -50,6 +45,8 @@
 
 ## Done
 
+- [x] lib / grid reorg
+- [x] check module overflow to another page
 - [x] remove redundant props from Patch model
 - [x] euro audio dots
 - [x] recalc connected on euro switch

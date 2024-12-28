@@ -1,5 +1,9 @@
 # TODO
 
+## Doc
+
+- [ ] document hidden links
+
 ## Testing
 
 - [ ] check memleaks

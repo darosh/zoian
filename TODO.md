@@ -17,6 +17,7 @@
 
 ## Improvements
 
+- [ ] shared ?file should support zip with multiple files like drop 
 - [ ] shared binary patch should not display number
 - [ ] weird thin lines between blocks, non-retina? svg widths rounding?
 - [ ] url shortener? free + non-tracking?

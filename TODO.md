@@ -15,6 +15,7 @@
 - [ ] shared binary patch should not display number
 - [ ] weird thin lines between blocks, non-retina? svg widths rounding?
 - [ ] url shortener? free + non-tracking?
+- [ ] add second dot if hidden link has opposite directions?
 - [ ] [POSTPONED] consolidate block condition types
 - [ ] [POSTPONED] cable bundling?
 - [ ] [POSTPONED] check with Empress v5 factory set licence

@@ -1,6 +1,6 @@
 # Changelog
 
-## 24-12-29
+## 2024-12-29
 
 - Connection strength parsing/calculation fix
 - Adding dB value to connection strength display

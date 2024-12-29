@@ -30,6 +30,6 @@ Changes from original project
 Most issues will be like related to module specification in [./spec/modules.ts](./spec/modules.ts)
 
 - **Different order of blocks**: add `sort` property to the block
-- **Missing version specification**: ADSR, Pitch Shifter and Clock Divider have different versions (based on patches from patchstorage.com) and only ' Clock Divider has been addressed so far: investigation needed, note: [looks like](https://cdn.shopify.com/s/files/1/0028/5462/files/zoia_changelog_52792f30-e99b-4be7-919c-b1b7de6920ec.txt?v=1733847708) there was no change in blocks (likely in options, we do not show them), and we have the Clock Divider covered. 
+- **Missing version specification**: ADSR, Pitch Shifter and Clock Divider have different versions (based on patches from patchstorage.com) and only ' Clock Divider has been addressed so far: investigation needed, note: [looks like](https://cdn.shopify.com/s/files/1/0028/5462/files/zoia_changelog_52792f30-e99b-4be7-919c-b1b7de6920ec.txt?v=1733847708) there was no change in blocks (likely in options, we do not show them), and we have the Clock Divider covered.
 - **Missing block**: likely missing `condition` or the block specification
 - **Missing connection**: likely caused by missing or misplaced block

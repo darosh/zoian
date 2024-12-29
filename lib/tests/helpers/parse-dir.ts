@@ -88,6 +88,9 @@ export async function convertDir(src: string, tgt?: string, index = false) {
   }
 
   log('Failed %O', failed)
-  log('Versions %O', Object.entries(versions)
-    .filter(([, v]) => Object.keys(v).length > 1))
+  log(
+    'Versions %O',
+    Object.entries(versions)
+      .filter(([, v]) => Object.keys(v).length > 1),
+  )
 }

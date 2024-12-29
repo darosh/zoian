@@ -2,12 +2,13 @@ import debug from 'debug'
 
 import type { BlockView, ConnectionView, PatchView } from '../view/types.ts'
 import type { BlockMap, Grid, PosBlock, PosEuro, PosIo } from './types.ts'
+import type { Connection } from '../parser/types.ts'
 import { getPagesGrid } from './grid-pages.ts'
 import { getEuroGrid } from './grid-euro.ts'
 import { getIoGrid } from './grid-io.ts'
-import type { Connection } from '../parser/types.ts'
 import { getConnections } from './connections-pages.ts'
 import { getConnectionsEuro } from './connections-euro.ts'
+import { adjustedDb, adjustedPercent, displayDb, displayPercent } from './strength.ts'
 
 const log = debug('zoian:grid')
 
@@ -96,6 +97,8 @@ function mapConnections(blockView: BlockView, hiddenMap: BlockMap, name?: string
       block: (<BlockView> b.toBlock).name?.replaceAll('_', ' '),
       from: true,
       strength: (<Connection> b.connection)?.strength,
+      db: displayDb(adjustedDb((<Connection> b.connection)?.strength)),
+      percent: displayPercent(adjustedPercent((<Connection> b.connection)?.strength)),
       hidden: hiddenMap.has(<BlockView> b.toBlock),
     })) ?? [],
     ...blockView?.to.map((b) => ({
@@ -103,6 +106,8 @@ function mapConnections(blockView: BlockView, hiddenMap: BlockMap, name?: string
       module: (<BlockView> b.fromBlock).moduleView?.spec?.name,
       block: (<BlockView> b.fromBlock).name?.replaceAll('_', ' '),
       strength: (<Connection> b.connection)?.strength,
+      db: displayDb(adjustedDb((<Connection> b.connection)?.strength)),
+      percent: displayPercent(adjustedPercent((<Connection> b.connection)?.strength)),
       hidden: hiddenMap.has(<BlockView> b.fromBlock),
     })) ?? [],
   ].filter((x) => x.module)

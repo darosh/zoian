@@ -1,0 +1,18 @@
+# Changelog
+
+## 24-12-29
+
+- Connection strength parsing/calculation fix
+- Adding dB value to connection strength display
+
+## 2024-12-27
+
+- Public release
+
+## 2024-12-21
+
+- GitHub repo
+
+## 2024-12-12
+
+- Project start

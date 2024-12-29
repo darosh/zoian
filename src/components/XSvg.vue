@@ -628,8 +628,11 @@
             <td class="px-2">
               {{ r.block }}
             </td>
+            <td class="text-right px-2">
+              {{ r.db }}&thinsp;dB
+            </td>
             <td class="text-right pl-2 pr-5">
-              {{ r.strength }}&thinsp;%
+              {{ r.percent }}&thinsp;%
             </td>
           </tr>
           <template v-if="selectedConnections.hidden">
@@ -650,8 +653,11 @@
               <td class="px-2">
                 {{ r.block }}
               </td>
+              <td class="text-right px-2">
+                {{ r.db }}&thinsp;dB
+              </td>
               <td class="text-right pl-2 pr-5">
-                {{ r.strength }}&thinsp;%
+                {{ r.percent }}&thinsp;%
               </td>
             </tr>
           </template>

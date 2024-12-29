@@ -6,7 +6,6 @@
 
 ## Testing
 
-- [ ] check 80% vs 10% connection strength parsing https://patchstorage.com/the-pilule/
 - [ ] check memleaks
 - [ ] check cpu values? could we just apply the [Improved the overall CPU performance by 14%](https://cdn.shopify.com/s/files/1/0028/5462/files/zoia_changelog_52792f30-e99b-4be7-919c-b1b7de6920ec.txt?v=1733847708)?
 - [ ] check stared items
@@ -39,6 +38,7 @@
 
 ## Done
 
+- [x] check 80% vs 10% connection strength parsing https://patchstorage.com/the-pilule/
 - [x] 050 airport wind patch corrupted page names?
 - [x] connection count?
 - [x] [./lib/README.md](./lib/README.md) version of ADSR, Pitch Shifter and Clock Divider, check FW release notes

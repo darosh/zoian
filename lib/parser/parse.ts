@@ -129,7 +129,7 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
     connections.push({
       source: [longs[cursor + 1], longs[cursor + 2]],
       target: [longs[cursor + 3], longs[cursor + 4]],
-      strength: Math.round(longs[cursor + 5] / 100),
+      strength: longs[cursor + 5],
     })
 
     cursor += 5

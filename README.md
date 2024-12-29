@@ -115,6 +115,7 @@ Requirements:
 
 - Host server must support CORS
 - Provider's permission for content usage
+- Remote file must be a .BIN file or .ZIP file containing them
 
 ### 2. Embedded Content
 

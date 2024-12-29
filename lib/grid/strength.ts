@@ -15,7 +15,7 @@ export function displayDb(value: number) {
 }
 
 export function adjustedDb(strength: number): number {
-  // Linear dB scale for ALL values (no need to switch!)
+  // Linear dB scale for all values
   return -100 + (strength / 100)
 }
 

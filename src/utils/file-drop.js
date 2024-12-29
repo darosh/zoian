@@ -36,7 +36,7 @@ async function processEntry (entry, files) {
 }
 
 // Process ZIP file and extract its contents
-async function processZipFile (file) {
+export async function processZipFile (file) {
   const zipFiles = []
   const zip = new JSZip()
 

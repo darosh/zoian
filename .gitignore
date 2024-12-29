@@ -1,6 +1,7 @@
 # Patches
 patches/.bin/*.bin
 lib/tests/.output
+public/*.zip
 
 # Logs
 logs

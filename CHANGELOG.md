@@ -4,6 +4,7 @@
 
 - Connection strength parsing/calculation fix
 - Adding dB value to connection strength display
+- Adding remote file zip support
 
 ## 2024-12-27
 

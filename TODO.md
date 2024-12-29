@@ -16,7 +16,6 @@
 
 ## Improvements
 
-- [ ] shared ?file should support zip with multiple files like drop 
 - [ ] shared binary patch should not display number
 - [ ] weird thin lines between blocks, non-retina? svg widths rounding?
 - [ ] url shortener? free + non-tracking?
@@ -38,6 +37,7 @@
 
 ## Done
 
+- [x] shared ?file should support zip with multiple files like drop
 - [x] check 80% vs 10% connection strength parsing https://patchstorage.com/the-pilule/
 - [x] 050 airport wind patch corrupted page names?
 - [x] connection count?

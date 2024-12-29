@@ -259,7 +259,7 @@ import { useTitle } from '@vueuse/core'
 import { debounce } from 'rambdax'
 
 import { useAppStore } from '@/stores/app.ts'
-import { handleDrop } from '@/utils/file-drop.js'
+import { handleDrop, processZipFile } from '@/utils/file-drop.js'
 import { getUint8ArrayFromFile } from '@/utils/array-from-file.js'
 import { addBase64Padding, base64ToUint8Array, removePadding, uint8ArrayToBase64 } from '@/utils/base64-array-utils.js'
 import { downloadUint8Array } from '@/utils/array-download.js'
@@ -305,7 +305,7 @@ export default {
       const i = this.files?.indexOf(this.file)
 
       if (i >= 0) {
-        return i
+        return this.files.length === 1 ? null : i
       }
 
       const j = this.patches?.indexOf(this.patch)
@@ -392,9 +392,42 @@ export default {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
 
-      const buffer = await response.arrayBuffer()
-      this.uint8Array = new Uint8Array(buffer)
-      this.parseArray()
+      const contentType = response.headers.get('content-type')
+      const isZip = contentType === 'application/zip' ||
+        contentType === 'application/x-zip-compressed' ||
+        contentType === 'multipart/x-zip'
+
+      log('link content type', contentType)
+
+      if (isZip) {
+        log('processing zip')
+
+        const buffer = await response.arrayBuffer()
+        const list = await processZipFile(buffer)
+        const files = list.filter(f => f.name.endsWith('.bin'))
+        files.sort((a, b) => a.name.localeCompare(b.name))
+        this.items = null
+        this.files = files
+
+        if (files.length !== 1) {
+          this.showWelcomeToast = false
+          this.showDropToast = true
+        }
+
+        const file = this.files.at(0)
+
+        if (file) {
+          try {
+            await this.selectFile(file)
+          } catch (e) {
+            console.error(e)
+          }
+        }
+      } else {
+        const buffer = await response.arrayBuffer()
+        this.uint8Array = new Uint8Array(buffer)
+        this.parseArray()
+      }
     } else {
       const factory = this.$route.query.factory
       this.patch = this.patches[factory ? parseInt(factory, 10) : 0]

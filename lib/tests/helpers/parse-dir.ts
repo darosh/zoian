@@ -3,6 +3,7 @@ import { parse } from '../../parser/parse.ts'
 import stringify from 'npm:json-stringify-pretty-compact@4.0.0'
 import { getGrid } from '../../grid/grid.ts'
 import { getView } from '../../view/patch-view.ts'
+import { Patch } from '../../parser/types.ts'
 
 const log = debug('zoian:test')
 
@@ -21,6 +22,8 @@ async function readDir(src: string, list: { f: Deno.DirEntry; s: string }[] = []
 }
 
 export async function convertDir(src: string, tgt?: string, index = false) {
+  const r: { parsed: Patch; data: Uint8Array, name: string }[] = []
+
   if (tgt) {
     await Deno.mkdir(tgt, { recursive: true })
   }
@@ -70,14 +73,18 @@ export async function convertDir(src: string, tgt?: string, index = false) {
       continue
     }
 
+
+    const n = `${tgt}/${f.name}.json`
+
     if (tgt) {
-      const n = `${tgt}/${f.name}.json`
 
       log('writing %s', n)
       await Deno.writeTextFile(n, stringify(parsed, { maxLength: 640 }))
 
       indexLines.push(`import patch_${indexLines.length} from './${f.name}.json' with { type: 'json' }`)
     }
+
+    r.push({ parsed, data, name: n })
   }
 
   if (tgt && index) {
@@ -93,4 +100,6 @@ export async function convertDir(src: string, tgt?: string, index = false) {
     Object.entries(versions)
       .filter(([, v]) => Object.keys(v).length > 1),
   )
+
+  return r
 }

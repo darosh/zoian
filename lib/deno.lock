@@ -1,12 +1,25 @@
 {
   "version": "4",
   "specifiers": {
+    "jsr:@std/assert@*": "1.0.9",
+    "jsr:@std/internal@^1.0.5": "1.0.5",
     "npm:d3-interpolate@^3.0.1": "3.0.1",
     "npm:debug@*": "4.4.0",
     "npm:debug@^4.4.0": "4.4.0",
     "npm:json-stringify-pretty-compact@*": "4.0.0",
     "npm:json-stringify-pretty-compact@4.0.0": "4.0.0",
     "npm:rxjs@7.8.1": "7.8.1"
+  },
+  "jsr": {
+    "@std/assert@1.0.9": {
+      "integrity": "a9f0c611a869cc791b26f523eec54c7e187aab7932c2c8e8bea0622d13680dcd",
+      "dependencies": [
+        "jsr:@std/internal"
+      ]
+    },
+    "@std/internal@1.0.5": {
+      "integrity": "54a546004f769c1ac9e025abd15a76b6671ddc9687e2313b67376125650dc7ba"
+    }
   },
   "npm": {
     "d3-color@3.1.0": {

@@ -8,6 +8,7 @@
     :style="$attrs.style"
     style="width: calc(100vw)"
     @touchstart.passive="onTouchStart"
+    @touchmove.passive="onTouchMove"
     @mousemove="onMouseMove"
     @mouseout="onMouseOut">
 
@@ -789,7 +790,8 @@ export default {
     tipHeight: 0,
     connectedBlock: null,
     straightLines: false,
-    selectedConnections: null
+    selectedConnections: null,
+    touchStartTimer: null
   }),
   computed: {
     ConnectionType () {
@@ -1291,6 +1293,12 @@ export default {
       return [viewBoxX, viewBoxY]
     },
     onScroll () {
+      if (this.touchStartTimer) {
+        clearTimeout(this.touchStartTimer)
+
+        this.touchStartTimer = null
+      }
+
       if (!this.pendingScroll) {
         this.pendingScroll = true
         requestAnimationFrame(() => {
@@ -1300,11 +1308,20 @@ export default {
       }
     },
     onTouchStart (event) {
-      this.onMouseMove({
-        clientX: event.touches?.[0]?.clientX,
-        clientY: event.touches?.[0]?.clientY,
-        isTouch: true
-      })
+      this.touchStartTimer = setTimeout(() => {
+        this.onMouseMove({
+          clientX: event.touches?.[0]?.clientX,
+          clientY: event.touches?.[0]?.clientY,
+          isTouch: true
+        })
+      }, 100)
+    },
+    onTouchMove () {
+      if (this.touchStartTimer) {
+        clearTimeout(this.touchStartTimer)
+
+        this.touchStartTimer = null
+      }
     },
     onMouseMove (event) {
       if (!this.pendingMove) {

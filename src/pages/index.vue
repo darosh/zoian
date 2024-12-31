@@ -292,6 +292,7 @@ export default {
     isDraggingInfoText: false,
     isLoadingInfoText: false,
     touchTimer: null,
+    touchTapTimer: null,
     file: null,
     items: null,
     files: null,
@@ -466,10 +467,11 @@ export default {
 
       if (this.touchTimer) {
         clearTimeout(this.touchTimer)
+        this.touchTimer = null
       }
 
-      this.touchTimer = setTimeout(() => {this.onContextMenu(e)}, 400)
-      this.menuShow = false
+      this.touchTimer = setTimeout(() => { this.onContextMenu(e) }, 400)
+      this.touchTapTimer = setTimeout(() => { this.menuShow = false }, 100)
     },
     onTouchEnd (e) {
       e.stopPropagation()
@@ -480,8 +482,14 @@ export default {
       }
     },
     onTouchMove () {
+      if (this.touchTapTimer) {
+        clearTimeout(this.touchTapTimer)
+        this.touchTapTimer = null
+      }
+
       if (this.touchTimer) {
         clearTimeout(this.touchTimer)
+        this.touchTimer = null
       }
     },
     onContextMenu (e) {

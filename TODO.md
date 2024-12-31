@@ -17,6 +17,7 @@
 ## Improvements
 
 - [ ] improve touch timing
+- [ ] add file selection for touch devices
 - [ ] shared binary patch should not display number
 - [ ] weird thin lines between blocks, non-retina? svg widths rounding?
 - [ ] url shortener? free + non-tracking?

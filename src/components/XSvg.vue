@@ -410,6 +410,7 @@
     v-show="positionTooltip && !hideTooltip"
     ref="tooltip"
     class="x-no-select"
+    :class="{ 'x-dark': dark }"
     style="transform: translate3d(0,0,0); position: absolute;"
     :style="{
       left: `${positionTooltip?.x || 0}px`,
@@ -472,7 +473,7 @@
               <td
                 colspan="2"
                 class="pr-5 text-right">
-                <b>{{ cpuTable.sum }}%</b>
+                <b>{{ cpuTable.sum }}&thinsp;%</b>
               </td>
             </tr>
           </thead>
@@ -488,7 +489,7 @@
               </td>
               <td class="text-right pr-0">
                 <template v-if="count > 1">
-                  {{ count }} <span style="opacity: .6;">&times;</span> {{ cpu }} <span style="opacity: .6;">=</span>
+                  {{ count }} <span class="x-math">&times;</span> {{ cpu }} <span class="x-math">=</span>
                 </template>
               </td>
               <td class="text-right pl-1 pr-5">
@@ -1453,5 +1454,15 @@ text, tspan, .x-no-select {
 
 .x-pb-2-5 {
   padding-bottom: 10px;
+}
+
+.x-math {
+  opacity: .5;
+}
+
+.x-dark {
+  .x-math {
+    opacity: .6;
+  }
 }
 </style>

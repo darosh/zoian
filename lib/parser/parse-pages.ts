@@ -1,4 +1,3 @@
-// deno-lint-ignore-file no-control-regex
 export function parsePages(bytes: Uint8Array, cursor: number, numPages: number): string[] {
   const pages: string[] = []
   let offset = (cursor + 1) * 4
@@ -19,7 +18,7 @@ export function parsePages(bytes: Uint8Array, cursor: number, numPages: number):
   return pages
 }
 
-const decoder = new TextDecoder()
+const decoder = new TextDecoder('ascii', { ignoreBOM: true })
 
 function readNullTerminatedString(bytes: Uint8Array, offset: number, maxLength: number): string {
   // Read until null terminator or max length
@@ -31,7 +30,6 @@ function readNullTerminatedString(bytes: Uint8Array, offset: number, maxLength: 
 
   // Convert to string and clean up
   return decoder.decode(bytes.subarray(offset, endIndex))
-    .trim()
-    .replace(/\u0000/g, '') // Remove any null chars
-    .replace(/[\x00-\x1F\x7F-\x9F]/g, '') // Remove control chars
+    // .trim()
+    .replace(/[^a-zA-Z0-9 .-]/g, '')
 }

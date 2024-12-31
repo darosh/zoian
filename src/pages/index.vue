@@ -8,9 +8,17 @@
   </v-expand-transition>
   <div
     id="x-wrap"
+    v-touch="{
+      left: () => prev(),
+      right: () => next(),
+    }"
+    class="x-no-select"
     style="min-height: calc(100vh);"
     @click="onClick"
     @contextmenu="onContextMenu"
+    @touchstart.passive="onTouchStart"
+    @touchmove="onTouchMove"
+    @touchend="onTouchEnd"
     @dragover="dragover"
     @dragleave="dragleave"
     @drop="drop">
@@ -68,9 +76,10 @@
     :target="[menuX, menuY]"
     absolute
     offset-y
-    no-click-animation
     @update:model-value="onMenu">
-    <v-card elevation="1">
+    <v-card
+      class="x-no-select"
+      elevation="1">
       <v-list
         density="compact"
         class="x-prepend-icons">
@@ -282,6 +291,7 @@ export default {
     isDraggingInfoDebounced: null,
     isDraggingInfoText: false,
     isLoadingInfoText: false,
+    touchTimer: null,
     file: null,
     items: null,
     files: null,
@@ -443,6 +453,37 @@ export default {
     window.removeEventListener('keydown', this.onKey)
   },
   methods: {
+    onClick (e) {
+      if (e.pointerType === 'mouse') {
+        e.preventDefault()
+        e.stopPropagation()
+        this.$refs.svg.hideTooltip = !this.$refs.svg.hideTooltip
+      }
+    },
+    onTouchStart (e) {
+      e.stopPropagation()
+      e.preventDefault()
+
+      if (this.touchTimer) {
+        clearTimeout(this.touchTimer)
+      }
+
+      this.touchTimer = setTimeout(() => {this.onContextMenu(e)}, 400)
+      this.menuShow = false
+    },
+    onTouchEnd (e) {
+      e.stopPropagation()
+      e.preventDefault()
+
+      if (this.touchTimer) {
+        clearTimeout(this.touchTimer)
+      }
+    },
+    onTouchMove () {
+      if (this.touchTimer) {
+        clearTimeout(this.touchTimer)
+      }
+    },
     onContextMenu (e) {
       if (localStorage.menu === false.toString()) {
         return
@@ -450,8 +491,8 @@ export default {
 
       e.preventDefault()
       this.menuShow = false
-      this.menuX = e.clientX
-      this.menuY = e.clientY
+      this.menuX = e.clientX ?? e.touches?.[0]?.clientX
+      this.menuY = e.clientY ?? e.touches?.[0]?.clientY
 
       this.$nextTick(() => {
         this.menuShow = true
@@ -600,11 +641,6 @@ export default {
         this.patch = this.patches[0]
       }
     },
-    onClick(e) {
-      e.preventDefault()
-      e.stopPropagation()
-      this.$refs.svg.hideTooltip = !this.$refs.svg.hideTooltip
-    },
     onKey (e) {
       const COLS = { 2: 2, 3: 3, 4: 4, 5: 5, 6: 6 }
       const c = COLS[e.key]
@@ -678,5 +714,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: start;
+}
+
+.x-no-select {
+  user-select: none !important;
+  -webkit-user-select: none !important; /* Safari, Chrome */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* Edge */
+  -webkit-touch-callout: none;
 }
 </style>

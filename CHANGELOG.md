@@ -1,5 +1,10 @@
 # Changelog
 
+## 2024-12-31
+
+- Adding touch support, long press for context menu, swipe for previous/next patch, second tap hides tooltip
+- Minor params and text parsing changes
+
 ## 2024-12-29
 
 - Connection strength parsing/calculation fix

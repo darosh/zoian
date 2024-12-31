@@ -7,6 +7,7 @@
     }"
     :style="$attrs.style"
     style="width: calc(100vw)"
+    @touchstart.passive="onTouchStart"
     @mousemove="onMouseMove"
     @mouseout="onMouseOut">
 
@@ -37,10 +38,12 @@
       dominant-baseline="hanging">
       <tspan
         v-if="Number.isInteger(patchNumber) && (patchNumber >= 0)"
+        dominant-baseline="hanging"
         class="g-bold"
         fill-opacity=".67">{{ patchNumber }}.
       </tspan>
       <tspan
+        dominant-baseline="hanging"
         :dx="moduleSD"
         fill-opacity=".6"
         :style="{
@@ -405,7 +408,8 @@
   <v-card
     v-show="positionTooltip && !hideTooltip"
     ref="tooltip"
-    style="transform: translate3d(0,0,0); position: absolute; pointer-events: none; user-select: none;"
+    class="x-no-select"
+    style="transform: translate3d(0,0,0); position: absolute;"
     :style="{
       left: `${positionTooltip?.x || 0}px`,
       top: `${positionTooltip?.y || 0}px`,
@@ -1024,7 +1028,7 @@ export default {
         if (!this.showConnections) {
           const inc = []
 
-          for(const l of lines) {
+          for (const l of lines) {
             inc.push(l.sourcePos, l.targetPos)
           }
 
@@ -1295,6 +1299,13 @@ export default {
         })
       }
     },
+    onTouchStart (event) {
+      this.onMouseMove({
+        clientX: event.touches?.[0]?.clientX,
+        clientY: event.touches?.[0]?.clientY,
+        isTouch: true
+      })
+    },
     onMouseMove (event) {
       if (!this.pendingMove) {
         this.pendingMove = true
@@ -1308,6 +1319,8 @@ export default {
           if (!equals(cursorBlock, this.cursorBlock)) {
             this.cursorBlock = cursorBlock
             this.hideTooltip = false
+          } else if (event.isTouch) {
+            this.hideTooltip = !this.hideTooltip
           }
         })
       }
@@ -1352,10 +1365,14 @@ export default {
   }
 }
 
-text {
-  pointer-events: none;
-  user-select: none;
-  fill: #000;
+text, tspan, .x-no-select {
+  pointer-events: none !important;
+  touch-action: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important; /* Safari, Chrome */
+  -moz-user-select: none !important; /* Firefox */
+  -ms-user-select: none !important; /* Edge */
+  -webkit-touch-callout: none;
 }
 
 .x-text-large {

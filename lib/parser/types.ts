@@ -6,9 +6,11 @@ export interface Patch {
   size?: number
   euro?: boolean
   pages: { name: string; index: number }[]
+  numPages?: number
   starred: Starred[]
   modules: PatchModule[]
   connections: Connection[]
+  colors?: number[]
 }
 
 export interface PatchModule {
@@ -22,13 +24,20 @@ export interface PatchModule {
   dataSize: number
   page: number
   color: Colors
+  originalColor?: number
   options: Record<string, string | number>
   parameterCount: number
   parameters: Record<string, number>
+  parametersRaw?: number[]
   blocks: Blocks
   position: number[]
+  dataBytes?: number[]
+  originalPosition?: number
+  originalPage?: number
   optionsList?: number[]
   optionsBinary?: Record<string, number>
+  offset?: number
+  // nameBytes?: number[]
 }
 
 export interface Starred {

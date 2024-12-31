@@ -15,6 +15,7 @@ import { calculatePositions } from './calculate-positions.ts'
 
 import { getOptionEntries } from './utils/option-entries.ts'
 import { Colors } from '../spec/colors.ts'
+import { roundBytes } from './utils/round-bytes.ts'
 
 const log = debug('zoian:parser')
 
@@ -66,6 +67,23 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
   let cursor = 6
 
   for (let i = 0; i < numModules; i++) {
+    /**
+     * 0                                            -->  size
+     * 1                                            -->  id
+     * 2                                            -->  version
+     * 3                                            -->  page
+     * 4                                            -->  old_color
+     * 5                                            -->  position
+     * 6                                            -->  params_count
+     * 7                                            -->  data_size
+     * 8-9                                          -->  options
+     * 10...10+params_count                         -->  params
+     * 10+params_count
+     *   ...10+params_count+roundBytesToLongs(data_size)  -->  data
+     * size-4...size                                -->  name
+     */
+
+    const offset = cursor
     const size = longs[cursor]
     const moduleId = longs[cursor + 1]
     const old_color = longs[cursor + 4]
@@ -76,14 +94,22 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
       ...Array.from(bytes.subarray((cursor + 9) * 4, (cursor + 9) * 4 + 4)),
     ]
 
+    const nameBytes = bytes.subarray(
+      (cursor + (size - 4)) * 4,
+      (cursor + (size - 4)) * 4 + 16,
+    ).slice()
+
+    const mysteryBytes = bytes.subarray(
+      (cursor + 10 + longs[cursor + 6]) * 4,
+      (cursor + 10 + longs[cursor + 6]) * 4 + roundBytes(longs[cursor + 7]),
+      // (cursor + (size - 4)) * 4,
+    ).slice()
+
     const module: PatchModule = {
       number: i,
       id: moduleId,
       type: MODULES[moduleId].name,
-      name: parseString(bytes.subarray(
-        (cursor + (size - 4)) * 4,
-        (cursor + (size - 4)) * 4 + 16,
-      )),
+      name: parseString(nameBytes),
       version: longs[cursor + 2],
       euro: MODULES[moduleId].euro,
       size: longs[cursor],
@@ -98,8 +124,13 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
     }
 
     if (includeBinary) {
+      module.originalColor = old_color
       module.optionsBinary = {}
+      module.parametersRaw = [...longs.subarray(cursor + 10, cursor + 10 + longs[cursor + 6]).slice()]
       module.optionsList = options_list
+      module.offset = offset
+      module.dataBytes = [...mysteryBytes]
+      // module.nameBytes = [...nameBytes]
     }
 
     // Process module options
@@ -143,6 +174,11 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
     module.position = calculatePositions(module.position[0], Object.entries(module.blocks).length)
 
     if (module.position[0] >= G) {
+      if (includeBinary) {
+        module.originalPosition = module.position[0]
+        module.originalPage = module.page
+      }
+
       module.position = module.position.map((v) => v - G)
       module.page++
       module.page = module.page > 127 ? 127 - module.page : module.page
@@ -210,8 +246,10 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
     size: patchSize,
     euro,
     pages,
+    numPages: includeBinary ? numPages : undefined,
     modules,
     connections,
     starred,
+    colors: includeBinary ? colors : undefined
   }
 }

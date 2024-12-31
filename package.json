@@ -44,7 +44,7 @@
     "build-gh-pages": "deno run -A npm:vite build --out-dir=docs",
     "build-only": "deno run -A npm:vite build ",
     "deno:install": "deno install --allow-scripts",
-    "dev": "vite",
+    "dev": "vite --host",
     "lint:app": "deno run -A npm:eslint . --fix",
     "lint:lib": "cd lib && deno lint --fix --compact && deno fmt",
     "preview": "deno run -A npm:vite preview",

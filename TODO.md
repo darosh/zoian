@@ -16,7 +16,7 @@
 
 ## Improvements
 
-- [ ] improve touch timing
+- [ ] improve touch timing / detect scrolling
 - [ ] add file selection for touch devices
 - [ ] shared binary patch should not display number
 - [ ] weird thin lines between blocks, non-retina? svg widths rounding?

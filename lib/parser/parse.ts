@@ -250,6 +250,6 @@ export function parse(bytes: Uint8Array, includeBinary: boolean = false): Patch 
     modules,
     connections,
     starred,
-    colors: includeBinary ? colors : undefined
+    colors: includeBinary ? colors : undefined,
   }
 }

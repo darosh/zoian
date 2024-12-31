@@ -3,7 +3,7 @@ import { parse } from '../../parser/parse.ts'
 import stringify from 'npm:json-stringify-pretty-compact@4.0.0'
 import { getGrid } from '../../grid/grid.ts'
 import { getView } from '../../view/patch-view.ts'
-import { Patch } from '../../parser/types.ts'
+import type { Patch } from '../../parser/types.ts'
 
 const log = debug('zoian:test')
 
@@ -21,8 +21,8 @@ async function readDir(src: string, list: { f: Deno.DirEntry; s: string }[] = []
   return list
 }
 
-export async function convertDir(src: string, tgt?: string, index = false) {
-  const r: { parsed: Patch; data: Uint8Array, name: string }[] = []
+export async function convertDir(src: string, tgt?: string, index = false, binary: boolean = false) {
+  const r: { parsed: Patch; data: Uint8Array; name: string }[] = []
 
   if (tgt) {
     await Deno.mkdir(tgt, { recursive: true })
@@ -44,7 +44,7 @@ export async function convertDir(src: string, tgt?: string, index = false) {
     let parsed
 
     try {
-      parsed = parse(data)
+      parsed = parse(data, binary)
 
       parsed.modules.forEach((m) => {
         versions[m.type] = versions[m.type] || {}
@@ -73,11 +73,9 @@ export async function convertDir(src: string, tgt?: string, index = false) {
       continue
     }
 
-
     const n = `${tgt}/${f.name}.json`
 
     if (tgt) {
-
       log('writing %s', n)
       await Deno.writeTextFile(n, stringify(parsed, { maxLength: 640 }))
 

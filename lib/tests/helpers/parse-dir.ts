@@ -44,7 +44,10 @@ export async function convertDir(src: string, tgt?: string, index = false, binar
     let parsed
 
     try {
+      performance.mark('ParseStart')
       parsed = parse(data, binary)
+      performance.mark('ParseEnd')
+      const pA = performance.measure('ParseStart->ParseEnd', 'ParseStart', 'ParseEnd')
 
       parsed.modules.forEach((m) => {
         versions[m.type] = versions[m.type] || {}
@@ -53,8 +56,16 @@ export async function convertDir(src: string, tgt?: string, index = false, binar
         versions[m.type][m.version].file = f.name
       })
 
+      performance.mark('ViewStart')
       const view = getView(parsed)
+      performance.mark('ViewEnd')
       const grid = getGrid(view)
+      performance.mark('GridEnd')
+
+      const pB = performance.measure('ViewStart->ViewEnd', 'ViewStart', 'ViewEnd')
+      const pC = performance.measure('ViewEnd->GridEnd', 'ViewEnd', 'GridEnd')
+
+      log('parse/view/grid/sum duration', pA.duration.toFixed(2), pB.duration.toFixed(2), pC.duration.toFixed(2), (pA.duration + pB.duration + pC.duration).toFixed(2))
 
       if (grid.view.connectionTable.counts.unknown) {
         log('unknown', grid.view.connectionTable.counts.unknown)

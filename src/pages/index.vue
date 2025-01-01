@@ -280,20 +280,44 @@
     :model-value="showConnectionChangeToast"
     :color="dark ? 'grey-darken-4' : null"
     :timeout="-1"
-    location="bottom right">
-    <div style="font-size: 16px; line-height: 26px;">
-      <template v-if="!showConnections">
-        Hiding connections
-      </template>
-      <template v-else-if="showConnections === 1">
-        CV connections
-      </template>
-      <template v-else-if="showConnections === 2">
-        Audio connections
-      </template>
-      <template v-else>
-        All connections
-      </template>
+    rounded="pill"
+    min-width="300"
+    location="top"
+    @mouseenter="onConnectionEnter"
+    @mouseleave="onConnectionLeave">
+    <div
+      class="d-flex"
+      style="margin: -12px -10px;">
+      <svg
+        width="38"
+        height="38"
+        viewBox="0 0 24 24">
+        <x-svg-symbol
+          :location="0"
+          :px="1"
+          :dark="true"
+          :size="24"
+          :active="true"
+          :position="[0,0]"
+          text="CONNECTION" />
+      </svg>
+      <v-tabs
+        v-model="connectionTab"
+        class="mr-4"
+        density="compact">
+        <v-tab class="x-toast-tab">
+          None
+        </v-tab>
+        <v-tab class="x-toast-tab">
+          CV
+        </v-tab>
+        <v-tab class="x-toast-tab">
+          Audio
+        </v-tab>
+        <v-tab class="x-toast-tab">
+          All
+        </v-tab>
+      </v-tabs>
     </div>
   </v-snackbar>
 </template>
@@ -315,13 +339,14 @@ import { gzipUint8Array, resizeUint8Array, ungzipUint8Array } from '@/utils/gzp-
 import { LENGTH, parse } from '../../lib/index.ts'
 
 import XSvg from '@/components/XSvg.vue'
+import XSvgSymbol from '@/components/XSvgSymbol.vue'
 
 // import { SIMPLE_PATCH } from '../../lib/tests/fixtures/simple-patch.ts'
 
 const log = debug('zoian:app')
 
 export default {
-  components: { XSvg },
+  components: { XSvgSymbol, XSvg },
   data: () => ({
     patch: null,
     isDragging: false,
@@ -346,7 +371,8 @@ export default {
     menuX: 0,
     menuY: 0,
     showConnectionChangeToast: false,
-    showConnectionChangeToastTimer: null
+    showConnectionChangeToastTimer: null,
+    showConnectionChangeToastOver: false
   }),
   computed: {
     ...mapWritableState(useAppStore, [
@@ -359,6 +385,14 @@ export default {
         { title: 'Audio', value: 2 },
         { title: 'All', value: true },
       ]
+    },
+    connectionTab: {
+      get () {
+        return this.connectionList.findIndex(x => x.value === this.showConnections)
+      },
+      set (v) {
+        this.showConnections =  this.connectionList[v].value
+      }
     },
     patchNumber () {
       const i = this.files?.indexOf(this.file)
@@ -422,6 +456,10 @@ export default {
 
       if (this.showConnectionChangeToastTimer) {
         clearTimeout(this.showConnectionChangeToastTimer)
+      }
+
+      if (this.showConnectionChangeToastOver) {
+        return
       }
 
       this.showConnectionChangeToastTimer = setTimeout(() => {
@@ -731,7 +769,9 @@ export default {
       } else if (e.key === 'e') {
         this.euro = !this.euro
       } else if (e.key === 'c') {
-        this.showConnections = this.connectionList[(this.connectionList.findIndex(x => x.value === this.showConnections) + 1) % this.connectionList.length].value
+          this.showConnections = this.connectionList[(this.connectionList.findIndex(x => x.value === this.showConnections) + 1) % this.connectionList.length].value
+      } else if ((e.key === 'C') && e.shiftKey) {
+          this.showConnections = this.connectionList[(this.connectionList.findIndex(x => x.value === this.showConnections) - 1 + 4) % this.connectionList.length].value
       } else if (e.key === 'a') {
         this.animations = !this.animations
       } else if (e.key === 's') {
@@ -749,6 +789,22 @@ export default {
       if (!unknown) {
         this.showWelcomeToast = false
       }
+    },
+    onConnectionEnter () {
+      this.showConnectionChangeToastOver = true
+
+      if (this.showConnectionChangeToastTimer) {
+        clearTimeout(this.showConnectionChangeToastTimer)
+        this.showConnectionChangeToastTimer = null
+      }
+    },
+    onConnectionLeave () {
+      this.showConnectionChangeToastOver = false
+
+      this.showConnectionChangeToastTimer = setTimeout(() => {
+        this.showConnectionChangeToast = false
+        this.showConnectionChangeToastTimer = null
+      }, 400)
     }
   },
 }
@@ -790,5 +846,11 @@ export default {
   -moz-user-select: none !important; /* Firefox */
   -ms-user-select: none !important; /* Edge */
   -webkit-touch-callout: none;
+}
+
+.x-toast-tab {
+  text-transform: none;
+  letter-spacing: initial;
+  min-width: 64px !important;
 }
 </style>

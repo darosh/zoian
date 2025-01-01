@@ -72,6 +72,7 @@ export interface BlockView {
   name: string
   index: number
   block: Block
+  type: ConnectionType,
   moduleView: ModuleView
   from: ConnectionView[]
   to: ConnectionView[]

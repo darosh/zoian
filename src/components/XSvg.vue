@@ -334,7 +334,7 @@
           'x-connection-selected': selectedBlockView
         }">
         <line
-          v-for="c in connections"
+          v-for="c in connectionsFiltered"
           :key="c.id"
           :x1="c.source.x"
           :y1="c.source.y"
@@ -350,7 +350,7 @@
           'x-connection-selected': selectedBlockView
         }">
         <path
-          v-for="c in connections"
+          v-for="c in connectionsFiltered"
           :key="c.id"
           :d="c.d"
           :stroke-width="pxl"
@@ -373,6 +373,15 @@
 
       <!-- dots -->
       <!--      <template v-if="showConnections">-->
+      <g class="x-dots-audio">
+        <circle
+          v-for="{dot, id} in connectionPosDots.audioDots"
+          :key="id"
+          :stroke-width="px"
+          :cx="dot.x"
+          :cy="dot.y"
+          :r="6 * px" />
+      </g>
       <g class="x-dots-source">
         <circle
           v-for="{dot, id} in connectionPosDots.sourceDots"
@@ -760,7 +769,7 @@ export default {
       default: null
     },
     showConnections: {
-      type: Boolean,
+      type: [Boolean, Number],
       default: false
     },
     animations: {
@@ -991,6 +1000,8 @@ export default {
       return this.euroMode ? this.grid.connectionsEuro : this.grid.connections
     },
     connectionPosCenters () {
+      log('connection pos', this.connectionPos)
+
       return this.connectionPos.map(([source, target], id) => {
         const sh = this.euroOrIo(source) ? this.moduleEH : this.moduleSH
         const th = this.euroOrIo(target) ? this.moduleEH : this.moduleSH
@@ -1018,9 +1029,18 @@ export default {
         ...sides.block
       ]
         .filter(Boolean)
-        .map((x, id) => ({ pos: x.pos, dot: x.dot, isSource: x.isSource, id }))
+        .map((x, id) => ({
+          pos: x.pos,
+          dot: x.dot,
+          isSource: x.isSource,
+          id
+        }))
+
+      log('all dots', all)
 
       let lines = this.connectionPosCenters
+
+      log('connection pos centres', this.connectionPosCenters)
 
       if (this.selectedBlockView) {
         lines = lines
@@ -1048,6 +1068,7 @@ export default {
 
         return {
           id: p.id,
+          type: p.sourcePos?.blockView?.type || p.targetPos?.blockView?.type,
           source,
           target
         }
@@ -1055,6 +1076,7 @@ export default {
 
       return {
         lines,
+        audioDots: all.filter(x => x.pos?.blockView?.type === 2),
         sourceDots: all.filter(x => x.isSource),
         targetDots: all.filter(x => !x.isSource)
       }
@@ -1073,6 +1095,21 @@ export default {
       }
 
       return this.connectionPosDotsCurves
+    },
+    connectionsFiltered () {
+      if (this.selectedBlockView) {
+        return this.connections
+      }
+
+      if (this.showConnections === ConnectionType.Audio) {
+        return this.connections.filter(({ type }) => type === 2)
+      } else if (this.showConnections === ConnectionType.CV) {
+        return this.connections.filter(({ type }) => type === 1)
+      } else if (this.showConnections) {
+        return this.connections
+      }
+
+      return []
     }
   },
   watch: {
@@ -1430,6 +1467,11 @@ text, tspan, .x-no-select {
   }
 }
 
+.x-dots-audio circle {
+  fill: #fff;
+  stroke: #000;
+}
+
 .x-dots-source circle {
   fill: #000;
   fill-opacity: 1;
@@ -1442,6 +1484,11 @@ text, tspan, .x-no-select {
 }
 
 .x-dark {
+  .x-dots-audio circle {
+    fill: #000;
+    stroke: #fff;
+  }
+
   .x-dots-source circle {
     fill: #fff;
   }

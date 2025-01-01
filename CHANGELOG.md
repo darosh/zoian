@@ -1,5 +1,10 @@
 # Changelog
 
+## 2024-01-01
+
+- Adding connection type selection to context menu, hotkey <kbd>C</kbd> now cycles through the options
+- Adding distinction between audio and CV connection point
+
 ## 2024-12-31
 
 - Adding touch support, long press for context menu, swipe for previous/next patch, second tap hides tooltip

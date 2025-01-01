@@ -168,14 +168,6 @@
           </template>
         </v-list-item>
         <v-list-item
-          :prepend-icon="showConnections ? '$checkboxOn' : '$checkboxOff'"
-          @click="showConnections = !showConnections">
-          Show connections
-          <template #append>
-            <v-kbd>C</v-kbd>
-          </template>
-        </v-list-item>
-        <v-list-item
           :prepend-icon="animations ? '$checkboxOn' : '$checkboxOff'"
           @click="animations = !animations">
           Animations
@@ -196,20 +188,46 @@
           @click="showTips = !showTips">
           Module description
         </v-list-item>
+        <v-divider class="my-1" />
+        <v-list-item>
+          Show connections
+          <template #append>
+            <v-kbd>C</v-kbd>
+          </template>
+        </v-list-item>
+        <v-list-item class="text-center">
+          <v-btn-toggle
+            v-model="showConnections"
+            class="x-no-transition">
+            <v-btn
+              v-for="n in connectionList"
+              :key="n.title"
+              style="font-family: monospace; font-size: 13px;"
+              :value="n.value"
+              class="text-capitalize px-2"
+              density="compact"
+              flat
+              height="40"
+              min-width="40">
+              {{ n.title }}
+            </v-btn>
+          </v-btn-toggle>
+        </v-list-item>
+        <v-divider class="mb-1" />
         <v-list-item>
           Max columns
           <template #append>
             <v-kbd>2 &hellip; 6</v-kbd>
           </template>
         </v-list-item>
-        <v-list-item>
+        <v-list-item class="text-center">
           <v-btn-toggle
             v-model="columns"
             class="x-no-transition">
             <v-btn
               v-for="n in [2,3,4,5,6]"
               :key="n"
-              style="font-family: monospace;"
+              style="font-family: monospace; font-size: 13px;"
               :value="n"
               density="compact"
               flat
@@ -219,7 +237,7 @@
             </v-btn>
           </v-btn-toggle>
         </v-list-item>
-        <v-divider class="my-2" />
+        <v-divider class="mb-1" />
         <v-list-item
           href="https://github.com/darosh/zoian"
           target="_blank">
@@ -256,6 +274,26 @@
     location="bottom right">
     <div style="font-size: 16px; line-height: 26px;">
       {{ files?.length }} patches loaded
+    </div>
+  </v-snackbar>
+  <v-snackbar
+    :model-value="showConnectionChangeToast"
+    :color="dark ? 'grey-darken-4' : null"
+    :timeout="-1"
+    location="bottom right">
+    <div style="font-size: 16px; line-height: 26px;">
+      <template v-if="!showConnections">
+        Hiding connections
+      </template>
+      <template v-else-if="showConnections === 1">
+        CV connections
+      </template>
+      <template v-else-if="showConnections === 2">
+        Audio connections
+      </template>
+      <template v-else>
+        All connections
+      </template>
     </div>
   </v-snackbar>
 </template>
@@ -306,12 +344,22 @@ export default {
     showWelcomeToast: false,
     menuShow: false,
     menuX: 0,
-    menuY: 0
+    menuY: 0,
+    showConnectionChangeToast: false,
+    showConnectionChangeToastTimer: null
   }),
   computed: {
     ...mapWritableState(useAppStore, [
       'dark', 'columns', 'euro', 'showConnections', 'animations', 'showTips'
     ]),
+    connectionList () {
+      return [
+        { title: 'None', value: false },
+        { title: 'CV', value: 1 },
+        { title: 'Audio', value: 2 },
+        { title: 'All', value: true },
+      ]
+    },
     patchNumber () {
       const i = this.files?.indexOf(this.file)
 
@@ -368,6 +416,18 @@ export default {
       }
 
       this.isDraggingInfoDebounced(newValue)
+    },
+    showConnections () {
+      this.showConnectionChangeToast = true
+
+      if (this.showConnectionChangeToastTimer) {
+        clearTimeout(this.showConnectionChangeToastTimer)
+      }
+
+      this.showConnectionChangeToastTimer = setTimeout(() => {
+        this.showConnectionChangeToast = false
+        this.showConnectionChangeToastTimer = null
+      }, 1200)
     }
   },
   async mounted () {
@@ -671,7 +731,7 @@ export default {
       } else if (e.key === 'e') {
         this.euro = !this.euro
       } else if (e.key === 'c') {
-        this.showConnections = !this.showConnections
+        this.showConnections = this.connectionList[(this.connectionList.findIndex(x => x.value === this.showConnections) + 1) % this.connectionList.length].value
       } else if (e.key === 'a') {
         this.animations = !this.animations
       } else if (e.key === 's') {

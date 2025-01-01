@@ -10,7 +10,7 @@ import { JACKS_IO } from '../spec/jacks-io.ts'
 import { getIoConnections } from './connections-io.ts'
 import { linkJack } from '../grid/link-jack.ts'
 import { getMidiTable } from './table-midi.ts'
-import { getConnectionsTable } from './table-connection.ts'
+import { getConnectionsTable, getConnectionType } from './table-connection.ts'
 
 const log = debug('zoian:view')
 
@@ -32,6 +32,7 @@ export function getView(patch: Patch): PatchView {
           name,
           index,
           block,
+          type: getConnectionType([name, block], module.id),
           moduleView: <ModuleView> <unknown> moduleView,
           from: <ConnectionView[]> [],
           to: <ConnectionView[]> [],

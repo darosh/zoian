@@ -17,7 +17,7 @@
     @click="onClick"
     @contextmenu="onContextMenu"
     @touchstart.passive="onTouchStart"
-    @touchmove="onTouchMove"
+    @touchmove.passive="onTouchMove"
     @touchend="onTouchEnd"
     @dragover="dragover"
     @dragleave="dragleave"

@@ -10,19 +10,15 @@
 - [ ] check cpu values? could we just apply the [Improved the overall CPU performance by 14%](https://cdn.shopify.com/s/files/1/0028/5462/files/zoia_changelog_52792f30-e99b-4be7-919c-b1b7de6920ec.txt?v=1733847708)?
 - [ ] check stared items
 - [ ] add connection and starred validation to tests
-- [ ] make test patch with all modules
-- [ ] check corrupted names and starred items 105255.bin
 - [ ] review module tooltips copywriting
 
 ## Improvements
 
 - [ ] add file selection for touch devices
-- [ ] shared binary patch should not display number
 - [ ] weird thin lines between blocks, non-retina? svg widths rounding?
 - [ ] url shortener? free + non-tracking?
 - [ ] add second dot if hidden link has opposite directions?
 - [ ] [POSTPONED] consolidate block condition types
-- [ ] [POSTPONED] cable bundling?
 - [ ] [POSTPONED] check with Empress v5 factory set licence
 
 ## Features
@@ -32,12 +28,17 @@
 - [ ] [POSTPONED] starred connection
 - [ ] [POSTPONED] embed view?
 - [ ] [POSTPONED] offline support
-- [ ] [POSTPONED] audio vs cv vs midi vs star connection
-- [ ] [POSTPONED] favorites stored in browser?
 - [ ] [POSTPONED] hidden connection count
 
 ## Done
 
+- [ ] ~~favorites stored in browser?~~
+- [x] ~~cable bundling?~~
+- [x] shared binary patch should not display number
+- [x] ~~check corrupted names and starred items 105255.bin~~
+- [x] cv filter conditional blocks fix
+- [x] make test patch with all modules
+- [x] audio vs cv ~~vs midi vs star~~ connection
 - [x] improve touch timing / detect scrolling
 - [x] basic touch support
 - [x] prepare & test writer

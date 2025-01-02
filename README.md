@@ -45,6 +45,16 @@ patch files.
     - <kbd>2...6</kbd> Max columns
 - Happy little dots &amp; blocks made in Brno
 
+### Explorer Quick Links
+
+Access factory patch sets directly in the web explorer.
+
+| Set                   | Link                                                                                                                                                                                                                                       |
+|-----------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Euroburo Factory Set  | [https://darosh.github.io/zoian/](https://darosh.github.io/zoian/)                                                                                                                                                                         |
+| ZOIA Factory Set      | [https://darosh.github.io/zoian/#/?link=https://patchstorage.com/api/beta/patches/107803/files/107802/download/](https://darosh.github.io/zoian/#/?link=https://patchstorage.com/api/beta/patches/107803/files/107802/download/)           |
+| Version 5 Factory Set | [https://darosh.github.io/zoian/#/?link=https://cdn.shopify.com/s/files/1/0028/5462/files/zoia_5_factory_patches.zip](https://darosh.github.io/zoian/#/?link=https://cdn.shopify.com/s/files/1/0028/5462/files/zoia_5_factory_patches.zip) |
+
 ### Disclaimer
 
 Blocks and their connections may be displayed incorrectly (incorrect blocks and/or their incorrect order,

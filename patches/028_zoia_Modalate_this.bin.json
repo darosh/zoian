@@ -80,7 +80,7 @@
       "options": {},
       "parameterCount": 4,
       "parameters": {"decay_time": 0, "mix": 0, "low_eq": 32927, "lpf_freq": 32767},
-      "blocks": {"audio_in_L": {"initial": true, "position": 0}, "audio_in_R": {"initial": true, "position": 1}, "decay_time": {"initial": true, "param": true, "position": 2}, "low_eq": {"initial": true, "param": true, "position": 6}, "lpf_freq": {"initial": true, "param": true, "position": 7}, "mix": {"initial": true, "param": true, "position": 3}, "audio_out_L": {"initial": true, "position": 4}, "audio_out_R": {"initial": true, "position": 5}},
+      "blocks": {"audio_in_L": {"initial": true, "position": 0}, "audio_in_R": {"initial": true, "position": 1}, "decay_time": {"initial": true, "param": true, "position": 2}, "low_eq": {"initial": true, "param": true, "position": 6}, "lpf_freq": {"initial": true, "param": true, "position": 7}, "mix": {"initial": true, "param": true, "position": 3, "sort": 8}, "audio_out_L": {"initial": true, "position": 4, "sort": 9}, "audio_out_R": {"initial": true, "position": 5, "sort": 10}},
       "position": [8, 9, 10, 11, 12, 13, 14, 15]
     },
     {"number": 49, "id": 22, "type": "Multiplier", "name": "", "version": 0, "size": 16, "dataSize": 0, "page": 4, "color": 10, "options": {"num_inputs": 2}, "parameterCount": 2, "parameters": {"cv_in_1": 0, "cv_in_2": 0}, "blocks": {"cv_in_1": {"param": true, "position": 0}, "cv_in_2": {"param": true, "position": 1}, "cv_out": {"initial": true, "position": 8}}, "position": [0, 1, 2]},

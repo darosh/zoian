@@ -44,9 +44,9 @@
         "note_22": {"initial": true, "param": true, "position": 21},
         "note_23": {"initial": true, "param": true, "position": 22},
         "note_24": {"initial": true, "param": true, "position": 23},
-        "note_out": {"initial": true, "position": 25},
-        "gate_out": {"initial": true, "position": 26},
-        "trigger_out": {"initial": true, "position": 27}
+        "note_out": {"initial": true, "position": 25, "sort": 43},
+        "gate_out": {"initial": true, "position": 26, "sort": 44},
+        "trigger_out": {"initial": true, "position": 27, "sort": 45}
       },
       "position": [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42]
     },

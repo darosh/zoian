@@ -40,7 +40,7 @@
       "options": {},
       "parameterCount": 4,
       "parameters": {"mix": 65535, "decay_time": 0, "low_eq": 32767, "high_eq": 32767},
-      "blocks": {"audio_in_L": {"initial": true, "position": 0}, "audio_in_R": {"initial": true, "position": 1}, "decay_time": {"initial": true, "param": true, "position": 3}, "low_eq": {"initial": true, "param": true, "position": 6}, "high_eq": {"initial": true, "param": true, "position": 7}, "mix": {"initial": true, "param": true, "position": 2}, "audio_out_L": {"initial": true, "position": 4}, "audio_out_R": {"initial": true, "position": 5}},
+      "blocks": {"audio_in_L": {"initial": true, "position": 0}, "audio_in_R": {"initial": true, "position": 1}, "decay_time": {"initial": true, "param": true, "position": 3}, "low_eq": {"initial": true, "param": true, "position": 6}, "high_eq": {"initial": true, "param": true, "position": 7}, "mix": {"initial": true, "param": true, "position": 2, "sort": 8}, "audio_out_L": {"initial": true, "position": 4, "sort": 9}, "audio_out_R": {"initial": true, "position": 5, "sort": 10}},
       "position": [24, 25, 26, 27, 28, 29, 30, 31]
     },
     {"number": 24, "id": 0, "type": "SV Filter", "name": "", "version": 0, "size": 16, "dataSize": 0, "page": 2, "color": 3, "options": {"lowpass_out": "on", "hipass_out": "on", "bandpass_out": "off", "freq_change": "smooth"}, "parameterCount": 2, "parameters": {"frequency": 0, "resonance": 0}, "blocks": {"audio_in": {"initial": true, "position": 0}, "frequency": {"initial": true, "param": true, "position": 1}, "resonance": {"initial": true, "param": true, "position": 2}, "lowpass_out": {"initial": true, "position": 3}, "hipass_out": {"position": 4}}, "position": [0, 1, 2, 3, 4]},

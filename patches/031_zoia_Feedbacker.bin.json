@@ -88,7 +88,7 @@
       "options": {"attack_ctrl": "on", "release_ctrl": "on", "ratio_ctrl": "on", "channels": "1in->1out", "sidechain": "internal"},
       "parameterCount": 4,
       "parameters": {"threshold": 0, "attack": 19648, "release": 32768, "ratio": 65535},
-      "blocks": {"audio_in_L": {"initial": true, "position": 0}, "threshold": {"initial": true, "param": true, "position": 2}, "attack": {"param": true, "position": 3}, "release": {"param": true, "position": 4}, "ratio": {"param": true, "position": 5}, "audio_out_L": {"initial": true, "position": 6}},
+      "blocks": {"audio_in_L": {"initial": true, "position": 0}, "threshold": {"initial": true, "param": true, "position": 2}, "attack": {"param": true, "position": 3}, "release": {"param": true, "position": 4}, "ratio": {"param": true, "position": 5}, "audio_out_L": {"initial": true, "position": 6, "sort": 9}},
       "position": [0, 1, 2, 3, 4, 5]
     },
     {
@@ -104,7 +104,7 @@
       "options": {},
       "parameterCount": 4,
       "parameters": {"mix": 65535, "decay_time": 0, "low_eq": 28567, "high_eq": 32887},
-      "blocks": {"audio_in_L": {"initial": true, "position": 0}, "audio_in_R": {"initial": true, "position": 1}, "decay_time": {"initial": true, "param": true, "position": 3}, "low_eq": {"initial": true, "param": true, "position": 6}, "high_eq": {"initial": true, "param": true, "position": 7}, "mix": {"initial": true, "param": true, "position": 2}, "audio_out_L": {"initial": true, "position": 4}, "audio_out_R": {"initial": true, "position": 5}},
+      "blocks": {"audio_in_L": {"initial": true, "position": 0}, "audio_in_R": {"initial": true, "position": 1}, "decay_time": {"initial": true, "param": true, "position": 3}, "low_eq": {"initial": true, "param": true, "position": 6}, "high_eq": {"initial": true, "param": true, "position": 7}, "mix": {"initial": true, "param": true, "position": 2, "sort": 8}, "audio_out_L": {"initial": true, "position": 4, "sort": 9}, "audio_out_R": {"initial": true, "position": 5, "sort": 10}},
       "position": [8, 9, 10, 11, 12, 13, 14, 15]
     },
     {"number": 58, "id": 14, "type": "Oscillator", "name": "", "version": 0, "size": 16, "dataSize": 1, "page": 4, "color": 9, "options": {"waveform": "sine", "fm_in": "off", "duty_cycle": "off", "upsampling": "none"}, "parameterCount": 1, "parameters": {"frequency": 0}, "blocks": {"frequency": {"initial": true, "param": true, "position": 0}, "audio_out": {"initial": true, "position": 3}}, "position": [16, 17]},

@@ -45,7 +45,7 @@
       "options": {"attack_ctrl": "on", "release_ctrl": "on", "ratio_ctrl": "on", "channels": "stereo", "sidechain": "internal"},
       "parameterCount": 4,
       "parameters": {"threshold": 0, "attack": 19960, "release": 32600, "ratio": 10415},
-      "blocks": {"audio_in_L": {"initial": true, "position": 0}, "audio_in_R": {"position": 1}, "threshold": {"initial": true, "param": true, "position": 2}, "attack": {"param": true, "position": 3}, "release": {"param": true, "position": 4}, "ratio": {"param": true, "position": 5}, "audio_out_L": {"initial": true, "position": 6}, "audio_out_R": {"position": 7}},
+      "blocks": {"audio_in_L": {"initial": true, "position": 0}, "audio_in_R": {"position": 1}, "threshold": {"initial": true, "param": true, "position": 2}, "attack": {"param": true, "position": 3}, "release": {"param": true, "position": 4}, "ratio": {"param": true, "position": 5}, "audio_out_L": {"initial": true, "position": 6, "sort": 9}, "audio_out_R": {"position": 7, "sort": 10}},
       "position": [16, 17, 18, 19, 20, 21, 22, 23]
     },
     {"number": 29, "id": 0, "type": "SV Filter", "name": "", "version": 0, "size": 16, "dataSize": 0, "page": 2, "color": 11, "options": {"lowpass_out": "off", "hipass_out": "on", "bandpass_out": "off", "freq_change": "smooth"}, "parameterCount": 2, "parameters": {"frequency": 0, "resonance": 0}, "blocks": {"audio_in": {"initial": true, "position": 0}, "frequency": {"initial": true, "param": true, "position": 1}, "resonance": {"initial": true, "param": true, "position": 2}, "hipass_out": {"position": 4}}, "position": [24, 25, 26, 27]},

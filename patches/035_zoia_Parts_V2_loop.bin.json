@@ -18,13 +18,13 @@
     {"number": 11, "id": 81, "type": "Pixel", "name": "Loop active", "version": 0, "size": 15, "dataSize": 0, "page": 0, "color": 2, "options": {"control": "cv"}, "parameterCount": 1, "parameters": {"cv_in": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}}, "position": [22]},
     {"number": 12, "id": 45, "type": "Value", "name": "Pitch", "version": 0, "size": 16, "dataSize": 1, "page": 0, "color": 10, "options": {"output": "-1 to 1"}, "parameterCount": 1, "parameters": {"value": 36044}, "blocks": {"value": {"initial": true, "param": true, "position": 0}, "cv_out": {"initial": true, "position": 1}}, "position": [24, 25]},
     {"number": 13, "id": 15, "type": "Pushbutton", "name": "Reverse", "version": 0, "size": 15, "dataSize": 1, "page": 0, "color": 5, "options": {"action": "latching", "normally": "zero"}, "parameterCount": 0, "parameters": {}, "blocks": {"cv_out": {"initial": true, "position": 1}}, "position": [25]},
-    {"number": 14, "id": 49, "type": "Clock Divider", "name": "Loop clock", "version": 1, "size": 20, "dataSize": 8, "page": 0, "color": 15, "options": {"input": "tap"}, "parameterCount": 4, "parameters": {"cv_in": 0, "reset_in": 0, "dividend": 0, "divisor": 6342}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "reset_in": {"initial": true, "param": true, "position": 1}, "dividend": {"initial": true, "param": true, "position": 4}, "divisor": {"initial": true, "param": true, "position": 5}, "cv_out": {"initial": true, "position": 3}}, "position": [27, 28, 29, 30, 31]},
+    {"number": 14, "id": 49, "type": "Clock Divider", "name": "Loop clock", "version": 1, "size": 20, "dataSize": 8, "page": 0, "color": 15, "options": {"input": "tap"}, "parameterCount": 4, "parameters": {"cv_in": 0, "reset_in": 0, "dividend": 0, "divisor": 6342}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "reset_in": {"initial": true, "param": true, "position": 1}, "dividend": {"initial": true, "param": true, "position": 4}, "divisor": {"initial": true, "param": true, "position": 5}, "cv_out": {"initial": true, "position": 3, "sort": 6}}, "position": [27, 28, 29, 30, 31]},
     {"number": 15, "id": 45, "type": "Value", "name": "Pitch", "version": 0, "size": 16, "dataSize": 1, "page": 0, "color": 10, "options": {"output": "-1 to 1"}, "parameterCount": 1, "parameters": {"value": 29491}, "blocks": {"value": {"initial": true, "param": true, "position": 0}, "cv_out": {"initial": true, "position": 1}}, "position": [32, 33]},
     {"number": 16, "id": 15, "type": "Pushbutton", "name": "Reverse", "version": 0, "size": 15, "dataSize": 1, "page": 0, "color": 5, "options": {"action": "latching", "normally": "zero"}, "parameterCount": 0, "parameters": {}, "blocks": {"cv_out": {"initial": true, "position": 1}}, "position": [33]},
     {"number": 17, "id": 45, "type": "Value", "name": "Density attvrtr", "version": 0, "size": 16, "dataSize": 1, "page": 0, "color": 9, "options": {"output": "-1 to 1"}, "parameterCount": 1, "parameters": {"value": 32768}, "blocks": {"value": {"initial": true, "param": true, "position": 0}, "cv_out": {"initial": true, "position": 1}}, "position": [35, 36]},
     {"number": 18, "id": 45, "type": "Value", "name": "Wet level", "version": 0, "size": 16, "dataSize": 1, "page": 0, "color": 4, "options": {"output": "0 to 1"}, "parameterCount": 1, "parameters": {"value": 31018}, "blocks": {"value": {"initial": true, "param": true, "position": 0}, "cv_out": {"initial": true, "position": 1}}, "position": [36, 37]},
     {"number": 19, "id": 45, "type": "Value", "name": "Dry level", "version": 0, "size": 16, "dataSize": 1, "page": 0, "color": 15, "options": {"output": "0 to 1"}, "parameterCount": 1, "parameters": {"value": 50524}, "blocks": {"value": {"initial": true, "param": true, "position": 0}, "cv_out": {"initial": true, "position": 1}}, "position": [38, 39]},
-    {"number": 20, "id": 5, "type": "LFO", "name": "", "version": 0, "size": 17, "dataSize": 8, "page": 1, "color": 11, "options": {"waveform": "square", "swing_control": "off", "output": "0 to 1", "input": "tap", "phase_input": "off", "phase_reset": "off"}, "parameterCount": 1, "parameters": {"cv_control": 0}, "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "tap_control": {"param": true, "position": 1}, "output": {"initial": true, "position": 3}}, "position": [10, 11, 12]},
+    {"number": 20, "id": 5, "type": "LFO", "name": "", "version": 0, "size": 17, "dataSize": 8, "page": 1, "color": 11, "options": {"waveform": "square", "swing_control": "off", "output": "0 to 1", "input": "tap", "phase_input": "off", "phase_reset": "off"}, "parameterCount": 1, "parameters": {"cv_control": 0}, "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "tap_control": {"param": true, "position": 1}, "output": {"initial": true, "position": 3, "sort": 6}}, "position": [10, 11, 12]},
     {"number": 21, "id": 7, "type": "VCA", "name": "", "version": 0, "size": 15, "dataSize": 0, "page": 1, "color": 2, "options": {"channels": "stereo"}, "parameterCount": 1, "parameters": {"level_control": 0}, "blocks": {"audio_in_1": {"initial": true, "position": 0}, "audio_in_2": {"position": 1}, "level_control": {"initial": true, "param": true, "position": 2}, "audio_out_1": {"initial": true, "position": 3}, "audio_out_2": {"position": 4}}, "position": [16, 17, 18, 19, 20]},
     {"number": 22, "id": 22, "type": "Multiplier", "name": "", "version": 0, "size": 16, "dataSize": 0, "page": 1, "color": 2, "options": {"num_inputs": 2}, "parameterCount": 2, "parameters": {"cv_in_1": 0, "cv_in_2": 0}, "blocks": {"cv_in_1": {"param": true, "position": 0}, "cv_in_2": {"param": true, "position": 1}, "cv_out": {"initial": true, "position": 8}}, "position": [35, 36, 37]},
     {"number": 23, "id": 34, "type": "Audio Out Switch", "name": "", "version": 0, "size": 15, "dataSize": 0, "page": 2, "color": 1, "options": {"num_outs": 2, "fades": "on"}, "parameterCount": 1, "parameters": {"in_select": 0}, "blocks": {"audio_in": {"initial": true, "position": 0}, "in_select": {"initial": true, "param": true, "position": 1}, "audio_out_1": {"position": 2}, "audio_out_2": {"position": 3}}, "position": [0, 1, 2, 3]},
@@ -66,7 +66,7 @@
       "options": {"max_rec_time": "8s", "length_edit": "off", "playback": "once", "length": "pre_speed", "hear_while_rec": "no", "play_reverse": "yes", "overdub": "no", "stop_play_button": "no"},
       "parameterCount": 4,
       "parameters": {"record": 0, "restart_playback": 0, "speed_pitch": 32767, "reverse_playback": 0},
-      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6}},
+      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6, "sort": 11}},
       "position": [0, 1, 2, 3, 4, 5]
     },
     {
@@ -82,7 +82,7 @@
       "options": {"max_rec_time": "8s", "length_edit": "off", "playback": "once", "length": "pre_speed", "hear_while_rec": "no", "play_reverse": "yes", "overdub": "no", "stop_play_button": "no"},
       "parameterCount": 4,
       "parameters": {"record": 0, "restart_playback": 0, "speed_pitch": 32767, "reverse_playback": 0},
-      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6}},
+      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6, "sort": 11}},
       "position": [8, 9, 10, 11, 12, 13]
     },
     {
@@ -98,7 +98,7 @@
       "options": {"max_rec_time": "8s", "length_edit": "off", "playback": "once", "length": "pre_speed", "hear_while_rec": "no", "play_reverse": "yes", "overdub": "no", "stop_play_button": "no"},
       "parameterCount": 4,
       "parameters": {"record": 0, "restart_playback": 0, "speed_pitch": 32767, "reverse_playback": 0},
-      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6}},
+      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6, "sort": 11}},
       "position": [16, 17, 18, 19, 20, 21]
     },
     {
@@ -114,7 +114,7 @@
       "options": {"max_rec_time": "8s", "length_edit": "off", "playback": "once", "length": "pre_speed", "hear_while_rec": "no", "play_reverse": "yes", "overdub": "no", "stop_play_button": "no"},
       "parameterCount": 4,
       "parameters": {"record": 0, "restart_playback": 0, "speed_pitch": 32767, "reverse_playback": 0},
-      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6}},
+      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6, "sort": 11}},
       "position": [24, 25, 26, 27, 28, 29]
     },
     {"number": 53, "id": 57, "type": "Audio Panner", "name": "", "version": 0, "size": 15, "dataSize": 0, "page": 7, "color": 2, "options": {"channels": "1in->2out", "pan_type": "equal_pwr"}, "parameterCount": 1, "parameters": {"pan": 32760}, "blocks": {"audio_in_L": {"initial": true, "position": 0}, "pan": {"initial": true, "param": true, "position": 2}, "audio_out_L": {"initial": true, "position": 3}, "audio_out_R": {"initial": true, "position": 4}}, "position": [0, 1, 2, 3]},
@@ -148,7 +148,7 @@
       "options": {"max_rec_time": "8s", "length_edit": "off", "playback": "once", "length": "pre_speed", "hear_while_rec": "no", "play_reverse": "yes", "overdub": "no", "stop_play_button": "no"},
       "parameterCount": 4,
       "parameters": {"record": 0, "restart_playback": 0, "speed_pitch": 32767, "reverse_playback": 0},
-      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6}},
+      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6, "sort": 11}},
       "position": [0, 1, 2, 3, 4, 5]
     },
     {
@@ -164,7 +164,7 @@
       "options": {"max_rec_time": "8s", "length_edit": "off", "playback": "once", "length": "pre_speed", "hear_while_rec": "no", "play_reverse": "yes", "overdub": "no", "stop_play_button": "no"},
       "parameterCount": 4,
       "parameters": {"record": 0, "restart_playback": 0, "speed_pitch": 32767, "reverse_playback": 0},
-      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6}},
+      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6, "sort": 11}},
       "position": [8, 9, 10, 11, 12, 13]
     },
     {
@@ -180,7 +180,7 @@
       "options": {"max_rec_time": "8s", "length_edit": "off", "playback": "once", "length": "pre_speed", "hear_while_rec": "no", "play_reverse": "yes", "overdub": "no", "stop_play_button": "no"},
       "parameterCount": 4,
       "parameters": {"record": 0, "restart_playback": 0, "speed_pitch": 32767, "reverse_playback": 0},
-      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6}},
+      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6, "sort": 11}},
       "position": [16, 17, 18, 19, 20, 21]
     },
     {
@@ -196,7 +196,7 @@
       "options": {"max_rec_time": "8s", "length_edit": "off", "playback": "once", "length": "pre_speed", "hear_while_rec": "no", "play_reverse": "yes", "overdub": "no", "stop_play_button": "no"},
       "parameterCount": 4,
       "parameters": {"record": 0, "restart_playback": 0, "speed_pitch": 32767, "reverse_playback": 0},
-      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6}},
+      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6, "sort": 11}},
       "position": [24, 25, 26, 27, 28, 29]
     },
     {
@@ -212,7 +212,7 @@
       "options": {"max_rec_time": "8s", "length_edit": "off", "playback": "once", "length": "pre_speed", "hear_while_rec": "no", "play_reverse": "yes", "overdub": "no", "stop_play_button": "no"},
       "parameterCount": 4,
       "parameters": {"record": 0, "restart_playback": 0, "speed_pitch": 32767, "reverse_playback": 0},
-      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6}},
+      "blocks": {"audio_in": {"initial": true, "position": 0}, "record": {"initial": true, "param": true, "position": 1}, "restart_playback": {"initial": true, "param": true, "position": 2}, "speed_pitch": {"initial": true, "param": true, "position": 3}, "reverse_playback": {"param": true, "position": 7}, "audio_out": {"initial": true, "position": 6, "sort": 11}},
       "position": [32, 33, 34, 35, 36, 37]
     },
     {"number": 76, "id": 57, "type": "Audio Panner", "name": "", "version": 0, "size": 15, "dataSize": 0, "page": 10, "color": 2, "options": {"channels": "1in->2out", "pan_type": "equal_pwr"}, "parameterCount": 1, "parameters": {"pan": 33040}, "blocks": {"audio_in_L": {"initial": true, "position": 0}, "pan": {"initial": true, "param": true, "position": 2}, "audio_out_L": {"initial": true, "position": 3}, "audio_out_R": {"initial": true, "position": 4}}, "position": [0, 1, 2, 3]},

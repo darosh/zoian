@@ -30,7 +30,7 @@
       "options": {},
       "parameterCount": 4,
       "parameters": {"mix": 65535, "decay_time": 0, "low_eq": 32760, "high_eq": 32960},
-      "blocks": {"audio_in_L": {"initial": true, "position": 0}, "audio_in_R": {"initial": true, "position": 1}, "decay_time": {"initial": true, "param": true, "position": 3}, "low_eq": {"initial": true, "param": true, "position": 6}, "high_eq": {"initial": true, "param": true, "position": 7}, "mix": {"initial": true, "param": true, "position": 2}, "audio_out_L": {"initial": true, "position": 4}, "audio_out_R": {"initial": true, "position": 5}},
+      "blocks": {"audio_in_L": {"initial": true, "position": 0}, "audio_in_R": {"initial": true, "position": 1}, "decay_time": {"initial": true, "param": true, "position": 3}, "low_eq": {"initial": true, "param": true, "position": 6}, "high_eq": {"initial": true, "param": true, "position": 7}, "mix": {"initial": true, "param": true, "position": 2, "sort": 8}, "audio_out_L": {"initial": true, "position": 4, "sort": 9}, "audio_out_R": {"initial": true, "position": 5, "sort": 10}},
       "position": [16, 17, 18, 19, 20, 21, 22, 23]
     },
     {"number": 14, "id": 7, "type": "VCA", "name": "", "version": 0, "size": 15, "dataSize": 0, "page": 1, "color": 4, "options": {"channels": "1in->1out"}, "parameterCount": 1, "parameters": {"level_control": 0}, "blocks": {"audio_in_1": {"initial": true, "position": 0}, "level_control": {"initial": true, "param": true, "position": 2}, "audio_out_1": {"initial": true, "position": 3}}, "position": [24, 25, 26]},

@@ -50,9 +50,9 @@
         "note_22": {"initial": true, "param": true, "position": 21},
         "note_23": {"initial": true, "param": true, "position": 22},
         "note_24": {"initial": true, "param": true, "position": 23},
-        "note_out": {"initial": true, "position": 25},
-        "gate_out": {"initial": true, "position": 26},
-        "trigger_out": {"initial": true, "position": 27}
+        "note_out": {"initial": true, "position": 25, "sort": 43},
+        "gate_out": {"initial": true, "position": 26, "sort": 44},
+        "trigger_out": {"initial": true, "position": 27, "sort": 45}
       },
       "position": [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34]
     },
@@ -69,7 +69,19 @@
       "options": {"num_of_notes": 8},
       "parameterCount": 8,
       "parameters": {"note_1": 0, "note_2": 9391, "note_3": 18403, "note_4": 27709, "note_5": 37402, "note_6": 47294, "note_7": 56346, "note_8": 65535},
-      "blocks": {"note_1": {"initial": true, "param": true, "position": 0}, "note_2": {"initial": true, "param": true, "position": 1}, "note_3": {"initial": true, "param": true, "position": 2}, "note_4": {"initial": true, "param": true, "position": 3}, "note_5": {"initial": true, "param": true, "position": 4}, "note_6": {"initial": true, "param": true, "position": 5}, "note_7": {"initial": true, "param": true, "position": 6}, "note_8": {"initial": true, "param": true, "position": 7}, "note_out": {"initial": true, "position": 25}, "gate_out": {"initial": true, "position": 26}, "trigger_out": {"initial": true, "position": 27}},
+      "blocks": {
+        "note_1": {"initial": true, "param": true, "position": 0},
+        "note_2": {"initial": true, "param": true, "position": 1},
+        "note_3": {"initial": true, "param": true, "position": 2},
+        "note_4": {"initial": true, "param": true, "position": 3},
+        "note_5": {"initial": true, "param": true, "position": 4},
+        "note_6": {"initial": true, "param": true, "position": 5},
+        "note_7": {"initial": true, "param": true, "position": 6},
+        "note_8": {"initial": true, "param": true, "position": 7},
+        "note_out": {"initial": true, "position": 25, "sort": 43},
+        "gate_out": {"initial": true, "position": 26, "sort": 44},
+        "trigger_out": {"initial": true, "position": 27, "sort": 45}
+      },
       "position": [32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42]
     },
     {"number": 10, "id": 81, "type": "Pixel", "name": "", "version": 0, "size": 15, "dataSize": 0, "page": 1, "color": 11, "options": {"control": "cv"}, "parameterCount": 1, "parameters": {"cv_in": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}}, "position": [2]},
@@ -121,7 +133,7 @@
       "blocks": {"audio_in_L": {"initial": true, "position": 0}, "tap_tempo_in": {"param": true, "position": 5, "sort": 2}, "feedback": {"initial": true, "param": true, "position": 3}, "mod_rate": {"initial": true, "param": true, "position": 6}, "mod_depth": {"initial": true, "param": true, "position": 7}, "mix": {"initial": true, "param": true, "position": 2, "sort": 7}, "audio_out_L": {"initial": true, "position": 8}, "audio_out_R": {"initial": true, "position": 9}},
       "position": [16, 17, 18, 19, 20, 21, 22, 23]
     },
-    {"number": 44, "id": 28, "type": "Quantizer", "name": "", "version": 0, "size": 18, "dataSize": 1, "page": 2, "color": 9, "options": {"key_scale_jacks": "yes", "scales": "basic"}, "parameterCount": 3, "parameters": {"cv_in": 0, "key": 32768, "scale": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "key": {"param": true, "position": 2}, "scale": {"param": true, "position": 3}, "cv_out": {"initial": true, "position": 1}}, "position": [32, 33, 34, 35]},
+    {"number": 44, "id": 28, "type": "Quantizer", "name": "", "version": 0, "size": 18, "dataSize": 1, "page": 2, "color": 9, "options": {"key_scale_jacks": "yes", "scales": "basic"}, "parameterCount": 3, "parameters": {"cv_in": 0, "key": 32768, "scale": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "key": {"param": true, "position": 2}, "scale": {"param": true, "position": 3}, "cv_out": {"initial": true, "position": 1, "sort": 4}}, "position": [32, 33, 34, 35]},
     {"number": 45, "id": 14, "type": "Oscillator", "name": "", "version": 0, "size": 16, "dataSize": 1, "page": 3, "color": 11, "options": {"waveform": "sawtooth", "fm_in": "off", "duty_cycle": "off", "upsampling": "none"}, "parameterCount": 1, "parameters": {"frequency": 0}, "blocks": {"frequency": {"initial": true, "param": true, "position": 0}, "audio_out": {"initial": true, "position": 3}}, "position": [0, 1]},
     {"number": 46, "id": 7, "type": "VCA", "name": "", "version": 0, "size": 15, "dataSize": 0, "page": 3, "color": 8, "options": {"channels": "1in->1out"}, "parameterCount": 1, "parameters": {"level_control": 0}, "blocks": {"audio_in_1": {"initial": true, "position": 0}, "level_control": {"initial": true, "param": true, "position": 2}, "audio_out_1": {"initial": true, "position": 3}}, "position": [2, 3, 4]},
     {

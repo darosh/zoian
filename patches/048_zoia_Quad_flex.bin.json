@@ -42,10 +42,10 @@
     {"number": 35, "id": 15, "type": "Pushbutton", "name": "Bipolar-Unipolr", "version": 0, "size": 15, "dataSize": 1, "page": 0, "color": 10, "options": {"action": "latching", "normally": "zero"}, "parameterCount": 0, "parameters": {}, "blocks": {"cv_out": {"initial": true, "position": 1}}, "position": [37]},
     {"number": 36, "id": 15, "type": "Pushbutton", "name": "Bipolar-Unipolr", "version": 0, "size": 15, "dataSize": 1, "page": 0, "color": 10, "options": {"action": "latching", "normally": "zero"}, "parameterCount": 0, "parameters": {}, "blocks": {"cv_out": {"initial": true, "position": 1}}, "position": [38]},
     {"number": 37, "id": 15, "type": "Pushbutton", "name": "Bipolar-Unipolr", "version": 0, "size": 15, "dataSize": 1, "page": 0, "color": 10, "options": {"action": "latching", "normally": "zero"}, "parameterCount": 0, "parameters": {}, "blocks": {"cv_out": {"initial": true, "position": 1}}, "position": [39]},
-    {"number": 38, "id": 49, "type": "Clock Divider", "name": "lfo 1 divider", "version": 1, "size": 20, "dataSize": 8, "page": 1, "color": 3, "options": {"input": "tap"}, "parameterCount": 4, "parameters": {"cv_in": 0, "reset_in": 0, "dividend": 0, "divisor": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "reset_in": {"initial": true, "param": true, "position": 1}, "dividend": {"initial": true, "param": true, "position": 4}, "divisor": {"initial": true, "param": true, "position": 5}, "cv_out": {"initial": true, "position": 3}}, "position": [0, 1, 2, 3, 4]},
-    {"number": 39, "id": 49, "type": "Clock Divider", "name": "lfo 2 divider", "version": 1, "size": 20, "dataSize": 8, "page": 1, "color": 8, "options": {"input": "tap"}, "parameterCount": 4, "parameters": {"cv_in": 0, "reset_in": 0, "dividend": 0, "divisor": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "reset_in": {"initial": true, "param": true, "position": 1}, "dividend": {"initial": true, "param": true, "position": 4}, "divisor": {"initial": true, "param": true, "position": 5}, "cv_out": {"initial": true, "position": 3}}, "position": [8, 9, 10, 11, 12]},
-    {"number": 40, "id": 49, "type": "Clock Divider", "name": "lfo 3 divider", "version": 1, "size": 20, "dataSize": 8, "page": 1, "color": 15, "options": {"input": "tap"}, "parameterCount": 4, "parameters": {"cv_in": 0, "reset_in": 0, "dividend": 0, "divisor": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "reset_in": {"initial": true, "param": true, "position": 1}, "dividend": {"initial": true, "param": true, "position": 4}, "divisor": {"initial": true, "param": true, "position": 5}, "cv_out": {"initial": true, "position": 3}}, "position": [16, 17, 18, 19, 20]},
-    {"number": 41, "id": 49, "type": "Clock Divider", "name": "lfo 4 divider", "version": 1, "size": 20, "dataSize": 8, "page": 1, "color": 4, "options": {"input": "tap"}, "parameterCount": 4, "parameters": {"cv_in": 0, "reset_in": 0, "dividend": 0, "divisor": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "reset_in": {"initial": true, "param": true, "position": 1}, "dividend": {"initial": true, "param": true, "position": 4}, "divisor": {"initial": true, "param": true, "position": 5}, "cv_out": {"initial": true, "position": 3}}, "position": [24, 25, 26, 27, 28]},
+    {"number": 38, "id": 49, "type": "Clock Divider", "name": "lfo 1 divider", "version": 1, "size": 20, "dataSize": 8, "page": 1, "color": 3, "options": {"input": "tap"}, "parameterCount": 4, "parameters": {"cv_in": 0, "reset_in": 0, "dividend": 0, "divisor": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "reset_in": {"initial": true, "param": true, "position": 1}, "dividend": {"initial": true, "param": true, "position": 4}, "divisor": {"initial": true, "param": true, "position": 5}, "cv_out": {"initial": true, "position": 3, "sort": 6}}, "position": [0, 1, 2, 3, 4]},
+    {"number": 39, "id": 49, "type": "Clock Divider", "name": "lfo 2 divider", "version": 1, "size": 20, "dataSize": 8, "page": 1, "color": 8, "options": {"input": "tap"}, "parameterCount": 4, "parameters": {"cv_in": 0, "reset_in": 0, "dividend": 0, "divisor": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "reset_in": {"initial": true, "param": true, "position": 1}, "dividend": {"initial": true, "param": true, "position": 4}, "divisor": {"initial": true, "param": true, "position": 5}, "cv_out": {"initial": true, "position": 3, "sort": 6}}, "position": [8, 9, 10, 11, 12]},
+    {"number": 40, "id": 49, "type": "Clock Divider", "name": "lfo 3 divider", "version": 1, "size": 20, "dataSize": 8, "page": 1, "color": 15, "options": {"input": "tap"}, "parameterCount": 4, "parameters": {"cv_in": 0, "reset_in": 0, "dividend": 0, "divisor": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "reset_in": {"initial": true, "param": true, "position": 1}, "dividend": {"initial": true, "param": true, "position": 4}, "divisor": {"initial": true, "param": true, "position": 5}, "cv_out": {"initial": true, "position": 3, "sort": 6}}, "position": [16, 17, 18, 19, 20]},
+    {"number": 41, "id": 49, "type": "Clock Divider", "name": "lfo 4 divider", "version": 1, "size": 20, "dataSize": 8, "page": 1, "color": 4, "options": {"input": "tap"}, "parameterCount": 4, "parameters": {"cv_in": 0, "reset_in": 0, "dividend": 0, "divisor": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "reset_in": {"initial": true, "param": true, "position": 1}, "dividend": {"initial": true, "param": true, "position": 4}, "divisor": {"initial": true, "param": true, "position": 5}, "cv_out": {"initial": true, "position": 3, "sort": 6}}, "position": [24, 25, 26, 27, 28]},
     {"number": 42, "id": 85, "type": "Tap to CV", "name": "", "version": 0, "size": 17, "dataSize": 8, "page": 2, "color": 9, "options": {"range": "off", "output": "exponential"}, "parameterCount": 1, "parameters": {"param_0": 0}, "blocks": {"tap_input": {"initial": true, "position": 0}, "output": {"initial": true, "position": 3}}, "position": [8, 9]},
     {"number": 43, "id": 31, "type": "In Switch", "name": "", "version": 0, "size": 17, "dataSize": 0, "page": 2, "color": 6, "options": {"num_inputs": 2}, "parameterCount": 3, "parameters": {"cv_in_1": 0, "cv_in_2": 0, "in_select": 0}, "blocks": {"cv_in_1": {"param": true, "position": 0}, "cv_in_2": {"param": true, "position": 1}, "in_select": {"initial": true, "param": true, "position": 16}, "cv_out": {"initial": true, "position": 17}}, "position": [10, 11, 12, 13]},
     {"number": 44, "id": 85, "type": "Tap to CV", "name": "", "version": 0, "size": 17, "dataSize": 8, "page": 2, "color": 2, "options": {"range": "off", "output": "exponential"}, "parameterCount": 1, "parameters": {"param_0": 0}, "blocks": {"tap_input": {"initial": true, "position": 0}, "output": {"initial": true, "position": 3}}, "position": [24, 25]},
@@ -83,7 +83,7 @@
       "options": {"waveform": "square", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [8, 9, 10, 11, 12]
     },
     {"number": 52, "id": 39, "type": "Random", "name": "", "version": 0, "size": 15, "dataSize": 0, "page": 4, "color": 15, "options": {"output": "0 to 1", "new_val_on_trig": "on"}, "parameterCount": 1, "parameters": {"trigger_in": 0}, "blocks": {"trigger_in": {"param": true, "position": 0}, "cv_out": {"initial": true, "position": 1}}, "position": [13, 14]},
@@ -100,7 +100,7 @@
       "options": {"waveform": "sine", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [16, 17, 18, 19, 20]
     },
     {
@@ -116,7 +116,7 @@
       "options": {"waveform": "triangle", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [24, 25, 26, 27, 28]
     },
     {
@@ -132,7 +132,7 @@
       "options": {"waveform": "sawtooth", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [32, 33, 34, 35, 36]
     },
     {
@@ -148,7 +148,7 @@
       "options": {"waveform": "ramp", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [0, 1, 2, 3, 4]
     },
     {"number": 57, "id": 10, "type": "Sample and Hold", "name": "", "version": 0, "size": 17, "dataSize": 4, "page": 5, "color": 9, "options": {"track & hold": "off"}, "parameterCount": 2, "parameters": {"cv_in": 0, "trigger": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "trigger": {"initial": true, "param": true, "position": 1}, "cv_out": {"initial": true, "position": 2}}, "position": [8, 9, 10]},
@@ -186,7 +186,7 @@
       "options": {"waveform": "square", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [8, 9, 10, 11, 12]
     },
     {"number": 65, "id": 39, "type": "Random", "name": "", "version": 0, "size": 15, "dataSize": 0, "page": 6, "color": 15, "options": {"output": "0 to 1", "new_val_on_trig": "on"}, "parameterCount": 1, "parameters": {"trigger_in": 0}, "blocks": {"trigger_in": {"param": true, "position": 0}, "cv_out": {"initial": true, "position": 1}}, "position": [13, 14]},
@@ -203,7 +203,7 @@
       "options": {"waveform": "sine", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [16, 17, 18, 19, 20]
     },
     {
@@ -219,7 +219,7 @@
       "options": {"waveform": "triangle", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [24, 25, 26, 27, 28]
     },
     {
@@ -235,7 +235,7 @@
       "options": {"waveform": "sawtooth", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [32, 33, 34, 35, 36]
     },
     {
@@ -251,7 +251,7 @@
       "options": {"waveform": "ramp", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [0, 1, 2, 3, 4]
     },
     {"number": 70, "id": 10, "type": "Sample and Hold", "name": "", "version": 0, "size": 17, "dataSize": 4, "page": 7, "color": 3, "options": {"track & hold": "off"}, "parameterCount": 2, "parameters": {"cv_in": 0, "trigger": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "trigger": {"initial": true, "param": true, "position": 1}, "cv_out": {"initial": true, "position": 2}}, "position": [8, 9, 10]},
@@ -289,7 +289,7 @@
       "options": {"waveform": "square", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [8, 9, 10, 11, 12]
     },
     {"number": 78, "id": 39, "type": "Random", "name": "", "version": 0, "size": 15, "dataSize": 0, "page": 8, "color": 15, "options": {"output": "0 to 1", "new_val_on_trig": "on"}, "parameterCount": 1, "parameters": {"trigger_in": 0}, "blocks": {"trigger_in": {"param": true, "position": 0}, "cv_out": {"initial": true, "position": 1}}, "position": [13, 14]},
@@ -306,7 +306,7 @@
       "options": {"waveform": "sine", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [16, 17, 18, 19, 20]
     },
     {
@@ -322,7 +322,7 @@
       "options": {"waveform": "triangle", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [24, 25, 26, 27, 28]
     },
     {
@@ -338,7 +338,7 @@
       "options": {"waveform": "sawtooth", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [32, 33, 34, 35, 36]
     },
     {
@@ -354,7 +354,7 @@
       "options": {"waveform": "ramp", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [0, 1, 2, 3, 4]
     },
     {"number": 83, "id": 10, "type": "Sample and Hold", "name": "", "version": 0, "size": 17, "dataSize": 4, "page": 9, "color": 7, "options": {"track & hold": "off"}, "parameterCount": 2, "parameters": {"cv_in": 0, "trigger": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "trigger": {"initial": true, "param": true, "position": 1}, "cv_out": {"initial": true, "position": 2}}, "position": [8, 9, 10]},
@@ -392,7 +392,7 @@
       "options": {"waveform": "square", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [8, 9, 10, 11, 12]
     },
     {"number": 91, "id": 39, "type": "Random", "name": "", "version": 0, "size": 15, "dataSize": 0, "page": 10, "color": 15, "options": {"output": "0 to 1", "new_val_on_trig": "on"}, "parameterCount": 1, "parameters": {"trigger_in": 0}, "blocks": {"trigger_in": {"param": true, "position": 0}, "cv_out": {"initial": true, "position": 1}}, "position": [13, 14]},
@@ -409,7 +409,7 @@
       "options": {"waveform": "sine", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [16, 17, 18, 19, 20]
     },
     {
@@ -425,7 +425,7 @@
       "options": {"waveform": "triangle", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [24, 25, 26, 27, 28]
     },
     {
@@ -441,7 +441,7 @@
       "options": {"waveform": "sawtooth", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [32, 33, 34, 35, 36]
     },
     {
@@ -457,7 +457,7 @@
       "options": {"waveform": "ramp", "swing_control": "on", "output": "-1 to 1", "input": "cv", "phase_input": "on", "phase_reset": "on"},
       "parameterCount": 4,
       "parameters": {"cv_control": 0, "swing_amount": 0, "phase_input": 32768, "phase_reset": 0},
-      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3}},
+      "blocks": {"cv_control": {"initial": true, "param": true, "position": 0}, "swing_amount": {"param": true, "position": 2}, "phase_input": {"param": true, "position": 4}, "phase_reset": {"param": true, "position": 5}, "output": {"initial": true, "position": 3, "sort": 6}},
       "position": [0, 1, 2, 3, 4]
     },
     {"number": 96, "id": 10, "type": "Sample and Hold", "name": "", "version": 0, "size": 17, "dataSize": 4, "page": 11, "color": 14, "options": {"track & hold": "off"}, "parameterCount": 2, "parameters": {"cv_in": 0, "trigger": 0}, "blocks": {"cv_in": {"initial": true, "param": true, "position": 0}, "trigger": {"initial": true, "param": true, "position": 1}, "cv_out": {"initial": true, "position": 2}}, "position": [8, 9, 10]},

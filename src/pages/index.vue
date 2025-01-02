@@ -513,7 +513,7 @@ export default {
 
         const buffer = await response.arrayBuffer()
         const list = await processZipFile(buffer)
-        const files = list.filter(f => f.name.endsWith('.bin'))
+        const files = list.filter(f => f.name.endsWith('.bin') && !f.name.startsWith('.'))
         files.sort((a, b) => a.name.localeCompare(b.name))
         this.items = null
         this.files = files

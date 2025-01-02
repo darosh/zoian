@@ -3,6 +3,7 @@
 ## 2024-01-02
 
 - Fixing order and conditional blocks for: LFO, OD and Distortion, Keyboard, Compressor, Plate Reverb, Quantizer, Phaser, Looper, Gate, CV Filter, Clock Divider, Stereo Spread, Ring Modulator, Hall Reverb, Reverse Delay
+- Ignoring MacOS specific artifacts in .ZIP files
 
 ## 2024-01-01
 

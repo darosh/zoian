@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024-01-02
+
+- Fixing order and conditional blocks for: LFO, OD and Distortion, Keyboard, Compressor, Plate Reverb, Quantizer, Phaser, Looper, Gate, CV Filter, Clock Divider, Stereo Spread, Ring Modulator, Hall Reverb, Reverse Delay
+
 ## 2024-01-01
 
 - Adding connection type selection to context menu, hotkey <kbd>C</kbd> now cycles through the options

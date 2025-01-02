@@ -1,4 +1,4 @@
-import{_ as k,D as V,M as I,o as D,k as A,q as T,V as x}from"./VTable-COA0rdyh.js";import{T as O,V as f}from"./VDivider-rlPqCGFC.js";import{aA as S,au as M,az as i,av as e,at as s,aD as y,Y as p,aC as t,aB as u,f as b,ax as w}from"./index-Az11oTTd.js";const L=["The State Variable Filter will resonate and cutoff around a set frequency.",`Connect audio from the outside world into the grid.
+import{_ as k,D as V,M as I,o as D,k as A,q as T,V as x}from"./VTable-D6EdgF0J.js";import{T as O,V as f}from"./VDivider-B22Y_2la.js";import{aA as S,au as M,az as i,av as e,at as s,aD as y,Y as p,aC as t,aB as u,f as b,ax as w}from"./index-R9TXS-LD.js";const L=["The State Variable Filter will resonate and cutoff around a set frequency.",`Connect audio from the outside world into the grid.
 This could be a guitar, bass, synth module, computer Audio, etc`,`Connect audio from your ZOIA into the outside world.
 Connect to your amplifier, a DI box, your audio interface, etc.
 An optional gain control lets you tweak the output level.`,`Aliaser produces samples of incoming audio and compares them against each other to find imperfections.

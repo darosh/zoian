@@ -1134,8 +1134,8 @@ export default {
       this.connectedBlock = null
     },
     selectedModule (newVal, oldVal) {
-      this.transitionTooltip = newVal && oldVal && !(this.mouseLocked && (this.mouseMode === 1))
       this.waitForMeasure = this.mouseLocked && (this.mouseMode === 1)
+      this.transitionTooltip = this.updateTransition(newVal, oldVal)
 
       // this.$nextTick(() => {
       //   setTimeout(() => {
@@ -1166,16 +1166,6 @@ export default {
       } else {
         this.connectedBlock = null
       }
-    },
-    positionTooltip (newVal, oldVal) {
-      if (!newVal || !oldVal) {
-        this.transitionTooltip = false
-
-        return
-      }
-
-      const d = Math.pow(oldVal.x - newVal.x, 2) + Math.pow(oldVal.y - newVal.y, 2)
-      this.transitionTooltip = d < Math.pow(this.moduleS * 5, 2)
     },
   },
   updated () {
@@ -1367,6 +1357,31 @@ export default {
       // viewBoxX and viewBoxY are now in viewBox coordinate space
       return [viewBoxX, viewBoxY]
     },
+    updateTransition (newVal, oldVal) {
+      if (this.mouseLocked && (this.mouseMode === 1)) {
+        return false
+      }
+
+      if (!newVal || !oldVal) {
+        return false
+      }
+
+      if (newVal.x === oldVal.x && newVal.y === oldVal.y) {
+        return true
+      }
+
+      if (this.hideTooltip) {
+        return false
+      }
+
+      if (newVal.page !== oldVal.page) {
+        return false
+      }
+
+      const d = Math.pow(oldVal.x - newVal.x, 2) + Math.pow(oldVal.y - newVal.y, 2)
+
+      return  d < Math.pow(3, 2)
+    },
     onScroll () {
       if (this.touchStartTimer) {
         clearTimeout(this.touchStartTimer)
@@ -1391,7 +1406,11 @@ export default {
         })
       }, 100)
     },
-    onTouchMove () {
+    onTouchMove (e) {
+      if (e?.touches[0]?.force > 0) {
+        return
+      }
+
       if (this.touchStartTimer) {
         clearTimeout(this.touchStartTimer)
 
@@ -1414,7 +1433,7 @@ export default {
         return this.onMouseMoveHandler(event)
       } else if ((this.mouseMode === 1) && this.mouseLocked) {
         return this.onMouseMoveOutHandler(event)
-      }  else if ((this.mouseMode === 1) && !this.mouseLocked) {
+      } else if ((this.mouseMode === 1) && !this.mouseLocked) {
         return this.onMouseMoveHandler(event)
       }
 

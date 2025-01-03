@@ -15,6 +15,7 @@
     class="x-no-select"
     style="min-height: calc(100vh);"
     @mousedown="onClick"
+    @pointerdown="onClick"
     @contextmenu="onContextMenu"
     @touchstart.passive="onTouchStart"
     @touchmove.passive="onTouchMove"
@@ -607,7 +608,11 @@ export default {
         clearTimeout(this.touchTimer)
       }
     },
-    onTouchMove () {
+    onTouchMove (e) {
+      if (e?.touches?.[0]?.force > 0) {
+        return
+      }
+
       if (this.touchTapTimer) {
         clearTimeout(this.touchTapTimer)
         this.touchTapTimer = null

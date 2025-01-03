@@ -6,6 +6,7 @@
 
 ## Testing
 
+- [ ] cross-browser/device testing
 - [ ] check memleaks
 - [ ] check cpu values? could we just apply the [Improved the overall CPU performance by 14%](https://cdn.shopify.com/s/files/1/0028/5462/files/zoia_changelog_52792f30-e99b-4be7-919c-b1b7de6920ec.txt?v=1733847708)?
 - [ ] check stared items
@@ -68,7 +69,7 @@
 - [x] connection shape
 - [x] out vs in block
 - [x] modules ~~info~~ test page?
-- [x] ~~sticky connections~~
+- [x] ~~sticky connections~~ lazy/clicky mode
 - [x] keep tooltip on next/prev (for tool row)
 - [x] dotted arrow for outgoing to hidden
 - [x] trim module names

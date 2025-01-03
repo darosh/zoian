@@ -1,5 +1,11 @@
 # Changelog
 
+## 2024-01-03
+
+- [ ] Adding mouse modes: lazy, clicky
+- [ ] Adding and hold shift to temporarily ignore mouse
+- [ ] Adding stylus support
+
 ## 2024-01-02
 
 - Fixing order and conditional blocks for: LFO, OD and Distortion, Keyboard, Compressor, Plate Reverb, Quantizer, Phaser, Looper, Gate, CV Filter, Clock Divider, Stereo Spread, Ring Modulator, Hall Reverb, Reverse Delay

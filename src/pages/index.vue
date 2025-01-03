@@ -14,7 +14,7 @@
     }"
     class="x-no-select"
     style="min-height: calc(100vh);"
-    @click="onClick"
+    @mousedown="onClick"
     @contextmenu="onContextMenu"
     @touchstart.passive="onTouchStart"
     @touchmove.passive="onTouchMove"
@@ -42,6 +42,7 @@
       :show-connections="showConnections"
       :animations="animations"
       :dark="dark"
+      :mouse-mode="mouseMode"
       :error="error"
       :patch="patch"
       :patch-file="file?.name"
@@ -158,7 +159,6 @@
           </template>
         </v-list-item>
         <v-divider class="my-2" />
-        <v-list-item subtitle="View" />
         <v-list-item
           :prepend-icon="dark ? '$checkboxOn' : '$checkboxOff'"
           @click="dark = !dark">
@@ -188,9 +188,8 @@
           @click="showTips = !showTips">
           Module description
         </v-list-item>
-        <v-divider class="my-1" />
-        <v-list-item>
-          Show connections
+        <v-divider class="my-2" />
+        <v-list-item subtitle="Show connections">
           <template #append>
             <v-kbd>C</v-kbd>
           </template>
@@ -214,8 +213,7 @@
           </v-btn-toggle>
         </v-list-item>
         <v-divider class="mb-1" />
-        <v-list-item>
-          Max columns
+        <v-list-item subtitle="Max columns">
           <template #append>
             <v-kbd>2 &hellip; 6</v-kbd>
           </template>
@@ -234,6 +232,26 @@
               height="40"
               min-width="40">
               {{ n }}
+            </v-btn>
+          </v-btn-toggle>
+        </v-list-item>
+        <v-divider class="mb-1" />
+        <v-list-item subtitle="Mouse mode" />
+        <v-list-item class="text-center">
+          <v-btn-toggle
+            v-model="mouseMode"
+            class="x-no-transition">
+            <v-btn
+              v-for="n in mouseModeList"
+              :key="n.title"
+              style="font-family: monospace; font-size: 13px;"
+              :value="n.value"
+              class="text-capitalize px-2"
+              density="compact"
+              flat
+              height="40"
+              min-width="40">
+              {{ n.title }}
             </v-btn>
           </v-btn-toggle>
         </v-list-item>
@@ -376,7 +394,7 @@ export default {
   }),
   computed: {
     ...mapWritableState(useAppStore, [
-      'dark', 'columns', 'euro', 'showConnections', 'animations', 'showTips'
+      'dark', 'columns', 'euro', 'showConnections', 'animations', 'showTips', 'mouseMode'
     ]),
     connectionList () {
       return [
@@ -386,12 +404,19 @@ export default {
         { title: 'All', value: true },
       ]
     },
+    mouseModeList () {
+      return [
+        { title: 'Lazy', value: 0 },
+        { title: 'Clicky', value: 1 },
+        { title: 'Quicky', value: 2 },
+      ]
+    },
     connectionTab: {
       get () {
         return this.connectionList.findIndex(x => x.value === this.showConnections)
       },
       set (v) {
-        this.showConnections =  this.connectionList[v].value
+        this.showConnections = this.connectionList[v].value
       }
     },
     patchNumber () {
@@ -547,16 +572,19 @@ export default {
   },
   beforeMount () {
     window.addEventListener('keydown', this.onKey)
+    window.addEventListener('keyup', this.onKeyUp)
   },
   beforeUnmount () {
     window.removeEventListener('keydown', this.onKey)
+    window.removeEventListener('keyup', this.onKeyUp)
   },
   methods: {
     onClick (e) {
-      if (e.pointerType === 'mouse') {
+      if ((e.type === 'mousedown') && (e.button === 0)) {
         e.preventDefault()
         e.stopPropagation()
         this.$refs.svg.hideTooltip = !this.$refs.svg.hideTooltip
+        this.$refs.svg.onMouseClick()
       }
     },
     onTouchStart (e) {
@@ -769,9 +797,9 @@ export default {
       } else if (e.key === 'e') {
         this.euro = !this.euro
       } else if (e.key === 'c') {
-          this.showConnections = this.connectionList[(this.connectionList.findIndex(x => x.value === this.showConnections) + 1) % this.connectionList.length].value
+        this.showConnections = this.connectionList[(this.connectionList.findIndex(x => x.value === this.showConnections) + 1) % this.connectionList.length].value
       } else if ((e.key === 'C') && e.shiftKey) {
-          this.showConnections = this.connectionList[(this.connectionList.findIndex(x => x.value === this.showConnections) - 1 + 4) % this.connectionList.length].value
+        this.showConnections = this.connectionList[(this.connectionList.findIndex(x => x.value === this.showConnections) - 1 + 4) % this.connectionList.length].value
       } else if (e.key === 'a') {
         this.animations = !this.animations
       } else if (e.key === 's') {
@@ -781,6 +809,7 @@ export default {
       } else if (e.key === 'Escape') {
         this.$refs.svg.cursorBlock = null
         this.$refs.svg.connectedBlock = null
+        this.$refs.svg.mouseLocked = false
         unknown = true
       } else {
         unknown = true
@@ -788,6 +817,11 @@ export default {
 
       if (!unknown) {
         this.showWelcomeToast = false
+      }
+    },
+    onKeyUp (event) {
+      if (event.key === 'Shift') {
+        this.$refs.svg.onShiftUp()
       }
     },
     onConnectionEnter () {

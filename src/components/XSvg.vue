@@ -416,8 +416,8 @@
   </svg>
 
   <v-card
-    v-show="positionTooltip && !hideTooltip"
     ref="tooltip"
+    data-show=""
     class="x-no-select"
     :class="{ 'x-dark': dark }"
     style="transform: translate3d(0,0,0); position: absolute;"
@@ -425,6 +425,7 @@
       left: `${positionTooltip?.x || 0}px`,
       top: `${positionTooltip?.y || 0}px`,
       opacity: selectedModule ? 1 : 0,
+      visibility: !(positionTooltip && !hideTooltip) || waitForMeasure ? 'hidden' : null,
       transition: transitionTooltip ? `left 100ms ease-out, top 100ms ease-out, opacity 100ms ease-out` : 'opacity 100ms ease-out'
     }"
     elevation="1">
@@ -772,6 +773,10 @@ export default {
       type: [Boolean, Number],
       default: false
     },
+    mouseMode: {
+      type: Number,
+      default: 2
+    },
     animations: {
       type: Boolean,
       default: false
@@ -789,12 +794,18 @@ export default {
     cursor: null,
     cursorBlock: null,
     transitionTooltip: false,
+    waitForMeasure: false,
+    updateTip: false,
     hideTooltip: false,
     showCursor: false,
     showCursorBlock: false,
     scrollY: window.scrollY,
     pendingScroll: false,
     pendingMove: false,
+    onMouseMoveHandlerTimer: null,
+    lastMouseMove: null,
+    mouseLocked: false,
+    // onMouseMoveHandlerTimerStamp: null,
     observer: null,
     tipWidth: 0,
     tipHeight: 0,
@@ -983,8 +994,8 @@ export default {
         {
           x: blockX,
           y: blockY,
-          width: z ? this.moduleE : this.moduleS,
-          height: z ? this.moduleE : this.moduleS
+          width: (z ? this.moduleE : this.moduleS) + this.moduleMH,
+          height: (z ? this.moduleE : this.moduleS) + this.moduleMH
         },
         this.tipWidth / this.scale,
         this.tipHeight / this.scale,
@@ -1036,11 +1047,11 @@ export default {
           id
         }))
 
-      log('all dots', all)
+      // log('all dots', all)
 
       let lines = this.connectionPosCenters
 
-      log('connection pos centres', this.connectionPosCenters)
+      // log('connection pos centres', this.connectionPosCenters)
 
       if (this.selectedBlockView) {
         lines = lines
@@ -1123,7 +1134,15 @@ export default {
       this.connectedBlock = null
     },
     selectedModule (newVal, oldVal) {
-      this.transitionTooltip = newVal && oldVal
+      this.transitionTooltip = newVal && oldVal && !(this.mouseLocked && (this.mouseMode === 1))
+      this.waitForMeasure = this.mouseLocked && (this.mouseMode === 1)
+
+      // this.$nextTick(() => {
+      //   setTimeout(() => {
+      //     this.waitForMeasure = false
+      //   }, 4)
+      // })
+
       log('selected block', toRaw(newVal))
 
       if (!newVal || newVal.cpu || newVal.starred || newVal.connection) {
@@ -1147,6 +1166,22 @@ export default {
       } else {
         this.connectedBlock = null
       }
+    },
+    positionTooltip (newVal, oldVal) {
+      if (!newVal || !oldVal) {
+        this.transitionTooltip = false
+
+        return
+      }
+
+      const d = Math.pow(oldVal.x - newVal.x, 2) + Math.pow(oldVal.y - newVal.y, 2)
+      this.transitionTooltip = d < Math.pow(this.moduleS * 5, 2)
+    },
+  },
+  updated () {
+    if (this.updateTip) {
+      this.waitForMeasure = false
+      this.updateTip = false
     }
   },
   mounted () {
@@ -1155,6 +1190,8 @@ export default {
     this.observer = new ResizeObserver((entries) => {
       this.tipWidth = entries[0].contentRect.width
       this.tipHeight = entries[0].contentRect.height
+      this.updateTip = true
+      log('measured', this.hideTooltip, this.tipWidth, this.tipHeight)
     })
 
     this.observer.observe(this.$refs.tooltip.$el)
@@ -1362,6 +1399,67 @@ export default {
       }
     },
     onMouseMove (event) {
+      this.lastMouseMove = event
+
+      if (event.shiftKey) {
+        return
+      }
+
+      if (this.onMouseMoveHandlerTimer) {
+        clearTimeout(this.onMouseMoveHandlerTimer)
+        this.onMouseMoveHandlerTimer = null
+      }
+
+      if (this.mouseMode === 2) {
+        return this.onMouseMoveHandler(event)
+      } else if ((this.mouseMode === 1) && this.mouseLocked) {
+        return this.onMouseMoveOutHandler(event)
+      }  else if ((this.mouseMode === 1) && !this.mouseLocked) {
+        return this.onMouseMoveHandler(event)
+      }
+
+      // const now = Date.now()
+      // const delta = now - (this.onMouseMoveHandlerTimerStamp ?? 0)
+      // this.onMouseMoveHandlerTimerStamp = now
+      // const delay = delta < 32 ? delta * 1.5 : 16
+      const delay = 32
+
+      this.onMouseMoveHandlerTimer = setTimeout(() => {
+        this.onMouseMoveHandlerTimer = null
+        this.onMouseMoveHandler(event)
+      }, delay)
+    },
+    onMouseMoveHandler (event) {
+      if (!this.pendingMove) {
+        this.pendingMove = true
+
+        requestAnimationFrame(() => {
+          this.pendingMove = false
+          const cursor = this.getEventPosition(event)
+          const cursorBlock = cursor ? this.svgToGrid(...cursor) : null
+          this.cursor = cursor
+
+          if (!cursorBlock || !this.selectedModule) {
+            log('resetting mouse lock')
+            this.mouseLocked = false
+          }
+
+          if (!equals(cursorBlock, this.cursorBlock)) {
+            this.cursorBlock = cursorBlock
+            this.hideTooltip = false
+
+            if (!this.selectedBlockView) {
+              log('resetting mouse lock')
+              this.mouseLocked = false
+            }
+
+          } else if (event.isTouch) {
+            this.hideTooltip = !this.hideTooltip
+          }
+        })
+      }
+    },
+    onMouseMoveOutHandler (event) {
       if (!this.pendingMove) {
         this.pendingMove = true
 
@@ -1372,16 +1470,27 @@ export default {
           this.cursor = cursor
 
           if (!equals(cursorBlock, this.cursorBlock)) {
-            this.cursorBlock = cursorBlock
-            this.hideTooltip = false
-          } else if (event.isTouch) {
-            this.hideTooltip = !this.hideTooltip
+            this.hideTooltip = true
           }
         })
       }
     },
     onMouseOut () {
       // this.cursor = null // breaks transition
+    },
+    onMouseClick () {
+      this.mouseLocked = this.mouseMode === 1
+
+      if (this.lastMouseMove && (this.mouseMode === 1)) {
+        log('setting last move')
+        this.onMouseMoveHandler(this.lastMouseMove)
+      }
+    },
+    onShiftUp () {
+      if (this.lastMouseMove) {
+        log('setting last move')
+        this.onMouseMoveHandler(this.lastMouseMove)
+      }
     }
   }
 }
@@ -1511,5 +1620,9 @@ text, tspan, .x-no-select {
   .x-math {
     opacity: .6;
   }
+}
+
+td {
+  white-space: nowrap !important;
 }
 </style>

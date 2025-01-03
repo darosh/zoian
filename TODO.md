@@ -16,15 +16,14 @@
 
 - [ ] add file selection for touch devices
 - [ ] weird thin lines between blocks, non-retina? svg widths rounding?
-- [ ] url shortener? free + non-tracking?
 - [ ] add second dot if hidden link has opposite directions?
+- [ ] midi connections to 1st block
 - [ ] [POSTPONED] consolidate block condition types
 - [ ] [POSTPONED] check with Empress v5 factory set licence
 
 ## Features
 
-- [ ] [POSTPONED] straight lines option
-- [ ] [POSTPONED] disconnected modules list?
+- [ ] [POSTPONED] disconnected modules list? or highlight?
 - [ ] [POSTPONED] starred connection
 - [ ] [POSTPONED] embed view?
 - [ ] [POSTPONED] offline support
@@ -32,7 +31,9 @@
 
 ## Done
 
-- [ ] ~~favorites stored in browser?~~
+- [x] ~~straight lines option~~
+- [x] ~~url shortener? free + non-tracking?~~
+- [x] ~~favorites stored in browser?~~
 - [x] ~~cable bundling?~~
 - [x] shared binary patch should not display number
 - [x] ~~check corrupted names and starred items 105255.bin~~

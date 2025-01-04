@@ -2,9 +2,9 @@
 
 ## 2024-01-03
 
-- [ ] Adding mouse modes: lazy, clicky
-- [ ] Adding and hold shift to temporarily ignore mouse
-- [ ] Adding stylus support
+- Adding mouse modes: Lazy, Clicky
+- Adding and hold <kbd>Shift</kbd> to temporarily ignore mouse
+- Adding stylus support
 
 ## 2024-01-02
 

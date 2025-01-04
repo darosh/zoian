@@ -277,7 +277,7 @@ export const DISPLAY_BLOCK: Record<string, string> = {
   note_out_6: 'no6',
   note_out_7: 'no7',
   note_out_8: 'no8',
-  num_of_samples: 'nsam',
+  alias_amount: 'aa',
   out_select: 'osel',
   out_track_1: 'out1',
   out_track_2: 'out2',

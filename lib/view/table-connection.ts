@@ -3,7 +3,7 @@ import debug from 'debug'
 import type { Patch } from '../parser/types.ts'
 import { blockEntries } from '../parser/utils/block-entries.ts'
 import { type ConnectionTable, ConnectionType } from './types.ts'
-import type { Block } from '../spec/types.ts'
+import { type Block, Category } from '../spec/types.ts'
 import { MODULES } from '../spec/modules.ts'
 
 const log = debug('zoian:view-connection-table')
@@ -96,7 +96,7 @@ export function getConnectionType(blockEntry: [string, Block] | undefined, id: n
     return ConnectionType.Audio
   }
 
-  if (MODULES[id].category === 'CV') {
+  if (MODULES[id].category === Category.Control) {
     return ConnectionType.CV
   }
 

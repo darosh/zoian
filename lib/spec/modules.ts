@@ -1,10 +1,11 @@
 import type { ModuleSpec } from './types.ts'
+import { Category } from './types.ts'
 
 export const MODULES: ModuleSpec[] = [
   {
     id: 0,
     name: 'SV Filter',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 4,
     minBlocks: 3,
     maxBlocks: 6,
@@ -24,7 +25,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 1,
     name: 'Audio In',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 2,
     minBlocks: 1,
     maxBlocks: 2,
@@ -40,7 +41,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 2,
     name: 'Audio Out',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 2,
     minBlocks: 1,
     maxBlocks: 3,
@@ -57,19 +58,19 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 3,
     name: 'Aliaser',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 3,
     params: 1,
     cpu: 0.7,
-    blocks: { audio_in: { initial: true, position: 0 }, num_of_samples: { initial: true, param: true, position: 1 }, audio_out: { initial: true, position: 2 } },
+    blocks: { audio_in: { initial: true, position: 0 }, alias_amount: { initial: true, param: true, position: 1 }, audio_out: { initial: true, position: 2 } },
     options: {},
   },
   {
     id: 4,
     name: 'Sequencer',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 6,
     minBlocks: 3,
     maxBlocks: 44,
@@ -148,7 +149,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 5,
     name: 'LFO',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 5,
@@ -180,7 +181,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 6,
     name: 'ADSR',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 6,
     minBlocks: 4,
     maxBlocks: 10,
@@ -219,7 +220,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 7,
     name: 'VCA',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 5,
@@ -238,7 +239,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 8,
     name: 'Audio Multiply',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 3,
@@ -250,7 +251,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 9,
     name: 'Bit Crusher',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 3,
@@ -262,7 +263,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 10,
     name: 'Sample and Hold',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 3,
@@ -274,7 +275,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 11,
     name: 'OD and Distortion',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 4,
     minBlocks: 4,
     maxBlocks: 4,
@@ -291,7 +292,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 12,
     name: 'Env Follower',
-    category: 'Analysis',
+    category: Category.Analysis,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 4,
@@ -304,7 +305,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 13,
     name: 'Delay Line',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 4,
@@ -328,7 +329,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 14,
     name: 'Oscillator',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 4,
@@ -346,7 +347,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 15,
     name: 'Pushbutton',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -358,7 +359,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 16,
     name: 'Keyboard',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 4,
     minBlocks: 4,
     maxBlocks: 43,
@@ -415,7 +416,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 17,
     name: 'CV Invert',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 2,
@@ -427,7 +428,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 18,
     name: 'Steps',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 3,
@@ -439,7 +440,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 19,
     name: 'Slew Limiter',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 4,
@@ -462,7 +463,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 20,
     name: 'Midi Notes In',
-    category: 'Interface',
+    category: Category.Interface,
     in: true,
     defaultBlocks: 2,
     minBlocks: 2,
@@ -523,7 +524,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 21,
     name: 'Midi CC In',
-    category: 'Interface',
+    category: Category.Interface,
     in: true,
     defaultBlocks: 1,
     minBlocks: 1,
@@ -536,7 +537,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 22,
     name: 'Multiplier',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 9,
@@ -559,7 +560,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 23,
     name: 'Compressor',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 9,
@@ -595,7 +596,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 24,
     name: 'Multi Filter',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 4,
     minBlocks: 4,
     maxBlocks: 5,
@@ -620,7 +621,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 25,
     name: 'Plate Reverb',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 8,
     minBlocks: 8,
     maxBlocks: 8,
@@ -641,7 +642,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 26,
     name: 'Buffer Delay',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 2,
@@ -653,7 +654,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 27,
     name: 'All Pass Filter',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 3,
@@ -665,7 +666,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 28,
     name: 'Quantizer',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 4,
@@ -678,7 +679,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 29,
     name: 'Phaser',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 6,
     minBlocks: 6,
     maxBlocks: 8,
@@ -707,7 +708,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 30,
     name: 'Looper',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 5,
     minBlocks: 5,
     maxBlocks: 10,
@@ -746,7 +747,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 31,
     name: 'In Switch',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 18,
@@ -778,7 +779,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 32,
     name: 'Out Switch',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 18,
@@ -810,7 +811,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 33,
     name: 'Audio In Switch',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 18,
@@ -842,7 +843,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 34,
     name: 'Audio Out Switch',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 18,
@@ -874,7 +875,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 35,
     name: 'Midi Pressure',
-    category: 'Interface',
+    category: Category.Interface,
     in: true,
     defaultBlocks: 1,
     minBlocks: 1,
@@ -887,7 +888,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 36,
     name: 'Onset Detector',
-    category: 'Analysis',
+    category: Category.Analysis,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 3,
@@ -900,7 +901,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 37,
     name: 'Rhythm',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 4,
     minBlocks: 4,
     maxBlocks: 5,
@@ -919,7 +920,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 38,
     name: 'Noise',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -931,7 +932,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 39,
     name: 'Random',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 2,
@@ -944,7 +945,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 40,
     name: 'Gate',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 5,
     minBlocks: 3,
     maxBlocks: 8,
@@ -977,7 +978,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 41,
     name: 'Tremolo',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 4,
     minBlocks: 4,
     maxBlocks: 6,
@@ -1009,7 +1010,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 42,
     name: 'Tone Control',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 6,
     minBlocks: 6,
     maxBlocks: 10,
@@ -1038,7 +1039,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 43,
     name: 'Delay w/ Mod',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 7,
     minBlocks: 7,
     maxBlocks: 9,
@@ -1072,7 +1073,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 44,
     name: 'Stompswitch',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -1084,7 +1085,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 45,
     name: 'Value',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 2,
@@ -1096,7 +1097,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 46,
     name: 'CV Delay',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 3,
@@ -1108,7 +1109,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 47,
     name: 'CV Loop',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 6,
     minBlocks: 6,
     maxBlocks: 8,
@@ -1130,7 +1131,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 48,
     name: 'CV Filter',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 4,
@@ -1153,7 +1154,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 49,
     name: 'Clock Divider',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 5,
     minBlocks: 4,
     maxBlocks: 5,
@@ -1173,7 +1174,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 50,
     name: 'Comparator',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 3,
@@ -1185,7 +1186,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 51,
     name: 'CV Rectify',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 2,
@@ -1197,7 +1198,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 52,
     name: 'Trigger',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 2,
@@ -1209,7 +1210,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 53,
     name: 'Stereo Spread',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 5,
     minBlocks: 4,
     maxBlocks: 5,
@@ -1233,7 +1234,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 54,
     name: 'CPort Exp CV In',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -1245,7 +1246,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 55,
     name: 'CPort CV Out',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -1257,7 +1258,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 56,
     name: 'UI Button',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 2,
@@ -1270,7 +1271,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 57,
     name: 'Audio Panner',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 4,
     minBlocks: 4,
     maxBlocks: 5,
@@ -1289,7 +1290,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 58,
     name: 'Pitch Detector',
-    category: 'Analysis',
+    category: Category.Analysis,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 2,
@@ -1301,7 +1302,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 59,
     name: 'Pitch Shifter',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 3,
@@ -1313,7 +1314,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 60,
     name: 'Midi Note Out',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 3,
@@ -1326,7 +1327,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 61,
     name: 'Midi CC Out',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -1338,7 +1339,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 62,
     name: 'Midi PC Out',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 2,
@@ -1350,7 +1351,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 63,
     name: 'Bit Modulator',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 3,
     minBlocks: 3,
     maxBlocks: 3,
@@ -1362,7 +1363,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 64,
     name: 'Audio Balance',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 4,
     minBlocks: 4,
     maxBlocks: 7,
@@ -1396,7 +1397,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 65,
     name: 'Inverter',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 2,
@@ -1408,7 +1409,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 66,
     name: 'Fuzz',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 4,
     minBlocks: 4,
     maxBlocks: 4,
@@ -1425,7 +1426,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 67,
     name: 'Ghostverb',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 6,
     minBlocks: 6,
     maxBlocks: 8,
@@ -1450,7 +1451,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 68,
     name: 'Cabinet Sim',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 4,
@@ -1466,7 +1467,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 69,
     name: 'Flanger',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 7,
     minBlocks: 7,
     maxBlocks: 9,
@@ -1496,7 +1497,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 70,
     name: 'Chorus',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 6,
     minBlocks: 6,
     maxBlocks: 8,
@@ -1525,7 +1526,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 71,
     name: 'Vibrato',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 4,
     minBlocks: 4,
     maxBlocks: 6,
@@ -1552,7 +1553,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 72,
     name: 'Env Filter',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 6,
     minBlocks: 6,
     maxBlocks: 8,
@@ -1577,7 +1578,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 73,
     name: 'Ring Modulator',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 4,
     minBlocks: 4,
     maxBlocks: 6,
@@ -1606,7 +1607,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 74,
     name: 'Hall Reverb',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 8,
     minBlocks: 8,
     maxBlocks: 8,
@@ -1627,7 +1628,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 75,
     name: 'Ping Pong Delay',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 7,
     minBlocks: 7,
     maxBlocks: 9,
@@ -1660,7 +1661,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 76,
     name: 'Audio Mixer',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 5,
     minBlocks: 5,
     maxBlocks: 34,
@@ -1714,7 +1715,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 77,
     name: 'CV Flip Flop',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 2,
@@ -1726,7 +1727,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 78,
     name: 'Diffuser',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 6,
     minBlocks: 6,
     maxBlocks: 6,
@@ -1745,7 +1746,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 79,
     name: 'Reverb Lite',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 4,
     minBlocks: 4,
     maxBlocks: 6,
@@ -1768,7 +1769,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 80,
     name: 'Room Reverb',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 8,
     minBlocks: 8,
     maxBlocks: 8,
@@ -1789,7 +1790,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 81,
     name: 'Pixel',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -1802,7 +1803,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 82,
     name: 'Midi Clock In',
-    category: 'Interface',
+    category: Category.Interface,
     in: true,
     defaultBlocks: 1,
     minBlocks: 1,
@@ -1821,7 +1822,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 83,
     name: 'Granular',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 8,
     minBlocks: 8,
     maxBlocks: 10,
@@ -1850,7 +1851,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 84,
     name: 'Midi Clock Out',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 3,
     minBlocks: 1,
     maxBlocks: 5,
@@ -1874,7 +1875,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 85,
     name: 'Tap to CV',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 2,
     minBlocks: 2,
     maxBlocks: 4,
@@ -1887,7 +1888,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 86,
     name: 'Midi Pitch Bend In',
-    category: 'Interface',
+    category: Category.Interface,
     in: true,
     defaultBlocks: 1,
     minBlocks: 1,
@@ -1901,7 +1902,7 @@ export const MODULES: ModuleSpec[] = [
     id: 87,
     euro: true,
     name: 'Euro CV Out 4',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -1914,7 +1915,7 @@ export const MODULES: ModuleSpec[] = [
     id: 88,
     euro: true,
     name: 'Euro CV In 1',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -1932,7 +1933,7 @@ export const MODULES: ModuleSpec[] = [
     id: 89,
     euro: true,
     name: 'Euro CV In 2',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -1950,7 +1951,7 @@ export const MODULES: ModuleSpec[] = [
     id: 90,
     euro: true,
     name: 'Euro CV In 3',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -1968,7 +1969,7 @@ export const MODULES: ModuleSpec[] = [
     id: 91,
     euro: true,
     name: 'Euro CV In 4',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -1986,7 +1987,7 @@ export const MODULES: ModuleSpec[] = [
     id: 92,
     euro: true,
     name: 'Euro Headphone Amp',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -1999,7 +2000,7 @@ export const MODULES: ModuleSpec[] = [
     id: 93,
     euro: true,
     name: 'Euro Audio Input L',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -2012,7 +2013,7 @@ export const MODULES: ModuleSpec[] = [
     id: 94,
     euro: true,
     name: 'Euro Audio Input R',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -2025,7 +2026,7 @@ export const MODULES: ModuleSpec[] = [
     id: 95,
     euro: true,
     name: 'Euro Audio Output L',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -2038,7 +2039,7 @@ export const MODULES: ModuleSpec[] = [
     id: 96,
     euro: true,
     name: 'Euro Audio Output R',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -2051,7 +2052,7 @@ export const MODULES: ModuleSpec[] = [
     id: 97,
     euro: true,
     name: 'Euro Pushbutton 1',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -2064,7 +2065,7 @@ export const MODULES: ModuleSpec[] = [
     id: 98,
     euro: true,
     name: 'Euro Pushbutton 2',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -2077,7 +2078,7 @@ export const MODULES: ModuleSpec[] = [
     id: 99,
     euro: true,
     name: 'Euro CV Out 1',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -2090,7 +2091,7 @@ export const MODULES: ModuleSpec[] = [
     id: 100,
     euro: true,
     name: 'Euro CV Out 2',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -2103,7 +2104,7 @@ export const MODULES: ModuleSpec[] = [
     id: 101,
     euro: true,
     name: 'Euro CV Out 3',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -2115,7 +2116,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 102,
     name: 'Sampler',
-    category: 'Audio',
+    category: Category.Audio,
     defaultBlocks: 6,
     minBlocks: 6,
     maxBlocks: 12,
@@ -2168,7 +2169,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 103,
     name: 'Device Control',
-    category: 'Interface',
+    category: Category.Interface,
     defaultBlocks: 1,
     minBlocks: 1,
     maxBlocks: 1,
@@ -2181,7 +2182,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 104,
     name: 'CV Mixer',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 5,
     minBlocks: 5,
     maxBlocks: 17,
@@ -2212,7 +2213,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 105,
     name: 'Logic Gate',
-    category: 'CV',
+    category: Category.Control,
     defaultBlocks: 3,
     minBlocks: 2,
     maxBlocks: 40,
@@ -2266,7 +2267,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 106,
     name: 'Reverse Delay',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 6,
     minBlocks: 6,
     maxBlocks: 9,
@@ -2296,7 +2297,7 @@ export const MODULES: ModuleSpec[] = [
   {
     id: 107,
     name: 'Univibe',
-    category: 'Effect',
+    category: Category.Effect,
     defaultBlocks: 6,
     minBlocks: 6,
     maxBlocks: 8,

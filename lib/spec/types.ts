@@ -2,7 +2,7 @@ import type { ModuleSpecConditions } from './types-conditions.ts'
 
 export interface ModuleSpec {
   id: number
-  category: string
+  category: Category
   in?: boolean
   cpu: number
   name: string
@@ -14,6 +14,14 @@ export interface ModuleSpec {
   blocks: Blocks
   options: Options
   conditions?: ModuleSpecConditions
+}
+
+export enum Category {
+  Interface,
+  Audio,
+  Control,
+  Analysis,
+  Effect,
 }
 
 export interface OptionsRange {

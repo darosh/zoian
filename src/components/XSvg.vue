@@ -432,7 +432,7 @@
     <template v-if="selectedModule?.starred">
       <v-table
         density="compact"
-        class="my-1">
+        class="my-1 x-table">
         <thead style="opacity: .75">
           <tr>
             <td class="pl-5">
@@ -473,7 +473,7 @@
         style="min-width: 160px;">
         <v-table
           density="compact"
-          class="my-2">
+          class="my-2 x-table">
           <thead style="opacity: .75">
             <tr>
               <td>CPU usage</td>
@@ -513,7 +513,7 @@
     <template v-else-if="selectedModule?.connection">
       <v-table
         density="compact"
-        class="my-1">
+        class="my-1 x-table">
         <thead style="opacity: .75">
           <tr>
             <td class="pl-5">
@@ -556,7 +556,7 @@
         <v-divider class="mt-1" />
         <v-table
           density="compact"
-          class="my-1">
+          class="my-1 x-table">
           <thead style="opacity: .75">
             <tr>
               <td class="pl-5">
@@ -617,17 +617,23 @@
           selectedModule.blockView.moduleView.module.name
         }}</span>
         <template v-if="selectedModule.blockTitle">
-          <br>
-          <small><span class="g-bold">{{ selectedModule.blockTitle }}</span> <span
-            v-if="selectedModule.blockDisplay && (selectedModule.blockDisplay !== selectedModule.blockTitle)"
-            style="opacity: .87">&ensp;[&thinsp;{{ selectedModule.blockDisplay }}&thinsp;]</span></small>
+          <v-row class="flex-nowrap">
+            <v-col class="flex-grow-1 flex-shrink-0">
+              <small><span class="g-bold">{{ selectedModule.blockTitle }}</span> <span
+                v-if="selectedModule.blockDisplay && (selectedModule.blockDisplay !== selectedModule.blockTitle)"
+                style="opacity: .87">&ensp;[&thinsp;{{ selectedModule.blockDisplay }}&thinsp;]</span></small>
+            </v-col>
+            <v-col class="flex-shrink-1 flex-grow-0 pl-4">
+              <!--              {{ selectedModuleParamDisplay }}-->
+            </v-col>
+          </v-row>
         </template>
       </div>
       <v-table
         v-if="selectedConnections?.current?.length || selectedConnections?.hidden?.length"
         style="font-size: 80%;"
         density="compact"
-        class="mb-2">
+        class="mb-2 x-table">
         <tbody>
           <tr
             v-for="(r, rIndex) in selectedConnections.current"
@@ -702,7 +708,7 @@ import {
   getConnectedPos,
   getConnectedPosEuro,
   getCablePath,
-  getPointsSides
+  getPointsSides, displayParameter
 } from '../../lib/index.ts'
 
 const log = debug('zoian:svg')
@@ -981,6 +987,16 @@ export default {
       }
 
       return this.showGrid.find(g => g?.page === page && g?.x === x && g?.y === y) || null
+    },
+    selectedModuleParamDisplay () {
+      if (!this.selectedModule?.blockView || (this.selectedModuleParam === undefined)) {
+        return
+      }
+
+      return displayParameter(this.selectedModule?.blockView, this.selectedModuleParam)
+    },
+    selectedModuleParam() {
+      return this.selectedModule?.blockView?.moduleView?.module?.parameters?.[this?.selectedModule?.blockView?.name]
     },
     positionTooltip () {
       if (!this.cursorBlock) {
@@ -1643,5 +1659,9 @@ text, tspan, .x-no-select {
 
 td {
   white-space: nowrap !important;
+}
+
+.x-table {
+  transition: none !important;
 }
 </style>

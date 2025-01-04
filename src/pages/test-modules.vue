@@ -22,7 +22,7 @@
     </thead>
     <tbody>
       <template
-        v-for="{m, description, tip, bes} of MODULES"
+        v-for="{m, category, description, tip, bes} of MODULES"
         :key="m.id">
         <tr>
           <td
@@ -30,7 +30,7 @@
             {{ m.name }}
           </td>
           <td>
-            {{ m.category }}
+            {{ category }}
           </td>
           <td>
             {{ m.euro }}
@@ -53,7 +53,10 @@
             {{ bes[0][0] }}
           </td>
           <td>{{ bes[0][2] }}</td>
-          <td>{{ bes[0][1].param }}</td>
+          <!--          <td>{{ bes[0][1].param }}</td>-->
+          <td class="text-no-wrap">
+            <b>{{ bes[0][3] }}</b> {{ bes[0][4] }}
+          </td>
           <td>{{ bes[0][1].initial }}</td>
         </tr>
         <tr v-if="bes.slice(1).length === 0">
@@ -68,7 +71,7 @@
           <td colspan="10" />
         </tr>
         <tr
-          v-for="([bn, be, bt], ii) of bes.slice(1)"
+          v-for="([bn, be, bt, bp, br], ii) of bes.slice(1)"
           :key="bn">
           <td
             v-if="!ii"
@@ -88,7 +91,10 @@
             {{ bn }}
           </td>
           <td>{{ bt }}</td>
-          <td>{{ be.param }}</td>
+          <!--          <td>{{ be.param }}</td>-->
+          <td class="text-no-wrap">
+            <b>{{ bp }}</b> {{ br }}
+          </td>
           <td>{{ be.initial }}</td>
         </tr>
       </template>
@@ -105,6 +111,8 @@ import { DESCRIPTIONS } from '../../lib/spec/display-descriptions.ts'
 import { TIPS } from '../../lib/spec/display-tips.ts'
 import { getConnectionType } from '../../lib/view/table-connection.ts'
 import { ConnectionType } from '../../lib/view/types.ts'
+import { getParamType, PARAM_RANGE, ParamType } from '../../lib/grid/params.ts'
+import { Category } from '../../lib/spec/types.ts'
 
 export default {
   computed: {
@@ -112,12 +120,27 @@ export default {
       return DISPLAY_BLOCK
     },
     MODULES () {
-      return MODULES.map((m, i) => ({
-        m,
-        tip: TIPS[i],
-        description: DESCRIPTIONS[i],
-        bes: blockEntries(m.blocks).map(x => [...x, ConnectionType[getConnectionType(x, m.id)]])
-      }))
+      return MODULES
+        .map((m, i) => ({
+          m,
+          category: Category[m.category],
+          tip: TIPS[i],
+          description: DESCRIPTIONS[i],
+          bes: blockEntries(m.blocks)
+            .map(x => {
+              const pt = getParamType(x[0], m)
+              const pr = PARAM_RANGE[pt]
+              return [
+                ...x,
+                ConnectionType[getConnectionType(x, m.id)],
+                x[1].param ? ParamType[getParamType(x[0], m)] : '-',
+                x[1].param ? (Array.isArray(pr[0]) ? pr : [pr])
+                  .map(v => `${v[0]}/${v[1]}${v[2] ? ' ' + v[2] : ''}`)
+                  .join(', ') : null
+              ]
+            })
+        }))
+        .sort((a, b) => a.m.category - b.m.category)
     }
   }
 }

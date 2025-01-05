@@ -1,7 +1,7 @@
 import debug from 'debug'
 
 import { adjustedDb, adjustedPercent, displayDb, displayPercent } from '../grid/strength.ts'
-import { adjustedParam, convertDb8, convertMix, convertSeconds, displayParam } from '../grid/params.ts'
+import { adjustedParam, convertDb8, convertMix, convertSeconds, displayParam } from '../grid/param-types.ts'
 
 const log = debug('zoian:test')
 

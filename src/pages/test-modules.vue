@@ -111,7 +111,7 @@ import { DESCRIPTIONS } from '../../lib/spec/display-descriptions.ts'
 import { TIPS } from '../../lib/spec/display-tips.ts'
 import { getConnectionType } from '../../lib/view/table-connection.ts'
 import { ConnectionType } from '../../lib/view/types.ts'
-import { getParamType, PARAM_RANGE, ParamType } from '../../lib/grid/params.ts'
+import { getParamType, PARAM_RANGE, ParamType } from '../../lib/grid/param-types.ts'
 import { Category } from '../../lib/spec/types.ts'
 
 export default {

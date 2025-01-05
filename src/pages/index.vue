@@ -47,7 +47,8 @@
       :error="error"
       :patch="patch"
       :patch-file="file?.name"
-      :patch-number="patchNumber" />
+      :patch-number="patchNumber"
+      :show-parameters="showParameters" />
     <div
       v-if="isDragging || isDraggingInfo"
       class="x-center-container"
@@ -395,7 +396,7 @@ export default {
   }),
   computed: {
     ...mapWritableState(useAppStore, [
-      'dark', 'columns', 'euro', 'showConnections', 'animations', 'showTips', 'mouseMode'
+      'dark', 'columns', 'euro', 'showConnections', 'animations', 'showTips', 'mouseMode', 'showParameters'
     ]),
     connectionList () {
       return [

@@ -198,35 +198,6 @@
           :x2="0" />
       </template>
 
-      <!--
-      More correct would be:
-      :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * (moduleMH) - sg.forcedLast * moduleMH"
-
-      But I like it as it is
-
-      I would even add some torn like side shape
-      to make the overlapped modules more pronounced
-      -->
-
-      <!--          <path-->
-      <!--            v-if="sg.forcedLast && !(sg.first || sg.last)"-->
-      <!--            :d="rectPath({broken: true, left: false, right: false, size: { width: moduleS + ((sg.x > 0 || sg.first) && (sg.x < 7 || sg.last) && !sg.forcedLast) * moduleMH + moduleMH, height: moduleS}, radius: 0})"-->
-      <!--            :fill="dark ? sg.colors.dark : sg.colors.light"-->
-      <!--            :transform="`translate(${gridPos(sg)}) translate(${(sg.x > 0) * -moduleMH},0)`" />-->
-      <!--          <rect-->
-      <!--            v-else-if="!(sg.first || sg.last)"-->
-      <!--            :fill="dark ? sg.colors.dark : sg.colors.light"-->
-      <!--            :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * (moduleMH)"-->
-      <!--            :height="moduleS"-->
-      <!--            :x="(sg.x > 0) * -moduleMH"-->
-      <!--            :y="0"-->
-      <!--            :transform="`translate(${gridPos(sg)})`" />-->
-      <!--          <path-->
-      <!--            v-else-->
-      <!--            :d="rectPath({broken: sg.forcedLast, left: sg.first, right: sg.last, size: { width: moduleS + ((sg.x > 0 || sg.first) && (sg.x < 7 || sg.last) && !sg.forcedLast) * moduleMH, height: moduleS}, radius: moduleR})"-->
-      <!--            :fill="dark ? sg.colors.dark : sg.colors.light"-->
-      <!--            :transform="`translate(${gridPos(sg)}) translate(${sg.last ? (sg.x > 0) * -moduleMH : 0},0)`" />-->
-
       <!-- grid -->
       <template
         v-for="(sg, sgIndex) of showGrid"
@@ -236,7 +207,7 @@
           <rect
             v-if="!(sg.first || sg.last)"
             :fill="dark ? sg.colors.dark : sg.colors.light"
-            :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * (moduleMH)"
+            :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * moduleMH - (!(sg.x === 7 || sg.x === 0) && sg.forcedLast) * moduleMH"
             :height="moduleS"
             :x="(sg.x > 0) * -moduleMH"
             :y="0"
@@ -417,7 +388,6 @@
 
   <v-card
     ref="tooltip"
-    data-show=""
     class="x-no-select"
     :class="{ 'x-dark': dark }"
     style="transform: translate3d(0,0,0); position: absolute;"
@@ -612,19 +582,55 @@
           'pb-3': !selectedModule.blockTitle
         }"
         style="min-width: 160px;">
-        <span class="g-bolder">{{ selectedModule.blockView.moduleView.module.type }}</span><span
-          v-if="selectedModule.blockView.moduleView.module.name">: {{
-          selectedModule.blockView.moduleView.module.name
-        }}</span>
+        <div class="d-flex flex-nowrap">
+          <div class="flex-1-0">
+            <span class="g-bolder">{{ selectedModule.blockView.moduleView.module.type }}</span><span
+              v-if="selectedModule.blockView.moduleView.module.name">: {{
+              selectedModule.blockView.moduleView.module.name
+            }}</span>
+          </div>
+          <div
+            v-if="showParameters"
+            class="flex-0-1 pl-6">
+            <b style="font-size: 13px; font-variant-numeric: tabular-nums;">{{ selectedModuleParamDisplay }}</b>
+          </div>
+        </div>
         <template v-if="selectedModule.blockTitle">
-          <v-row class="flex-nowrap">
+          <v-row
+            class="flex-nowrap"
+            no-gutters>
             <v-col class="flex-grow-1 flex-shrink-0">
               <small><span class="g-bold">{{ selectedModule.blockTitle }}</span> <span
                 v-if="selectedModule.blockDisplay && (selectedModule.blockDisplay !== selectedModule.blockTitle)"
                 style="opacity: .87">&ensp;[&thinsp;{{ selectedModule.blockDisplay }}&thinsp;]</span></small>
             </v-col>
             <v-col class="flex-shrink-1 flex-grow-0 pl-4">
-              <!--              {{ selectedModuleParamDisplay }}-->
+              <v-row
+                align="end"
+                no-gutters
+                class="flex-nowrap fill-height">
+                <svg
+                  v-if="showParameters && (selectedModuleParamValue >= 0)"
+                  class="x-svg-value"
+                  viewBox="0 0 100 20"
+                  width="100"
+                  style="margin: 0 -9px;"
+                  height="20"
+                  :stroke-width="px">
+                  <line
+                    x1="10"
+                    y1="10"
+                    x2="90"
+                    y2="10" />
+                  <circle
+                    style="transition: transform 120ms linear;"
+                    :style="{transform: `translateX(${selectedModuleParamValue * 80}px)`}"
+                    class="x-value"
+                    r="3"
+                    :cx="10"
+                    cy="10" />
+                </svg>
+              </v-row>
             </v-col>
           </v-row>
         </template>
@@ -652,6 +658,9 @@
             </td>
             <td class="text-right px-2">
               {{ r.db }}&thinsp;dB
+            </td>
+            <td class="px-0">
+              /
             </td>
             <td class="text-right pl-2 pr-5">
               {{ r.percent }}&thinsp;%
@@ -708,7 +717,7 @@ import {
   getConnectedPos,
   getConnectedPosEuro,
   getCablePath,
-  getPointsSides, displayParameter
+  getPointsSides, displayParameter, adjustedParam
 } from '../../lib/index.ts'
 
 const log = debug('zoian:svg')
@@ -777,6 +786,10 @@ export default {
     },
     showConnections: {
       type: [Boolean, Number],
+      default: false
+    },
+    showParameters: {
+      type: Boolean,
       default: false
     },
     mouseMode: {
@@ -988,6 +1001,13 @@ export default {
 
       return this.showGrid.find(g => g?.page === page && g?.x === x && g?.y === y) || null
     },
+    selectedModuleParamValue () {
+      if (!this.selectedModule?.blockView || (this.selectedModuleParam === undefined)) {
+        return
+      }
+
+      return adjustedParam(this.selectedModuleParam)
+    },
     selectedModuleParamDisplay () {
       if (!this.selectedModule?.blockView || (this.selectedModuleParam === undefined)) {
         return
@@ -995,7 +1015,7 @@ export default {
 
       return displayParameter(this.selectedModule?.blockView, this.selectedModuleParam)
     },
-    selectedModuleParam() {
+    selectedModuleParam () {
       return this.selectedModule?.blockView?.moduleView?.module?.parameters?.[this?.selectedModule?.blockView?.name]
     },
     positionTooltip () {
@@ -1396,7 +1416,7 @@ export default {
 
       const d = Math.pow(oldVal.x - newVal.x, 2) + Math.pow(oldVal.y - newVal.y, 2)
 
-      return  d < Math.pow(3, 2)
+      return d < Math.pow(3, 2)
     },
     onScroll () {
       if (this.touchStartTimer) {
@@ -1663,5 +1683,17 @@ td {
 
 .x-table {
   transition: none !important;
+}
+
+.x-svg-value {
+  fill: #000;
+  stroke: #000;
+}
+
+.x-dark {
+  .x-svg-value {
+    fill: #fff;
+    stroke: #fff;
+  }
 }
 </style>

@@ -14,5 +14,6 @@ export const useAppStore = defineStore('app', {
     showTips: useLocalStorage('showTips', false),
     animations: useLocalStorage('animations', false),
     mouseMode: useLocalStorage('mouseMode', 2),
+    showParameters: useLocalStorage('showParameters', false),
   }),
 })

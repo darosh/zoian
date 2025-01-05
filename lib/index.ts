@@ -1,4 +1,5 @@
 // spec
+
 export { EURO_X, EURO_Y, G, GX, GY, LENGTH } from './spec/const.ts'
 export { COLOR_ORDER, Colors } from './spec/colors.ts'
 export { TIPS } from './spec/display-tips.ts'
@@ -19,4 +20,4 @@ export { BLOCK_COLORS, getColors } from './grid/rgb-colors.ts'
 export { getConnectedBlocks, getConnectedPos, getConnectedPosEuro } from './grid/connected-blocks.ts'
 export { getPointsSides } from './grid/position.ts'
 export { getCablePath } from './grid/cable.ts'
-export { displayParameter } from './grid/params.ts'
+export { adjustedParam, displayParameter } from './grid/params.ts'

@@ -24,6 +24,9 @@ export enum ParamType {
   Time,
   Env,
   Steps,
+  Bits,
+  Time16,
+  Pitch
 }
 
 type Range = [number | string, number | string, string?]
@@ -52,6 +55,9 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Time]: [4.02, Infinity, 's'],
   [ParamType.Env]: [1.33, 60000, 'ms'],
   [ParamType.Steps]: [2, 63, 'steps'],
+  [ParamType.Bits]: [[0, 31], [0, 32]], // ?
+  [ParamType.Time16]: [0.02, 16000, 'ms'],
+  [ParamType.Pitch]: [[3.1, 3199.7, '%'], [-60, 60, 'semitones'], [ -6000, 6000, 'cents']],
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -74,8 +80,8 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   release: [{ type: ParamType.Env, modules: ['ADSR', 'Compressor', 'Gate'] }],
   input_gain: [{ type: ParamType.Unknown, modules: ['OD and Distortion', 'Fuzz'] }],
   output_gain: [{ type: ParamType.Unknown, modules: ['OD and Distortion', 'Fuzz'] }],
-  delay_time: [{ type: ParamType.Unknown, modules: ['Delay Line', 'Delay w/ Mod', 'CV Delay', 'Stereo Spread', 'Ping Pong Delay', 'Reverse Delay'] }],
-  tap_tempo_in: [{ type: ParamType.Unknown, modules: ['Delay Line', 'Phaser', 'Tremolo', 'Delay w/ Mod', 'Flanger', 'Chorus', 'Vibrato', 'Ping Pong Delay', 'Reverse Delay', 'Univibe'] }],
+  delay_time: [{ type: ParamType.Time16, modules: ['Delay Line', 'Delay w/ Mod', 'CV Delay', 'Stereo Spread', 'Ping Pong Delay', 'Reverse Delay'] }],
+  tap_tempo_in: [{ type: ParamType.Time16, modules: ['Delay Line', 'Phaser', 'Tremolo', 'Delay w/ Mod', 'Flanger', 'Chorus', 'Vibrato', 'Ping Pong Delay', 'Reverse Delay', 'Univibe'] }],
   duty_cycle: [{ type: ParamType.Percent, modules: ['Oscillator', 'Ring Modulator'] }],
   threshold: [{ type: ParamType.One, modules: ['Compressor', 'Gate', 'Logic Gate'] }],
   decay_time: [{ type: ParamType.Time, modules: ['Plate Reverb', 'Hall Reverb', 'Reverb Lite', 'Room Reverb'] }],
@@ -83,8 +89,8 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   mix: [{ type: ParamType.Mix, modules: ['Plate Reverb', 'Phaser', 'Delay w/ Mod', 'Audio Balance', 'Ghostverb', 'Flanger', 'Chorus', 'Ring Modulator', 'Hall Reverb', 'Ping Pong Delay', 'Reverb Lite', 'Room Reverb', 'Reverse Delay', 'Univibe'] }],
   rate: [{ type: ParamType.Unknown, modules: ['Phaser', 'Tremolo', 'Ghostverb', 'Flanger', 'Chorus', 'Vibrato', 'Univibe'] }],
   width: [{ type: ParamType.Unknown, modules: ['Phaser', 'Flanger', 'Chorus', 'Vibrato'] }],
-  record: [{ type: ParamType.Unknown, modules: ['Looper', 'CV Loop', 'Sampler'] }],
-  speed_pitch: [{ type: ParamType.Unknown, modules: ['Looper', 'Granular', 'Sampler'] }],
+  record: [{ type: ParamType.One, modules: ['Looper', 'CV Loop', 'Sampler'] }],
+  speed_pitch: [{ type: ParamType.Pitch, modules: ['Looper', 'Granular', 'Sampler'] }],
   start_position: [{ type: ParamType.Unknown, modules: ['Looper', 'CV Loop'] }],
   reset: [{ type: ParamType.One, modules: ['Looper', 'Midi Clock Out'] }],
   in_select: [{ type: ParamType.One, modules: ['In Switch', 'Audio In Switch', 'Audio Out Switch'] }],
@@ -120,9 +126,9 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   sustain: [{ type: ParamType.Env, modules: ['ADSR'] }],
   hold_sustain_release: [{ type: ParamType.Env, modules: ['ADSR'] }],
   level_control: [{ type: ParamType.Db0, modules: ['VCA'] }],
-  crushed_bits: [{ type: ParamType.Unknown, modules: ['Bit Crusher'] }],
+  crushed_bits: [{ type: ParamType.Bits, modules: ['Bit Crusher'] }],
   trigger: [{ type: ParamType.One, modules: ['Sample and Hold'] }],
-  modulation_in: [{ type: ParamType.Unknown, modules: ['Delay Line'] }],
+  modulation_in: [{ type: ParamType.Time16, modules: ['Delay Line'] }],
   rise_time: [{ type: ParamType.Unknown, modules: ['Env Follower'] }],
   fall_time: [{ type: ParamType.Unknown, modules: ['Env Follower'] }],
   note: [{ type: ParamType.Note, modules: ['Keyboard'] }],
@@ -133,12 +139,12 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   ratio: [{ type: ParamType.Unknown, modules: ['Compressor'] }],
   q: [{ type: ParamType.Q, modules: ['Multi Filter'] }],
   high_eq: [{ type: ParamType.Db8, modules: ['Plate Reverb'] }],
-  filter_gain: [{ type: ParamType.Unknown, modules: ['All Pass Filter'] }],
+  filter_gain: [{ type: ParamType.Db0, modules: ['All Pass Filter'] }],
   key: [{ type: ParamType.Unknown, modules: ['Quantizer'] }],
   scale: [{ type: ParamType.Unknown, modules: ['Quantizer'] }],
   control_in: [{ type: ParamType.Unknown, modules: ['Phaser'] }],
-  restart_playback: [{ type: ParamType.Unknown, modules: ['Looper'] }],
-  stop_play: [{ type: ParamType.Unknown, modules: ['Looper'] }],
+  restart_playback: [{ type: ParamType.One, modules: ['Looper'] }],
+  stop_play: [{ type: ParamType.One, modules: ['Looper'] }],
   rec_start_stop: [{ type: ParamType.Unknown, modules: ['Rhythm'] }],
   rhythm_in: [{ type: ParamType.Unknown, modules: ['Rhythm'] }],
   loop_length: [{ type: ParamType.Unknown, modules: ['Looper'] }],

@@ -60,7 +60,6 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
     { type: ParamType.Hz, modules: ['SV Filter', 'Oscillator', 'Ring Modulator'] },
     { type: ParamType.HzRound, modules: ['Multi Filter'] },
   ],
-  resonance: [{ type: ParamType.Resonance, modules: ['SV Filter', 'Phaser', 'Ghostverb', 'Univibe'] }],
   gain: [
     { type: ParamType.Db100, modules: ['Audio Out', 'Audio Mixer'] },
     { type: ParamType.Db40, modules: ['Multi Filter'] },
@@ -68,6 +67,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   ],
 
   // Same across modules
+  resonance: [{ type: ParamType.Resonance, modules: ['SV Filter', 'Phaser', 'Ghostverb', 'Univibe'] }],
   gate_in: [{ type: ParamType.One, modules: ['Sequencer', 'Midi Note Out'] }],
   cv_in: [{ type: ParamType.One, modules: ['ADSR', 'Sample and Hold', 'CV Invert', 'Steps', 'Slew Limiter', 'Multiplier', 'Quantizer', 'In Switch', 'Out Switch', 'CV Delay', 'CV Loop', 'CV Filter', 'Clock Divider', 'CV Rectify', 'Trigger', 'CPort CV Out', 'CV Flip Flop', 'Pixel', 'Euro CV Out 4', 'Euro CV Out 1', 'Euro CV Out 2', 'Euro CV Out 3', 'CV Mixer'] }],
   attack: [{ type: ParamType.Env, modules: ['ADSR', 'Compressor', 'Gate'] }],
@@ -88,7 +88,6 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   start_position: [{ type: ParamType.Unknown, modules: ['Looper', 'CV Loop'] }],
   reset: [{ type: ParamType.One, modules: ['Looper', 'Midi Clock Out'] }],
   in_select: [{ type: ParamType.One, modules: ['In Switch', 'Audio In Switch', 'Audio Out Switch'] }],
-  out_select: [{ type: ParamType.Ignored, modules: ['Out Switch'] }],
   sensitivity: [{ type: ParamType.Unknown, modules: ['Onset Detector', 'Env Filter'] }],
   play: [{ type: ParamType.Unknown, modules: ['Rhythm', 'CV Loop'] }],
   trigger_in: [{ type: ParamType.One, modules: ['Random', 'Midi PC Out'] }],
@@ -103,6 +102,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   lpf_freq: [{ type: ParamType.Unknown, modules: ['Hall Reverb', 'Room Reverb'] }],
 
   // Single use
+  out_select: [{ type: ParamType.Ignored, modules: ['Out Switch'] }],
   alias_amount: [{ type: ParamType.Hz, modules: ['Aliaser'] }],
   step: [{ type: ParamType.Step, modules: ['Sequencer'] }],
   queue_start: [{ type: ParamType.Unknown, modules: ['Sequencer'] }],

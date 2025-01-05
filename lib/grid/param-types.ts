@@ -54,105 +54,156 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Steps]: [2, 63, 'steps'],
 }
 
-export const TYPE_MAP: Record<string, ParamType> = {
-  gain: ParamType.Db8,
-  cc: ParamType.Midi,
-  pc: ParamType.Midi,
-  in: ParamType.One,
-  mix: ParamType.Mix,
-  send: ParamType.One,
-  reset: ParamType.One,
-  cv_in: ParamType.One,
-  threshold: ParamType.One,
-  level: ParamType.One,
-  tap_cv_control: ParamType.One,
-  sent: ParamType.One,
-  send_position: ParamType.One,
-  song_position: ParamType.Song,
-  trigger_in: ParamType.One,
-  gate_in: ParamType.One,
-  velocity_in: ParamType.One,
-  note_in: ParamType.NoteNum,
-  frequency: ParamType.Hz,
-  duty_cycle: ParamType.Percent,
-  level_control: ParamType.Db0,
-  resonance: ParamType.Resonance,
-  alias_amount: ParamType.Hz,
-  decay_time: ParamType.Time,
-  low_eq: ParamType.Db8,
-  high_eq: ParamType.Db8,
-  attack: ParamType.Env,
-  decay: ParamType.Env,
-  sustain: ParamType.Env,
-  release: ParamType.Env,
-  hold_attack_decay: ParamType.Env,
-  hold_sustain_release: ParamType.Env,
-  retrigger: ParamType.One,
-  delay: ParamType.Env,
-  trigger: ParamType.One,
-  quant_steps: ParamType.Steps,
-  out_select: ParamType.Ignored,
-  bypass: ParamType.Ignored,
-  aux: ParamType.Ignored,
-  performance: ParamType.Ignored,
+const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
+  // Different across modules
+  frequency: [
+    { type: ParamType.Hz, modules: ['SV Filter', 'Oscillator', 'Ring Modulator'] },
+    { type: ParamType.HzRound, modules: ['Multi Filter'] },
+  ],
+  resonance: [{ type: ParamType.Resonance, modules: ['SV Filter', 'Phaser', 'Ghostverb', 'Univibe'] }],
+  gain: [
+    { type: ParamType.Db100, modules: ['Audio Out', 'Audio Mixer'] },
+    { type: ParamType.Db40, modules: ['Multi Filter'] },
+    { type: ParamType.Db8, modules: ['Diffuser'] },
+  ],
+
+  // Same across modules
+  gate_in: [{ type: ParamType.One, modules: ['Sequencer', 'Midi Note Out'] }],
+  cv_in: [{ type: ParamType.One, modules: ['ADSR', 'Sample and Hold', 'CV Invert', 'Steps', 'Slew Limiter', 'Multiplier', 'Quantizer', 'In Switch', 'Out Switch', 'CV Delay', 'CV Loop', 'CV Filter', 'Clock Divider', 'CV Rectify', 'Trigger', 'CPort CV Out', 'CV Flip Flop', 'Pixel', 'Euro CV Out 4', 'Euro CV Out 1', 'Euro CV Out 2', 'Euro CV Out 3', 'CV Mixer'] }],
+  attack: [{ type: ParamType.Env, modules: ['ADSR', 'Compressor', 'Gate'] }],
+  release: [{ type: ParamType.Env, modules: ['ADSR', 'Compressor', 'Gate'] }],
+  input_gain: [{ type: ParamType.Unknown, modules: ['OD and Distortion', 'Fuzz'] }],
+  output_gain: [{ type: ParamType.Unknown, modules: ['OD and Distortion', 'Fuzz'] }],
+  delay_time: [{ type: ParamType.Unknown, modules: ['Delay Line', 'Delay w/ Mod', 'CV Delay', 'Stereo Spread', 'Ping Pong Delay', 'Reverse Delay'] }],
+  tap_tempo_in: [{ type: ParamType.Unknown, modules: ['Delay Line', 'Phaser', 'Tremolo', 'Delay w/ Mod', 'Flanger', 'Chorus', 'Vibrato', 'Ping Pong Delay', 'Reverse Delay', 'Univibe'] }],
+  duty_cycle: [{ type: ParamType.Percent, modules: ['Oscillator', 'Ring Modulator'] }],
+  threshold: [{ type: ParamType.One, modules: ['Compressor', 'Gate', 'Logic Gate'] }],
+  decay_time: [{ type: ParamType.Time, modules: ['Plate Reverb', 'Hall Reverb', 'Reverb Lite', 'Room Reverb'] }],
+  low_eq: [{ type: ParamType.Db8, modules: ['Plate Reverb', 'Hall Reverb', 'Room Reverb'] }],
+  mix: [{ type: ParamType.Mix, modules: ['Plate Reverb', 'Phaser', 'Delay w/ Mod', 'Audio Balance', 'Ghostverb', 'Flanger', 'Chorus', 'Ring Modulator', 'Hall Reverb', 'Ping Pong Delay', 'Reverb Lite', 'Room Reverb', 'Reverse Delay', 'Univibe'] }],
+  rate: [{ type: ParamType.Unknown, modules: ['Phaser', 'Tremolo', 'Ghostverb', 'Flanger', 'Chorus', 'Vibrato', 'Univibe'] }],
+  width: [{ type: ParamType.Unknown, modules: ['Phaser', 'Flanger', 'Chorus', 'Vibrato'] }],
+  record: [{ type: ParamType.Unknown, modules: ['Looper', 'CV Loop', 'Sampler'] }],
+  speed_pitch: [{ type: ParamType.Unknown, modules: ['Looper', 'Granular', 'Sampler'] }],
+  start_position: [{ type: ParamType.Unknown, modules: ['Looper', 'CV Loop'] }],
+  reset: [{ type: ParamType.One, modules: ['Looper', 'Midi Clock Out'] }],
+  in_select: [{ type: ParamType.One, modules: ['In Switch', 'Audio In Switch', 'Audio Out Switch'] }],
+  out_select: [{ type: ParamType.Ignored, modules: ['Out Switch'] }],
+  sensitivity: [{ type: ParamType.Unknown, modules: ['Onset Detector', 'Env Filter'] }],
+  play: [{ type: ParamType.Unknown, modules: ['Rhythm', 'CV Loop'] }],
+  trigger_in: [{ type: ParamType.One, modules: ['Random', 'Midi PC Out'] }],
+  direct: [{ type: ParamType.Unknown, modules: ['Tremolo', 'Flanger', 'Chorus', 'Vibrato', 'Univibe'] }],
+  depth: [{ type: ParamType.Unknown, modules: ['Tremolo', 'Univibe'] }],
+  feedback: [{ type: ParamType.Unknown, modules: ['Delay w/ Mod', 'Ping Pong Delay', 'Reverse Delay'] }],
+  mod_rate: [{ type: ParamType.Unknown, modules: ['Delay w/ Mod', 'Ping Pong Delay', 'Diffuser'] }],
+  mod_depth: [{ type: ParamType.Unknown, modules: ['Delay w/ Mod', 'Ping Pong Delay'] }],
+  in: [{ type: ParamType.One, modules: ['UI Button', 'Logic Gate'] }],
+  pan: [{ type: ParamType.Pan, modules: ['Audio Panner', 'Audio Mixer'] }],
+  tone_tilt_eq: [{ type: ParamType.Unknown, modules: ['Flanger', 'Chorus'] }],
+  lpf_freq: [{ type: ParamType.Unknown, modules: ['Hall Reverb', 'Room Reverb'] }],
+
+  // Single use
+  alias_amount: [{ type: ParamType.Hz, modules: ['Aliaser'] }],
+  step: [{ type: ParamType.Step, modules: ['Sequencer'] }],
+  queue_start: [{ type: ParamType.Unknown, modules: ['Sequencer'] }],
+  key_input_note: [{ type: ParamType.Unknown, modules: ['Sequencer'] }],
+  key_input_gate: [{ type: ParamType.Unknown, modules: ['Sequencer'] }],
+  cv_control: [{ type: ParamType.Unknown, modules: ['LFO'] }],
+  tap_control: [{ type: ParamType.Unknown, modules: ['LFO'] }],
+  swing_amount: [{ type: ParamType.Unknown, modules: ['LFO'] }],
+  phase_input: [{ type: ParamType.Unknown, modules: ['LFO'] }],
+  phase_reset: [{ type: ParamType.Unknown, modules: ['LFO'] }],
+  retrigger: [{ type: ParamType.One, modules: ['ADSR'] }],
+  delay: [{ type: ParamType.Env, modules: ['ADSR'] }],
+  hold_attack_decay: [{ type: ParamType.Env, modules: ['ADSR'] }],
+  decay: [{ type: ParamType.Env, modules: ['ADSR'] }],
+  sustain: [{ type: ParamType.Env, modules: ['ADSR'] }],
+  hold_sustain_release: [{ type: ParamType.Env, modules: ['ADSR'] }],
+  level_control: [{ type: ParamType.Db0, modules: ['VCA'] }],
+  crushed_bits: [{ type: ParamType.Unknown, modules: ['Bit Crusher'] }],
+  trigger: [{ type: ParamType.One, modules: ['Sample and Hold'] }],
+  modulation_in: [{ type: ParamType.Unknown, modules: ['Delay Line'] }],
+  rise_time: [{ type: ParamType.Unknown, modules: ['Env Follower'] }],
+  fall_time: [{ type: ParamType.Unknown, modules: ['Env Follower'] }],
+  note: [{ type: ParamType.Note, modules: ['Keyboard'] }],
+  quant_steps: [{ type: ParamType.Steps, modules: ['Steps'] }],
+  slew_rate: [{ type: ParamType.Unknown, modules: ['Slew Limiter'] }],
+  rising_lag: [{ type: ParamType.Unknown, modules: ['Slew Limiter'] }],
+  falling_lag: [{ type: ParamType.Unknown, modules: ['Slew Limiter'] }],
+  ratio: [{ type: ParamType.Unknown, modules: ['Compressor'] }],
+  q: [{ type: ParamType.Q, modules: ['Multi Filter'] }],
+  high_eq: [{ type: ParamType.Db8, modules: ['Plate Reverb'] }],
+  filter_gain: [{ type: ParamType.Unknown, modules: ['All Pass Filter'] }],
+  key: [{ type: ParamType.Unknown, modules: ['Quantizer'] }],
+  scale: [{ type: ParamType.Unknown, modules: ['Quantizer'] }],
+  control_in: [{ type: ParamType.Unknown, modules: ['Phaser'] }],
+  restart_playback: [{ type: ParamType.Unknown, modules: ['Looper'] }],
+  stop_play: [{ type: ParamType.Unknown, modules: ['Looper'] }],
+  rec_start_stop: [{ type: ParamType.Unknown, modules: ['Rhythm'] }],
+  rhythm_in: [{ type: ParamType.Unknown, modules: ['Rhythm'] }],
+  loop_length: [{ type: ParamType.Unknown, modules: ['Looper'] }],
+  reverse_playback: [{ type: ParamType.Unknown, modules: ['Looper'] }],
+  low_shelf: [{ type: ParamType.Unknown, modules: ['Tone Control'] }],
+  mid_gain: [{ type: ParamType.Unknown, modules: ['Tone Control'] }],
+  mid_freq: [{ type: ParamType.Unknown, modules: ['Tone Control'] }],
+  high_shelf: [{ type: ParamType.Unknown, modules: ['Tone Control'] }],
+  value: [{ type: ParamType.Unknown, modules: ['Value'] }],
+  playback_speed: [{ type: ParamType.Unknown, modules: ['CV Loop'] }],
+  stop_position: [{ type: ParamType.Unknown, modules: ['CV Loop'] }],
+  restart_loop: [{ type: ParamType.Unknown, modules: ['CV Loop'] }],
+  time_constant: [{ type: ParamType.Unknown, modules: ['CV Filter'] }],
+  rise_constant: [{ type: ParamType.Unknown, modules: ['CV Filter'] }],
+  fall_constant: [{ type: ParamType.Unknown, modules: ['CV Filter'] }],
+  reset_in: [{ type: ParamType.Unknown, modules: ['Clock Divider'] }],
+  modifier: [{ type: ParamType.Unknown, modules: ['Clock Divider'] }],
+  dividend: [{ type: ParamType.Unknown, modules: ['Clock Divider'] }],
+  divisor: [{ type: ParamType.Unknown, modules: ['Clock Divider'] }],
+  cv_positive_input: [{ type: ParamType.Unknown, modules: ['Comparator'] }],
+  cv_negative_input: [{ type: ParamType.Unknown, modules: ['Comparator'] }],
+  side_gain: [{ type: ParamType.Unknown, modules: ['Stereo Spread'] }],
+  pitch_shift: [{ type: ParamType.Unknown, modules: ['Pitch Shifter'] }],
+  note_in: [{ type: ParamType.NoteNum, modules: ['Midi Note Out'] }],
+  velocity_in: [{ type: ParamType.One, modules: ['Midi Note Out'] }],
+  cc: [{ type: ParamType.Midi, modules: ['Midi CC Out'] }],
+  pc: [{ type: ParamType.Midi, modules: ['Midi PC Out'] }],
+  decay_feedback: [{ type: ParamType.Unknown, modules: ['Ghostverb'] }],
+  regen: [{ type: ParamType.Unknown, modules: ['Flanger'] }],
+  min_freq: [{ type: ParamType.Unknown, modules: ['Env Filter'] }],
+  max_freq: [{ type: ParamType.Unknown, modules: ['Env Filter'] }],
+  filter_q: [{ type: ParamType.Unknown, modules: ['Env Filter'] }],
+  size: [{ type: ParamType.Unknown, modules: ['Diffuser'] }],
+  mod_width: [{ type: ParamType.Unknown, modules: ['Diffuser'] }],
+  grain_size: [{ type: ParamType.Unknown, modules: ['Granular'] }],
+  grain_position: [{ type: ParamType.Unknown, modules: ['Granular'] }],
+  density: [{ type: ParamType.Unknown, modules: ['Granular'] }],
+  texture: [{ type: ParamType.Unknown, modules: ['Granular'] }],
+  freeze: [{ type: ParamType.Unknown, modules: ['Granular'] }],
+  tap_cv_control: [{ type: ParamType.One, modules: ['Midi Clock Out'] }],
+  sent: [{ type: ParamType.One, modules: ['Midi Clock Out'] }],
+  send_position: [{ type: ParamType.One, modules: ['Midi Clock Out'] }],
+  song_position: [{ type: ParamType.Song, modules: ['Midi Clock Out'] }],
+  min_time: [{ type: ParamType.Unknown, modules: ['Tap to CV'] }],
+  max_time: [{ type: ParamType.Unknown, modules: ['Tap to CV'] }],
+  level: [{ type: ParamType.One, modules: ['Euro Headphone Amp'] }],
+  sample_playback: [{ type: ParamType.Unknown, modules: ['Sampler'] }],
+  direction: [{ type: ParamType.Unknown, modules: ['Sampler'] }],
+  start: [{ type: ParamType.Unknown, modules: ['Sampler'] }],
+  length: [{ type: ParamType.Unknown, modules: ['Sampler'] }],
+  bypass: [{ type: ParamType.Ignored, modules: ['Device Control'] }],
+  aux: [{ type: ParamType.Ignored, modules: ['Device Control'] }],
+  performance: [{ type: ParamType.Ignored, modules: ['Device Control'] }],
+  atten: [{ type: ParamType.Norm, modules: ['CV Mixer'] }],
+  tap_ratio: [{ type: ParamType.Unknown, modules: ['Reverse Delay'] }],
+  pitch: [{ type: ParamType.Unknown, modules: ['Reverse Delay'] }],
 }
 
 export function getParamType(blockName: string, module: ModuleSpec): ParamType {
-  if (module.name === 'Multi Filter') {
-    if (blockName === 'gain') {
-      return ParamType.Db40
-    }
+  const name = blockName.replace(/_\d+$/, '')
+  const value = TYPE_MAP[name]
 
-    if (blockName === 'frequency') {
-      return ParamType.HzRound
-    }
-
-    if (blockName === 'q') {
-      return ParamType.Q
-    }
+  if (value.length === 1) {
+    return value[0].type
   }
 
-  if (module.name === 'Audio Out') {
-    if (blockName === 'gain') {
-      return ParamType.Db100
-    }
-  }
-
-  const t = TYPE_MAP[blockName]
-
-  if (t >= 0) {
-    return t
-  }
-
-  const w = blockName.split('_')
-
-  if (w[0] === 'note') {
-    return ParamType.Note
-  }
-
-  if (w[0] === 'step') {
-    return ParamType.Step
-  }
-
-  if (w[0] === 'in') {
-    return ParamType.One
-  }
-
-  if (w[0] === 'gain') {
-    return ParamType.Db100
-  }
-
-  if (w[0] === 'pan') {
-    return ParamType.Pan
-  }
-
-  if (w[0] === 'cv' && w[1] === 'in') {
-    return ParamType.One
-  }
-
-  if (w[0] === 'atten') {
-    return ParamType.Norm
-  }
-
-  return ParamType.Unknown
+  return <ParamType> value?.find((set) => set.modules.includes(module.name))?.type
 }

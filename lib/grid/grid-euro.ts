@@ -69,7 +69,7 @@ function mapEuro(v: number | Jack, index: number, { moduleViews, blockViews }: P
       y,
       index,
       type: JackType.Button,
-      blockTitle: blockView.name.replaceAll('_', ' '),
+      blockTitle: blockView?.name?.replaceAll('_', ' '),
       blockView,
       colors: moduleView?.module?.color ? BLOCK_COLORS[moduleView?.module?.color] : undefined,
     }

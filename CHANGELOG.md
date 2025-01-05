@@ -2,6 +2,10 @@
 
 ## 2024-01-03
 
+- Fixing Euroburo missing block names in Euroburo mode
+
+## 2024-01-03
+
 - Adding mouse modes: Lazy, Clicky
 - Adding and hold <kbd>Shift</kbd> to temporarily ignore mouse
 - Adding stylus support

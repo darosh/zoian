@@ -60,6 +60,8 @@ function mapEuro(v: number | Jack, index: number, { moduleViews, blockViews }: P
   } else if (<number> v > 1) {
     const moduleView = <ModuleView> moduleViews.find((d) => d.module.id === v)
 
+    const blockView = moduleView?.blockViews?.[0]
+
     return {
       pos: 'euro',
       page: 0,
@@ -67,7 +69,8 @@ function mapEuro(v: number | Jack, index: number, { moduleViews, blockViews }: P
       y,
       index,
       type: JackType.Button,
-      blockView: moduleView?.blockViews?.[0],
+      blockTitle: blockView.name.replaceAll('_', ' '),
+      blockView,
       colors: moduleView?.module?.color ? BLOCK_COLORS[moduleView?.module?.color] : undefined,
     }
   } else {

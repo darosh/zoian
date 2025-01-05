@@ -42,6 +42,7 @@ export interface PosEuro {
   index: number
 
   type: JackType
+  blockTitle?: string
   blockView?: BlockView
   jackView?: JackView
   colors?: BlockColors

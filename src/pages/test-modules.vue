@@ -128,8 +128,8 @@ export default {
           description: DESCRIPTIONS[i],
           bes: blockEntries(m.blocks)
             .map(x => {
-              const pt = getParamType(x[0], m)
-              const pr = PARAM_RANGE[pt]
+              const pt = x[1].param ? getParamType(x[0], m) : undefined
+              const pr = x[1].param ? PARAM_RANGE[pt] : undefined
               return [
                 ...x,
                 ConnectionType[getConnectionType(x, m.id)],

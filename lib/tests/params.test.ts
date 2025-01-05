@@ -1,7 +1,7 @@
 import debug from 'debug'
 
 import { adjustedDb, adjustedPercent, displayDb, displayPercent } from '../grid/strength.ts'
-import { adjustedParam, convertDb, convertMix, convertSeconds, displayParam } from '../grid/params.ts'
+import { adjustedParam, convertDb8, convertMix, convertSeconds, displayParam } from '../grid/params.ts'
 
 const log = debug('zoian:test')
 
@@ -22,7 +22,7 @@ Deno.test.ignore('params', () => {
     dB: displayDb(adjustedDb(raw)),
     '%': displayPercent(adjustedPercent(raw)),
     param: displayParam(adjustedParam(raw)),
-    paramDb: convertDb(raw),
+    paramDb: convertDb8(raw),
     paramMix: convertMix(raw),
     paramSeconds: convertSeconds(raw),
   }))

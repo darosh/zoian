@@ -26,7 +26,12 @@ export enum ParamType {
   Steps,
   Bits,
   Time16,
-  Pitch
+  Pitch,
+  Time32,
+  Time31,
+  SizeSamples,
+  ModSamples,
+  Time5
 }
 
 type Range = [number | string, number | string, string?]
@@ -58,6 +63,11 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Bits]: [[0, 31], [0, 32]], // ?
   [ParamType.Time16]: [0.02, 16000, 'ms'],
   [ParamType.Pitch]: [[3.1, 3199.7, '%'], [-60, 60, 'semitones'], [ -6000, 6000, 'cents']],
+  [ParamType.Time32]: [0, 32, 's'],
+  [ParamType.Time31]: [0.013, 31.998, 's'],
+  [ParamType.SizeSamples]: [80, 4999, 'samples'],
+  [ParamType.ModSamples]: [3, 499, 'samples'],
+  [ParamType.Time5]: [0, 5.9, 's'],
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -69,7 +79,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   gain: [
     { type: ParamType.Db100, modules: ['Audio Out', 'Audio Mixer'] },
     { type: ParamType.Db40, modules: ['Multi Filter'] },
-    { type: ParamType.Db8, modules: ['Diffuser'] },
+    { type: ParamType.Db0, modules: ['Diffuser'] },
   ],
 
   // Same across modules
@@ -91,7 +101,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   width: [{ type: ParamType.Unknown, modules: ['Phaser', 'Flanger', 'Chorus', 'Vibrato'] }],
   record: [{ type: ParamType.One, modules: ['Looper', 'CV Loop', 'Sampler'] }],
   speed_pitch: [{ type: ParamType.Pitch, modules: ['Looper', 'Granular', 'Sampler'] }],
-  start_position: [{ type: ParamType.Unknown, modules: ['Looper', 'CV Loop'] }],
+  start_position: [{ type: ParamType.Time32, modules: ['Looper', 'CV Loop'] }],
   reset: [{ type: ParamType.One, modules: ['Looper', 'Midi Clock Out'] }],
   in_select: [{ type: ParamType.One, modules: ['In Switch', 'Audio In Switch', 'Audio Out Switch'] }],
   sensitivity: [{ type: ParamType.Unknown, modules: ['Onset Detector', 'Env Filter'] }],
@@ -100,7 +110,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   direct: [{ type: ParamType.Unknown, modules: ['Tremolo', 'Flanger', 'Chorus', 'Vibrato', 'Univibe'] }],
   depth: [{ type: ParamType.Unknown, modules: ['Tremolo', 'Univibe'] }],
   feedback: [{ type: ParamType.Unknown, modules: ['Delay w/ Mod', 'Ping Pong Delay', 'Reverse Delay'] }],
-  mod_rate: [{ type: ParamType.Unknown, modules: ['Delay w/ Mod', 'Ping Pong Delay', 'Diffuser'] }],
+  mod_rate: [{ type: ParamType.Time5, modules: ['Delay w/ Mod', 'Ping Pong Delay', 'Diffuser'] }],
   mod_depth: [{ type: ParamType.Unknown, modules: ['Delay w/ Mod', 'Ping Pong Delay'] }],
   in: [{ type: ParamType.One, modules: ['UI Button', 'Logic Gate'] }],
   pan: [{ type: ParamType.Pan, modules: ['Audio Panner', 'Audio Mixer'] }],
@@ -147,7 +157,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   stop_play: [{ type: ParamType.One, modules: ['Looper'] }],
   rec_start_stop: [{ type: ParamType.Unknown, modules: ['Rhythm'] }],
   rhythm_in: [{ type: ParamType.Unknown, modules: ['Rhythm'] }],
-  loop_length: [{ type: ParamType.Unknown, modules: ['Looper'] }],
+  loop_length: [{ type: ParamType.Time31, modules: ['Looper'] }],
   reverse_playback: [{ type: ParamType.Unknown, modules: ['Looper'] }],
   low_shelf: [{ type: ParamType.Unknown, modules: ['Tone Control'] }],
   mid_gain: [{ type: ParamType.Unknown, modules: ['Tone Control'] }],
@@ -166,8 +176,8 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   divisor: [{ type: ParamType.Unknown, modules: ['Clock Divider'] }],
   cv_positive_input: [{ type: ParamType.Unknown, modules: ['Comparator'] }],
   cv_negative_input: [{ type: ParamType.Unknown, modules: ['Comparator'] }],
-  side_gain: [{ type: ParamType.Unknown, modules: ['Stereo Spread'] }],
-  pitch_shift: [{ type: ParamType.Unknown, modules: ['Pitch Shifter'] }],
+  side_gain: [{ type: ParamType.Db40, modules: ['Stereo Spread'] }],
+  pitch_shift: [{ type: ParamType.Pitch, modules: ['Pitch Shifter'] }],
   note_in: [{ type: ParamType.NoteNum, modules: ['Midi Note Out'] }],
   velocity_in: [{ type: ParamType.One, modules: ['Midi Note Out'] }],
   cc: [{ type: ParamType.Midi, modules: ['Midi CC Out'] }],
@@ -177,8 +187,8 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   min_freq: [{ type: ParamType.Unknown, modules: ['Env Filter'] }],
   max_freq: [{ type: ParamType.Unknown, modules: ['Env Filter'] }],
   filter_q: [{ type: ParamType.Unknown, modules: ['Env Filter'] }],
-  size: [{ type: ParamType.Unknown, modules: ['Diffuser'] }],
-  mod_width: [{ type: ParamType.Unknown, modules: ['Diffuser'] }],
+  size: [{ type: ParamType.ModSamples, modules: ['Diffuser'] }],
+  mod_width: [{ type: ParamType.ModSamples, modules: ['Diffuser'] }],
   grain_size: [{ type: ParamType.Unknown, modules: ['Granular'] }],
   grain_position: [{ type: ParamType.Unknown, modules: ['Granular'] }],
   density: [{ type: ParamType.Unknown, modules: ['Granular'] }],

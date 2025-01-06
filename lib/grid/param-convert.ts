@@ -10,25 +10,26 @@ export function convertMidi(value: number): number {
 }
 
 export function convertSeconds(value: number) {
-  // Range: 4.02 to inf
-  if (value === 0) return 4.02
+  if (value === 0) return 0
+  if (value === UINT16_MAX) return Infinity
 
   const normalized = value / UINT16_MAX
 
-  return Number((normalized * (100 - 4.02) + 4.02).toFixed(2))
+  return normalized // TODO
 }
 
 export function convertDb8(value: number) {
   // Range: -8 to +8, with 32767 being 0dB
   const shifted = value - DB_CENTER
-  return Number(((shifted / UINT16_MAX) * 16).toFixed(1))
+
+  return ((shifted / UINT16_MAX) * 16)
 }
 
 export function convertMix(value: number) {
-  // Range: 36 to 100
-  if (value === 0) return 36
+  if (value === 0) return 0
   const normalized = value / UINT16_MAX
-  return Math.round(normalized * (100 - 36) + 36)
+
+  return Math.round(normalized * 100)
 }
 
 const HZ_MIN = 27.5

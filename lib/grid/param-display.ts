@@ -26,6 +26,16 @@ export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string
   [ParamType.Time]: (value) => displaySeconds(convertSeconds(value)),
   [ParamType.Env]: (value) => displayEnv(convertEnv(value)),
   [ParamType.Steps]: (value) => displaySteps(convertSteps(value)),
+  [ParamType.Bits]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Time16]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Pitch]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Time32]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Time31]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.SizeSamples]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.ModSamples]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Time5]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Phase]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Time34]: (value) => displayParam(adjustedParam(value)),
 }
 
 export function displayParameter(bv: BlockView, value: number): number | string {

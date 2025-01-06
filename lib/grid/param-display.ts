@@ -39,11 +39,16 @@ export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string
   [ParamType.Time5]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Phase]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Time34]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Time59]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Time60]: (value) => displayParam(adjustedParam(value)),
   [ParamType.FreqLow]: (value) => displayParam(adjustedParam(value)),
   [ParamType.PitchCents]: (value) => displayParam(adjustedParam(value)),
   [ParamType.HzHigh]: (value) => displayParam(adjustedParam(value)),
   [ParamType.HzOnly]: (value) => displayParam(adjustedParam(value)),
   [ParamType.HzLow]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Size]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Position]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Swing]: (value) => displayParam(adjustedParam(value)),
 }
 
 export function displayParameter(bv: BlockView, value: number): number | string {

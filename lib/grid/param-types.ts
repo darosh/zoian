@@ -50,6 +50,7 @@ export enum ParamType {
   Key,
   Scale,
   Speed,
+  ClockTime,
 }
 
 type Range = [number | string, number | string, string?]
@@ -106,6 +107,7 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Key]: ['A', 'G#'],
   [ParamType.Scale]: [SCALES[0], <string>SCALES.at(-1)],
   [ParamType.Speed]: [0, 200, '%'],
+  [ParamType.ClockTime]: [[0, 2400, 'BPM'], [0.000, 40.000, 'Hz']],
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -145,11 +147,14 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
     { type: ParamType.One, modules: ['Gate', 'Logic Gate'] },
     { type: ParamType.Db80, modules: ['Compressor'] }
   ],
+  cv_in: [
+    { type: ParamType.One, modules: ['ADSR', 'Sample and Hold', 'CV Invert', 'Steps', 'Slew Limiter', 'Multiplier', 'Quantizer', 'In Switch', 'Out Switch', 'CV Delay', 'CV Loop', 'CV Filter', 'CV Rectify', 'Trigger', 'CPort CV Out', 'CV Flip Flop', 'Pixel', 'Euro CV Out 4', 'Euro CV Out 1', 'Euro CV Out 2', 'Euro CV Out 3', 'CV Mixer'] },
+    { type: ParamType.ClockTime, modules: ['Clock Divider'] }
+  ],
 
   // Same across modules
   mix: [{ type: ParamType.Mix, modules: ['Plate Reverb', 'Phaser', 'Delay w/ Mod', 'Audio Balance', 'Ghostverb', 'Flanger', 'Chorus', 'Ring Modulator', 'Hall Reverb', 'Ping Pong Delay', 'Reverb Lite', 'Room Reverb', 'Reverse Delay', 'Univibe'] }],
   gate_in: [{ type: ParamType.One, modules: ['Sequencer', 'Midi Note Out'] }],
-  cv_in: [{ type: ParamType.One, modules: ['ADSR', 'Sample and Hold', 'CV Invert', 'Steps', 'Slew Limiter', 'Multiplier', 'Quantizer', 'In Switch', 'Out Switch', 'CV Delay', 'CV Loop', 'CV Filter', 'Clock Divider', 'CV Rectify', 'Trigger', 'CPort CV Out', 'CV Flip Flop', 'Pixel', 'Euro CV Out 4', 'Euro CV Out 1', 'Euro CV Out 2', 'Euro CV Out 3', 'CV Mixer'] }],
   attack: [{ type: ParamType.Env, modules: ['ADSR', 'Compressor', 'Gate'] }],
   release: [{ type: ParamType.Env, modules: ['ADSR', 'Compressor', 'Gate'] }],
   output_gain: [{ type: ParamType.Db0, modules: ['OD and Distortion', 'Fuzz'] }],

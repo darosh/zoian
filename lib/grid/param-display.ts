@@ -49,6 +49,9 @@ export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string
   [ParamType.Size]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Position]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Swing]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Key]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Scale]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Speed]: (value) => displayParam(adjustedParam(value)),
 }
 
 export function displayParameter(bv: BlockView, value: number): number | string {

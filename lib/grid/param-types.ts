@@ -47,9 +47,14 @@ export enum ParamType {
   Size,
   Position,
   Swing,
+  Key,
+  Scale,
+  Speed,
 }
 
 type Range = [number | string, number | string, string?]
+
+const SCALES = ['Chromatic', 'Major', 'm Natural', 'm Harmonic', 'm Melodic', 'M Harmonic', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Locrian', 'M Locrian', 'Ahava Raba', 'Akebono', 'Bhairav', 'Marwa', 'Purvi', 'Todi', 'Pelog', 'Ukrainian', 'Romani', 'MHungarian', 'mHungarian', 'Persian', 'M Neapol', 'm Neapol', 'H Dim', 'W-H Dim', 'H-W Dim', 'Istrian', 'Prometheus', 'Harmonics', 'Tritone', '2Semi Tri', 'Wholetone', 'M Penta', 'm Penta', 'Hirajoshi1', 'Hirajoshi2', 'Hirajoshi3', 'Hirajoshi4', 'Hirajoshi5', 'Insen', 'Fourth', 'Dim Fifth', 'P Fifth', 'Aug Fifth', 'Octave']
 
 export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Unknown]: [0, 1, '?'],
@@ -98,6 +103,9 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Size]: [0.08, 999.86, 'ms'],
   [ParamType.Position]: [0.00, 999.98, 'ms'],
   [ParamType.Swing]: [-100, 100],
+  [ParamType.Key]: ['A', 'G#'],
+  [ParamType.Scale]: [SCALES[0], <string>SCALES.at(-1)],
+  [ParamType.Speed]: [0, 200, '%'],
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -152,7 +160,8 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   width: [{ type: ParamType.One, modules: ['Phaser', 'Flanger', 'Chorus', 'Vibrato'] }],
   record: [{ type: ParamType.One, modules: ['Looper', 'CV Loop', 'Sampler'] }],
   speed_pitch: [{ type: ParamType.Pitch, modules: ['Looper', 'Granular', 'Sampler'] }],
-  start_position: [{ type: ParamType.Time32, modules: ['Looper', 'CV Loop'] }],
+  // start_position: [{ type: ParamType.Time32, modules: ['Looper', 'CV Loop'] }],
+  start_position: [{ type: ParamType.Ignored, modules: ['Looper', 'CV Loop'] }],
   reset: [{ type: ParamType.One, modules: ['Looper', 'Midi Clock Out'] }],
   in_select: [{ type: ParamType.One, modules: ['In Switch', 'Audio In Switch', 'Audio Out Switch'] }],
   sensitivity: [{ type: ParamType.One, modules: ['Onset Detector', 'Env Filter'] }],
@@ -200,22 +209,23 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   q: [{ type: ParamType.Q, modules: ['Multi Filter'] }],
   high_eq: [{ type: ParamType.Db8, modules: ['Plate Reverb'] }],
   filter_gain: [{ type: ParamType.Db0, modules: ['All Pass Filter'] }],
-  key: [{ type: ParamType.Unknown, modules: ['Quantizer'] }],
-  scale: [{ type: ParamType.Unknown, modules: ['Quantizer'] }],
+  key: [{ type: ParamType.Key, modules: ['Quantizer'] }],
+  scale: [{ type: ParamType.Scale, modules: ['Quantizer'] }],
   control_in: [{ type: ParamType.One, modules: ['Phaser'] }],
   restart_playback: [{ type: ParamType.One, modules: ['Looper'] }],
   stop_play: [{ type: ParamType.One, modules: ['Looper'] }],
   rec_start_stop: [{ type: ParamType.One, modules: ['Rhythm'] }],
   rhythm_in: [{ type: ParamType.One, modules: ['Rhythm'] }],
-  loop_length: [{ type: ParamType.Time31, modules: ['Looper'] }],
+  // loop_length: [{ type: ParamType.Time31, modules: ['Looper'] }],
+  loop_length: [{ type: ParamType.Ignored, modules: ['Looper'] }],
   reverse_playback: [{ type: ParamType.One, modules: ['Looper'] }],
   low_shelf: [{ type: ParamType.Db18, modules: ['Tone Control'] }],
   mid_gain: [{ type: ParamType.Db18, modules: ['Tone Control'] }],
   mid_freq: [{ type: ParamType.HzRound, modules: ['Tone Control'] }],
   high_shelf: [{ type: ParamType.Db18, modules: ['Tone Control'] }],
   value: [{ type: ParamType.One, modules: ['Value'] }],
-  playback_speed: [{ type: ParamType.Unknown, modules: ['CV Loop'] }],
-  stop_position: [{ type: ParamType.Unknown, modules: ['CV Loop'] }],
+  playback_speed: [{ type: ParamType.Speed, modules: ['CV Loop'] }],
+  stop_position: [{ type: ParamType.Ignored, modules: ['CV Loop'] }],
   restart_loop: [{ type: ParamType.One, modules: ['CV Loop'] }],
   time_constant: [{ type: ParamType.Env, modules: ['CV Filter'] }],
   rise_constant: [{ type: ParamType.Env, modules: ['CV Filter'] }],

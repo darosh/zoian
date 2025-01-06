@@ -168,7 +168,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   ],
   rate: [
     { type: ParamType.FreqLow, modules: ['Phaser', 'Tremolo', 'Flanger', 'Chorus', 'Vibrato', 'Univibe'] },
-    { type: ParamType.Unknown, modules: ['Ghostverb'] },
+    { type: ParamType.Rate, modules: ['Ghostverb'] },
   ],
   input_gain: [
     { type: ParamType.Db32, modules: ['OD and Distortion'] },
@@ -284,7 +284,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   time_constant: [{ type: ParamType.Env, modules: ['CV Filter'] }],
   rise_constant: [{ type: ParamType.Env, modules: ['CV Filter'] }],
   fall_constant: [{ type: ParamType.Env, modules: ['CV Filter'] }],
-  reset_in: [{ type: ParamType.Unknown, modules: ['Clock Divider'] }],
+  reset_in: [{ type: ParamType.One, modules: ['Clock Divider'] }],
   modifier: [{ type: ParamType.Unknown, modules: ['Clock Divider'] }],
   dividend: [{ type: ParamType.Unknown, modules: ['Clock Divider'] }],
   divisor: [{ type: ParamType.Unknown, modules: ['Clock Divider'] }],

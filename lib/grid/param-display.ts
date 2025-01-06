@@ -69,6 +69,7 @@ export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string
   [ParamType.TapRatio]: (value) => displayParam(adjustedParam(value)),
   [ParamType.DelayTimeFaster]: (value) => displayParam(adjustedParam(value)),
   [ParamType.TapMulti2]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Div]: (value) => displayParam(adjustedParam(value)),
 }
 
 export function displayParameter(bv: BlockView, value: number): number | string {

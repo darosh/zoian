@@ -67,6 +67,7 @@ export enum ParamType {
   TapRatio,
   DelayTimeFaster,
   TapMulti2,
+  Div,
 }
 
 type Range = [number | string, number | string, string?]
@@ -141,6 +142,7 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.TapRatio]: [RATIOS[0], <string> RATIOS.at(-1)],
   [ParamType.DelayTimeFaster]: [[62.5, 1250, 'ms'], [960, 48, 'BPM'], [16.000, 0.800, 'Hz']],
   [ParamType.TapMulti2]: [[10, .8, 'Hz'], [100, 1250, 'ms'], [600, 48, 'BPM']],
+  [ParamType.Div]: [1, 32],
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -285,9 +287,9 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   rise_constant: [{ type: ParamType.Env, modules: ['CV Filter'] }],
   fall_constant: [{ type: ParamType.Env, modules: ['CV Filter'] }],
   reset_in: [{ type: ParamType.One, modules: ['Clock Divider'] }],
-  modifier: [{ type: ParamType.Unknown, modules: ['Clock Divider'] }],
-  dividend: [{ type: ParamType.Unknown, modules: ['Clock Divider'] }],
-  divisor: [{ type: ParamType.Unknown, modules: ['Clock Divider'] }],
+  modifier: [{ type: ParamType.Ignored, modules: ['Clock Divider'] }], // old version
+  dividend: [{ type: ParamType.Div, modules: ['Clock Divider'] }],
+  divisor: [{ type: ParamType.Div, modules: ['Clock Divider'] }],
   cv_positive_input: [{ type: ParamType.One, modules: ['Comparator'] }],
   cv_negative_input: [{ type: ParamType.One, modules: ['Comparator'] }],
   side_gain: [{ type: ParamType.Db40, modules: ['Stereo Spread'] }],

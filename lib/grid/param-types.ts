@@ -53,6 +53,9 @@ export enum ParamType {
   ClockTime,
   TimeMin,
   TimeMax,
+  Env10,
+  Env2,
+  Ratio,
 }
 
 type Range = [number | string, number | string, string?]
@@ -112,6 +115,9 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.ClockTime]: [[0, 2400, 'BPM'], [0.000, 40.000, 'Hz']],
   [ParamType.TimeMin]: [0.02, 625000, 's'],
   [ParamType.TimeMax]: [62.5, 600000, 's'],
+  [ParamType.Env10]: [0, 10, 'ms'],
+  [ParamType.Env2]: [0.01, 2, 's'],
+  [ParamType.Ratio]: [1, Infinity],
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -155,12 +161,18 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
     { type: ParamType.One, modules: ['ADSR', 'Sample and Hold', 'CV Invert', 'Steps', 'Slew Limiter', 'Multiplier', 'Quantizer', 'In Switch', 'Out Switch', 'CV Delay', 'CV Loop', 'CV Filter', 'CV Rectify', 'Trigger', 'CPort CV Out', 'CV Flip Flop', 'Pixel', 'Euro CV Out 4', 'Euro CV Out 1', 'Euro CV Out 2', 'Euro CV Out 3', 'CV Mixer'] },
     { type: ParamType.ClockTime, modules: ['Clock Divider'] }
   ],
+  attack: [
+    { type: ParamType.Env, modules: ['ADSR', 'Gate'] },
+    { type: ParamType.Env10, modules: ['Compressor'] }
+  ],
+  release: [
+    { type: ParamType.Env, modules: ['ADSR', 'Gate'] },
+    { type: ParamType.Env2, modules: ['Compressor'] }
+  ],
 
   // Same across modules
   mix: [{ type: ParamType.Mix, modules: ['Plate Reverb', 'Phaser', 'Delay w/ Mod', 'Audio Balance', 'Ghostverb', 'Flanger', 'Chorus', 'Ring Modulator', 'Hall Reverb', 'Ping Pong Delay', 'Reverb Lite', 'Room Reverb', 'Reverse Delay', 'Univibe'] }],
   gate_in: [{ type: ParamType.One, modules: ['Sequencer', 'Midi Note Out'] }],
-  attack: [{ type: ParamType.Env, modules: ['ADSR', 'Compressor', 'Gate'] }],
-  release: [{ type: ParamType.Env, modules: ['ADSR', 'Compressor', 'Gate'] }],
   output_gain: [{ type: ParamType.Db0, modules: ['OD and Distortion', 'Fuzz'] }],
   tap_tempo_in: [{ type: ParamType.Time16, modules: ['Delay Line', 'Phaser', 'Tremolo', 'Delay w/ Mod', 'Flanger', 'Chorus', 'Vibrato', 'Ping Pong Delay', 'Reverse Delay', 'Univibe'] }],
   duty_cycle: [{ type: ParamType.Percent, modules: ['Oscillator', 'Ring Modulator'] }],
@@ -214,7 +226,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   slew_rate: [{ type: ParamType.Time59, modules: ['Slew Limiter'] }],
   rising_lag: [{ type: ParamType.Time60, modules: ['Slew Limiter'] }],
   falling_lag: [{ type: ParamType.Time60, modules: ['Slew Limiter'] }],
-  ratio: [{ type: ParamType.Unknown, modules: ['Compressor'] }],
+  ratio: [{ type: ParamType.Ratio, modules: ['Compressor'] }],
   q: [{ type: ParamType.Q, modules: ['Multi Filter'] }],
   high_eq: [{ type: ParamType.Db8, modules: ['Plate Reverb'] }],
   filter_gain: [{ type: ParamType.Db0, modules: ['All Pass Filter'] }],

@@ -34,6 +34,7 @@ export enum ParamType {
   Time5,
   Phase,
   Time34,
+  FreqLow,
 }
 
 type Range = [number | string, number | string, string?]
@@ -72,6 +73,7 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Time5]: [0, 5.9, 's'],
   [ParamType.Phase]: [-360, 360, 'deg'],
   [ParamType.Time34]: [2, 34.98, 'ms'],
+  [ParamType.FreqLow]: [[0.000, 39.998, 'Hz'], [Infinity, 25.0, 'ms'], [0, 2400, 'BPM']],
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -94,6 +96,10 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
     { type: ParamType.Db0, modules: ['Phaser'] },
     { type: ParamType.One, modules: ['Ghostverb', 'Univibe'] },
   ],
+  rate: [
+    { type: ParamType.FreqLow, modules: ['Phaser', 'Tremolo', 'Flanger', 'Chorus', 'Vibrato', 'Univibe'] },
+    { type: ParamType.Unknown, modules: ['Ghostverb'] }
+  ],
 
   // Same across modules
   mix: [{ type: ParamType.Mix, modules: ['Plate Reverb', 'Phaser', 'Delay w/ Mod', 'Audio Balance', 'Ghostverb', 'Flanger', 'Chorus', 'Ring Modulator', 'Hall Reverb', 'Ping Pong Delay', 'Reverb Lite', 'Room Reverb', 'Reverse Delay', 'Univibe'] }],
@@ -108,7 +114,6 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   threshold: [{ type: ParamType.One, modules: ['Compressor', 'Gate', 'Logic Gate'] }],
   decay_time: [{ type: ParamType.Time, modules: ['Plate Reverb', 'Hall Reverb', 'Reverb Lite', 'Room Reverb'] }],
   low_eq: [{ type: ParamType.Db8, modules: ['Plate Reverb', 'Hall Reverb', 'Room Reverb'] }],
-  rate: [{ type: ParamType.Unknown, modules: ['Phaser', 'Tremolo', 'Ghostverb', 'Flanger', 'Chorus', 'Vibrato', 'Univibe'] }],
   width: [{ type: ParamType.Unknown, modules: ['Phaser', 'Flanger', 'Chorus', 'Vibrato'] }],
   record: [{ type: ParamType.One, modules: ['Looper', 'CV Loop', 'Sampler'] }],
   speed_pitch: [{ type: ParamType.Pitch, modules: ['Looper', 'Granular', 'Sampler'] }],
@@ -135,8 +140,8 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   queue_start: [{ type: ParamType.One, modules: ['Sequencer'] }],
   key_input_note: [{ type: ParamType.One, modules: ['Sequencer'] }],
   key_input_gate: [{ type: ParamType.One, modules: ['Sequencer'] }],
-  cv_control: [{ type: ParamType.Unknown, modules: ['LFO'] }],
-  tap_control: [{ type: ParamType.Unknown, modules: ['LFO'] }],
+  cv_control: [{ type: ParamType.FreqLow, modules: ['LFO'] }],
+  tap_control: [{ type: ParamType.FreqLow, modules: ['LFO'] }],
   swing_amount: [{ type: ParamType.Unknown, modules: ['LFO'] }],
   phase_input: [{ type: ParamType.Phase, modules: ['LFO'] }],
   phase_reset: [{ type: ParamType.One, modules: ['LFO'] }],

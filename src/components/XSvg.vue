@@ -592,7 +592,7 @@
           <div
             v-if="showParameters"
             class="flex-0-1 pl-6">
-            <b style="font-size: 13px; font-variant-numeric: tabular-nums;">{{ selectedModuleParamDisplay }}</b>
+            <b style="font-size: 13px; font-variant-numeric: tabular-nums;"><template v-if="selectedModuleParamModulated">≈&numsp;</template>{{ selectedModuleParamDisplay }}</b>
           </div>
         </div>
         <template v-if="selectedModule.blockTitle">
@@ -625,9 +625,9 @@
                   <circle
                     style="transition: transform 120ms linear;"
                     :style="{transform: `translateX(${selectedModuleParamValue * 80}px)`}"
-                    class="x-value"
+                    :class="{ 'x-value-modulated': selectedModuleParamModulated }"
                     r="3"
-                    :cx="10"
+                    cx="10"
                     cy="10" />
                 </svg>
               </v-row>
@@ -1017,6 +1017,13 @@ export default {
     },
     selectedModuleParam () {
       return this.selectedModule?.blockView?.moduleView?.module?.parameters?.[this?.selectedModule?.blockView?.name]
+    },
+    selectedModuleParamModulated () {
+      if (!this.selectedModule?.blockView || (this.selectedModuleParam === undefined)) {
+        return
+      }
+
+      return this.selectedModule?.blockView?.to?.length > 0
     },
     positionTooltip () {
       if (!this.cursorBlock) {
@@ -1688,12 +1695,20 @@ td {
 .x-svg-value {
   fill: #000;
   stroke: #000;
+
+  .x-value-modulated {
+    fill: none;
+  }
 }
 
 .x-dark {
   .x-svg-value {
     fill: #fff;
     stroke: #fff;
+
+    .x-value-modulated {
+      fill: none;
+    }
   }
 }
 </style>

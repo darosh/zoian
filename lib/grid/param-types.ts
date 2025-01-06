@@ -64,11 +64,15 @@ export enum ParamType {
   TapMultiInf,
   TapMulti1,
   Rate,
+  TapRatio,
+  DelayTimeFaster,
+  TapMulti2,
 }
 
 type Range = [number | string, number | string, string?]
 
 const SCALES = ['Chromatic', 'Major', 'm Natural', 'm Harmonic', 'm Melodic', 'M Harmonic', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Locrian', 'M Locrian', 'Ahava Raba', 'Akebono', 'Bhairav', 'Marwa', 'Purvi', 'Todi', 'Pelog', 'Ukrainian', 'Romani', 'MHungarian', 'mHungarian', 'Persian', 'M Neapol', 'm Neapol', 'H Dim', 'W-H Dim', 'H-W Dim', 'Istrian', 'Prometheus', 'Harmonics', 'Tritone', '2Semi Tri', 'Wholetone', 'M Penta', 'm Penta', 'Hirajoshi1', 'Hirajoshi2', 'Hirajoshi3', 'Hirajoshi4', 'Hirajoshi5', 'Insen', 'Fourth', 'Dim Fifth', 'P Fifth', 'Aug Fifth', 'Octave']
+const RATIOS = ['1:1', '2:3', '1:2', '1:3', '3:8', '1:4', '3:16', '1:8', '1:16', '1:32']
 
 export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Unknown]: [0, 1, '?'],
@@ -134,6 +138,9 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.TapMultiInf]: [[Infinity, .125, 'Hz'], [0, 8000, 'ms'], [Infinity, 8, 'BPM']],
   [ParamType.TapMulti1]: [[10, .125, 'Hz'], [100, 8000, 'ms'], [600, 8, 'BPM']],
   [ParamType.Rate]: [0.05, 2, 's'],
+  [ParamType.TapRatio]: [RATIOS[0], <string> RATIOS.at(-1)],
+  [ParamType.DelayTimeFaster]: [[62.5, 1250, 'ms'], [960, 48, 'BPM'], [16.000, 0.800, 'Hz']],
+  [ParamType.TapMulti2]: [[10, .8, 'Hz'], [100, 1250, 'ms'], [600, 48, 'BPM']],
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -148,7 +155,8 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
     { type: ParamType.Db0, modules: ['Diffuser'] },
   ],
   delay_time: [
-    { type: ParamType.Time16, modules: ['Delay Line', 'Reverse Delay'] },
+    { type: ParamType.Time16, modules: ['Delay Line'] },
+    { type: ParamType.DelayTimeFaster, modules: ['Reverse Delay'] },
     { type: ParamType.DelayTime, modules: ['Delay w/ Mod', 'Ping Pong Delay'] },
     { type: ParamType.Time34, modules: ['Stereo Spread'] },
     { type: ParamType.Env, modules: ['CV Delay'] },
@@ -187,7 +195,8 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
     { type: ParamType.Env2, modules: ['Compressor'] },
   ],
   tap_tempo_in: [
-    { type: ParamType.Time16, modules: ['Delay Line', 'Reverse Delay'] },
+    { type: ParamType.Time16, modules: ['Delay Line'] },
+    { type: ParamType.TapMulti2, modules: ['Reverse Delay'] },
     { type: ParamType.TapMultiRev, modules: ['Ping Pong Delay'] },
     { type: ParamType.TapMulti1, modules: ['Vibrato', 'Univibe'] },
     { type: ParamType.TapMultiInf, modules: ['Flanger', 'Chorus'] },
@@ -314,7 +323,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   aux: [{ type: ParamType.Ignored, modules: ['Device Control'] }],
   performance: [{ type: ParamType.Ignored, modules: ['Device Control'] }],
   atten: [{ type: ParamType.Norm, modules: ['CV Mixer'] }],
-  tap_ratio: [{ type: ParamType.Unknown, modules: ['Reverse Delay'] }],
+  tap_ratio: [{ type: ParamType.TapRatio, modules: ['Reverse Delay'] }],
   pitch: [{ type: ParamType.PitchCents, modules: ['Reverse Delay'] }],
 }
 

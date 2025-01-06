@@ -22,6 +22,7 @@ export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string
   [ParamType.Percent]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Pan]: (value) => displayPan(adjustedParam(value)),
   [ParamType.Q]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Q1]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Hz]: (value) => displayHz(convertHz(value)),
   [ParamType.HzRound]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Step]: (value) => displayHzNote(convertHz(value)),
@@ -61,6 +62,9 @@ export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string
   [ParamType.Tap]: (value) => displayParam(adjustedParam(value)),
   [ParamType.DelayTime]: (value) => displayParam(adjustedParam(value)),
   [ParamType.TapMulti]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.TapMultiRev]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.TapMultiInf]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.TapMulti1]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Rate]: (value) => displayParam(adjustedParam(value)),
 }
 

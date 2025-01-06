@@ -20,6 +20,7 @@ export enum ParamType {
   Percent,
   Pan,
   Q,
+  Q1,
   Hz,
   HzRound,
   Step,
@@ -59,6 +60,9 @@ export enum ParamType {
   Tap,
   DelayTime,
   TapMulti,
+  TapMultiRev,
+  TapMultiInf,
+  TapMulti1,
   Rate,
 }
 
@@ -86,6 +90,7 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Percent]: [0, 100, '%'],
   [ParamType.Pan]: ['L100 R0', 'L0 R100'],
   [ParamType.Q]: [.1, 100],
+  [ParamType.Q1]: [1, 999.89],
   [ParamType.Hz]: [[27.5, 23999, 'Hz'], ['A0', 'A10']],
   [ParamType.HzRound]: [28, 23999],
   [ParamType.Step]: [['A0', 'A10'], [0, 1]],
@@ -125,6 +130,9 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Tap]: [25, 8000, 'ms'],
   [ParamType.DelayTime]: [[62.5, 2000, 'ms'], [960, 30, 'BPM'], [16.000, 0.500, 'Hz']],
   [ParamType.TapMulti]: [[0.500, 10.000, 'Hz'], [2000, 100, 'ms'], [30, 600, 'BPM']],
+  [ParamType.TapMultiRev]: [[10.000, 0.500, 'Hz'], [100, 2000, 'ms'], [600, 30, 'BPM']],
+  [ParamType.TapMultiInf]: [[Infinity, .125, 'Hz'], [0, 8000, 'ms'], [Infinity, 8, 'BPM']],
+  [ParamType.TapMulti1]: [[10, .125, 'Hz'], [100, 8000, 'ms'], [600, 8, 'BPM']],
   [ParamType.Rate]: [0.05, 2, 's'],
 }
 
@@ -179,7 +187,10 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
     { type: ParamType.Env2, modules: ['Compressor'] },
   ],
   tap_tempo_in: [
-    { type: ParamType.Time16, modules: ['Delay Line', 'Flanger', 'Chorus', 'Vibrato', 'Ping Pong Delay', 'Reverse Delay', 'Univibe'] },
+    { type: ParamType.Time16, modules: ['Delay Line', 'Reverse Delay'] },
+    { type: ParamType.TapMultiRev, modules: ['Ping Pong Delay'] },
+    { type: ParamType.TapMulti1, modules: ['Vibrato', 'Univibe'] },
+    { type: ParamType.TapMultiInf, modules: ['Flanger', 'Chorus'] },
     { type: ParamType.TapMulti, modules: ['Delay w/ Mod'] },
     { type: ParamType.Tap, modules: ['Phaser', 'Tremolo'] },
   ],
@@ -280,7 +291,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   regen: [{ type: ParamType.Db0, modules: ['Flanger'] }],
   min_freq: [{ type: ParamType.HzOnly, modules: ['Env Filter'] }],
   max_freq: [{ type: ParamType.HzOnly, modules: ['Env Filter'] }],
-  filter_q: [{ type: ParamType.Unknown, modules: ['Env Filter'] }],
+  filter_q: [{ type: ParamType.Q1, modules: ['Env Filter'] }],
   size: [{ type: ParamType.ModSamples, modules: ['Diffuser'] }],
   mod_width: [{ type: ParamType.ModSamples, modules: ['Diffuser'] }],
   grain_size: [{ type: ParamType.Size, modules: ['Granular'] }],

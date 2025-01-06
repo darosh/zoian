@@ -38,6 +38,7 @@ export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string
   [ParamType.Time34]: (value) => displayParam(adjustedParam(value)),
   [ParamType.FreqLow]: (value) => displayParam(adjustedParam(value)),
   [ParamType.PitchCents]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Db32]: (value) => displayParam(adjustedParam(value)),
 }
 
 export function displayParameter(bv: BlockView, value: number): number | string {

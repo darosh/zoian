@@ -56,6 +56,7 @@ export enum ParamType {
   Env10,
   Env2,
   Ratio,
+  Tap,
 }
 
 type Range = [number | string, number | string, string?]
@@ -118,6 +119,7 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Env10]: [0, 10, 'ms'],
   [ParamType.Env2]: [0.01, 2, 's'],
   [ParamType.Ratio]: [1, Infinity],
+  [ParamType.Tap]: [25, 8000, 'ms'],
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -169,12 +171,15 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
     { type: ParamType.Env, modules: ['ADSR', 'Gate'] },
     { type: ParamType.Env2, modules: ['Compressor'] }
   ],
+  tap_tempo_in: [
+    { type: ParamType.Time16, modules: ['Delay Line', 'Delay w/ Mod', 'Flanger', 'Chorus', 'Vibrato', 'Ping Pong Delay', 'Reverse Delay', 'Univibe'] },
+    { type: ParamType.Tap, modules: ['Phaser', 'Tremolo'] }
+  ],
 
   // Same across modules
   mix: [{ type: ParamType.Mix, modules: ['Plate Reverb', 'Phaser', 'Delay w/ Mod', 'Audio Balance', 'Ghostverb', 'Flanger', 'Chorus', 'Ring Modulator', 'Hall Reverb', 'Ping Pong Delay', 'Reverb Lite', 'Room Reverb', 'Reverse Delay', 'Univibe'] }],
   gate_in: [{ type: ParamType.One, modules: ['Sequencer', 'Midi Note Out'] }],
   output_gain: [{ type: ParamType.Db0, modules: ['OD and Distortion', 'Fuzz'] }],
-  tap_tempo_in: [{ type: ParamType.Time16, modules: ['Delay Line', 'Phaser', 'Tremolo', 'Delay w/ Mod', 'Flanger', 'Chorus', 'Vibrato', 'Ping Pong Delay', 'Reverse Delay', 'Univibe'] }],
   duty_cycle: [{ type: ParamType.Percent, modules: ['Oscillator', 'Ring Modulator'] }],
   decay_time: [{ type: ParamType.Time, modules: ['Plate Reverb', 'Hall Reverb', 'Reverb Lite', 'Room Reverb'] }],
   low_eq: [{ type: ParamType.Db8, modules: ['Plate Reverb', 'Hall Reverb', 'Room Reverb'] }],

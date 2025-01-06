@@ -51,6 +51,8 @@ export enum ParamType {
   Scale,
   Speed,
   ClockTime,
+  TimeMin,
+  TimeMax,
 }
 
 type Range = [number | string, number | string, string?]
@@ -108,6 +110,8 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Scale]: [SCALES[0], <string>SCALES.at(-1)],
   [ParamType.Speed]: [0, 200, '%'],
   [ParamType.ClockTime]: [[0, 2400, 'BPM'], [0.000, 40.000, 'Hz']],
+  [ParamType.TimeMin]: [0.02, 625000, 's'],
+  [ParamType.TimeMax]: [62.5, 600000, 's'],
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -263,8 +267,8 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   sent: [{ type: ParamType.One, modules: ['Midi Clock Out'] }],
   send_position: [{ type: ParamType.One, modules: ['Midi Clock Out'] }],
   song_position: [{ type: ParamType.Song, modules: ['Midi Clock Out'] }],
-  min_time: [{ type: ParamType.Unknown, modules: ['Tap to CV'] }],
-  max_time: [{ type: ParamType.Unknown, modules: ['Tap to CV'] }],
+  min_time: [{ type: ParamType.TimeMin, modules: ['Tap to CV'] }],
+  max_time: [{ type: ParamType.TimeMax, modules: ['Tap to CV'] }],
   level: [{ type: ParamType.One, modules: ['Euro Headphone Amp'] }],
   sample_playback: [{ type: ParamType.One, modules: ['Sampler'] }],
   direction: [{ type: ParamType.One, modules: ['Sampler'] }],

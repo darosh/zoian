@@ -53,6 +53,8 @@ export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string
   [ParamType.Scale]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Speed]: (value) => displayParam(adjustedParam(value)),
   [ParamType.ClockTime]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.TimeMin]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.TimeMax]: (value) => displayParam(adjustedParam(value)),
 }
 
 export function displayParameter(bv: BlockView, value: number): number | string {

@@ -1,10 +1,23 @@
 import type { ModuleSpec } from '../spec/types.ts'
 
 export enum ParamType {
-  Unknown,
-  One,
+  // Simple
   Ignored,
+  One,
   Norm,
+
+  // Numeric
+  Percent,
+  Speed,
+  Mix,
+  Swing,
+  Resonance,
+  Q,
+  Q1,
+  Ratio,
+  Div,
+
+  // Db
   Db0,
   Db8,
   Db18,
@@ -12,62 +25,65 @@ export enum ParamType {
   Db40,
   Db80,
   Db100,
+
+  // Midi
   Midi,
   NoteNum,
-  Note,
-  Resonance,
-  Song,
-  Percent,
-  Pan,
-  Q,
-  Q1,
-  Hz,
-  HzRound,
-  Step,
-  Mix,
-  Time,
-  Env,
-  Steps,
-  Bits,
-  Time16,
-  Pitch,
-  Time32,
-  Time31,
-  SizeSamples,
-  ModSamples,
-  Time5,
-  Phase,
-  Time34,
-  Time59,
-  Time60,
-  FreqLow,
-  PitchCents,
-  HzHigh,
-  HzOnly,
-  HzLow,
-  Size,
-  Position,
-  Swing,
-  Key,
-  Scale,
-  Speed,
-  ClockTime,
+
+  // Time
   TimeMin,
   TimeMax,
   Env10,
   Env2,
-  Ratio,
+  Time,
+  Env,
+  Size,
+  Position,
   Tap,
+  Rate,
+  Time32,
+  Time31,
+  Time5,
+  Time34,
+  Time59,
+  Time60,
+  Time16,
+
+  // Hz
+  HzHigh,
+  HzOnly,
+  HzLow,
+
+  // BPM
+  FreqLow,
+  ClockTime,
   DelayTime,
   TapMulti,
   TapMultiRev,
   TapMultiInf,
   TapMulti1,
-  Rate,
-  TapRatio,
   DelayTimeFaster,
   TapMulti2,
-  Div,
+
+  // Pitch
+  Note,
+  Hz,
+  Step,
+  Pitch,
+  Key,
+
+  // Special
+  Song,
+  Pan,
+  SizeSamples,
+  ModSamples,
+  Phase,
+  PitchCents,
+  HzRound,
+  Steps,
+  Scale,
+  TapRatio,
+  // Bits,
 }
 
 type Range = [number | string, number | string, string?]
@@ -76,10 +92,23 @@ const SCALES = ['Chromatic', 'Major', 'm Natural', 'm Harmonic', 'm Melodic', 'M
 const RATIOS = ['1:1', '2:3', '1:2', '1:3', '3:8', '1:4', '3:16', '1:8', '1:16', '1:32']
 
 export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
-  [ParamType.Unknown]: [0, 1, '?'],
-  [ParamType.One]: [0, 1],
+  // Simple
   [ParamType.Ignored]: [0, 1],
+  [ParamType.One]: [0, 1],
   [ParamType.Norm]: [-1, 1],
+
+  // Numeric
+  [ParamType.Percent]: [0, 100, '%'],
+  [ParamType.Speed]: [0, 200, '%'],
+  [ParamType.Mix]: [0, 100],
+  [ParamType.Swing]: [-100, 100],
+  [ParamType.Resonance]: [1, 999.9],
+  [ParamType.Q]: [.1, 100],
+  [ParamType.Q1]: [1, 999.89],
+  [ParamType.Ratio]: [1, Infinity],
+  [ParamType.Div]: [1, 32],
+
+  // Db
   [ParamType.Db0]: [-Infinity, 0, 'dB'],
   [ParamType.Db8]: [-8, 8, 'dB'],
   [ParamType.Db18]: [-18, 18, 'dB'],
@@ -87,62 +116,65 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Db40]: [-40, 40, 'dB'],
   [ParamType.Db80]: [-80, 0, 'dB'],
   [ParamType.Db100]: [-100, 20, 'dB'],
+
+  // Midi
   [ParamType.Midi]: [0, 127],
   [ParamType.NoteNum]: [21, 127],
-  [ParamType.Note]: ['A0', 'A10'],
-  [ParamType.Resonance]: [1, 999.9],
-  [ParamType.Song]: ['001:1:0', '1024:4:18'],
-  [ParamType.Percent]: [0, 100, '%'],
-  [ParamType.Pan]: ['L100 R0', 'L0 R100'],
-  [ParamType.Q]: [.1, 100],
-  [ParamType.Q1]: [1, 999.89],
-  [ParamType.Hz]: [[27.5, 23999, 'Hz'], ['A0', 'A10']],
-  [ParamType.HzRound]: [28, 23999],
-  [ParamType.Step]: [['A0', 'A10'], [0, 1]],
-  [ParamType.Mix]: [0, 100],
+
+  // Time
+  [ParamType.TimeMin]: [0.02, 62.5, 'ms'],
+  [ParamType.TimeMax]: [62.5, 60000, 'ms'],
+  [ParamType.Env10]: [0, 10, 'ms'],
+  [ParamType.Env2]: [0.01, 2, 's'],
   [ParamType.Time]: [0, Infinity, 's'],
   [ParamType.Env]: [1.33, 60000, 'ms'],
-  [ParamType.Steps]: [2, 63, 'steps'],
-  [ParamType.Bits]: [[0, 31], [0, 32]], // ?
-  [ParamType.Time16]: [0.02, 16000, 'ms'],
-  [ParamType.Pitch]: [[3.1, 3199.7, '%'], [-60, 60, 'semitones'], [-6000, 6000, 'cents']],
+  [ParamType.Size]: [0.08, 999.86, 'ms'],
+  [ParamType.Position]: [0.00, 999.98, 'ms'],
+  [ParamType.Tap]: [25, 8000, 'ms'],
+  [ParamType.Rate]: [0.05, 2, 's'],
   [ParamType.Time32]: [0, 32, 's'],
   [ParamType.Time31]: [0.013, 31.998, 's'],
-  [ParamType.SizeSamples]: [80, 4999, 'samples'],
-  [ParamType.ModSamples]: [3, 499, 'samples'],
   [ParamType.Time5]: [0, 5.9, 's'],
-  [ParamType.Phase]: [-360, 360, 'deg'],
   [ParamType.Time34]: [2, 34.98, 'ms'],
   [ParamType.Time59]: [0, 59.99, 's'],
   [ParamType.Time60]: [0, 60000, 'ms'],
-  [ParamType.FreqLow]: [[0.000, 39.998, 'Hz'], [Infinity, 25.0, 'ms'], [0, 2400, 'BPM']],
-  [ParamType.PitchCents]: [-12, 12], // -/+ 10 cents,4 semitones,5 semitones, 12 semitones
+  [ParamType.Time16]: [0.02, 16000, 'ms'],
+
+  // Hz
   [ParamType.HzHigh]: [1700, 4699, 'Hz'],
   [ParamType.HzOnly]: [27.5, 23999, 'Hz'],
   [ParamType.HzLow]: [0, 39.998, 'Hz'],
-  [ParamType.Size]: [0.08, 999.86, 'ms'],
-  [ParamType.Position]: [0.00, 999.98, 'ms'],
-  [ParamType.Swing]: [-100, 100],
-  [ParamType.Key]: ['A', 'G#'],
-  [ParamType.Scale]: [SCALES[0], <string> SCALES.at(-1)],
-  [ParamType.Speed]: [0, 200, '%'],
+
+  // BPM
+  [ParamType.FreqLow]: [[0.000, 39.998, 'Hz'], [Infinity, 25.0, 'ms'], [0, 2400, 'BPM']],
   [ParamType.ClockTime]: [[0, 2400, 'BPM'], [0.000, 40.000, 'Hz']],
-  [ParamType.TimeMin]: [0.02, 625000, 's'],
-  [ParamType.TimeMax]: [62.5, 600000, 's'],
-  [ParamType.Env10]: [0, 10, 'ms'],
-  [ParamType.Env2]: [0.01, 2, 's'],
-  [ParamType.Ratio]: [1, Infinity],
-  [ParamType.Tap]: [25, 8000, 'ms'],
   [ParamType.DelayTime]: [[62.5, 2000, 'ms'], [960, 30, 'BPM'], [16.000, 0.500, 'Hz']],
   [ParamType.TapMulti]: [[0.500, 10.000, 'Hz'], [2000, 100, 'ms'], [30, 600, 'BPM']],
   [ParamType.TapMultiRev]: [[10.000, 0.500, 'Hz'], [100, 2000, 'ms'], [600, 30, 'BPM']],
   [ParamType.TapMultiInf]: [[Infinity, .125, 'Hz'], [0, 8000, 'ms'], [Infinity, 8, 'BPM']],
   [ParamType.TapMulti1]: [[10, .125, 'Hz'], [100, 8000, 'ms'], [600, 8, 'BPM']],
-  [ParamType.Rate]: [0.05, 2, 's'],
-  [ParamType.TapRatio]: [RATIOS[0], <string> RATIOS.at(-1)],
   [ParamType.DelayTimeFaster]: [[62.5, 1250, 'ms'], [960, 48, 'BPM'], [16.000, 0.800, 'Hz']],
   [ParamType.TapMulti2]: [[10, .8, 'Hz'], [100, 1250, 'ms'], [600, 48, 'BPM']],
-  [ParamType.Div]: [1, 32],
+
+  // Pitch
+  [ParamType.Note]: ['A0', 'A10'],
+  [ParamType.Hz]: [[27.5, 23999, 'Hz'], ['A0', 'A10']],
+  [ParamType.Step]: [['A0', 'A10'], [0, 1]],
+  [ParamType.Pitch]: [[3.1, 3199.7, '%'], [-60, 60, 'semitones'], [-6000, 6000, 'cents']],
+  [ParamType.Key]: ['A', 'G#'],
+
+  // Special
+  [ParamType.Song]: ['001:1:0', '1024:4:18'],
+  [ParamType.Pan]: ['L100 R0', 'L0 R100'],
+  [ParamType.SizeSamples]: [80, 4999, 'samples'],
+  [ParamType.ModSamples]: [3, 499, 'samples'],
+  [ParamType.Phase]: [-360, 360, 'deg'],
+  [ParamType.PitchCents]: [-12, 12], // -/+ 10 cents,4 semitones,5 semitones, 12 semitones
+  [ParamType.HzRound]: [28, 23999],
+  [ParamType.Steps]: [2, 63, 'steps'],
+  [ParamType.Scale]: [SCALES[0], <string> SCALES.at(-1)],
+  [ParamType.TapRatio]: [RATIOS[0], <string> RATIOS.at(-1)],
+  // [ParamType.Bits]: [[0, 31], [0, 32]], // ?
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -251,7 +283,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   sustain: [{ type: ParamType.One, modules: ['ADSR'] }],
   hold_sustain_release: [{ type: ParamType.Env, modules: ['ADSR'] }],
   level_control: [{ type: ParamType.Db0, modules: ['VCA'] }],
-  crushed_bits: [{ type: ParamType.Bits, modules: ['Bit Crusher'] }],
+  crushed_bits: [{ type: ParamType.Ignored, modules: ['Bit Crusher'] }],
   trigger: [{ type: ParamType.One, modules: ['Sample and Hold'] }],
   modulation_in: [{ type: ParamType.Time16, modules: ['Delay Line'] }],
   rise_time: [{ type: ParamType.Env, modules: ['Env Follower'] }],

@@ -3,7 +3,6 @@ import { getParamType, ParamType } from './param-types.ts'
 import { adjustedParam, convertDb8, convertEnv, convertHz, convertMidi, convertMix, convertResonance, convertSeconds, convertSteps } from './param-convert.ts'
 
 export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string> = {
-  [ParamType.Unknown]: (value) => displayParam(adjustedParam(value)),
   [ParamType.One]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Ignored]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Norm]: (value) => displayParam(adjustedParam(value)),
@@ -30,7 +29,7 @@ export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string
   [ParamType.Time]: (value) => displaySeconds(convertSeconds(value)),
   [ParamType.Env]: (value) => displayEnv(convertEnv(value)),
   [ParamType.Steps]: (value) => displaySteps(convertSteps(value)),
-  [ParamType.Bits]: (value) => displayParam(adjustedParam(value)),
+  // [ParamType.Bits]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Time16]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Pitch]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Time32]: (value) => displayParam(adjustedParam(value)),

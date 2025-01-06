@@ -9,7 +9,10 @@ export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string
   [ParamType.Norm]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Db0]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Db8]: (value) => displayDb(convertDb8(value)),
+  [ParamType.Db18]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Db32]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Db40]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.Db80]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Db100]: (value) => displayParam(adjustedParam(value)),
   [ParamType.Midi]: (value) => convertMidi(value),
   [ParamType.NoteNum]: (value) => displayParam(adjustedParam(value)),
@@ -38,7 +41,9 @@ export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string
   [ParamType.Time34]: (value) => displayParam(adjustedParam(value)),
   [ParamType.FreqLow]: (value) => displayParam(adjustedParam(value)),
   [ParamType.PitchCents]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Db32]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.HzHigh]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.HzOnly]: (value) => displayParam(adjustedParam(value)),
+  [ParamType.HzLow]: (value) => displayParam(adjustedParam(value)),
 }
 
 export function displayParameter(bv: BlockView, value: number): number | string {

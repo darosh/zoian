@@ -7,8 +7,10 @@ export enum ParamType {
   Norm,
   Db0,
   Db8,
-  Db40,
+  Db18,
   Db32,
+  Db40,
+  Db80,
   Db100,
   Midi,
   NoteNum,
@@ -37,6 +39,9 @@ export enum ParamType {
   Time34,
   FreqLow,
   PitchCents,
+  HzHigh,
+  HzOnly,
+  HzLow,
 }
 
 type Range = [number | string, number | string, string?]
@@ -48,8 +53,10 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Norm]: [-1, 1],
   [ParamType.Db0]: [-Infinity, 0, 'dB'],
   [ParamType.Db8]: [-8, 8, 'dB'],
+  [ParamType.Db18]: [-18, 18, 'dB'],
   [ParamType.Db32]: [0, 32, 'dB'],
   [ParamType.Db40]: [-40, 40, 'dB'],
+  [ParamType.Db80]: [-80, 0, 'dB'],
   [ParamType.Db100]: [-100, 20, 'dB'],
   [ParamType.Midi]: [0, 127],
   [ParamType.NoteNum]: [21, 127],
@@ -59,7 +66,7 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Percent]: [0, 100, '%'],
   [ParamType.Pan]: ['L100 R0', 'L0 R100'],
   [ParamType.Q]: [.1, 100],
-  [ParamType.Hz]: [[27.5, 23999], ['A0', 'A10']],
+  [ParamType.Hz]: [[27.5, 23999, 'Hz'], ['A0', 'A10']],
   [ParamType.HzRound]: [28, 23999],
   [ParamType.Step]: [['A0', 'A10'], [0, 1]],
   [ParamType.Mix]: [0, 100],
@@ -78,6 +85,9 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Time34]: [2, 34.98, 'ms'],
   [ParamType.FreqLow]: [[0.000, 39.998, 'Hz'], [Infinity, 25.0, 'ms'], [0, 2400, 'BPM']],
   [ParamType.PitchCents]: [-12, 12], // -/+ 10 cents,4 semitones,5 semitones, 12 semitones
+  [ParamType.HzHigh]: [1700, 4699, 'Hz'],
+  [ParamType.HzOnly]: [27.5, 23999, 'Hz'],
+  [ParamType.HzLow]: [0, 39.998, 'Hz'],
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -109,7 +119,14 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
     { type: ParamType.Db32, modules: ['OD and Distortion'] },
     { type: ParamType.Db40, modules: ['Fuzz'] }
   ],
-
+  mod_rate: [
+    { type: ParamType.Time5, modules: ['Diffuser'] },
+    { type: ParamType.HzLow, modules: ['Delay w/ Mod', 'Ping Pong Delay'] }
+  ],
+  threshold: [
+    { type: ParamType.One, modules: ['Gate', 'Logic Gate'] },
+    { type: ParamType.Db80, modules: ['Compressor'] }
+  ],
 
   // Same across modules
   mix: [{ type: ParamType.Mix, modules: ['Plate Reverb', 'Phaser', 'Delay w/ Mod', 'Audio Balance', 'Ghostverb', 'Flanger', 'Chorus', 'Ring Modulator', 'Hall Reverb', 'Ping Pong Delay', 'Reverb Lite', 'Room Reverb', 'Reverse Delay', 'Univibe'] }],
@@ -120,7 +137,6 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   output_gain: [{ type: ParamType.Db0, modules: ['OD and Distortion', 'Fuzz'] }],
   tap_tempo_in: [{ type: ParamType.Time16, modules: ['Delay Line', 'Phaser', 'Tremolo', 'Delay w/ Mod', 'Flanger', 'Chorus', 'Vibrato', 'Ping Pong Delay', 'Reverse Delay', 'Univibe'] }],
   duty_cycle: [{ type: ParamType.Percent, modules: ['Oscillator', 'Ring Modulator'] }],
-  threshold: [{ type: ParamType.One, modules: ['Compressor', 'Gate', 'Logic Gate'] }],
   decay_time: [{ type: ParamType.Time, modules: ['Plate Reverb', 'Hall Reverb', 'Reverb Lite', 'Room Reverb'] }],
   low_eq: [{ type: ParamType.Db8, modules: ['Plate Reverb', 'Hall Reverb', 'Room Reverb'] }],
   width: [{ type: ParamType.One, modules: ['Phaser', 'Flanger', 'Chorus', 'Vibrato'] }],
@@ -135,12 +151,11 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   direct: [{ type: ParamType.One, modules: ['Tremolo', 'Flanger', 'Chorus', 'Vibrato', 'Univibe'] }],
   depth: [{ type: ParamType.One, modules: ['Tremolo', 'Univibe'] }],
   feedback: [{ type: ParamType.Db0, modules: ['Delay w/ Mod', 'Ping Pong Delay', 'Reverse Delay'] }],
-  mod_rate: [{ type: ParamType.Time5, modules: ['Delay w/ Mod', 'Ping Pong Delay', 'Diffuser'] }],
   mod_depth: [{ type: ParamType.One, modules: ['Delay w/ Mod', 'Ping Pong Delay'] }],
   in: [{ type: ParamType.One, modules: ['UI Button', 'Logic Gate'] }],
   pan: [{ type: ParamType.Pan, modules: ['Audio Panner', 'Audio Mixer'] }],
   tone_tilt_eq: [{ type: ParamType.Db8, modules: ['Flanger', 'Chorus'] }],
-  lpf_freq: [{ type: ParamType.Unknown, modules: ['Hall Reverb', 'Room Reverb'] }],
+  lpf_freq: [{ type: ParamType.HzHigh, modules: ['Hall Reverb', 'Room Reverb'] }],
 
   // Single use
   out_select: [{ type: ParamType.Ignored, modules: ['Out Switch'] }],
@@ -184,10 +199,10 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   rhythm_in: [{ type: ParamType.One, modules: ['Rhythm'] }],
   loop_length: [{ type: ParamType.Time31, modules: ['Looper'] }],
   reverse_playback: [{ type: ParamType.One, modules: ['Looper'] }],
-  low_shelf: [{ type: ParamType.Unknown, modules: ['Tone Control'] }],
-  mid_gain: [{ type: ParamType.Unknown, modules: ['Tone Control'] }],
-  mid_freq: [{ type: ParamType.Unknown, modules: ['Tone Control'] }],
-  high_shelf: [{ type: ParamType.Unknown, modules: ['Tone Control'] }],
+  low_shelf: [{ type: ParamType.Db18, modules: ['Tone Control'] }],
+  mid_gain: [{ type: ParamType.Db18, modules: ['Tone Control'] }],
+  mid_freq: [{ type: ParamType.HzRound, modules: ['Tone Control'] }],
+  high_shelf: [{ type: ParamType.Db18, modules: ['Tone Control'] }],
   value: [{ type: ParamType.One, modules: ['Value'] }],
   playback_speed: [{ type: ParamType.Unknown, modules: ['CV Loop'] }],
   stop_position: [{ type: ParamType.Unknown, modules: ['CV Loop'] }],
@@ -209,8 +224,8 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   pc: [{ type: ParamType.Midi, modules: ['Midi PC Out'] }],
   decay_feedback: [{ type: ParamType.One, modules: ['Ghostverb'] }],
   regen: [{ type: ParamType.Db0, modules: ['Flanger'] }],
-  min_freq: [{ type: ParamType.Unknown, modules: ['Env Filter'] }],
-  max_freq: [{ type: ParamType.Unknown, modules: ['Env Filter'] }],
+  min_freq: [{ type: ParamType.HzOnly, modules: ['Env Filter'] }],
+  max_freq: [{ type: ParamType.HzOnly, modules: ['Env Filter'] }],
   filter_q: [{ type: ParamType.Unknown, modules: ['Env Filter'] }],
   size: [{ type: ParamType.ModSamples, modules: ['Diffuser'] }],
   mod_width: [{ type: ParamType.ModSamples, modules: ['Diffuser'] }],

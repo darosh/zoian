@@ -214,7 +214,7 @@ export const DISPLAY_BLOCK: Record<string, string> = {
   lowpass_out: 'lopo',
   lpf_freq: 'lpff',
   max_freq: 'maxf',
-  max_time: 'mtim',
+  max_time: 'maxt',
   mid_freq_1: 'mf1',
   mid_freq_2: 'mf2',
   mid_gain_1: 'mg1',

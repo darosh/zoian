@@ -57,6 +57,9 @@ export enum ParamType {
   Env2,
   Ratio,
   Tap,
+  DelayTime,
+  TapMulti,
+  Rate,
 }
 
 type Range = [number | string, number | string, string?]
@@ -111,7 +114,7 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Position]: [0.00, 999.98, 'ms'],
   [ParamType.Swing]: [-100, 100],
   [ParamType.Key]: ['A', 'G#'],
-  [ParamType.Scale]: [SCALES[0], <string>SCALES.at(-1)],
+  [ParamType.Scale]: [SCALES[0], <string> SCALES.at(-1)],
   [ParamType.Speed]: [0, 200, '%'],
   [ParamType.ClockTime]: [[0, 2400, 'BPM'], [0.000, 40.000, 'Hz']],
   [ParamType.TimeMin]: [0.02, 625000, 's'],
@@ -120,6 +123,9 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Env2]: [0.01, 2, 's'],
   [ParamType.Ratio]: [1, Infinity],
   [ParamType.Tap]: [25, 8000, 'ms'],
+  [ParamType.DelayTime]: [[62.5, 2000, 'ms'], [960, 30, 'BPM'], [16.000, 0.500, 'Hz']],
+  [ParamType.TapMulti]: [[0.500, 10.000, 'Hz'], [2000, 100, 'ms'], [30, 600, 'BPM']],
+  [ParamType.Rate]: [0.05, 2, 's'],
 }
 
 const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
@@ -134,7 +140,8 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
     { type: ParamType.Db0, modules: ['Diffuser'] },
   ],
   delay_time: [
-    { type: ParamType.Time16, modules: ['Delay Line', 'Delay w/ Mod', 'Ping Pong Delay', 'Reverse Delay'] },
+    { type: ParamType.Time16, modules: ['Delay Line', 'Reverse Delay'] },
+    { type: ParamType.DelayTime, modules: ['Delay w/ Mod', 'Ping Pong Delay'] },
     { type: ParamType.Time34, modules: ['Stereo Spread'] },
     { type: ParamType.Env, modules: ['CV Delay'] },
   ],
@@ -145,35 +152,36 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   ],
   rate: [
     { type: ParamType.FreqLow, modules: ['Phaser', 'Tremolo', 'Flanger', 'Chorus', 'Vibrato', 'Univibe'] },
-    { type: ParamType.Unknown, modules: ['Ghostverb'] }
+    { type: ParamType.Unknown, modules: ['Ghostverb'] },
   ],
   input_gain: [
     { type: ParamType.Db32, modules: ['OD and Distortion'] },
-    { type: ParamType.Db40, modules: ['Fuzz'] }
+    { type: ParamType.Db40, modules: ['Fuzz'] },
   ],
   mod_rate: [
     { type: ParamType.Time5, modules: ['Diffuser'] },
-    { type: ParamType.HzLow, modules: ['Delay w/ Mod', 'Ping Pong Delay'] }
+    { type: ParamType.HzLow, modules: ['Delay w/ Mod', 'Ping Pong Delay'] },
   ],
   threshold: [
     { type: ParamType.One, modules: ['Gate', 'Logic Gate'] },
-    { type: ParamType.Db80, modules: ['Compressor'] }
+    { type: ParamType.Db80, modules: ['Compressor'] },
   ],
   cv_in: [
     { type: ParamType.One, modules: ['ADSR', 'Sample and Hold', 'CV Invert', 'Steps', 'Slew Limiter', 'Multiplier', 'Quantizer', 'In Switch', 'Out Switch', 'CV Delay', 'CV Loop', 'CV Filter', 'CV Rectify', 'Trigger', 'CPort CV Out', 'CV Flip Flop', 'Pixel', 'Euro CV Out 4', 'Euro CV Out 1', 'Euro CV Out 2', 'Euro CV Out 3', 'CV Mixer'] },
-    { type: ParamType.ClockTime, modules: ['Clock Divider'] }
+    { type: ParamType.ClockTime, modules: ['Clock Divider'] },
   ],
   attack: [
     { type: ParamType.Env, modules: ['ADSR', 'Gate'] },
-    { type: ParamType.Env10, modules: ['Compressor'] }
+    { type: ParamType.Env10, modules: ['Compressor'] },
   ],
   release: [
     { type: ParamType.Env, modules: ['ADSR', 'Gate'] },
-    { type: ParamType.Env2, modules: ['Compressor'] }
+    { type: ParamType.Env2, modules: ['Compressor'] },
   ],
   tap_tempo_in: [
-    { type: ParamType.Time16, modules: ['Delay Line', 'Delay w/ Mod', 'Flanger', 'Chorus', 'Vibrato', 'Ping Pong Delay', 'Reverse Delay', 'Univibe'] },
-    { type: ParamType.Tap, modules: ['Phaser', 'Tremolo'] }
+    { type: ParamType.Time16, modules: ['Delay Line', 'Flanger', 'Chorus', 'Vibrato', 'Ping Pong Delay', 'Reverse Delay', 'Univibe'] },
+    { type: ParamType.TapMulti, modules: ['Delay w/ Mod'] },
+    { type: ParamType.Tap, modules: ['Phaser', 'Tremolo'] },
   ],
 
   // Same across modules

@@ -147,7 +147,7 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
 
   // BPM
   [ParamType.FreqLow]: [[0.000, 39.998, 'Hz'], [Infinity, 25.0, 'ms'], [0, 2400, 'BPM']],
-  [ParamType.ClockTime]: [[0, 2400, 'BPM'], [0.000, 40.000, 'Hz']],
+  [ParamType.ClockTime]: [[89478.480, 0.025, 's'], [0, 2400, 'BPM'], [0.000, 40.000, 'Hz']],
   [ParamType.DelayTime]: [[62.5, 2000, 'ms'], [960, 30, 'BPM'], [16.000, 0.500, 'Hz']],
   [ParamType.TapMulti]: [[0.500, 10.000, 'Hz'], [2000, 100, 'ms'], [30, 600, 'BPM']],
   [ParamType.TapMultiRev]: [[10.000, 0.500, 'Hz'], [100, 2000, 'ms'], [600, 30, 'BPM']],
@@ -335,7 +335,7 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   min_freq: [{ type: ParamType.HzOnly, modules: ['Env Filter'] }],
   max_freq: [{ type: ParamType.HzOnly, modules: ['Env Filter'] }],
   filter_q: [{ type: ParamType.Q1, modules: ['Env Filter'] }],
-  size: [{ type: ParamType.ModSamples, modules: ['Diffuser'] }],
+  size: [{ type: ParamType.SizeSamples, modules: ['Diffuser'] }],
   mod_width: [{ type: ParamType.ModSamples, modules: ['Diffuser'] }],
   grain_size: [{ type: ParamType.Size, modules: ['Granular'] }],
   grain_position: [{ type: ParamType.Position, modules: ['Granular'] }],

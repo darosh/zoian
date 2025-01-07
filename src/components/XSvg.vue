@@ -694,7 +694,7 @@
           </template>
         </tbody>
       </v-table>
-      <template v-if="showParameters && selectedModuleOptions?.length">
+      <template v-if="showParameters && selectedModule.first && selectedModuleOptions?.length">
         <v-divider class="mt-0" />
         <div
           class="px-4 py-3"

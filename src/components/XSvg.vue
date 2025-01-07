@@ -694,6 +694,18 @@
           </template>
         </tbody>
       </v-table>
+      <template v-if="showParameters && selectedModuleOptions?.length">
+        <v-divider class="mt-0" />
+        <div
+          class="px-4 py-3"
+          style="font-size: 13px; max-width: 360px;">
+          <template
+            v-for="([key, value], optionIndex) of selectedModuleOptions"
+            :key="key">
+            <span class="text-no-wrap">{{ key.replaceAll('_', ' ') }}: <b>{{ value.toString().replaceAll('_', ' ') }}</b></span><span v-if="optionIndex < (selectedModuleOptions.length - 1)">, </span>
+          </template>
+        </div>
+      </template>
     </template>
   </v-card>
 </template>
@@ -1039,6 +1051,10 @@ export default {
       }
 
       return this.selectedModule?.blockView?.to?.length > 0
+    },
+    selectedModuleOptions () {
+      return Object.entries(this.selectedModule.module.options)
+        //.map(([k, v]) => `${k}: ${v}`).join(', ')
     },
     positionTooltip () {
       if (!this.cursorBlock) {

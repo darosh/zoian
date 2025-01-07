@@ -1,4 +1,4 @@
-const UINT16_MAX = 65535
+export const UINT16_MAX = 65535
 const DB_CENTER = 32767
 
 export function adjustedParam(raw: number): number {

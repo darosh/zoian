@@ -54,8 +54,8 @@
           </td>
           <td>{{ bes[0][2] }}</td>
           <!--          <td>{{ bes[0][1].param }}</td>-->
-          <td class="text-no-wrap">
-            <b>{{ bes[0][3] }}</b> {{ bes[0][4] }}
+          <td>
+            {{ bes[0][3] }}
           </td>
           <td>{{ bes[0][1].initial }}</td>
         </tr>
@@ -71,7 +71,7 @@
           <td colspan="10" />
         </tr>
         <tr
-          v-for="([bn, be, bt, bp, br], ii) of bes.slice(1)"
+          v-for="([bn, be, bt, bp], ii) of bes.slice(1)"
           :key="bn">
           <td
             v-if="!ii"
@@ -92,8 +92,8 @@
           </td>
           <td>{{ bt }}</td>
           <!--          <td>{{ be.param }}</td>-->
-          <td class="text-no-wrap">
-            <b>{{ bp }}</b> {{ br }}
+          <td>
+            {{ bp }}
           </td>
           <td>{{ be.initial }}</td>
         </tr>
@@ -111,7 +111,7 @@ import { DESCRIPTIONS } from '../../lib/spec/display-descriptions.ts'
 import { TIPS } from '../../lib/spec/display-tips.ts'
 import { getConnectionType } from '../../lib/view/table-connection.ts'
 import { ConnectionType } from '../../lib/view/types.ts'
-import { getParamType, PARAM_RANGE, ParamType } from '../../lib/grid/param-types.ts'
+import { getParamInfo } from '../../lib/grid/param-types.ts'
 import { Category } from '../../lib/spec/types.ts'
 
 export default {
@@ -128,15 +128,12 @@ export default {
           description: DESCRIPTIONS[i],
           bes: blockEntries(m.blocks)
             .map(x => {
-              const pt = x[1].param ? getParamType(x[0], m) : undefined
-              const pr = x[1].param ? PARAM_RANGE[pt] : undefined
+              const { param } = x[1]
+
               return [
                 ...x,
                 ConnectionType[getConnectionType(x, m.id)],
-                x[1].param ? ParamType[getParamType(x[0], m)] : '-',
-                x[1].param ? (Array.isArray(pr[0]) ? pr : [pr])
-                  .map(v => `${v[0]}/${v[1]}${v[2] ? ' ' + v[2] : ''}`)
-                  .join(', ') : null
+                param ? getParamInfo(x[0], m) : undefined
               ]
             })
         }))

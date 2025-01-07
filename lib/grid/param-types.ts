@@ -83,10 +83,11 @@ export enum ParamType {
   Steps,
   Scale,
   TapRatio,
-  // Bits,
+  Bits,
+  BitsFractional,
 }
 
-type Range = [number | string, number | string, string?]
+export type Range = [number | string, number | string, string?, number?]
 
 const SCALES = ['Chromatic', 'Major', 'm Natural', 'm Harmonic', 'm Melodic', 'M Harmonic', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Locrian', 'M Locrian', 'Ahava Raba', 'Akebono', 'Bhairav', 'Marwa', 'Purvi', 'Todi', 'Pelog', 'Ukrainian', 'Romani', 'MHungarian', 'mHungarian', 'Persian', 'M Neapol', 'm Neapol', 'H Dim', 'W-H Dim', 'H-W Dim', 'Istrian', 'Prometheus', 'Harmonics', 'Tritone', '2Semi Tri', 'Wholetone', 'M Penta', 'm Penta', 'Hirajoshi1', 'Hirajoshi2', 'Hirajoshi3', 'Hirajoshi4', 'Hirajoshi5', 'Insen', 'Fourth', 'Dim Fifth', 'P Fifth', 'Aug Fifth', 'Octave']
 const RATIOS = ['1:1', '2:3', '1:2', '1:3', '3:8', '1:4', '3:16', '1:8', '1:16', '1:32']
@@ -174,10 +175,14 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Steps]: [2, 63, 'steps'],
   [ParamType.Scale]: [SCALES[0], <string> SCALES.at(-1)],
   [ParamType.TapRatio]: [RATIOS[0], <string> RATIOS.at(-1)],
-  // [ParamType.Bits]: [[0, 31], [0, 32]], // ?
+  [ParamType.Bits]: [0, 31, 'bits', 0],
+  [ParamType.BitsFractional]: [0, 32, 'bits', 1],
 }
 
-const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
+export type TypeSpec = { type: ParamType; modules: string[] }
+export type TypesSpec = { types: [ParamType, string, string][]; modules: string[] }
+
+const TYPE_MAP: Record<string, (TypeSpec | TypesSpec)[]> = {
   // Different across modules
   frequency: [
     { type: ParamType.Hz, modules: ['SV Filter', 'Oscillator', 'Ring Modulator'] },
@@ -264,6 +269,22 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   tone_tilt_eq: [{ type: ParamType.Db8, modules: ['Flanger', 'Chorus'] }],
   lpf_freq: [{ type: ParamType.HzHigh, modules: ['Hall Reverb', 'Room Reverb'] }],
 
+  // Dual
+  value: [{
+    types: [
+      [ParamType.One, 'output', '0 to 1'],
+      [ParamType.Norm, 'output', '-1 to 1'],
+    ],
+    modules: ['Value'],
+  }],
+  crushed_bits: [{
+    types: [
+      [ParamType.Bits, 'fractions', 'off'],
+      [ParamType.BitsFractional, 'fractions', 'on'],
+    ],
+    modules: ['Bit Crusher'],
+  }],
+
   // Single use
   out_select: [{ type: ParamType.Ignored, modules: ['Out Switch'] }],
   alias_amount: [{ type: ParamType.Hz, modules: ['Aliaser'] }],
@@ -283,7 +304,6 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   sustain: [{ type: ParamType.One, modules: ['ADSR'] }],
   hold_sustain_release: [{ type: ParamType.Env, modules: ['ADSR'] }],
   level_control: [{ type: ParamType.Db0, modules: ['VCA'] }],
-  crushed_bits: [{ type: ParamType.Ignored, modules: ['Bit Crusher'] }],
   trigger: [{ type: ParamType.One, modules: ['Sample and Hold'] }],
   modulation_in: [{ type: ParamType.Time16, modules: ['Delay Line'] }],
   rise_time: [{ type: ParamType.Env, modules: ['Env Follower'] }],
@@ -311,7 +331,6 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   mid_gain: [{ type: ParamType.Db18, modules: ['Tone Control'] }],
   mid_freq: [{ type: ParamType.HzRound, modules: ['Tone Control'] }],
   high_shelf: [{ type: ParamType.Db18, modules: ['Tone Control'] }],
-  value: [{ type: ParamType.One, modules: ['Value'] }],
   playback_speed: [{ type: ParamType.Speed, modules: ['CV Loop'] }],
   stop_position: [{ type: ParamType.Ignored, modules: ['CV Loop'] }],
   restart_loop: [{ type: ParamType.One, modules: ['CV Loop'] }],
@@ -361,13 +380,27 @@ const TYPE_MAP: Record<string, { type: ParamType; modules: string[] }[]> = {
   pitch: [{ type: ParamType.PitchCents, modules: ['Reverse Delay'] }],
 }
 
-export function getParamType(blockName: string, module: ModuleSpec): ParamType {
+export function getParamType(blockName: string, module: ModuleSpec): ParamType | [ParamType, string, string][] {
   const name = blockName.replace(/_\d+$/, '')
   const value = TYPE_MAP[name]
 
   if (value.length === 1) {
-    return value[0].type
+    return ((<TypeSpec> value[0])?.type !== undefined) ? (<TypeSpec> value[0])?.type : (<TypesSpec> value[0])?.types
   }
 
-  return <ParamType> value?.find((set) => set.modules.includes(module.name))?.type
+  const t = <TypeSpec | TypesSpec> value?.find((set) => set.modules.includes(module.name))
+
+  return (<TypeSpec> t)?.type || (<TypesSpec> t)?.types
+}
+
+export function getParamInfo(blockName: string, module: ModuleSpec): string {
+  const pt = getParamType(blockName, module)
+
+  const ptt = Array.isArray(pt) ? pt : [[pt]]
+
+  return ptt
+    .map((x) => {
+      return `${ParamType[x[0]]}: [${PARAM_RANGE[x[0]]}]`
+    })
+    .join(', ')
 }

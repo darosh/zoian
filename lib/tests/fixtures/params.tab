@@ -1,0 +1,84 @@
+RANGE	RAW	DISPLAY	MODULE	BLOCK	OPTION	CLAIM
+// Simple
+Ignored	0	0.0000	Out Switch	out_select		darosh
+Ignored	65535	1.0000	Out Switch	out_select		darosh
+One	0	0.0000	Value	value	output: 0 to 1	darosh
+One	65535	1.0000	Value	value	output: 0 to 1	darosh
+One	32764	0.4999	Value	value	output: 0 to 1	darosh
+Norm	0	-1.0000	Value	value	output: -1 to 1	darosh
+Norm	65535	1.0000	Value	value	output: -1 to 1	darosh
+Norm	32764	-0.0001	Value	value	output: -1 to 1	darosh
+// Numeric
+Percent	300	0.5 %	Oscilator	duty_cycle		darosh
+Percent	65235	99.5 %	Oscilator	duty_cycle		darosh
+Percent	32468	49.5 %	Oscilator	duty_cycle		darosh
+Speed
+Mix
+Swing
+Resonance
+Q
+Q1
+Ratio
+Div
+// Db
+Db0
+Db8
+Db18
+Db32
+Db40
+Db80
+Db100
+// Midi
+Midi
+NoteNum
+// Time
+TimeMin
+TimeMax
+Env10
+Env2
+Time
+Env
+Size
+Position
+Tap
+Rate
+Time32
+Time31
+Time5
+Time34
+Time59
+Time60
+Time16
+// Hz
+HzHigh
+HzOnly
+HzLow
+// BPM
+FreqLow
+ClockTime
+DelayTime
+TapMulti
+TapMultiRev
+TapMultiInf
+TapMulti1
+DelayTimeFaster
+TapMulti2
+// Pitch
+Note
+Hz
+Step
+Pitch
+Key
+// Special
+Song
+Pan
+SizeSamples
+ModSamples
+Phase
+PitchCents
+HzRound
+Steps
+Scale
+TapRatio
+Bits	22635	11 bits	Bit Crusher	crushed_bits	fractions: off	darosh
+BitsFractional	32535	15.9 bits	Bit Crusher	crushed_bits	fractions: on	darosh

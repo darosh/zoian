@@ -717,7 +717,10 @@ import {
   getConnectedPos,
   getConnectedPosEuro,
   getCablePath,
-  getPointsSides, displayParameter, adjustedParam
+  getPointsSides,
+  displayParameter,
+  adjustedParam,
+  displayParameterOne
 } from '../../lib/index.ts'
 
 const log = debug('zoian:svg')
@@ -789,7 +792,7 @@ export default {
       default: false
     },
     showParameters: {
-      type: Boolean,
+      type: [Boolean, String],
       default: false
     },
     mouseMode: {
@@ -1009,11 +1012,23 @@ export default {
       return adjustedParam(this.selectedModuleParam)
     },
     selectedModuleParamDisplay () {
-      if (!this.selectedModule?.blockView || (this.selectedModuleParam === undefined)) {
-        return
+      if (!this.showParameters) {
+        return null
       }
 
-      return displayParameter(this.selectedModule?.blockView, this.selectedModuleParam)
+      if (!this.selectedModule?.blockView || (this.selectedModuleParam === undefined)) {
+        return null
+      }
+
+      if (this.showParameters === true) {
+        return displayParameter(this.selectedModule?.blockView, this.selectedModuleParam)
+      } else if (this.showParameters === 'raw') {
+        return this.selectedModuleParam
+      } else if (this.showParameters === 'one') {
+        return displayParameterOne(this.selectedModuleParam)
+      }
+
+      return null
     },
     selectedModuleParam () {
       return this.selectedModule?.blockView?.moduleView?.module?.parameters?.[this?.selectedModule?.blockView?.name]
@@ -1230,7 +1245,10 @@ export default {
     this.observer.observe(this.$refs.tooltip.$el)
   },
   beforeUnmount () {
-    this.observer.unobserve(this.$refs?.tooltip?.$el)
+    if (this.$refs?.tooltip?.$el) {
+      this.observer.unobserve(this.$refs?.tooltip?.$el)
+    }
+
     window.removeEventListener('scroll', this.onScroll)
   },
   methods: {
@@ -1697,7 +1715,7 @@ td {
   stroke: #000;
 
   .x-value-modulated {
-    fill: none;
+    fill: #fff;
   }
 }
 
@@ -1707,7 +1725,7 @@ td {
     stroke: #fff;
 
     .x-value-modulated {
-      fill: none;
+      fill: #000;
     }
   }
 }

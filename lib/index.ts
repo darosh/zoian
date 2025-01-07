@@ -21,4 +21,4 @@ export { getConnectedBlocks, getConnectedPos, getConnectedPosEuro } from './grid
 export { getPointsSides } from './grid/position.ts'
 export { getCablePath } from './grid/cable.ts'
 export { adjustedParam } from './grid/param-convert.ts'
-export { displayParameter } from './grid/param-display.ts'
+export { displayParameter, displayParameterOne } from './grid/param-display.ts'

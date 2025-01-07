@@ -1,79 +1,152 @@
 import type { BlockView } from '../view/types.ts'
-import { getParamType, ParamType } from './param-types.ts'
-import { adjustedParam, convertDb8, convertEnv, convertHz, convertMidi, convertMix, convertResonance, convertSeconds, convertSteps } from './param-convert.ts'
+import { getParamType, PARAM_RANGE, ParamType, type Range } from './param-types.ts'
+import { adjustedParam, UINT16_MAX } from './param-convert.ts'
 
-export const PARAM_DISPLAY: Record<ParamType, (value: number) => number | string> = {
-  [ParamType.One]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Ignored]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Norm]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Db0]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Db8]: (value) => displayDb(convertDb8(value)),
-  [ParamType.Db18]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Db32]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Db40]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Db80]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Db100]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Midi]: (value) => convertMidi(value),
-  [ParamType.NoteNum]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Note]: (value) => displayNote(convertHz(value)),
-  [ParamType.Resonance]: (value) => displayParam(convertResonance(value)),
-  [ParamType.Song]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Percent]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Pan]: (value) => displayPan(adjustedParam(value)),
-  [ParamType.Q]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Q1]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Hz]: (value) => displayHz(convertHz(value)),
-  [ParamType.HzRound]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Step]: (value) => displayHzNote(convertHz(value)),
-  [ParamType.Mix]: (value) => displayParam(convertMix(value)),
-  [ParamType.Time]: (value) => displaySeconds(convertSeconds(value)),
-  [ParamType.Env]: (value) => displayEnv(convertEnv(value)),
-  [ParamType.Steps]: (value) => displaySteps(convertSteps(value)),
-  [ParamType.Time16]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Pitch]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Time32]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Time31]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.SizeSamples]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.ModSamples]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Time5]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Phase]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Time34]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Time59]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Time60]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.FreqLow]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.PitchCents]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.HzHigh]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.HzOnly]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.HzLow]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Size]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Position]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Swing]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Key]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Scale]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Speed]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.ClockTime]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.TimeMin]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.TimeMax]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Env10]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Env2]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Ratio]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Tap]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.DelayTime]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.TapMulti]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.TapMultiRev]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.TapMultiInf]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.TapMulti1]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Rate]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.TapRatio]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.DelayTimeFaster]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.TapMulti2]: (value) => displayParam(adjustedParam(value)),
-  [ParamType.Div]: (value) => displayParam(adjustedParam(value)),
+export type Display = (value: number, range: Range | Range[]) => number | string
+
+export const PARAM_DISPLAY: Record<ParamType, Display> = {
+  // Simple
+  [ParamType.One]: displayLinear,
+  [ParamType.Ignored]: displayLinear,
+  [ParamType.Norm]: displayLinear,
+
+  // [ParamType.Midi]: (value) => convertMidi(value),
+  // [ParamType.Note]: (value) => displayNote(convertHz(value)),
+  // [ParamType.Resonance]: (value) => displayParam(convertResonance(value)),
+  // [ParamType.Pan]: (value) => displayPan(adjustedParam(value)),
+  // [ParamType.Hz]: (value) => displayHz(convertHz(value)),
+  // [ParamType.Step]: (value) => displayHzNote(convertHz(value)),
+  // [ParamType.Mix]: (value) => displayParam(convertMix(value)),
+  // [ParamType.Time]: (value) => displaySeconds(convertSeconds(value)),
+  // [ParamType.Env]: (value) => displayEnv(convertEnv(value)),
+  // [ParamType.Steps]: (value) => displaySteps(convertSteps(value)),
+  // [ParamType.Db8]: (value) => displayDb(convertDb8(value)),
+
+  // Numeric
+  [ParamType.Percent]: displayLinear,
+  [ParamType.Speed]: tbd,
+  [ParamType.Mix]: tbd,
+  [ParamType.Swing]: tbd,
+  [ParamType.Resonance]: tbd,
+  [ParamType.Q]: tbd,
+  [ParamType.Q1]: tbd,
+  [ParamType.Ratio]: tbd,
+  [ParamType.Div]: tbd,
+
+  // Db
+  [ParamType.Db0]: tbd,
+  [ParamType.Db8]: tbd,
+  [ParamType.Db18]: tbd,
+  [ParamType.Db32]: tbd,
+  [ParamType.Db40]: tbd,
+  [ParamType.Db80]: tbd,
+  [ParamType.Db100]: tbd,
+
+  // Midi
+  [ParamType.Midi]: tbd,
+  [ParamType.NoteNum]: tbd,
+
+  // Time
+  [ParamType.TimeMin]: tbd,
+  [ParamType.TimeMax]: tbd,
+  [ParamType.Env10]: tbd,
+  [ParamType.Env2]: tbd,
+  [ParamType.Time]: tbd,
+  [ParamType.Env]: tbd,
+  [ParamType.Size]: tbd,
+  [ParamType.Position]: tbd,
+  [ParamType.Tap]: tbd,
+  [ParamType.Rate]: tbd,
+  [ParamType.Time32]: tbd,
+  [ParamType.Time31]: tbd,
+  [ParamType.Time5]: tbd,
+  [ParamType.Time34]: tbd,
+  [ParamType.Time59]: tbd,
+  [ParamType.Time60]: tbd,
+  [ParamType.Time16]: tbd,
+
+  // Hz
+  [ParamType.HzHigh]: tbd,
+  [ParamType.HzOnly]: tbd,
+  [ParamType.HzLow]: tbd,
+
+  // BPM
+  [ParamType.FreqLow]: tbd,
+  [ParamType.ClockTime]: tbd,
+  [ParamType.DelayTime]: tbd,
+  [ParamType.TapMulti]: tbd,
+  [ParamType.TapMultiRev]: tbd,
+  [ParamType.TapMultiInf]: tbd,
+  [ParamType.TapMulti1]: tbd,
+  [ParamType.DelayTimeFaster]: tbd,
+  [ParamType.TapMulti2]: tbd,
+
+  // Pitch
+  [ParamType.Note]: tbd,
+  [ParamType.Hz]: tbd,
+  [ParamType.Step]: tbd,
+  [ParamType.Pitch]: tbd,
+  [ParamType.Key]: tbd,
+
+  // Special
+  [ParamType.Song]: tbd,
+  [ParamType.Pan]: tbd,
+  [ParamType.SizeSamples]: tbd,
+  [ParamType.ModSamples]: tbd,
+  [ParamType.Phase]: tbd,
+  [ParamType.PitchCents]: tbd,
+  [ParamType.HzRound]: tbd,
+  [ParamType.Steps]: tbd,
+  [ParamType.Scale]: tbd,
+  [ParamType.TapRatio]: tbd,
+  [ParamType.Bits]: displayLinear,
+  [ParamType.BitsFractional]: displayLinear,
 }
 
 export function displayParameter(bv: BlockView, value: number): number | string {
   const pt = getParamType(bv.name, bv.moduleView.spec)
+  let r
 
-  return PARAM_DISPLAY[pt](value)
+  if (!Array.isArray(pt)) {
+    r = PARAM_DISPLAY[pt](value, PARAM_RANGE[pt])
+  } else {
+    const ppt = <ParamType> pt.find((x) => bv.moduleView.module.options[x[1]] === x[2])?.[0]
+    r = PARAM_DISPLAY[ppt](value, PARAM_RANGE[ppt])
+  }
+
+  return typeof r === 'number' ? format(r) : r
+}
+
+export function format(n: number, unit?: string, fixed?: number): string {
+  let r = n.toString()
+
+  if (fixed !== undefined) {
+    r = n.toFixed(fixed)
+  } else if (unit === '%') {
+    r = n.toFixed(1)
+  } else if (Math.abs(n) <= 1) {
+    r = n.toFixed(4)
+  }
+
+  return r.replace('-', '−')
+}
+
+export function displayParameterOne(value: number): number | string {
+  return format(adjustedParam(value))
+}
+
+export function tbd(value: number): string {
+  return `${displayParameterOne(value)} ?`
+}
+
+export function displayLinear(value: number, range: Range | Range[]): number | string {
+  const ranges = <[min: number, max: number, string, number][]> (Array.isArray(range[0]) ? range : [range])
+
+  return ranges.map((r) => {
+    const v = (value / UINT16_MAX) * (r[1] - r[0]) + r[0]
+
+    return `${format(v, r[2], r[3])}${r[2] ? `\u202F${r[2]}` : ''}`
+  }).join(', ')
 }
 
 export function displayParam(value: number) {

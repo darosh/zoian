@@ -14,6 +14,11 @@ export const useAppStore = defineStore('app', {
     showTips: useLocalStorage('showTips', false),
     animations: useLocalStorage('animations', false),
     mouseMode: useLocalStorage('mouseMode', 2),
-    showParameters: useLocalStorage('showParameters', false),
+    showParameters: useLocalStorage('showParameters', <any>false, {
+      serializer: {
+        read: (v) => v === "true" ? true : v === "false" ? false : v,
+        write: (v) => String(v)
+      }
+    }), // false, true, 'raw', 'one'
   }),
 })

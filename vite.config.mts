@@ -1,6 +1,7 @@
 // Plugins
 import Components from 'unplugin-vue-components/vite'
 import Vue from '@vitejs/plugin-vue'
+import VueDevTools from 'vite-plugin-vue-devtools'
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import VueRouter from 'unplugin-vue-router/vite'
 
@@ -14,6 +15,7 @@ process.env.VITE_BUILD_TIME = `${new Date().toISOString()}`
 export default defineConfig({
   base: '',
   plugins: [
+    VueDevTools({ launchEditor: 'webstorm' }),
     VueRouter(),
     Vue({
       template: { transformAssetUrls },

@@ -400,7 +400,7 @@ export function getParamInfo(blockName: string, module: ModuleSpec): string {
 
   return ptt
     .map((x) => {
-      return `${ParamType[x[0]]}: [${PARAM_RANGE[x[0]]}]`
+      return `${ParamType[x[0]]}: [${PARAM_RANGE[x[0]].join(', ')}]`
     })
     .join(', ')
 }

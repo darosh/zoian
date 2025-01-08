@@ -98,7 +98,7 @@ Time60	65535	60.0 s	Slew Limiter	rising_lag		darosh
 HzHigh	0	1700 Hz	Hall Reverb	lpf_freq			
 HzHigh	65535	4699 Hz	Hall Reverb	lpf_freq			
 HzOnly	0	27.5 Hz	Env Filter	min_freq			
-HzOnly	65535	23999 Hz	Env Filter	min_freq			
+HzOnly	65535	23999.0 Hz	Env Filter	min_freq			
 HzLow	0	0.000 Hz	Delay w/ Mod	mod_rate			
 HzLow	65535	39.998 Hz	Delay w/ Mod	mod_rate			
 // BPM							
@@ -124,7 +124,7 @@ TapMulti2	65535	0.8 Hz	Reverse Delay	tap_tempo_in
 Note	0	A0	Keyboard	note			
 Note	65535	A10	Keyboard	note			
 Hz	0	27.5 Hz	SV Filter	frequency			
-Hz	65535	23999 Hz	SV Filter	frequency			
+Hz	65535	23999.0 Hz	SV Filter	frequency			
 Step	0	A0	Sequencer	step			
 Step	65535	A10	Sequencer	step			
 Pitch	0	3.1 %	Looper	speed_pitch			

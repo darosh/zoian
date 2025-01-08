@@ -142,8 +142,8 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Time16]: [0.02, 16000, 'ms', 2],
 
   // Hz
-  [ParamType.HzHigh]: [1700, 4699, 'Hz'],
-  [ParamType.HzOnly]: [27.5, 23999, 'Hz'],
+  [ParamType.HzHigh]: [1700, 4699, 'Hz', 0],
+  [ParamType.HzOnly]: [27.5, 23999, 'Hz', 1],
   [ParamType.HzLow]: [0, 39.998, 'Hz', 3],
 
   // BPM

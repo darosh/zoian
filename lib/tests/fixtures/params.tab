@@ -18,10 +18,10 @@ Mix	0	mix=0	Plate Reverb	mix		darosh
 Mix	65535	mix=100	Plate Reverb	mix		darosh
 Swing	0	-100.0	LFO	swing_amount		darosh
 Swing	65535	100.0	LFO	swing_amount		darosh
-Resonance	0	1	SV Filter	resonance
-Resonance	65535	999.9	SV Filter	resonance
-Q	0	0.1	Multi Filter	q
-Q	65535	100	Multi Filter	q
+Resonance	0	1.0	SV Filter	resonance		darosh
+Resonance	65535	999.9	SV Filter	resonance		darosh
+Q	0	0.1	Multi Filter	q		darosh
+Q	65535	100.0	Multi Filter	q		darosh
 Q1	0	1	Env Filter	filter_q
 Q1	65535	999.89	Env Filter	filter_q
 Ratio	0	1	Compressor	ratio

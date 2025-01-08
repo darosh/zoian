@@ -1046,7 +1046,7 @@ export default {
       return this.selectedModule?.blockView?.moduleView?.module?.parameters?.[this?.selectedModule?.blockView?.name]
     },
     selectedModuleParamModulated () {
-      if (!this.selectedModule?.blockView || (this.selectedModuleParam === undefined)) {
+      if (!this.selectedModule?.blockView || (this.selectedModule.pos === 'euro') || (this.selectedModuleParam === undefined)) {
         return
       }
 

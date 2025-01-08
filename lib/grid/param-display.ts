@@ -24,9 +24,9 @@ export const PARAM_DISPLAY: Record<ParamType, Display> = {
 
   // Numeric
   [ParamType.Percent]: displayLinear,
-  [ParamType.Speed]: tbd,
-  [ParamType.Mix]: tbd,
-  [ParamType.Swing]: tbd,
+  [ParamType.Speed]: displayLinear,
+  [ParamType.Mix]: displayLinear,
+  [ParamType.Swing]: displayLinear,
   [ParamType.Resonance]: tbd,
   [ParamType.Q]: tbd,
   [ParamType.Q1]: tbd,
@@ -145,7 +145,7 @@ export function displayLinear(value: number, range: Range | Range[]): number | s
   return ranges.map((r) => {
     const v = (value / UINT16_MAX) * (r[1] - r[0]) + r[0]
 
-    return `${format(v, r[2], r[3])}${r[2] ? `\u202F${r[2]}` : ''}`
+    return `${r[2] && r[2].at(-1) === '=' ? r[2] : ''}${format(v, r[2], r[3])}${(r[2] && r[2].at(-1) !== '=') ? `\u202F${r[2]}` : ''}`
   }).join(', ')
 }
 

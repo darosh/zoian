@@ -154,6 +154,7 @@ Deno.test('params', async () => {
       )
     } catch (error: unknown) {
       log((<Error> error)?.message?.split('\n').filter(Boolean).join('\n'))
+      break
     }
   }
 })

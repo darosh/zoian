@@ -100,9 +100,9 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
 
   // Numeric
   [ParamType.Percent]: [0, 100, '%'],
-  [ParamType.Speed]: [0, 200, '%'],
-  [ParamType.Mix]: [0, 100],
-  [ParamType.Swing]: [-100, 100],
+  [ParamType.Speed]: [0, 200, '%', 1],
+  [ParamType.Mix]: [0, 100, 'mix=', 0],
+  [ParamType.Swing]: [-100, 100, undefined, 1],
   [ParamType.Resonance]: [1, 999.9],
   [ParamType.Q]: [.1, 100],
   [ParamType.Q1]: [1, 999.89],

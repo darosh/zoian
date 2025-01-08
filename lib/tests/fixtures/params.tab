@@ -1,23 +1,23 @@
 RANGE	RAW	DISPLAY	MODULE	BLOCK	OPTION	CLAIM
 // Simple
-Ignored	0	0	Out Switch	out_select		darosh
-Ignored	65535	1	Out Switch	out_select		darosh
-One	0	0	Value	value	output: 0 to 1	darosh
-One	65535	1	Value	value	output: 0 to 1	darosh
+Ignored	0	0.0000	Out Switch	out_select		darosh
+Ignored	65535	1.0000	Out Switch	out_select		darosh
+One	0	0.0000	Value	value	output: 0 to 1	darosh
+One	65535	1.0000	Value	value	output: 0 to 1	darosh
 One	32764	0.4999	Value	value	output: 0 to 1	darosh
-Norm	0	-1	Value	value	output: -1 to 1	darosh
-Norm	65535	1	Value	value	output: -1 to 1	darosh
+Norm	0	-1.0000	Value	value	output: -1 to 1	darosh
+Norm	65535	1.0000	Value	value	output: -1 to 1	darosh
 Norm	32764	-0.0001	Value	value	output: -1 to 1	darosh
 // Numeric
 Percent	300	0.5 %	Oscilator	duty_cycle		darosh
 Percent	65235	99.5 %	Oscilator	duty_cycle		darosh
 Percent	32468	49.5 %	Oscilator	duty_cycle		darosh
-Speed	0	0 %	CV Loop	playback_speed
-Speed	65535	200 %	CV Loop	playback_speed
-Mix	0	0	Plate Reverb	mix
-Mix	65535	100	Plate Reverb	mix
-Swing	0	-100	LFO	swing_amount
-Swing	65535	100	LFO	swing_amount
+Speed	0	0.0 %	CV Loop	playback_speed		darosh
+Speed	65535	200.0 %	CV Loop	playback_speed		darosh
+Mix	0	mix=0	Plate Reverb	mix		darosh
+Mix	65535	mix=100	Plate Reverb	mix		darosh
+Swing	0	-100.0	LFO	swing_amount		darosh
+Swing	65535	100.0	LFO	swing_amount		darosh
 Resonance	0	1	SV Filter	resonance
 Resonance	65535	999.9	SV Filter	resonance
 Q	0	0.1	Multi Filter	q

@@ -149,7 +149,8 @@ Deno.test('params', async () => {
       assertEquals(
         display
           .replace('\u202F', ' ')
-          .replace('−', '-'),
+          .replace('−', '-')
+          .split(',').shift(),
         expected,
       )
     } catch (error: unknown) {

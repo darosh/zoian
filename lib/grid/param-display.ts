@@ -54,20 +54,20 @@ export const PARAM_DISPLAY: Record<ParamType, Display> = {
   [ParamType.Time16]: tbd,
 
   // Hz
-  [ParamType.HzHigh]: tbd,
-  [ParamType.HzOnly]: tbd,
-  [ParamType.HzLow]: tbd,
+  [ParamType.HzHigh]: displayLinear,
+  [ParamType.HzOnly]: displayLinear,
+  [ParamType.HzLow]: displayLinear,
 
   // BPM
-  [ParamType.FreqLow]: tbd,
-  [ParamType.ClockTime]: tbd,
-  [ParamType.DelayTime]: tbd,
-  [ParamType.TapMulti]: tbd,
-  [ParamType.TapMultiRev]: tbd,
-  [ParamType.TapMultiInf]: tbd,
-  [ParamType.TapMulti1]: tbd,
-  [ParamType.DelayTimeFaster]: tbd,
-  [ParamType.TapMulti2]: tbd,
+  [ParamType.FreqLow]: displayLinear,
+  [ParamType.ClockTime]: displayLinear,
+  [ParamType.DelayTime]: displayLinear,
+  [ParamType.TapMulti]: displayLinear,
+  [ParamType.TapMultiRev]: displayLinear,
+  [ParamType.TapMultiInf]: displayLinear,
+  [ParamType.TapMulti1]: displayLinear,
+  [ParamType.DelayTimeFaster]: displayLinear,
+  [ParamType.TapMulti2]: displayLinear,
 
   // Pitch
   [ParamType.Note]: tbd,
@@ -130,10 +130,20 @@ export function tbd(value: number): string {
 export function displayLinear(value: number, range: Range | Range[]): number | string {
   const ranges = <[min: number, max: number, string, number][]> (Array.isArray(range[0]) ? range : [range])
 
+  let first: number
+
   return ranges.map((r) => {
-    const v = (value / UINT16_MAX) * (r[1] - r[0]) + r[0]
+    let v
+
+    if (typeof r[0] === 'function') {
+      v = (<(x: number) => number> r[0])(first)
+    } else {
+      v = (value / UINT16_MAX) * (r[1] - r[0]) + r[0]
+      first = typeof first === 'undefined' ? v : first
+    }
 
     return `${r[2] && r[2].at(-1) === '=' ? r[2] : ''}${format(v, r[2], r[3])}${(r[2] && r[2].at(-1) !== '=') ? `\u202F${r[2]}` : ''}`
+      .replace('Infinity', 'inf')
   }).join(', ')
 }
 
@@ -212,19 +222,19 @@ export function displayTime59(x: number, r: Range | Range[]) {
   const digits = <number> r[3]
 
   // Constants based on the middle two points
-  const x1 = 34656;
-  const y1 = 1.00;
-  const x2 = 65535;
-  const y2 = 59.99;
+  const x1 = 34656
+  const y1 = 1.00
+  const x2 = 65535
+  const y2 = 59.99
 
-  const b = Math.log(y2/y1)/(x2-x1);
-  const a = y1/Math.exp(b*x1);
+  const b = Math.log(y2 / y1) / (x2 - x1)
+  const a = y1 / Math.exp(b * x1)
   let v
 
   if (x <= 0) {
     v = 0
   } else {
-    v =  a * Math.exp(b*x)
+    v = a * Math.exp(b * x)
   }
 
   return formatTime(unit, v, digits)

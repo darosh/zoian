@@ -87,7 +87,7 @@ export enum ParamType {
   BitsFractional,
 }
 
-export type Range = [number | string, number | string, string?, number?]
+export type Range = [number | string | ((x: number) => number), number | string, string?, number?]
 
 const SCALES = ['Chromatic', 'Major', 'm Natural', 'm Harmonic', 'm Melodic', 'M Harmonic', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Locrian', 'M Locrian', 'Ahava Raba', 'Akebono', 'Bhairav', 'Marwa', 'Purvi', 'Todi', 'Pelog', 'Ukrainian', 'Romani', 'MHungarian', 'mHungarian', 'Persian', 'M Neapol', 'm Neapol', 'H Dim', 'W-H Dim', 'H-W Dim', 'Istrian', 'Prometheus', 'Harmonics', 'Tritone', '2Semi Tri', 'Wholetone', 'M Penta', 'm Penta', 'Hirajoshi1', 'Hirajoshi2', 'Hirajoshi3', 'Hirajoshi4', 'Hirajoshi5', 'Insen', 'Fourth', 'Dim Fifth', 'P Fifth', 'Aug Fifth', 'Octave']
 const RATIOS = ['1:1', '2:3', '1:2', '1:3', '3:8', '1:4', '3:16', '1:8', '1:16', '1:32']
@@ -144,18 +144,18 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   // Hz
   [ParamType.HzHigh]: [1700, 4699, 'Hz'],
   [ParamType.HzOnly]: [27.5, 23999, 'Hz'],
-  [ParamType.HzLow]: [0, 39.998, 'Hz'],
+  [ParamType.HzLow]: [0, 39.998, 'Hz', 3],
 
   // BPM
-  [ParamType.FreqLow]: [[0.000, 39.998, 'Hz'], [Infinity, 25.0, 'ms'], [0, 2400, 'BPM']],
-  [ParamType.ClockTime]: [[89478.480, 0.025, 's'], [0, 2400, 'BPM'], [0.000, 40.000, 'Hz']],
+  [ParamType.FreqLow]: [[0.000, 39.998, 'Hz', 3], [(x) => 1000 / x, 0, 'ms', 1], [0, 2400, 'BPM', 0]],
+  [ParamType.ClockTime]: [[89478.480, 0.025, 's', 3], [0, 2400, 'BPM', 0], [0.000, 40.000, 'Hz', 3]],
   [ParamType.DelayTime]: [[62.5, 2000, 'ms'], [960, 30, 'BPM'], [16.000, 0.500, 'Hz']],
-  [ParamType.TapMulti]: [[0.500, 10.000, 'Hz'], [2000, 100, 'ms'], [30, 600, 'BPM']],
-  [ParamType.TapMultiRev]: [[10.000, 0.500, 'Hz'], [100, 2000, 'ms'], [600, 30, 'BPM']],
-  [ParamType.TapMultiInf]: [[Infinity, .125, 'Hz'], [0, 8000, 'ms'], [Infinity, 8, 'BPM']],
-  [ParamType.TapMulti1]: [[10, .125, 'Hz'], [100, 8000, 'ms'], [600, 8, 'BPM']],
+  [ParamType.TapMulti]: [[0.500, 10.000, 'Hz', 3], [2000, 100, 'ms'], [30, 600, 'BPM']],
+  [ParamType.TapMultiRev]: [[10.000, 0.500, 'Hz', 3], [100, 2000, 'ms'], [600, 30, 'BPM']],
+  [ParamType.TapMultiInf]: [[0, 8000, 'ms', 0], [(x) => 1000 / x, 0, 'Hz'], [(x) => 60000 / x, 0, 'BPM']],
+  [ParamType.TapMulti1]: [[10, .125, 'Hz', 3], [100, 8000, 'ms'], [600, 8, 'BPM']],
   [ParamType.DelayTimeFaster]: [[62.5, 1250, 'ms'], [960, 48, 'BPM'], [16.000, 0.800, 'Hz']],
-  [ParamType.TapMulti2]: [[10, .8, 'Hz'], [100, 1250, 'ms'], [600, 48, 'BPM']],
+  [ParamType.TapMulti2]: [[10, .8, 'Hz', 1], [100, 1250, 'ms'], [600, 48, 'BPM']],
 
   // Pitch
   [ParamType.Note]: ['A0', 'A10'],

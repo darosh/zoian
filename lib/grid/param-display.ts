@@ -34,17 +34,17 @@ export const PARAM_DISPLAY: Record<ParamType, Display> = {
   [ParamType.Div]: displayLinear,
 
   // Db
-  [ParamType.Db0]: tbd,
-  [ParamType.Db8]: tbd,
-  [ParamType.Db18]: tbd,
-  [ParamType.Db32]: tbd,
-  [ParamType.Db40]: tbd,
-  [ParamType.Db80]: tbd,
-  [ParamType.Db100]: tbd,
+  [ParamType.Db0]: displayDb0,
+  [ParamType.Db8]: displayLinear,
+  [ParamType.Db18]: displayLinear,
+  [ParamType.Db32]: displayLinear,
+  [ParamType.Db40]: displayLinear,
+  [ParamType.Db80]: displayLinear,
+  [ParamType.Db100]: displayLinear,
 
   // Midi
-  [ParamType.Midi]: tbd,
-  [ParamType.NoteNum]: tbd,
+  [ParamType.Midi]: displayLinear,
+  [ParamType.NoteNum]: displayLinear,
 
   // Time
   [ParamType.TimeMin]: tbd,
@@ -114,7 +114,7 @@ export function displayParameter(bv: BlockView, value: number): number | string 
     r = PARAM_DISPLAY[ppt](value, PARAM_RANGE[ppt])
   }
 
-  return typeof r === 'number' ? format(r) : r
+  return typeof r === 'number' ? format(r) : r.replace('-', '−')
 }
 
 export function format(n: number, unit?: string, fixed?: number): string {
@@ -161,6 +161,21 @@ export function displayRatio(value: number): string {
   const v = (value / max) * (to - from) + from
 
   return `${v.toFixed(1)}:1`
+}
+
+export function displayDb0(value: number): string {
+  const min = 2
+  const from = -90.31
+  const to = -0
+
+  if (value < min) {
+    return '-inf\u202FdB'
+  }
+
+  const v = (value - min) / (UINT16_MAX - min) * (to - from) + from
+  const f = v.toFixed(2)
+
+  return `${f[0] !== '-' ? '-' : ''}${f}\u202FdB`
 }
 
 export function displayParam(value: number) {

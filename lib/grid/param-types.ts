@@ -110,17 +110,17 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Div]: [1, 32, undefined, 0],
 
   // Db
-  [ParamType.Db0]: [-Infinity, 0, 'dB'],
-  [ParamType.Db8]: [-8, 8, 'dB'],
-  [ParamType.Db18]: [-18, 18, 'dB'],
-  [ParamType.Db32]: [0, 32, 'dB'],
-  [ParamType.Db40]: [-40, 40, 'dB'],
-  [ParamType.Db80]: [-80, 0, 'dB'],
-  [ParamType.Db100]: [-100, 20, 'dB'],
+  [ParamType.Db0]: [-Infinity, 0, 'dB', 2],
+  [ParamType.Db8]: [-8, 8, 'dB', 1],
+  [ParamType.Db18]: [-18, 18, 'dB', 1],
+  [ParamType.Db32]: [0, 32, 'dB', 2],
+  [ParamType.Db40]: [-40, 40, 'dB', 1],
+  [ParamType.Db80]: [-80, 0, 'dB', 1],
+  [ParamType.Db100]: [-100, 20, 'dB', 2],
 
   // Midi
-  [ParamType.Midi]: [0, 127],
-  [ParamType.NoteNum]: [21, 127],
+  [ParamType.Midi]: [0, 127, undefined, 0],
+  [ParamType.NoteNum]: [21, 127, undefined, 0],
 
   // Time
   [ParamType.TimeMin]: [0.02, 62.5, 'ms'],

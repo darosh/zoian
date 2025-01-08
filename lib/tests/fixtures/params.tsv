@@ -1,146 +1,147 @@
-RANGE	RAW	DISPLAY	MODULE	BLOCK	OPTION	CLAIM
-// Simple						
-Ignored	0	0.0000	Out Switch	out_select		darosh
-Ignored	65535	1.0000	Out Switch	out_select		darosh
-One	0	0.0000	Value	value	output: 0 to 1	darosh
-One	65535	1.0000	Value	value	output: 0 to 1	darosh
-One	32764	0.4999	Value	value	output: 0 to 1	darosh
-Norm	0	-1.0000	Value	value	output: -1 to 1	darosh
-Norm	65535	1.0000	Value	value	output: -1 to 1	darosh
-Norm	32764	-0.0001	Value	value	output: -1 to 1	darosh
-// Numeric						
-Percent	300	0.5 %	Oscilator	duty_cycle		darosh
-Percent	65235	99.5 %	Oscilator	duty_cycle		darosh
-Percent	32468	49.5 %	Oscilator	duty_cycle		darosh
-Speed	0	0.0 %	CV Loop	playback_speed		darosh
-Speed	65535	200.0 %	CV Loop	playback_speed		darosh
-Mix	0	mix=0	Plate Reverb	mix		darosh
-Mix	65535	mix=100	Plate Reverb	mix		darosh
-Swing	0	-100.0	LFO	swing_amount		darosh
-Swing	65535	100.0	LFO	swing_amount		darosh
-Resonance	0	1.0	SV Filter	resonance		darosh
-Resonance	65535	999.9	SV Filter	resonance		darosh
-Q	0	0.1	Multi Filter	q		darosh
-Q	65535	100.0	Multi Filter	q		darosh
-Q1	0	1.00	Env Filter	filter_q		darosh
-Q1	65535	999.89	Env Filter	filter_q		darosh
-Ratio	0	1.0:1	Compressor	ratio		darosh
-Ratio	64244	19.6:1	Compressor	ratio		darosh
-Ratio	65535	infinity	Compressor	ratio		darosh
-Div	0	1	Clock Divider	dividend		darosh
-Div	65535	32	Clock Divider	dividend		darosh
-// Db						
-Db0	0	-Infinity dB	Diffuser	gain		
-Db0	65535	0 dB	Diffuser	gain		
-Db8	0	-8 dB	Plate Reverb	low_eq		
-Db8	65535	8 dB	Plate Reverb	low_eq		
-Db18	0	-18 dB	Tone Control	low_shelf		
-Db18	65535	18 dB	Tone Control	low_shelf		
-Db32	0	0 dB	OD and Distortion	input_gain		
-Db32	65535	32 dB	OD and Distortion	input_gain		
-Db40	0	-40 dB	Multi Filter	gain		
-Db40	65535	40 dB	Multi Filter	gain		
-Db80	0	-80 dB	Compressor	threshold		
-Db80	65535	0 dB	Compressor	threshold		
-Db100	0	-100 dB	Audio Out	gain		
-Db100	65535	20 dB	Audio Out	gain		
-// Midi						
-Midi	0	0	Midi CC Out	cc		
-Midi	65535	127	Midi CC Out	cc		
-NoteNum	0	21	Midi Note Out	note_in		
-NoteNum	65535	127	Midi Note Out	note_in		
-// Time						
-TimeMin	0	0.02 ms	Tap to CV	min_time		
-TimeMin	65535	62.5 ms	Tap to CV	min_time		
-TimeMax	0	62.5 ms	Tap to CV	max_time		
-TimeMax	65535	60000 ms	Tap to CV	max_time		
-Env10	0	0 ms	Compressor	attack		
-Env10	65535	10 ms	Compressor	attack		
-Env2	0	0.01 s	Compressor	release		
-Env2	65535	2 s	Compressor	release		
-Time	0	0 s	Plate Reverb	decay_time		
-Time	65535	Infinity s	Plate Reverb	decay_time		
-Env	0	1.33 ms	CV Delay	delay_time		
-Env	65535	60000 ms	CV Delay	delay_time		
-Size	0	0.08 ms	Granular	grain_size		
-Size	65535	999.86 ms	Granular	grain_size		
-Position	0	0 ms	Granular	grain_position		
-Position	65535	999.98 ms	Granular	grain_position		
-Tap	0	25 ms	Phaser	tap_tempo_in		
-Tap	65535	8000 ms	Phaser	tap_tempo_in		
-Rate	0	0.05 s	Ghostverb	rate		
-Rate	65535	2 s	Ghostverb	rate		
-Time32						
-Time32						
-Time31						
-Time31						
-Time5	0	0 s	Diffuser	mod_rate		
-Time5	65535	5.9 s	Diffuser	mod_rate		
-Time34	0	2 ms	Stereo Spread	delay_time		
-Time34	65535	34.98 ms	Stereo Spread	delay_time		
-Time59	0	0 s	Slew Limiter	slew_rate		
-Time59	65535	59.99 s	Slew Limiter	slew_rate		
-Time60	0	0 ms	Slew Limiter	rising_lag		
-Time60	65535	60000 ms	Slew Limiter	rising_lag		
-Time16	0	0.02 ms	Delay Line	delay_time		
-Time16	65535	16000 ms	Delay Line	delay_time		
-// Hz						
-HzHigh	0	1700 Hz	Hall Reverb	lpf_freq		
-HzHigh	65535	4699 Hz	Hall Reverb	lpf_freq		
-HzOnly	0	27.5 Hz	Env Filter	min_freq		
-HzOnly	65535	23999 Hz	Env Filter	min_freq		
-HzLow	0	0 Hz	Delay w/ Mod	mod_rate		
-HzLow	65535	39.998 Hz	Delay w/ Mod	mod_rate		
-// BPM						
-FreqLow	0	0 Hz	Phaser	rate		
-FreqLow	65535	39.998 Hz	Phaser	rate		
-ClockTime	0	89478.48 s	Clock Divider	cv_in		
-ClockTime	65535	0.025 s	Clock Divider	cv_in		
-DelayTime	0	62.5 ms	Delay w/ Mod	delay_time		
-DelayTime	65535	2000 ms	Delay w/ Mod	delay_time		
-TapMulti	0	0.5 Hz	Delay w/ Mod	tap_tempo_in		
-TapMulti	65535	10 Hz	Delay w/ Mod	tap_tempo_in		
-TapMultiRev	0	10 Hz	Ping Pong Delay	tap_tempo_in		
-TapMultiRev	65535	0.5 Hz	Ping Pong Delay	tap_tempo_in		
-TapMultiInf	0	Infinity Hz	Flanger	tap_tempo_in		
-TapMultiInf	65535	0.125 Hz	Flanger	tap_tempo_in		
-TapMulti1	0	10 Hz	Vibrato	tap_tempo_in		
-TapMulti1	65535	0.125 Hz	Vibrato	tap_tempo_in		
-DelayTimeFaster	0	62.5 ms	Reverse Delay	delay_time		
-DelayTimeFaster	65535	1250 ms	Reverse Delay	delay_time		
-TapMulti2	0	10 Hz	Reverse Delay	tap_tempo_in		
-TapMulti2	65535	0.8 Hz	Reverse Delay	tap_tempo_in		
-// Pitch						
-Note	0	A0	Keyboard	note		
-Note	65535	A10	Keyboard	note		
-Hz	0	27.5 Hz	SV Filter	frequency		
-Hz	65535	23999 Hz	SV Filter	frequency		
-Step	0	A0	Sequencer	step		
-Step	65535	A10	Sequencer	step		
-Pitch	0	3.1 %	Looper	speed_pitch		
-Pitch	65535	3199.7 %	Looper	speed_pitch		
-Key	0	A	Quantizer	key		
-Key	65535	G#	Quantizer	key		
-// Special						
-Song	0	1:01:00	Midi Clock Out	song_position		
-Song	65535	1024:04:18	Midi Clock Out	song_position		
-Pan	0	L100 R0	Audio Panner	pan		
-Pan	65535	L0 R100	Audio Panner	pan		
-SizeSamples	0	80 samples	Diffuser	size		
-SizeSamples	65535	4999 samples	Diffuser	size		
-ModSamples	0	3 samples	Diffuser	mod_width		
-ModSamples	65535	499 samples	Diffuser	mod_width		
-Phase	0	-360 deg	LFO	phase_input		
-Phase	65535	360 deg	LFO	phase_input		
-PitchCents	0	-12	Reverse Delay	pitch		
-PitchCents	65535	12	Reverse Delay	pitch		
-HzRound	0	28	Multi Filter	frequency		
-HzRound	65535	23999	Multi Filter	frequency		
-Steps	0	2 steps	Steps	quant_steps		
-Steps	65535	63 steps	Steps	quant_steps		
-Scale	0	Chromatic	Quantizer	scale		
-Scale	65535	Octave	Quantizer	scale		
-TapRatio	0	1:1	Reverse Delay	tap_ratio		
-TapRatio	65535	1:32	Reverse Delay	tap_ratio		
-Bits	22635	11 bits	Bit Crusher	crushed_bits	fractions: off	darosh
-BitsFractional	32535	15.9 bits	Bit Crusher	crushed_bits	fractions: on	darosh
+RANGE	RAW	DISPLAY	MODULE	BLOCK	OPTION	CLAIM	NOTE
+// Simple							
+Ignored	0	0.0000	Out Switch	out_select		darosh	
+Ignored	65535	1.0000	Out Switch	out_select		darosh	
+One	0	0.0000	Value	value	output: 0 to 1	darosh	
+One	65535	1.0000	Value	value	output: 0 to 1	darosh	
+One	32764	0.4999	Value	value	output: 0 to 1	darosh	
+Norm	0	-1.0000	Value	value	output: -1 to 1	darosh	
+Norm	65535	1.0000	Value	value	output: -1 to 1	darosh	
+Norm	32764	-0.0001	Value	value	output: -1 to 1	darosh	
+// Numeric							
+Percent	300	0.5 %	Oscilator	duty_cycle		darosh	
+Percent	65235	99.5 %	Oscilator	duty_cycle		darosh	
+Percent	32468	49.5 %	Oscilator	duty_cycle		darosh	
+Speed	0	0.0 %	CV Loop	playback_speed		darosh	
+Speed	65535	200.0 %	CV Loop	playback_speed		darosh	
+Mix	0	mix=0	Plate Reverb	mix		darosh	
+Mix	65535	mix=100	Plate Reverb	mix		darosh	
+Swing	0	-100.0	LFO	swing_amount		darosh	
+Swing	65535	100.0	LFO	swing_amount		darosh	
+Resonance	0	1.0	SV Filter	resonance		darosh	
+Resonance	65535	999.9	SV Filter	resonance		darosh	
+Q	0	0.1	Multi Filter	q		darosh	
+Q	65535	100.0	Multi Filter	q		darosh	
+Q1	0	1.00	Env Filter	filter_q		darosh	
+Q1	65535	999.89	Env Filter	filter_q		darosh	
+Ratio	0	1.0:1	Compressor	ratio		darosh	
+Ratio	64244	19.6:1	Compressor	ratio		darosh	
+Ratio	65535	infinity	Compressor	ratio		darosh	
+Div	0	1	Clock Divider	dividend		darosh	
+Div	65535	32	Clock Divider	dividend		darosh	
+// Db							
+Db0	0	-inf dB	Diffuser	gain		darosh	
+Db0	2	-90.31 dB	Diffuser	gain		darosh	
+Db0	65535	-0.00 dB	Diffuser	gain		darosh	
+Db8	0	-8.0 dB	Plate Reverb	low_eq		darosh	
+Db8	65535	8.0 dB	Plate Reverb	low_eq		darosh	
+Db18	0	-18.0 dB	Tone Control	low_shelf		darosh	
+Db18	65535	18.0 dB	Tone Control	low_shelf		darosh	
+Db32	0	0.00 dB	OD and Distortion	input_gain		darosh	
+Db32	65535	32.00 dB	OD and Distortion	input_gain		darosh	
+Db40	0	-40.0 dB	Multi Filter	gain		darosh	
+Db40	65535	40.0 dB	Multi Filter	gain		darosh	
+Db80	0	-80.0 dB	Compressor	threshold		darosh	
+Db80	65535	0.0 dB	Compressor	threshold		darosh	should be minus
+Db100	0	-100.00 dB	Audio Out	gain		darosh	
+Db100	65535	20.00 dB	Audio Out	gain		darosh	
+// Midi							
+Midi	0	0	Midi CC Out	cc		darosh	
+Midi	65535	127	Midi CC Out	cc		darosh	
+NoteNum	0	21	Midi Note Out	note_in		darosh	
+NoteNum	65535	127	Midi Note Out	note_in		darosh	
+// Time							
+TimeMin	0	0.02 ms	Tap to CV	min_time			
+TimeMin	65535	62.5 ms	Tap to CV	min_time			
+TimeMax	0	62.5 ms	Tap to CV	max_time			
+TimeMax	65535	60000 ms	Tap to CV	max_time			
+Env10	0	0 ms	Compressor	attack			
+Env10	65535	10 ms	Compressor	attack			
+Env2	0	0.01 s	Compressor	release			
+Env2	65535	2 s	Compressor	release			
+Time	0	0 s	Plate Reverb	decay_time			
+Time	65535	Infinity s	Plate Reverb	decay_time			
+Env	0	1.33 ms	CV Delay	delay_time			
+Env	65535	60000 ms	CV Delay	delay_time			
+Size	0	0.08 ms	Granular	grain_size			
+Size	65535	999.86 ms	Granular	grain_size			
+Position	0	0 ms	Granular	grain_position			
+Position	65535	999.98 ms	Granular	grain_position			
+Tap	0	25 ms	Phaser	tap_tempo_in			
+Tap	65535	8000 ms	Phaser	tap_tempo_in			
+Rate	0	0.05 s	Ghostverb	rate			
+Rate	65535	2 s	Ghostverb	rate			
+Time32							
+Time32							
+Time31							
+Time31							
+Time5	0	0 s	Diffuser	mod_rate			
+Time5	65535	5.9 s	Diffuser	mod_rate			
+Time34	0	2 ms	Stereo Spread	delay_time			
+Time34	65535	34.98 ms	Stereo Spread	delay_time			
+Time59	0	0 s	Slew Limiter	slew_rate			
+Time59	65535	59.99 s	Slew Limiter	slew_rate			
+Time60	0	0 ms	Slew Limiter	rising_lag			
+Time60	65535	60000 ms	Slew Limiter	rising_lag			
+Time16	0	0.02 ms	Delay Line	delay_time			
+Time16	65535	16000 ms	Delay Line	delay_time			
+// Hz							
+HzHigh	0	1700 Hz	Hall Reverb	lpf_freq			
+HzHigh	65535	4699 Hz	Hall Reverb	lpf_freq			
+HzOnly	0	27.5 Hz	Env Filter	min_freq			
+HzOnly	65535	23999 Hz	Env Filter	min_freq			
+HzLow	0	0 Hz	Delay w/ Mod	mod_rate			
+HzLow	65535	39.998 Hz	Delay w/ Mod	mod_rate			
+// BPM							
+FreqLow	0	0 Hz	Phaser	rate			
+FreqLow	65535	39.998 Hz	Phaser	rate			
+ClockTime	0	89478.48 s	Clock Divider	cv_in			
+ClockTime	65535	0.025 s	Clock Divider	cv_in			
+DelayTime	0	62.5 ms	Delay w/ Mod	delay_time			
+DelayTime	65535	2000 ms	Delay w/ Mod	delay_time			
+TapMulti	0	0.5 Hz	Delay w/ Mod	tap_tempo_in			
+TapMulti	65535	10 Hz	Delay w/ Mod	tap_tempo_in			
+TapMultiRev	0	10 Hz	Ping Pong Delay	tap_tempo_in			
+TapMultiRev	65535	0.5 Hz	Ping Pong Delay	tap_tempo_in			
+TapMultiInf	0	Infinity Hz	Flanger	tap_tempo_in			
+TapMultiInf	65535	0.125 Hz	Flanger	tap_tempo_in			
+TapMulti1	0	10 Hz	Vibrato	tap_tempo_in			
+TapMulti1	65535	0.125 Hz	Vibrato	tap_tempo_in			
+DelayTimeFaster	0	62.5 ms	Reverse Delay	delay_time			
+DelayTimeFaster	65535	1250 ms	Reverse Delay	delay_time			
+TapMulti2	0	10 Hz	Reverse Delay	tap_tempo_in			
+TapMulti2	65535	0.8 Hz	Reverse Delay	tap_tempo_in			
+// Pitch							
+Note	0	A0	Keyboard	note			
+Note	65535	A10	Keyboard	note			
+Hz	0	27.5 Hz	SV Filter	frequency			
+Hz	65535	23999 Hz	SV Filter	frequency			
+Step	0	A0	Sequencer	step			
+Step	65535	A10	Sequencer	step			
+Pitch	0	3.1 %	Looper	speed_pitch			
+Pitch	65535	3199.7 %	Looper	speed_pitch			
+Key	0	A	Quantizer	key			
+Key	65535	G#	Quantizer	key			
+// Special							
+Song	0	1:01:00	Midi Clock Out	song_position			
+Song	65535	1024:04:18	Midi Clock Out	song_position			
+Pan	0	L100 R0	Audio Panner	pan			
+Pan	65535	L0 R100	Audio Panner	pan			
+SizeSamples	0	80 samples	Diffuser	size			
+SizeSamples	65535	4999 samples	Diffuser	size			
+ModSamples	0	3 samples	Diffuser	mod_width			
+ModSamples	65535	499 samples	Diffuser	mod_width			
+Phase	0	-360 deg	LFO	phase_input			
+Phase	65535	360 deg	LFO	phase_input			
+PitchCents	0	-12	Reverse Delay	pitch			
+PitchCents	65535	12	Reverse Delay	pitch			
+HzRound	0	28	Multi Filter	frequency			
+HzRound	65535	23999	Multi Filter	frequency			
+Steps	0	2 steps	Steps	quant_steps			
+Steps	65535	63 steps	Steps	quant_steps			
+Scale	0	Chromatic	Quantizer	scale			
+Scale	65535	Octave	Quantizer	scale			
+TapRatio	0	1:1	Reverse Delay	tap_ratio			
+TapRatio	65535	1:32	Reverse Delay	tap_ratio			
+Bits	22635	11 bits	Bit Crusher	crushed_bits	fractions: off	darosh	
+BitsFractional	32535	15.9 bits	Bit Crusher	crushed_bits	fractions: on	darosh	

@@ -105,9 +105,9 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Swing]: [-100, 100, undefined, 1],
   [ParamType.Resonance]: [1, 999.9, undefined, 1],
   [ParamType.Q]: [.1, 100, undefined, 1],
-  [ParamType.Q1]: [1, 999.89],
+  [ParamType.Q1]: [1, 999.89, undefined, 2],
   [ParamType.Ratio]: [1, Infinity],
-  [ParamType.Div]: [1, 32],
+  [ParamType.Div]: [1, 32, undefined, 0],
 
   // Db
   [ParamType.Db0]: [-Infinity, 0, 'dB'],

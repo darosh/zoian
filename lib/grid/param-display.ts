@@ -29,9 +29,9 @@ export const PARAM_DISPLAY: Record<ParamType, Display> = {
   [ParamType.Swing]: displayLinear,
   [ParamType.Resonance]: displayLinear,
   [ParamType.Q]: displayLinear,
-  [ParamType.Q1]: tbd,
-  [ParamType.Ratio]: tbd,
-  [ParamType.Div]: tbd,
+  [ParamType.Q1]: displayLinear,
+  [ParamType.Ratio]: displayRatio,
+  [ParamType.Div]: displayLinear,
 
   // Db
   [ParamType.Db0]: tbd,
@@ -147,6 +147,20 @@ export function displayLinear(value: number, range: Range | Range[]): number | s
 
     return `${r[2] && r[2].at(-1) === '=' ? r[2] : ''}${format(v, r[2], r[3])}${(r[2] && r[2].at(-1) !== '=') ? `\u202F${r[2]}` : ''}`
   }).join(', ')
+}
+
+export function displayRatio(value: number): string {
+  const max = 64244
+  const from = 1
+  const to = 19.6
+
+  if (value > max) {
+    return 'infinity'
+  }
+
+  const v = (value / max) * (to - from) + from
+
+  return `${v.toFixed(1)}:1`
 }
 
 export function displayParam(value: number) {

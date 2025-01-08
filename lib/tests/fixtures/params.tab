@@ -22,12 +22,13 @@ Resonance	0	1.0	SV Filter	resonance		darosh
 Resonance	65535	999.9	SV Filter	resonance		darosh
 Q	0	0.1	Multi Filter	q		darosh
 Q	65535	100.0	Multi Filter	q		darosh
-Q1	0	1	Env Filter	filter_q
-Q1	65535	999.89	Env Filter	filter_q
-Ratio	0	1	Compressor	ratio
-Ratio	65535	Infinity	Compressor	ratio
-Div	0	1	Clock Divider	dividend
-Div	65535	32	Clock Divider	dividend
+Q1	0	1.00	Env Filter	filter_q		darosh
+Q1	65535	999.89	Env Filter	filter_q		darosh
+Ratio	0	1.0:1	Compressor	ratio		darosh
+Ratio	64244	19.6:1	Compressor	ratio		darosh
+Ratio	65535	infinity	Compressor	ratio		darosh
+Div	0	1	Clock Divider	dividend		darosh
+Div	65535	32	Clock Divider	dividend		darosh
 // Db
 Db0	0	-Infinity dB	Diffuser	gain
 Db0	65535	0 dB	Diffuser	gain

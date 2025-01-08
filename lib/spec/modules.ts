@@ -1881,7 +1881,7 @@ export const MODULES: ModuleSpec[] = [
     maxBlocks: 4,
     params: 2,
     cpu: 0.12,
-    blocks: { tap_input: { initial: true, position: 0 }, min_time: { param: true, position: 1 }, max_time: { param: true, position: 2 }, output: { initial: true, position: 3 } },
+    blocks: { tap_input: { param: true, initial: true, position: 0 }, min_time: { param: true, position: 1 }, max_time: { param: true, position: 2 }, output: { initial: true, position: 3 } },
     options: { range: { slot: 0, values: ['off', 'on'] }, output: { slot: 1, values: ['linear', 'exponential'] } },
     conditions: { min_time: { type: 'toggle', option: 'range' }, max_time: { type: 'toggle', option: 'range' } },
   },

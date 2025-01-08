@@ -10,18 +10,6 @@ export const PARAM_DISPLAY: Record<ParamType, Display> = {
   [ParamType.Ignored]: displayLinear,
   [ParamType.Norm]: displayLinear,
 
-  // [ParamType.Midi]: (value) => convertMidi(value),
-  // [ParamType.Note]: (value) => displayNote(convertHz(value)),
-  // [ParamType.Resonance]: (value) => displayParam(convertResonance(value)),
-  // [ParamType.Pan]: (value) => displayPan(adjustedParam(value)),
-  // [ParamType.Hz]: (value) => displayHz(convertHz(value)),
-  // [ParamType.Step]: (value) => displayHzNote(convertHz(value)),
-  // [ParamType.Mix]: (value) => displayParam(convertMix(value)),
-  // [ParamType.Time]: (value) => displaySeconds(convertSeconds(value)),
-  // [ParamType.Env]: (value) => displayEnv(convertEnv(value)),
-  // [ParamType.Steps]: (value) => displaySteps(convertSteps(value)),
-  // [ParamType.Db8]: (value) => displayDb(convertDb8(value)),
-
   // Numeric
   [ParamType.Percent]: displayLinear,
   [ParamType.Speed]: displayLinear,
@@ -47,22 +35,22 @@ export const PARAM_DISPLAY: Record<ParamType, Display> = {
   [ParamType.NoteNum]: displayLinear,
 
   // Time
-  [ParamType.TimeMin]: tbd,
-  [ParamType.TimeMax]: tbd,
-  [ParamType.Env10]: tbd,
-  [ParamType.Env2]: tbd,
-  [ParamType.Time]: tbd,
-  [ParamType.Env]: tbd,
-  [ParamType.Size]: tbd,
-  [ParamType.Position]: tbd,
-  [ParamType.Tap]: tbd,
-  [ParamType.Rate]: tbd,
-  [ParamType.Time32]: tbd,
-  [ParamType.Time31]: tbd,
-  [ParamType.Time5]: tbd,
-  [ParamType.Time34]: tbd,
-  [ParamType.Time59]: tbd,
-  [ParamType.Time60]: tbd,
+  [ParamType.TimeMin]: displayTime,
+  [ParamType.TimeMax]: displayTimeLog,
+  [ParamType.Env10]: displayTime,
+  [ParamType.Env2]: displayTime,
+  [ParamType.Time]: displayTimeInf,
+  [ParamType.Env]: displayTime,
+  [ParamType.Size]: displayTime,
+  [ParamType.Position]: displayTime,
+  // [ParamType.Tap]: tbd,
+  [ParamType.Rate]: displayTime,
+  // [ParamType.Time32]: tbd,
+  // [ParamType.Time31]: tbd,
+  [ParamType.Time5]: displayTime,
+  [ParamType.Time34]: displayTime,
+  [ParamType.Time59]: displayTime59,
+  [ParamType.Time60]: displayTime,
   [ParamType.Time16]: tbd,
 
   // Hz
@@ -147,6 +135,106 @@ export function displayLinear(value: number, range: Range | Range[]): number | s
 
     return `${r[2] && r[2].at(-1) === '=' ? r[2] : ''}${format(v, r[2], r[3])}${(r[2] && r[2].at(-1) !== '=') ? `\u202F${r[2]}` : ''}`
   }).join(', ')
+}
+
+function formatTime(unit: string, v: number, digits: number) {
+  if (unit === 'ms' && v >= 1000) {
+    v /= 1000
+    unit = 's'
+  }
+
+  if (digits !== 3) {
+    return `${v.toFixed(digits)}\u202F${unit}`
+  }
+
+  const vr = Math.round(v)
+
+  if (v < 10) {
+    return `${v.toFixed(2)}\u202F${unit}`
+  }
+
+  if (vr >= 100 && vr < 1000) {
+    return `${v.toFixed(0)}\u202F${unit}`
+  }
+
+  return `${v.toFixed(1)}\u202F${unit}`
+}
+
+export function displayTime(value: number, r: Range | Range[]) {
+  const min = <number> r[0]
+  const max = <number> r[1]
+  const unit = <string> r[2]
+  const digits = <number> r[3]
+  const v = (value / UINT16_MAX) * (max - min) + min
+
+  return formatTime(unit, v, digits)
+}
+
+export function displayTimeLog(value: number, r: Range | Range[]) {
+  const min = <number> r[0]
+  const max = <number> r[1]
+  const unit = <string> r[2]
+  const digits = <number> r[3]
+  // const raw = Math.pow(10, (value / UINT16_MAX) * 3)
+  // const v = min + (max - min) * (raw - 1) / (Math.pow(10, 3) - 1)
+  const v = exponentialTime(min, max, value)
+  return formatTime(unit, v, digits)
+}
+
+export function displayTimeInf(x: number, r: Range | Range[]) {
+  const unit = <string> r[2]
+  const digits = <number> r[3]
+
+  // Constants based on the middle two points
+  const x1 = 38115
+  const y1 = 5
+  const x2 = 65533
+  const y2 = 45874.85
+
+  const b = Math.log(y2 / y1) / (x2 - x1)
+  const a = y1 / Math.exp(b * x1)
+
+  let v
+
+  if (x >= 65534) {
+    return `inf\u202F${unit}`
+  } else if (x <= 0) {
+    v = 0
+  } else {
+    v = a * Math.exp(b * x)
+  }
+
+  return formatTime(unit, v, digits)
+}
+
+export function displayTime59(x: number, r: Range | Range[]) {
+  const unit = <string> r[2]
+  const digits = <number> r[3]
+
+  // Constants based on the middle two points
+  const x1 = 34656;
+  const y1 = 1.00;
+  const x2 = 65535;
+  const y2 = 59.99;
+
+  const b = Math.log(y2/y1)/(x2-x1);
+  const a = y1/Math.exp(b*x1);
+  let v
+
+  if (x <= 0) {
+    v = 0
+  } else {
+    v =  a * Math.exp(b*x)
+  }
+
+  return formatTime(unit, v, digits)
+}
+
+function exponentialTime(y1: number, y2: number, x: number) {
+  const a = y1
+  const b = Math.log(y2 / y1) / UINT16_MAX
+
+  return a * Math.exp(b * x)
 }
 
 export function displayRatio(value: number): string {

@@ -39,10 +39,10 @@ export enum ParamType {
   Env,
   Size,
   Position,
-  Tap,
+  // Tap,
   Rate,
-  Time32,
-  Time31,
+  // Time32,
+  // Time31,
   Time5,
   Time34,
   Time59,
@@ -123,23 +123,23 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.NoteNum]: [21, 127, undefined, 0],
 
   // Time
-  [ParamType.TimeMin]: [0.02, 62.5, 'ms'],
-  [ParamType.TimeMax]: [62.5, 60000, 'ms'],
-  [ParamType.Env10]: [0, 10, 'ms'],
-  [ParamType.Env2]: [0.01, 2, 's'],
-  [ParamType.Time]: [0, Infinity, 's'],
-  [ParamType.Env]: [1.33, 60000, 'ms'],
-  [ParamType.Size]: [0.08, 999.86, 'ms'],
-  [ParamType.Position]: [0.00, 999.98, 'ms'],
-  [ParamType.Tap]: [25, 8000, 'ms'],
-  [ParamType.Rate]: [0.05, 2, 's'],
-  [ParamType.Time32]: [0, 32, 's'],
-  [ParamType.Time31]: [0.013, 31.998, 's'],
-  [ParamType.Time5]: [0, 5.9, 's'],
-  [ParamType.Time34]: [2, 34.98, 'ms'],
-  [ParamType.Time59]: [0, 59.99, 's'],
-  [ParamType.Time60]: [0, 60000, 'ms'],
-  [ParamType.Time16]: [0.02, 16000, 'ms'],
+  [ParamType.TimeMin]: [0.02, 62.5, 'ms', 3], // 3 digits
+  [ParamType.TimeMax]: [62.5, 60000, 'ms', 3], // 3 digits
+  [ParamType.Env10]: [0, 10, 'ms', 1],
+  [ParamType.Env2]: [0.01, 2, 's', 2],
+  [ParamType.Time]: [0, Infinity, 'sec', 2],
+  [ParamType.Env]: [1.33, 60000, 'ms', 3], // 3 digits
+  [ParamType.Size]: [0.08, 999.86, 'ms', 2],
+  [ParamType.Position]: [0.00, 999.98, 'ms', 2],
+  // [ParamType.Tap]: [25, 8000, 'ms'],
+  [ParamType.Rate]: [0.05, 2, 's', 2],
+  // [ParamType.Time32]: [0, 32, 's'],
+  // [ParamType.Time31]: [0.013, 31.998, 's'],
+  [ParamType.Time5]: [0, 5.9, 's', 3], // 3 digits
+  [ParamType.Time34]: [2, 34.98, 'ms', 2],
+  [ParamType.Time59]: [0, 59.99, 'sec', 2],
+  [ParamType.Time60]: [0, 60000, 'ms', 3], // 3 digits
+  [ParamType.Time16]: [0.02, 16000, 'ms', 2],
 
   // Hz
   [ParamType.HzHigh]: [1700, 4699, 'Hz'],
@@ -240,7 +240,7 @@ export const TYPE_MAP: Record<string, (TypeSpec | TypesSpec)[]> = {
     { type: ParamType.TapMulti1, modules: ['Vibrato', 'Univibe'] },
     { type: ParamType.TapMultiInf, modules: ['Flanger', 'Chorus'] },
     { type: ParamType.TapMulti, modules: ['Delay w/ Mod'] },
-    { type: ParamType.Tap, modules: ['Phaser', 'Tremolo'] },
+    { type: ParamType.Ignored, modules: ['Phaser', 'Tremolo'] },
   ],
 
   // Same across modules

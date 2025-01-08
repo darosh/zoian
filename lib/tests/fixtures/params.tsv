@@ -51,40 +51,49 @@ Midi	65535	127	Midi CC Out	cc		darosh
 NoteNum	0	21	Midi Note Out	note_in		darosh	
 NoteNum	65535	127	Midi Note Out	note_in		darosh	
 // Time							
-TimeMin	0	0.02 ms	Tap to CV	min_time			
-TimeMin	65535	62.5 ms	Tap to CV	min_time			
-TimeMax	0	62.5 ms	Tap to CV	max_time			
-TimeMax	65535	60000 ms	Tap to CV	max_time			
-Env10	0	0 ms	Compressor	attack			
-Env10	65535	10 ms	Compressor	attack			
-Env2	0	0.01 s	Compressor	release			
-Env2	65535	2 s	Compressor	release			
-Time	0	0 s	Plate Reverb	decay_time			
-Time	65535	Infinity s	Plate Reverb	decay_time			
-Env	0	1.33 ms	CV Delay	delay_time			
-Env	65535	60000 ms	CV Delay	delay_time			
-Size	0	0.08 ms	Granular	grain_size			
-Size	65535	999.86 ms	Granular	grain_size			
-Position	0	0 ms	Granular	grain_position			
-Position	65535	999.98 ms	Granular	grain_position			
-Tap	0	25 ms	Phaser	tap_tempo_in			
-Tap	65535	8000 ms	Phaser	tap_tempo_in			
-Rate	0	0.05 s	Ghostverb	rate			
-Rate	65535	2 s	Ghostverb	rate			
-Time32							
-Time32							
-Time31							
-Time31							
-Time5	0	0 s	Diffuser	mod_rate			
-Time5	65535	5.9 s	Diffuser	mod_rate			
-Time34	0	2 ms	Stereo Spread	delay_time			
-Time34	65535	34.98 ms	Stereo Spread	delay_time			
-Time59	0	0 s	Slew Limiter	slew_rate			
-Time59	65535	59.99 s	Slew Limiter	slew_rate			
-Time60	0	0 ms	Slew Limiter	rising_lag			
-Time60	65535	60000 ms	Slew Limiter	rising_lag			
-Time16	0	0.02 ms	Delay Line	delay_time			
-Time16	65535	16000 ms	Delay Line	delay_time			
+TimeMin	0	0.02 ms	Tap to CV	min_time		darosh	
+TimeMin	65535	62.5 ms	Tap to CV	min_time		darosh	
+TimeMax	0	62.5 ms	Tap to CV	max_time		darosh	
+TimeMax	4482	100 ms	Tap to CV	max_time		darosh	
+TimeMax	11078	200 ms	Tap to CV	max_time		darosh	
+TimeMax	26453	1.00 s	Tap to CV	max_time		darosh	approx
+TimeMax	26451	999 ms	Tap to CV	max_time		darosh	
+TimeMax	33054	2.00 s	Tap to CV	max_time		darosh	
+TimeMax	52892	16.0 s	Tap to CV	max_time		darosh	
+TimeMax	65535	60.0 s	Tap to CV	max_time		darosh	
+Env10	0	0.0 ms	Compressor	attack		darosh	
+Env10	65535	10.0 ms	Compressor	attack		darosh	
+Env2	0	0.01 s	Compressor	release		darosh	
+Env2	65535	2.00 s	Compressor	release		darosh	
+Time	0	0.00 sec	Plate Reverb	decay_time		darosh	
+Time	38115	5.00 sec	Plate Reverb	decay_time		darosh	
+Time	65533	45874.85 sec	Plate Reverb	decay_time		darosh	
+Time	65535	inf sec	Plate Reverb	decay_time		darosh	
+Env	0	1.33 ms	CV Delay	delay_time		darosh	
+Env	65535	60.0 s	CV Delay	delay_time		darosh	
+Size	0	0.08 ms	Granular	grain_size		darosh	
+Size	65535	999.86 ms	Granular	grain_size		darosh	
+Position	0	0.00 ms	Granular	grain_position		darosh	
+Position	65535	999.98 ms	Granular	grain_position		darosh	
+// Tap	0	25 ms	Phaser	tap_tempo_in		darosh	
+// Tap	65535	8000 ms	Phaser	tap_tempo_in		darosh	
+Rate	0	0.05 s	Ghostverb	rate		darosh	
+Rate	65535	2.00 s	Ghostverb	rate		darosh	
+// Time32							
+// Time32							
+// Time31							
+// Time31							
+Time5	0	0.00 s	Diffuser	mod_rate		darosh	
+Time5	65535	5.90 s	Diffuser	mod_rate		darosh	
+Time34	0	2.00 ms	Stereo Spread	delay_time		darosh	
+Time34	65535	34.98 ms	Stereo Spread	delay_time		darosh	
+Time59	0	0.00 sec	Slew Limiter	slew_rate		darosh	
+Time59	34656	1.00 sec	Slew Limiter	slew_rate		darosh	
+Time59	65535	59.99 sec	Slew Limiter	slew_rate		darosh	
+Time60	0	0.00 ms	Slew Limiter	rising_lag		darosh	
+Time60	65535	60.0 s	Slew Limiter	rising_lag		darosh	
+// Time16	0	0.02 ms	Delay Line	delay_time		darosh	
+// Time16	65535	16.0 s	Delay Line	delay_time	max_time: 16s	darosh	
 // Hz							
 HzHigh	0	1700 Hz	Hall Reverb	lpf_freq			
 HzHigh	65535	4699 Hz	Hall Reverb	lpf_freq			

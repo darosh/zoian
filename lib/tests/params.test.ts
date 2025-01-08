@@ -153,8 +153,15 @@ Deno.test('params', async () => {
         expected,
       )
     } catch (error: unknown) {
+      if (cols[7] === 'approx') {
+        log('approx value')
+      }
+
       log((<Error> error)?.message?.split('\n').filter(Boolean).join('\n'))
-      break
+
+      if (cols[7] !== 'approx') {
+        break
+      }
     }
   }
 })

@@ -102,7 +102,7 @@ Deno.test.ignore('params update', async () => {
 })
 
 Deno.test('params', async () => {
-  const tab = await Deno.readTextFile('./tests/fixtures/params.tab')
+  const tab = await Deno.readTextFile('./tests/fixtures/params.tsv')
 
   const lines = tab.split('\n').slice(1)
 

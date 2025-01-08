@@ -10,7 +10,7 @@ import { PARAM_RANGE, ParamType, TYPE_MAP, type TypeSpec, type TypesSpec } from 
 
 const log = debug('zoian:test')
 
-Deno.test.ignore('params', () => {
+Deno.test.ignore('few params', () => {
   /**
    * internal range 0 ... 65535
    *

@@ -702,7 +702,7 @@
           <template
             v-for="([key, value], optionIndex) of selectedModuleOptions"
             :key="key">
-            <span class="text-no-wrap">{{ key.replaceAll('_', ' ') }}: <b>{{ value.toString().replaceAll('_', ' ') }}</b></span><span v-if="optionIndex < (selectedModuleOptions.length - 1)">, </span>
+            <span class="text-no-wrap">{{ key.replaceAll('_', ' ') }}: <b>{{ value.toString().replaceAll('_', ' ').replace('->', '→') }}</b></span><span v-if="optionIndex < (selectedModuleOptions.length - 1)">, </span>
           </template>
         </div>
       </template>

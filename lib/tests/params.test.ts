@@ -6,6 +6,7 @@ import { displayParam } from '../grid/param-display.ts'
 import { convertDb8, convertMix, convertSeconds } from '../grid/param-convert.ts'
 import { assertEquals } from 'jsr:@std/assert'
 import type { BlockView } from '../view/types.ts'
+import { PARAM_RANGE, ParamType, TYPE_MAP, type TypeSpec, type TypesSpec } from '../grid/param-types.ts'
 
 const log = debug('zoian:test')
 
@@ -34,6 +35,72 @@ Deno.test.ignore('params', () => {
   log('%O', m)
 })
 
+Deno.test.ignore('params update', async () => {
+  const tab = await Deno.readTextFile('./tests/fixtures/params.tab')
+  const lines = tab.split('\n').slice(1)
+  const updated = []
+
+  for (const line of lines) {
+    if (!line.trim()) {
+      updated.push(line)
+      continue
+    }
+
+    if (line.startsWith('//')) {
+      updated.push(line)
+      continue
+    }
+
+    const cols = line.split('\t')
+
+    if (cols[1]) {
+      updated.push(line)
+      continue
+    }
+
+    const pt = <ParamType> <unknown> ParamType[<ParamType> <unknown> cols[0]]
+
+    let module
+    let block
+    let option
+    let value
+
+    for (const [key, values] of Object.entries(TYPE_MAP)) {
+      for (const ts of values) {
+        if (((<TypeSpec> ts)?.type === pt)) {
+          module = ts.modules[0]
+          block = key
+          break
+        }
+
+        const f = (<TypesSpec> ts)?.types?.find((t) => t[0] === pt)
+
+        if (f) {
+          module = ts.modules[0]
+          block = key
+          option = f[1]
+          value = f[2]
+
+          break
+        }
+      }
+
+      if (module) {
+        break
+      }
+    }
+
+    log(pt, module, block, option, value)
+
+    const pr = Array.isArray(PARAM_RANGE[pt][0]) ? PARAM_RANGE[pt][0] : PARAM_RANGE[pt]
+    const u = pr[2] ? ` ${pr[2]}` : ''
+    updated.push([cols[0], 0, pr[0] + u, module, block, '', ''].join('\t'))
+    updated.push([cols[0], 65535, pr[1] + u, module, block, '', ''].join('\t'))
+  }
+
+  await Deno.writeTextFile('./tests/fixtures/params-updated.tab', updated.join('\n'))
+})
+
 Deno.test('params', async () => {
   const tab = await Deno.readTextFile('./tests/fixtures/params.tab')
 
@@ -59,7 +126,7 @@ Deno.test('params', async () => {
     const module = cols[3]
     const raw = parseInt(cols[1], 10)
     const expected = cols[2]
-    const option = cols[5]?.split(':').map((x) => x.trim())
+    const option = (cols[5] ?? '').split(':').map((x) => x.trim())
     const bv = {
       name,
       moduleView: {
@@ -74,8 +141,7 @@ Deno.test('params', async () => {
       },
     }
 
-    const display = displayParameter(<BlockView> bv, raw)
-      .toString()
+    const display = displayParameter(<BlockView> bv, raw).toString()
 
     log({ type, name, raw, expected, display })
 
@@ -86,8 +152,8 @@ Deno.test('params', async () => {
           .replace('−', '-'),
         expected,
       )
-    } catch (error) {
-      log(error)
+    } catch (error: unknown) {
+      log((<Error> error)?.message?.split('\n').filter(Boolean).join('\n'))
     }
   }
 })

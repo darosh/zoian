@@ -182,7 +182,7 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
 export type TypeSpec = { type: ParamType; modules: string[] }
 export type TypesSpec = { types: [ParamType, string, string][]; modules: string[] }
 
-const TYPE_MAP: Record<string, (TypeSpec | TypesSpec)[]> = {
+export const TYPE_MAP: Record<string, (TypeSpec | TypesSpec)[]> = {
   // Different across modules
   frequency: [
     { type: ParamType.Hz, modules: ['SV Filter', 'Oscillator', 'Ring Modulator'] },

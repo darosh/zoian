@@ -640,12 +640,15 @@
         v-if="selectedConnections?.current?.length || selectedConnections?.hidden?.length"
         style="font-size: 80%;"
         density="compact"
-        class="mb-2 x-table">
+        :class="{
+          'mb-2': !(showParameters && selectedModule.first && selectedModuleOptions?.length)
+        }"
+        class="x-table mx-4">
         <tbody>
           <tr
             v-for="(r, rIndex) in selectedConnections.current"
             :key="rIndex">
-            <td class="pl-5 pr-2" />
+            <td class="pl-0 pr-2" />
             <td
               class="px-2"
               style="font-size: 24px; opacity: .8">
@@ -663,7 +666,7 @@
             <td class="px-0">
               /
             </td>
-            <td class="text-right pl-2 pr-5">
+            <td class="text-right pl-2 pr-0">
               {{ r.percent }}&thinsp;%
             </td>
           </tr>
@@ -671,7 +674,7 @@
             <tr
               v-for="(r, rIndex) in selectedConnections.hidden"
               :key="rIndex">
-              <td class="pl-5 pr-2">
+              <td class="pl-0 pr-2">
                 {{ r.name }}
               </td>
               <td
@@ -691,7 +694,7 @@
               <td class="px-0">
                 /
               </td>
-              <td class="text-right pl-2 pr-5">
+              <td class="text-right pl-2 pr-0">
                 {{ r.percent }}&thinsp;%
               </td>
             </tr>
@@ -702,7 +705,7 @@
         <v-divider class="mt-0" />
         <div
           class="px-4 py-3"
-          style="font-size: 13px; max-width: 360px;">
+          style="font-size: 80%; max-width: 360px;">
           <template
             v-for="([key, value], optionIndex) of selectedModuleOptions"
             :key="key">

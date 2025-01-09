@@ -687,6 +687,9 @@
               <td class="text-right px-2">
                 {{ r.db }}&thinsp;dB
               </td>
+              <td class="px-0">
+                /
+              </td>
               <td class="text-right pl-2 pr-5">
                 {{ r.percent }}&thinsp;%
               </td>

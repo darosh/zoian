@@ -1,35 +1,7 @@
 export const UINT16_MAX = 65535
-const DB_CENTER = 32767
 
 export function adjustedParam(raw: number): number {
   return raw / UINT16_MAX
-}
-
-export function convertMidi(value: number): number {
-  return Math.floor((value / UINT16_MAX) * 127)
-}
-
-export function convertSeconds(value: number) {
-  if (value === 0) return 0
-  if (value === UINT16_MAX) return Infinity
-
-  const normalized = value / UINT16_MAX
-
-  return normalized // TODO
-}
-
-export function convertDb8(value: number) {
-  // Range: -8 to +8, with 32767 being 0dB
-  const shifted = value - DB_CENTER
-
-  return ((shifted / UINT16_MAX) * 16)
-}
-
-export function convertMix(value: number) {
-  if (value === 0) return 0
-  const normalized = value / UINT16_MAX
-
-  return Math.round(normalized * 100)
 }
 
 const HZ_MIN = 27.5
@@ -41,13 +13,12 @@ export function convertHz(value: number) {
   return normalized * (HZ_MAX - HZ_MIN) + HZ_MIN
 }
 
-const ENV_MIN = 1.33
-const ENV_MAX = 60000
+const HZ_A10 = 28160
 
-export function convertEnv(value: number) {
+export function convertNoteHz(value: number) {
   const normalized = value / UINT16_MAX
 
-  return normalized * (ENV_MAX - ENV_MIN) + ENV_MIN
+  return normalized * (HZ_A10 - HZ_MIN) + HZ_MIN
 }
 
 const STEPS_MIN = 2
@@ -59,11 +30,68 @@ export function convertSteps(value: number) {
   return Math.floor(normalized * (STEPS_MAX - STEPS_MIN) + STEPS_MIN)
 }
 
-const RESO_MIN = 1
-const RESO_MAX = 999.9
+export function exponentialToHz(value: number) {
+  const CENTER_VALUE = 32768 // 2^15
+  const CENTER_FREQ = 880 // A5
+  const MAX_FREQ = 23999.0
 
-export function convertResonance(value: number) {
-  const normalized = value / UINT16_MAX
+  // Calculate octaves from center frequency (A5)
+  const octavesFromCenter = (value - CENTER_VALUE) / (CENTER_VALUE / 5)
 
-  return Math.floor(normalized * (RESO_MAX - RESO_MIN) + RESO_MIN)
+  // Return frequency using octave multiplication
+  const real = CENTER_FREQ * Math.pow(2, octavesFromCenter)
+
+  return Math.min(MAX_FREQ, real)
+}
+
+const NOTES = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+const STEPS_PER_OCTAVE = 6553.5
+const STEPS_PER_NOTE = STEPS_PER_OCTAVE / 12
+
+export function linearToNote(value: number) {
+  const octave = Math.floor(value / STEPS_PER_OCTAVE)
+  const noteIndex = Math.floor((value % STEPS_PER_OCTAVE) / STEPS_PER_NOTE) % 12
+
+  return `${NOTES[noteIndex]}${octave}`
+}
+
+const STEPS_PER_KEY = UINT16_MAX / 12
+
+export function linearToKey(value: number) {
+  const noteIndex = Math.min(Math.floor(value / STEPS_PER_KEY), 11)
+
+  return NOTES[noteIndex]
+}
+
+function valueToPitchRaw(value: number) {
+  const RANGES = [
+    [0, -12], // Octave down
+    [8192, -5], // Perfect fourth down
+    [16384, -4], // Major third down (mirror of +4)
+    [24576, -0.1], // 10 cents down (mirror of +10c)
+    [32768, 0], // Center - no change
+    [40960, 0.1], // 10 cents up
+    [49152, 4], // Major third up
+    [57344, 5], // Perfect fourth up
+    [65535, 12], // Octave up
+  ]
+
+  // Find the appropriate range
+  for (let i = RANGES.length - 1; i >= 0; i--) {
+    if (value >= RANGES[i][0]) {
+      return RANGES[i][1]
+    }
+  }
+
+  return -12 // Fallback for value 0
+}
+
+export function valueToPitch(value: number) {
+  const x = valueToPitchRaw(value)
+
+  if (x < 1 && x > -1 && x !== 0) {
+    return `${x > 0 ? '+' : ''}${x * 100} cents`
+  }
+
+  return `${x > 0 ? '+' : ''}${x}`
 }

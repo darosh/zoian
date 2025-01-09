@@ -95,61 +95,78 @@ Time60	65535	60.0 s	Slew Limiter	rising_lag		darosh
 // Time16	0	0.02 ms	Delay Line	delay_time		darosh	
 // Time16	65535	16.0 s	Delay Line	delay_time	max_time: 16s	darosh	
 // Hz							
-HzHigh	0	1700 Hz	Hall Reverb	lpf_freq			
-HzHigh	65535	4699 Hz	Hall Reverb	lpf_freq			
-HzOnly	0	27.5 Hz	Env Filter	min_freq			
-HzOnly	65535	23999.0 Hz	Env Filter	min_freq			
-HzLow	0	0.000 Hz	Delay w/ Mod	mod_rate			
-HzLow	65535	39.998 Hz	Delay w/ Mod	mod_rate			
+HzHigh	0	1700 Hz	Hall Reverb	lpf_freq		darosh	
+HzHigh	65535	4699 Hz	Hall Reverb	lpf_freq		darosh	
+HzOnly	0	27.5 Hz	Env Filter	min_freq		darosh	
+HzOnly	65535	23999.0 Hz	Env Filter	min_freq		darosh	
+HzLow	0	0.000 Hz	Delay w/ Mod	mod_rate		darosh	
+HzLow	65535	39.998 Hz	Delay w/ Mod	mod_rate		darosh	
 // BPM							
-FreqLow	0	0.000 Hz	Phaser	rate			
-FreqLow	65535	39.998 Hz	Phaser	rate			
-ClockTime	0	89478.480 s	Clock Divider	cv_in			
-ClockTime	65535	0.025 s	Clock Divider	cv_in			
-DelayTime	0	62.5 ms	Delay w/ Mod	delay_time			
-DelayTime	65535	2000 ms	Delay w/ Mod	delay_time			
-TapMulti	0	0.500 Hz	Delay w/ Mod	tap_tempo_in			
-TapMulti	65535	10.000 Hz	Delay w/ Mod	tap_tempo_in			
-TapMultiRev	0	10.000 Hz	Ping Pong Delay	tap_tempo_in			
-TapMultiRev	65535	0.500 Hz	Ping Pong Delay	tap_tempo_in			
-TapMultiInf	0	0 ms	Flanger	tap_tempo_in			
-TapMultiInf	65535	8000 ms	Flanger	tap_tempo_in			
-TapMulti1	0	10.000 Hz	Vibrato	tap_tempo_in			
-TapMulti1	65535	0.125 Hz	Vibrato	tap_tempo_in			
-DelayTimeFaster	0	62.5 ms	Reverse Delay	delay_time			
-DelayTimeFaster	65535	1250 ms	Reverse Delay	delay_time			
-TapMulti2	0	10.0 Hz	Reverse Delay	tap_tempo_in			
-TapMulti2	65535	0.8 Hz	Reverse Delay	tap_tempo_in			
+FreqLow	0	0.000 Hz	Phaser	rate		darosh	
+FreqLow	65535	39.998 Hz	Phaser	rate		darosh	
+ClockTime	0	89478.480 s	Clock Divider	cv_in		darosh	
+ClockTime	65535	0.025 s	Clock Divider	cv_in		darosh	
+DelayTime	0	62.5 ms	Delay w/ Mod	delay_time		darosh	
+DelayTime	65535	2000 ms	Delay w/ Mod	delay_time		darosh	
+TapMulti	0	0.500 Hz	Delay w/ Mod	tap_tempo_in		darosh	
+TapMulti	65535	10.000 Hz	Delay w/ Mod	tap_tempo_in		darosh	
+TapMultiRev	0	10.000 Hz	Ping Pong Delay	tap_tempo_in		darosh	
+TapMultiRev	65535	0.500 Hz	Ping Pong Delay	tap_tempo_in		darosh	
+TapMultiInf	0	0 ms	Flanger	tap_tempo_in		darosh	
+TapMultiInf	65535	8000 ms	Flanger	tap_tempo_in		darosh	
+TapMulti1	0	10.000 Hz	Vibrato	tap_tempo_in		darosh	
+TapMulti1	65535	0.125 Hz	Vibrato	tap_tempo_in		darosh	
+DelayTimeFaster	0	62.5 ms	Reverse Delay	delay_time		darosh	
+DelayTimeFaster	65535	1250 ms	Reverse Delay	delay_time		darosh	
+TapMulti2	0	10.0 Hz	Reverse Delay	tap_tempo_in		darosh	
+TapMulti2	65535	0.8 Hz	Reverse Delay	tap_tempo_in		darosh	
 // Pitch							
-Note	0	A0	Keyboard	note			
-Note	65535	A10	Keyboard	note			
-Hz	0	27.5 Hz	SV Filter	frequency			
-Hz	65535	23999.0 Hz	SV Filter	frequency			
-Step	0	A0	Sequencer	step			
-Step	65535	A10	Sequencer	step			
-Pitch	0	3.1 %	Looper	speed_pitch			
-Pitch	65535	3199.7 %	Looper	speed_pitch			
-Key	0	A	Quantizer	key			
-Key	65535	G#	Quantizer	key			
+Note	0	A0	Keyboard	note		darosh	
+Note	65535	A10	Keyboard	note		darosh	
+Hz	0	27.50 Hz	SV Filter	frequency		darosh	
+Hz	18900	202.99 Hz	SV Filter	frequency		darosh	
+Hz	32700	873.69 Hz	SV Filter	frequency		darosh	
+Hz	6554	55.00 Hz	SV Filter	frequency		darosh	
+Hz	13106	109.99 Hz	SV Filter	frequency		darosh	
+Hz	32768	880.00 Hz	SV Filter	frequency		darosh	
+Hz	58982	14079.4 Hz	SV Filter	frequency		darosh	
+Hz	54000	8312.73 Hz	SV Filter	frequency		darosh	
+Hz	65535	23999.0 Hz	SV Filter	frequency		darosh	
+Step	0	A0	Sequencer	step		darosh	
+Step	32768	A5	Sequencer	step		darosh	
+Step	45875	A7	Sequencer	step		darosh	
+Step	52428	A8	Sequencer	step		darosh	
+Step	58982	A9	Sequencer	step		darosh	
+Step	65535	A10	Sequencer	step		darosh	
+Pitch	0	3.1 %	Looper	speed_pitch		darosh	
+Pitch	65535	3199.7 %	Looper	speed_pitch		darosh	
+Key	0	A	Quantizer	key		darosh	
+Key	65535	G#	Quantizer	key		darosh	
 // Special							
-Song	0	1:01:00	Midi Clock Out	song_position			
-Song	65535	1024:04:18	Midi Clock Out	song_position			
-Pan	0	L100 R0	Audio Panner	pan			
-Pan	65535	L0 R100	Audio Panner	pan			
-SizeSamples	0	80 samples	Diffuser	size			
-SizeSamples	65535	4999 samples	Diffuser	size			
-ModSamples	0	3 samples	Diffuser	mod_width			
-ModSamples	65535	499 samples	Diffuser	mod_width			
-Phase	0	-360 deg	LFO	phase_input			
-Phase	65535	360 deg	LFO	phase_input			
-PitchCents	0	-12	Reverse Delay	pitch			
-PitchCents	65535	12	Reverse Delay	pitch			
-HzRound	0	28	Multi Filter	frequency			
-HzRound	65535	23999	Multi Filter	frequency			
+Song	0	1:01:00	Midi Clock Out	song_position		darosh	
+Song	65535	1024:04:18	Midi Clock Out	song_position		darosh	
+Pan	0	L100 R0	Audio Panner	pan		darosh	
+Pan	65535	L0 R100	Audio Panner	pan		darosh	
+SizeSamples	0	80 samples	Diffuser	size		darosh	
+SizeSamples	65535	4999 samples	Diffuser	size		darosh	
+ModSamples	0	3 samples	Diffuser	mod_width		darosh	
+ModSamples	65535	499 samples	Diffuser	mod_width		darosh	
+Phase	0	-360 deg	LFO	phase_input		darosh	
+Phase	65535	360 deg	LFO	phase_input		darosh	
+PitchCents	0	-12	Reverse Delay	pitch		darosh	
+PitchCents	32768	0	Reverse Delay	pitch		darosh	
+PitchCents	40960	+10 cents	Reverse Delay	pitch		darosh	
+PitchCents	49152	+4	Reverse Delay	pitch		darosh	
+PitchCents	57344	+5	Reverse Delay	pitch		darosh	
+PitchCents	8192	-5	Reverse Delay	pitch		darosh	
+PitchCents	65535	+12	Reverse Delay	pitch		darosh	
+HzRound	0	28 Hz	Multi Filter	frequency			
+HzRound	65535	23999 Hz	Multi Filter	frequency			
 Steps	0	2 steps	Steps	quant_steps			
 Steps	65535	63 steps	Steps	quant_steps			
-Scale	0	Chromatic	Quantizer	scale			
-Scale	65535	Octave	Quantizer	scale			
+Scale	0	Chromatic	Quantizer	scale	scales: extended		
+Scale	65535	Octave	Quantizer	scale	scales: extended		
+ScaleBasic	65535	m Melodic	Quantizer	scale	scales: basic		
 TapRatio	0	1:1	Reverse Delay	tap_ratio			
 TapRatio	65535	1:32	Reverse Delay	tap_ratio			
 Bits	22635	11 bits	Bit Crusher	crushed_bits	fractions: off	darosh	

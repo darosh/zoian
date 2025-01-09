@@ -1,6 +1,6 @@
 import type { BlockView } from '../view/types.ts'
-import { getParamType, PARAM_RANGE, ParamType, type Range } from './param-types.ts'
-import { adjustedParam, UINT16_MAX } from './param-convert.ts'
+import { getParamType, PARAM_RANGE, ParamType, type Range, RATIOS, SCALES } from './param-types.ts'
+import { adjustedParam, convertNoteHz, exponentialToHz, linearToKey, linearToNote, UINT16_MAX, valueToPitch } from './param-convert.ts'
 
 export type Display = (value: number, range: Range | Range[]) => number | string
 
@@ -70,23 +70,25 @@ export const PARAM_DISPLAY: Record<ParamType, Display> = {
   [ParamType.TapMulti2]: displayLinear,
 
   // Pitch
-  [ParamType.Note]: tbd,
-  [ParamType.Hz]: tbd,
-  [ParamType.Step]: tbd,
-  [ParamType.Pitch]: tbd,
-  [ParamType.Key]: tbd,
+  [ParamType.Note]: (x) => displayNote(convertNoteHz(x)),
+  // [ParamType.Hz]: x => `${exponentialToHz(x)}\u202FHz`,
+  [ParamType.Hz]: (x) => displayHz(exponentialToHz(x)),
+  [ParamType.Step]: linearToNote,
+  [ParamType.Pitch]: displayLinear,
+  [ParamType.Key]: linearToKey,
 
   // Special
-  [ParamType.Song]: tbd,
-  [ParamType.Pan]: tbd,
-  [ParamType.SizeSamples]: tbd,
-  [ParamType.ModSamples]: tbd,
-  [ParamType.Phase]: tbd,
-  [ParamType.PitchCents]: tbd,
-  [ParamType.HzRound]: tbd,
-  [ParamType.Steps]: tbd,
-  [ParamType.Scale]: tbd,
-  [ParamType.TapRatio]: tbd,
+  [ParamType.Song]: displaySong,
+  [ParamType.Pan]: displayPan,
+  [ParamType.SizeSamples]: displayLinear,
+  [ParamType.ModSamples]: displayLinear,
+  [ParamType.Phase]: displayLinear,
+  [ParamType.PitchCents]: valueToPitch,
+  [ParamType.HzRound]: displayLinear,
+  [ParamType.Steps]: displayLinear,
+  [ParamType.Scale]: displayScale,
+  [ParamType.ScaleBasic]: displayScaleBasic,
+  [ParamType.TapRatio]: displayTapRatio,
   [ParamType.Bits]: displayLinear,
   [ParamType.BitsFractional]: displayLinear,
 }
@@ -281,7 +283,14 @@ export function displayParam(value: number) {
 }
 
 export function displayHz(value: number) {
-  return `${Math.round(value * 100) / 100}\u202FHz`
+  const r = Math.round(value)
+  let f = 2
+
+  if (r >= 10000) {
+    f = 1
+  }
+
+  return `${value.toFixed(f)}\u202FHz`
 }
 
 export function displayDb(value: number) {
@@ -317,8 +326,8 @@ export function displaySteps(steps: number) {
 }
 
 export function displayPan(value: number) {
-  const left = Math.round(value * 100)
-  const right = 100 - left
+  const right = Math.round(value / UINT16_MAX * 100)
+  const left = 100 - right
 
   return `L${left} R${right}`
 }
@@ -327,15 +336,53 @@ const A4 = 440
 const NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
 function displayNote(frequency: number): string {
-  // Calculate number of half steps from A4
-  // 12 * log2(f/440) gives us the number of half steps
+  // Calculate the number of half steps from A4
   const halfSteps = Math.round(12 * Math.log2(frequency / A4))
 
-  // Calculate octave and note index
-  // A4 is 9 half steps above C4, so we adjust our calculation accordingly
-  const octave = Math.floor((halfSteps + 69) / 12) - 1
-  const noteIndex = ((halfSteps + 69) % 12 + 12) % 12
+  // MIDI note number relative to A4 (MIDI 69)
+  const midiNote = 69 + halfSteps
 
-  // Combine note name and octave
+  // Determine the octave and note index
+  const octave = Math.floor(midiNote / 12) - 1
+  const noteIndex = midiNote % 12
+
+  // Combine the note name and octave
   return NOTES[noteIndex] + octave
+}
+
+const TICKS_PER_BEAT = 24
+const BEATS_PER_MEASURE = 4
+const TOTAL_TICKS = 98298 // Ticks from 1:01:00 to 1024:04:18
+const TICKS_PER_UINT16 = TOTAL_TICKS / 65535
+
+export function displaySong(value: number) {
+  // Convert to ticks
+  const ticks = Math.floor(value * TICKS_PER_UINT16)
+
+  // Calculate position components
+  const totalBeats = Math.floor(ticks / TICKS_PER_BEAT)
+  const measure = Math.floor(totalBeats / BEATS_PER_MEASURE) + 1
+  const beat = (totalBeats % BEATS_PER_MEASURE) + 1
+  const tick = ticks % TICKS_PER_BEAT
+
+  // Format as string
+  return `${measure}:${beat.toString().padStart(2, '0')}:${tick.toString().padStart(2, '0')}`
+}
+
+export function displayScale(value: number) {
+  const i = value / UINT16_MAX * (SCALES.length - 1)
+
+  return SCALES[Math.round(i)]
+}
+
+export function displayScaleBasic(value: number) {
+  const i = value / UINT16_MAX * (5 - 1)
+
+  return SCALES[Math.round(i)]
+}
+
+export function displayTapRatio(value: number) {
+  const i = value / UINT16_MAX * (RATIOS.length - 1)
+
+  return RATIOS[Math.round(i)]
 }

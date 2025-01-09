@@ -82,6 +82,7 @@ export enum ParamType {
   HzRound,
   Steps,
   Scale,
+  ScaleBasic,
   TapRatio,
   Bits,
   BitsFractional,
@@ -89,8 +90,8 @@ export enum ParamType {
 
 export type Range = [number | string | ((x: number) => number), number | string, string?, number?]
 
-const SCALES = ['Chromatic', 'Major', 'm Natural', 'm Harmonic', 'm Melodic', 'M Harmonic', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Locrian', 'M Locrian', 'Ahava Raba', 'Akebono', 'Bhairav', 'Marwa', 'Purvi', 'Todi', 'Pelog', 'Ukrainian', 'Romani', 'MHungarian', 'mHungarian', 'Persian', 'M Neapol', 'm Neapol', 'H Dim', 'W-H Dim', 'H-W Dim', 'Istrian', 'Prometheus', 'Harmonics', 'Tritone', '2Semi Tri', 'Wholetone', 'M Penta', 'm Penta', 'Hirajoshi1', 'Hirajoshi2', 'Hirajoshi3', 'Hirajoshi4', 'Hirajoshi5', 'Insen', 'Fourth', 'Dim Fifth', 'P Fifth', 'Aug Fifth', 'Octave']
-const RATIOS = ['1:1', '2:3', '1:2', '1:3', '3:8', '1:4', '3:16', '1:8', '1:16', '1:32']
+export const SCALES = ['Chromatic', 'Major', 'm Natural', 'm Harmonic', 'm Melodic', 'M Harmonic', 'Dorian', 'Phrygian', 'Lydian', 'Mixolydian', 'Locrian', 'M Locrian', 'Ahava Raba', 'Akebono', 'Bhairav', 'Marwa', 'Purvi', 'Todi', 'Pelog', 'Ukrainian', 'Romani', 'MHungarian', 'mHungarian', 'Persian', 'M Neapol', 'm Neapol', 'H Dim', 'W-H Dim', 'H-W Dim', 'Istrian', 'Prometheus', 'Harmonics', 'Tritone', '2Semi Tri', 'Wholetone', 'M Penta', 'm Penta', 'Hirajoshi1', 'Hirajoshi2', 'Hirajoshi3', 'Hirajoshi4', 'Hirajoshi5', 'Insen', 'Fourth', 'Dim Fifth', 'P Fifth', 'Aug Fifth', 'Octave']
+export const RATIOS = ['1:1', '2:3', '1:2', '1:3', '3:8', '1:4', '3:16', '1:8', '1:16', '1:32']
 
 export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   // Simple
@@ -159,6 +160,7 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
 
   // Pitch
   [ParamType.Note]: ['A0', 'A10'],
+  // [ParamType.Hz]: [[27.5, 23999, 'Hz'], ['A0', 'A10']],
   [ParamType.Hz]: [[27.5, 23999, 'Hz'], ['A0', 'A10']],
   [ParamType.Step]: [['A0', 'A10'], [0, 1]],
   [ParamType.Pitch]: [[3.1, 3199.7, '%'], [-60, 60, 'semitones'], [-6000, 6000, 'cents']],
@@ -170,10 +172,11 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.SizeSamples]: [80, 4999, 'samples'],
   [ParamType.ModSamples]: [3, 499, 'samples'],
   [ParamType.Phase]: [-360, 360, 'deg'],
-  [ParamType.PitchCents]: [-12, 12], // -/+ 10 cents,4 semitones,5 semitones, 12 semitones
-  [ParamType.HzRound]: [28, 23999],
-  [ParamType.Steps]: [2, 63, 'steps'],
+  [ParamType.PitchCents]: [-12, 12], // -/+ 10 cents,4,5, 12
+  [ParamType.HzRound]: [28, 23999, 'Hz', 0],
+  [ParamType.Steps]: [2, 63, 'steps', 0],
   [ParamType.Scale]: [SCALES[0], <string> SCALES.at(-1)],
+  [ParamType.ScaleBasic]: [SCALES[0], <string> SCALES[4]],
   [ParamType.TapRatio]: [RATIOS[0], <string> RATIOS.at(-1)],
   [ParamType.Bits]: [0, 31, 'bits', 0],
   [ParamType.BitsFractional]: [0, 32, 'bits', 1],
@@ -284,6 +287,13 @@ export const TYPE_MAP: Record<string, (TypeSpec | TypesSpec)[]> = {
     ],
     modules: ['Bit Crusher'],
   }],
+  scale: [{
+    types: [
+      [ParamType.ScaleBasic, 'scales', 'basic'],
+      [ParamType.Scale, 'scales', 'extended'],
+    ],
+    modules: ['Quantizer'],
+  }],
 
   // Single use
   out_select: [{ type: ParamType.Ignored, modules: ['Out Switch'] }],
@@ -318,7 +328,6 @@ export const TYPE_MAP: Record<string, (TypeSpec | TypesSpec)[]> = {
   high_eq: [{ type: ParamType.Db8, modules: ['Plate Reverb'] }],
   filter_gain: [{ type: ParamType.Db0, modules: ['All Pass Filter'] }],
   key: [{ type: ParamType.Key, modules: ['Quantizer'] }],
-  scale: [{ type: ParamType.Scale, modules: ['Quantizer'] }],
   control_in: [{ type: ParamType.One, modules: ['Phaser'] }],
   restart_playback: [{ type: ParamType.One, modules: ['Looper'] }],
   stop_play: [{ type: ParamType.One, modules: ['Looper'] }],

@@ -11,7 +11,7 @@ export function displayPercent(value: number) {
 }
 
 export function displayDb(value: number) {
-  return Math.floor(value * 100) / 100
+  return (Math.floor(value * 100) / 100).toString().replace('-', '−')
 }
 
 export function adjustedDb(strength: number): number {

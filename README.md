@@ -152,3 +152,9 @@ const file = removePadding(uint8ArrayToBase64(gz)) // Requires encodeURIComponen
 ## Licence
 
 Released under [GPL v3 license](LICENSE), see also notes about derived work in [./lib/README.md](./lib/README.md).
+
+## Credits
+
+- [darosh](https://github.com/darosh) - Application design and development
+- [sbw25phi2](https://patchstorage.com/author/sbw25phi2/) - Data mining specialist
+- [claude.ai](https://claude.ai/) - Assistance with Python to TypeScript parser conversion

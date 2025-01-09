@@ -88,6 +88,7 @@
           :location="0"
           :input="iog.jackView.spec.input"
           :px="px"
+          :r="moduleER"
           :dark="dark"
           :size="moduleE"
           :active="iog.jackView.jack.active"
@@ -981,6 +982,10 @@ export default {
       if (!this.selectedModule?.blockView
         && ![JackType.Button, JackType.Stomp].includes(this.selectedModule?.jackView?.spec?.type)) {
         return this.moduleEH
+      }
+
+      if ((this.selectedModule?.jackView?.spec?.type === JackType.Stomp) && this.selectedModule?.jackView.jack.active) {
+        return 0
       }
 
       return this.moduleER

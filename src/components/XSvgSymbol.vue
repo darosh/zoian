@@ -14,6 +14,8 @@
       v-else-if="type === JackType.Stomp"
       :width="size"
       :height="size"
+      :rx="active ? 0 : r"
+      :ry="active ? 0 : r"
       :x="x"
       :y="y" />
     <g
@@ -196,6 +198,10 @@ export default {
       default: () => [0, 0]
     },
     px: {
+      type: Number,
+      default: 0
+    },
+    r: {
       type: Number,
       default: 0
     },

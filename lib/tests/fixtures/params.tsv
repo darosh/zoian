@@ -176,14 +176,14 @@ PitchCents	49152	+4	Reverse Delay	pitch		darosh
 PitchCents	57344	+5	Reverse Delay	pitch		darosh	
 PitchCents	8192	-5	Reverse Delay	pitch		darosh	
 PitchCents	65535	+12	Reverse Delay	pitch		darosh	
-HzRound	0	28 Hz	Multi Filter	frequency			
-HzRound	65535	23999 Hz	Multi Filter	frequency			
-Steps	0	2 steps	Steps	quant_steps			
-Steps	65535	63 steps	Steps	quant_steps			
-Scale	0	Chromatic	Quantizer	scale	scales: extended		
-Scale	65535	Octave	Quantizer	scale	scales: extended		
-ScaleBasic	65535	m Melodic	Quantizer	scale	scales: basic		
-TapRatio	0	1:1	Reverse Delay	tap_ratio			
-TapRatio	65535	1:32	Reverse Delay	tap_ratio			
+HzRound	0	28 Hz	Multi Filter	frequency		darosh	
+HzRound	65535	23999 Hz	Multi Filter	frequency		darosh	
+Steps	0	2 steps	Steps	quant_steps		darosh	
+Steps	65535	63 steps	Steps	quant_steps		darosh	
+Scale	0	Chromatic	Quantizer	scale	scales: extended	darosh	
+Scale	65535	Octave	Quantizer	scale	scales: extended	darosh	
+ScaleBasic	65535	m Melodic	Quantizer	scale	scales: basic	darosh	
+TapRatio	0	1:1	Reverse Delay	tap_ratio		darosh	
+TapRatio	65535	1:32	Reverse Delay	tap_ratio		darosh	
 Bits	22635	11 bits	Bit Crusher	crushed_bits	fractions: off	darosh	
 BitsFractional	32535	15.9 bits	Bit Crusher	crushed_bits	fractions: on	darosh	

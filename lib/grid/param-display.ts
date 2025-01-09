@@ -1,6 +1,6 @@
 import type { BlockView } from '../view/types.ts'
 import { getParamType, PARAM_RANGE, ParamType, type Range, RATIOS, SCALES } from './param-types.ts'
-import { adjustedParam, convertNoteHz, exponentialToHz, linearToKey, linearToNote, UINT16_MAX, valueToPitch } from './param-convert.ts'
+import { adjustedParam, convertNoteHz, exponentialToHz, linearToKey, linearToNote, timeV1, timeV100, timeV16, timeV2, timeV4, timeV8, UINT16_MAX, valueToPitch } from './param-convert.ts'
 
 export type Display = (value: number, range: Range | Range[]) => number | string
 
@@ -51,7 +51,12 @@ export const PARAM_DISPLAY: Record<ParamType, Display> = {
   [ParamType.Time34]: displayTime,
   [ParamType.Time59]: displayTime59,
   [ParamType.Time60]: displayTime,
-  [ParamType.Time16]: tbd,
+  [ParamType.TimeV100]: (x) => formatTime('ms', timeV100(x), 3),
+  [ParamType.TimeV1]: (x) => formatTime('ms', timeV1(x), 3),
+  [ParamType.TimeV2]: (x) => formatTime('ms', timeV2(x), 3),
+  [ParamType.TimeV4]: (x) => formatTime('ms', timeV4(x), 3),
+  [ParamType.TimeV8]: (x) => formatTime('ms', timeV8(x), 3),
+  [ParamType.TimeV16]: (x) => formatTime('ms', timeV16(x), 3),
 
   // Hz
   [ParamType.HzHigh]: displayLinear,
@@ -71,7 +76,6 @@ export const PARAM_DISPLAY: Record<ParamType, Display> = {
 
   // Pitch
   [ParamType.Note]: (x) => displayNote(convertNoteHz(x)),
-  // [ParamType.Hz]: x => `${exponentialToHz(x)}\u202FHz`,
   [ParamType.Hz]: (x) => displayHz(exponentialToHz(x)),
   [ParamType.Step]: linearToNote,
   [ParamType.Pitch]: displayLinear,

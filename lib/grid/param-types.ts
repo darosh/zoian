@@ -47,7 +47,12 @@ export enum ParamType {
   Time34,
   Time59,
   Time60,
-  Time16,
+  TimeV100,
+  TimeV1,
+  TimeV2,
+  TimeV4,
+  TimeV8,
+  TimeV16,
 
   // Hz
   HzHigh,
@@ -140,7 +145,12 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.Time34]: [2, 34.98, 'ms', 2],
   [ParamType.Time59]: [0, 59.99, 'sec', 2],
   [ParamType.Time60]: [0, 60000, 'ms', 3], // 3 digits
-  [ParamType.Time16]: [0.02, 16000, 'ms', 2],
+  [ParamType.TimeV100]: [0.02, 16000, 'ms', 2],
+  [ParamType.TimeV1]: [0.02, 16000, 'ms', 2],
+  [ParamType.TimeV2]: [0.02, 16000, 'ms', 2],
+  [ParamType.TimeV4]: [0.02, 16000, 'ms', 2],
+  [ParamType.TimeV8]: [0.02, 16000, 'ms', 2],
+  [ParamType.TimeV16]: [0.02, 16000, 'ms', 2],
 
   // Hz
   [ParamType.HzHigh]: [1700, 4699, 'Hz', 0],
@@ -197,7 +207,17 @@ export const TYPE_MAP: Record<string, (TypeSpec | TypesSpec)[]> = {
     { type: ParamType.Db0, modules: ['Diffuser'] },
   ],
   delay_time: [
-    { type: ParamType.Time16, modules: ['Delay Line'] },
+    {
+      types: [
+        [ParamType.TimeV100, 'max_time', '100ms'],
+        [ParamType.TimeV1, 'max_time', '1s'],
+        [ParamType.TimeV2, 'max_time', '2s'],
+        [ParamType.TimeV4, 'max_time', '4s'],
+        [ParamType.TimeV8, 'max_time', '8s'],
+        [ParamType.TimeV16, 'max_time', '16s'],
+      ],
+      modules: ['Delay Line'],
+    },
     { type: ParamType.DelayTimeFaster, modules: ['Reverse Delay'] },
     { type: ParamType.DelayTime, modules: ['Delay w/ Mod', 'Ping Pong Delay'] },
     { type: ParamType.Time34, modules: ['Stereo Spread'] },
@@ -237,7 +257,17 @@ export const TYPE_MAP: Record<string, (TypeSpec | TypesSpec)[]> = {
     { type: ParamType.Env2, modules: ['Compressor'] },
   ],
   tap_tempo_in: [
-    { type: ParamType.Time16, modules: ['Delay Line'] },
+    {
+      types: [
+        [ParamType.TimeV100, 'max_time', '100ms'],
+        [ParamType.TimeV1, 'max_time', '1s'],
+        [ParamType.TimeV2, 'max_time', '2s'],
+        [ParamType.TimeV4, 'max_time', '4s'],
+        [ParamType.TimeV8, 'max_time', '8s'],
+        [ParamType.TimeV16, 'max_time', '16s'],
+      ],
+      modules: ['Delay Line'],
+    },
     { type: ParamType.TapMulti2, modules: ['Reverse Delay'] },
     { type: ParamType.TapMultiRev, modules: ['Ping Pong Delay'] },
     { type: ParamType.TapMulti1, modules: ['Vibrato', 'Univibe'] },
@@ -294,6 +324,17 @@ export const TYPE_MAP: Record<string, (TypeSpec | TypesSpec)[]> = {
     ],
     modules: ['Quantizer'],
   }],
+  modulation_in: [{
+    types: [
+      [ParamType.TimeV100, 'max_time', '100ms'],
+      [ParamType.TimeV1, 'max_time', '1s'],
+      [ParamType.TimeV2, 'max_time', '2s'],
+      [ParamType.TimeV4, 'max_time', '4s'],
+      [ParamType.TimeV8, 'max_time', '8s'],
+      [ParamType.TimeV16, 'max_time', '16s'],
+    ],
+    modules: ['Delay Line'],
+  }],
 
   // Single use
   out_select: [{ type: ParamType.Ignored, modules: ['Out Switch'] }],
@@ -315,7 +356,6 @@ export const TYPE_MAP: Record<string, (TypeSpec | TypesSpec)[]> = {
   hold_sustain_release: [{ type: ParamType.Env, modules: ['ADSR'] }],
   level_control: [{ type: ParamType.Db0, modules: ['VCA'] }],
   trigger: [{ type: ParamType.One, modules: ['Sample and Hold'] }],
-  modulation_in: [{ type: ParamType.Time16, modules: ['Delay Line'] }],
   rise_time: [{ type: ParamType.Env, modules: ['Env Follower'] }],
   fall_time: [{ type: ParamType.Env, modules: ['Env Follower'] }],
   note: [{ type: ParamType.Note, modules: ['Keyboard'] }],

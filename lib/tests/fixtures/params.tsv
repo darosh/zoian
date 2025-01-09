@@ -92,8 +92,24 @@ Time59	34656	1.00 sec	Slew Limiter	slew_rate		darosh
 Time59	65535	59.99 sec	Slew Limiter	slew_rate		darosh	
 Time60	0	0.00 ms	Slew Limiter	rising_lag		darosh	
 Time60	65535	60.0 s	Slew Limiter	rising_lag		darosh	
-// Time16	0	0.02 ms	Delay Line	delay_time		darosh	
-// Time16	65535	16.0 s	Delay Line	delay_time	max_time: 16s	darosh	
+TimeV100	0	0.02 ms	Delay Line	delay_time	max_time: 100ms	darosh	
+TimeV100	32700	1.42 ms	Delay Line	delay_time	max_time: 100ms	darosh	
+TimeV100	65535	98.6 ms	Delay Line	delay_time	max_time: 100ms	darosh	
+TimeV1	0	0.02 ms	Delay Line	delay_time	max_time: 1s	darosh	
+TimeV1	32700	4.50 ms	Delay Line	delay_time	max_time: 1s	darosh	
+TimeV1	65535	999 ms	Delay Line	delay_time	max_time: 1s	darosh	
+TimeV2	0	0.02 ms	Delay Line	delay_time	max_time: 2s	darosh	
+TimeV2	32700	6.38 ms	Delay Line	delay_time	max_time: 2s	darosh	
+TimeV2	65535	2.00 s	Delay Line	delay_time	max_time: 2s	darosh	
+TimeV4	0	0.02 ms	Delay Line	delay_time	max_time: 4s	darosh	
+TimeV4	32700	9.00 ms	Delay Line	delay_time	max_time: 4s	darosh	
+TimeV4	65535	4.00 s	Delay Line	delay_time	max_time: 4s	darosh	
+TimeV8	0	0.02 ms	Delay Line	delay_time	max_time: 8s	darosh	
+TimeV8	32700	12.7 ms	Delay Line	delay_time	max_time: 8s	darosh	
+TimeV8	65535	8.00 s	Delay Line	delay_time	max_time: 8s	darosh	
+TimeV16	0	0.02 ms	Delay Line	delay_time	max_time: 16s	darosh	
+TimeV16	32700	18.0 ms	Delay Line	delay_time	max_time: 16s	darosh	
+TimeV16	65535	16.0 s	Delay Line	delay_time	max_time: 16s	darosh	
 // Hz							
 HzHigh	0	1700 Hz	Hall Reverb	lpf_freq		darosh	
 HzHigh	65535	4699 Hz	Hall Reverb	lpf_freq		darosh	

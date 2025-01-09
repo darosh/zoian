@@ -95,3 +95,20 @@ export function valueToPitch(value: number) {
 
   return `${x > 0 ? '+' : ''}${x}`
 }
+
+function createTimeConverter([min, mid, max]: [number, number, number]) {
+  const CENTER_VALUE = 32700
+  const scale = Math.log2(max / mid) / (65535 - CENTER_VALUE)
+
+  return (value: number): number => {
+    const octavesFromCenter = (value - CENTER_VALUE) * scale
+    return Math.max(Math.min(mid * Math.pow(2, octavesFromCenter), max), min)
+  }
+}
+
+export const timeV100 = createTimeConverter([0.02, 1.42, 98.6])
+export const timeV1 = createTimeConverter([0.02, 4.50, 999])
+export const timeV2 = createTimeConverter([0.02, 6.38, 2000])
+export const timeV4 = createTimeConverter([0.02, 9.00, 4000])
+export const timeV8 = createTimeConverter([0.02, 12.7, 8000])
+export const timeV16 = createTimeConverter([0.02, 18.0, 16000])

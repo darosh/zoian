@@ -208,7 +208,7 @@
           <rect
             v-if="!(sg.first || sg.last)"
             :fill="dark ? sg.colors.dark : sg.colors.light"
-            :width="moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * moduleMH - (!(sg.x === 7 || sg.x === 0) && sg.forcedLast) * moduleMH"
+            :width="svgTweak + moduleS + ((sg.x > 0) && (sg.x < 7)) * moduleM + (sg.x === 7 || sg.x === 0) * moduleMH - (!(sg.x === 7 || sg.x === 0) && sg.forcedLast) * moduleMH"
             :height="moduleS"
             :x="(sg.x > 0) * -moduleMH"
             :y="0"
@@ -227,7 +227,7 @@
           <!-- side block -->
           <path
             v-else
-            :d="rectPath({left: sg.first, right: sg.last, size: { width: moduleS + ((sg.x > 0 || sg.first) && (sg.x < 7 || sg.last) && !sg.forcedLast) * moduleMH, height: moduleS}, radius: moduleR})"
+            :d="rectPath({left: sg.first, right: sg.last, size: { width: (sg.first ? svgTweak : 0) + moduleS + ((sg.x > 0 || sg.first) && (sg.x < 7 || sg.last) && !sg.forcedLast) * moduleMH, height: moduleS}, radius: moduleR})"
             :fill="dark ? sg.colors.dark : sg.colors.light"
             :transform="`translate(${gridPos(sg)}) translate(${sg.last ? (sg.x > 0) * -moduleMH : 0},0)`" />
           <!-- block label -->
@@ -777,6 +777,10 @@ export default {
     moduleM: {
       type: Number,
       default: 4
+    },
+    svgTweak: {
+      type: Number,
+      default: .2
     },
     gridX: {
       type: Number,

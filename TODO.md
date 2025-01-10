@@ -16,7 +16,6 @@
 ## Improvements
 
 - [ ] add file selection for touch devices
-- [ ] weird thin lines between blocks, non-retina? svg widths rounding?
 - [ ] add second dot if hidden link has opposite directions?
 - [ ] midi connections to 1st block
 - [ ] [POSTPONED] consolidate block condition types
@@ -32,6 +31,7 @@
 
 ## Done
 
+- [x] weird thin lines between blocks, non-retina? svg widths rounding?
 - [x] ~~straight lines option~~
 - [x] ~~url shortener? free + non-tracking?~~
 - [x] ~~favorites stored in browser?~~

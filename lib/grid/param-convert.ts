@@ -128,6 +128,15 @@ export function createFrequencyConverter([min, mid, max]: [number, number, numbe
   }
 }
 
+export function createFasterFrequencyConverter([start, end]: [number, number]) {
+  const a = start // Starting frequency
+  const b = (start / end - 1) / UINT16_MAX
+
+  return (value: number): number => {
+    return Math.max(Math.min(a / (1 + b * value), start), end)
+  }
+}
+
 export function createInverseFrequencyConverter([max, min]: [number, number]) {
   return (value: number): number => {
     return Math.max(Math.min(16 / (1 + 0.0004731 * value), max), min)

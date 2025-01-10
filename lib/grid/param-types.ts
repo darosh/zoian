@@ -1,5 +1,11 @@
 import type { ModuleSpec } from '../spec/types.ts'
-import { createFrequencyConverter, createInverseFrequencyConverter, hZtoBpm, hzToMs } from './param-convert.ts'
+import {
+  createFasterFrequencyConverter,
+  createFrequencyConverter,
+  createInverseFrequencyConverter,
+  hZtoBpm,
+  hzToMs
+} from './param-convert.ts'
 
 export enum ParamType {
   // Simple
@@ -167,7 +173,7 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   // [ParamType.TapMultiRev]: [[10.000, 0.500, 'Hz', 3], [100, 2000, 'ms'], [600, 30, 'BPM']],
   // [ParamType.TapMultiInf]: [[0, 8000, 'ms', 0], [(x) => 1000 / x, 0, 'Hz'], [(x) => 60000 / x, 0, 'BPM']],
   // [ParamType.TapMulti1]: [[10, .125, 'Hz', 3], [100, 8000, 'ms'], [600, 8, 'BPM']],
-  [ParamType.DelayTimeFaster]: [[createInverseFrequencyConverter([16.000, 0.800]), 0, 'Hz', 3], [hzToMs, 0, 'delay-time', 3], [hZtoBpm, 0, 'BPM', 0]],
+  [ParamType.DelayTimeFaster]: [[createFasterFrequencyConverter([16.000, 0.800]), 0, 'Hz', 3], [hzToMs, 0, 'delay-time', 3], [hZtoBpm, 0, 'BPM', 0]],
   // [ParamType.TapMulti2]: [[10, .8, 'Hz', 1], [100, 1250, 'ms'], [600, 48, 'BPM']],
 
   // Pitch

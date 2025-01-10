@@ -1,11 +1,5 @@
 import type { ModuleSpec } from '../spec/types.ts'
-import {
-  createFasterFrequencyConverter,
-  createFrequencyConverter,
-  createInverseFrequencyConverter,
-  hZtoBpm,
-  hzToMs
-} from './param-convert.ts'
+import { createFasterFrequencyConverter, createFrequencyConverter, createInverseFrequencyConverter, hZtoBpm, hzToMs } from './param-convert.ts'
 
 export enum ParamType {
   // Simple
@@ -181,7 +175,7 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   // [ParamType.Hz]: [[27.5, 23999, 'Hz'], ['A0', 'A10']],
   [ParamType.Hz]: [[27.5, 23999, 'Hz'], ['A0', 'A10']],
   [ParamType.Step]: [['A0', 'A10'], [0, 1]],
-  [ParamType.Pitch]: [[3.1, 3199.7, '%'], [-60, 60, 'semitones'], [-6000, 6000, 'cents']],
+  [ParamType.Pitch]: [[-6000, 6000, 'cents', 2], [(cents) => 100 * Math.pow(2, cents / 1200), 0, '%', 1]],
   [ParamType.Key]: ['A', 'G#'],
 
   // Special

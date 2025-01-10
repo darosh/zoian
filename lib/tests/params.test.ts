@@ -3,6 +3,7 @@ import debug from 'debug'
 import { displayParameter } from '../index.ts'
 import { assertEquals } from 'jsr:@std/assert'
 import type { BlockView } from '../view/types.ts'
+import { JOIN, MINUS, SPACE } from '../grid/param-display.ts'
 
 const log = debug('zoian:test')
 
@@ -53,13 +54,14 @@ Deno.test('params', async () => {
     try {
       assertEquals(
         display
-          .replaceAll('\u202F', ' ')
-          .replaceAll('−', '-')
-          .split(',')
-          .shift(),
-        expected
-          .split(',')
-          .shift(),
+          .replaceAll(SPACE, ' ')
+          .replaceAll(MINUS, '-')
+          .replaceAll(JOIN, ', '),
+        // .split(',')
+        // .shift(),
+        expected,
+        // .split(',')
+        // .shift(),
       )
     } catch (error: unknown) {
       if (cols[7] === 'approx') {

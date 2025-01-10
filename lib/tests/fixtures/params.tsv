@@ -164,8 +164,8 @@ Step	45875	A7	Sequencer	step		darosh
 Step	52428	A8	Sequencer	step		darosh	
 Step	58982	A9	Sequencer	step		darosh	
 Step	65535	A10	Sequencer	step		darosh	
-Pitch	0	3.1 %	Looper	speed_pitch		darosh	
-Pitch	65535	3199.7 %	Looper	speed_pitch		darosh	
+Pitch	0	-6000.00 cents, 3.1 %	Looper	speed_pitch		darosh	
+Pitch	65535	6000.00 cents, 3199.7 %	Looper	speed_pitch		darosh	approx
 Key	0	A	Quantizer	key		darosh	
 Key	65535	G#	Quantizer	key		darosh	
 // Special							

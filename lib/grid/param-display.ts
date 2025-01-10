@@ -97,6 +97,13 @@ export const PARAM_DISPLAY: Record<ParamType, Display> = {
   [ParamType.BitsFractional]: displayLinear,
 }
 
+export const MINUS = '−'
+// export const SPACE = '\u202F'
+// export const SPACE = ' '
+export const SPACE = '\u2005'
+// export const JOIN = ' / '
+export const JOIN = ',\u2002'
+
 export function displayParameter(bv: BlockView, value: number): number | string {
   const pt = getParamType(bv.name, bv.moduleView.spec)
   let r
@@ -108,7 +115,7 @@ export function displayParameter(bv: BlockView, value: number): number | string 
     r = PARAM_DISPLAY[ppt](value, PARAM_RANGE[ppt])
   }
 
-  return typeof r === 'number' ? format(r) : r.replace('-', '−')
+  return typeof r === 'number' ? format(r) : r.replace('-', MINUS)
 }
 
 export function format(n: number, unit?: string, fixed?: number): string {
@@ -122,15 +129,11 @@ export function format(n: number, unit?: string, fixed?: number): string {
     r = n.toFixed(4)
   }
 
-  return r.replace('-', '−')
+  return r.replace('-', MINUS)
 }
 
 export function displayParameterOne(value: number): number | string {
   return format(adjustedParam(value))
-}
-
-export function tbd(value: number): string {
-  return `${displayParameterOne(value)} ?`
 }
 
 export function displayLinear(value: number, range: Range | Range[]): number | string {
@@ -153,9 +156,9 @@ export function displayLinear(value: number, range: Range | Range[]): number | s
       return formatDelayTime(v)
     }
 
-    return `${r[2] && r[2].at(-1) === '=' ? r[2] : ''}${format(v, r[2], r[3])}${(r[2] && r[2].at(-1) !== '=') ? `\u202F${r[2]}` : ''}`
+    return `${r[2] && r[2].at(-1) === '=' ? r[2] : ''}${format(v, r[2], r[3])}${(r[2] && r[2].at(-1) !== '=') ? `${SPACE}${r[2]}` : ''}`
       .replace('Infinity', 'inf')
-  }).join(', ')
+  }).join(JOIN)
 }
 
 function formatDelayTime(v: number) {
@@ -164,10 +167,10 @@ function formatDelayTime(v: number) {
   if (v >= 1000) {
     v /= 1000
     unit = 's'
-    return `${v.toFixed(3)}\u202F${unit}`
+    return `${v.toFixed(3)}${SPACE}${unit}`
   }
 
-  return `${v.toFixed(1)}\u202F${unit}`
+  return `${v.toFixed(1)}${SPACE}${unit}`
 }
 
 function formatTime(unit: string, v: number, digits: number) {
@@ -177,20 +180,20 @@ function formatTime(unit: string, v: number, digits: number) {
   }
 
   if (digits !== 3) {
-    return `${v.toFixed(digits)}\u202F${unit}`
+    return `${v.toFixed(digits)}${SPACE}${unit}`
   }
 
   const vr = Math.round(v)
 
   if (v < 10) {
-    return `${v.toFixed(2)}\u202F${unit}`
+    return `${v.toFixed(2)}${SPACE}${unit}`
   }
 
   if (vr >= 100 && vr < 1000) {
-    return `${v.toFixed(0)}\u202F${unit}`
+    return `${v.toFixed(0)}${SPACE}${unit}`
   }
 
-  return `${v.toFixed(1)}\u202F${unit}`
+  return `${v.toFixed(1)}${SPACE}${unit}`
 }
 
 export function displayTime(value: number, r: Range | Range[]) {
@@ -230,7 +233,7 @@ export function displayTimeInf(x: number, r: Range | Range[]) {
   let v
 
   if (x >= 65534) {
-    return `inf\u202F${unit}`
+    return `inf${SPACE}${unit}`
   } else if (x <= 0) {
     v = 0
   } else {
@@ -290,13 +293,13 @@ export function displayDb0(value: number): string {
   const to = -0
 
   if (value < min) {
-    return '-inf\u202FdB'
+    return `${MINUS}inf${SPACE}dB`
   }
 
   const v = (value - min) / (UINT16_MAX - min) * (to - from) + from
   const f = v.toFixed(2)
 
-  return `${f[0] !== '-' ? '-' : ''}${f}\u202FdB`
+  return `${f[0] !== '-' ? '-' : ''}${f}${SPACE}dB`
 }
 
 export function displayParam(value: number) {
@@ -311,39 +314,7 @@ export function displayHz(value: number) {
     f = 1
   }
 
-  return `${value.toFixed(f)}\u202FHz`
-}
-
-export function displayDb(value: number) {
-  return `${Math.floor(value * 100) / 100}\u202FdB`.replace('-', '−')
-}
-
-export function displaySeconds(value: number) {
-  return `${value.toFixed(2)}\u202Fs`
-}
-
-export function displayHzNote(frequency: number) {
-  return `${displayHz(frequency)} / ${displayNote(frequency)}`
-}
-
-export function displayEnv(ms: number) {
-  if (ms >= 1000) {
-    return `${(ms / 1000).toFixed(2)}\u202Fs`
-  }
-
-  if (ms >= 100) {
-    return `${ms.toFixed(0)}\u202Fms`
-  }
-
-  if (ms >= 10) {
-    return `${ms.toFixed(1)}\u202Fms`
-  }
-
-  return `${ms.toFixed(2)}\u202Fms`
-}
-
-export function displaySteps(steps: number) {
-  return `${steps}\u202Fsteps`
+  return `${value.toFixed(f)}${SPACE}Hz`
 }
 
 export function displayPan(value: number) {

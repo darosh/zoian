@@ -67,12 +67,12 @@ export const PARAM_DISPLAY: Record<ParamType, Display> = {
   [ParamType.FreqLow]: displayLinear,
   // [ParamType.ClockTime]: displayLinear,
   [ParamType.DelayTime]: displayLinear,
-  [ParamType.TapMulti]: displayLinear,
-  [ParamType.TapMultiRev]: displayLinear,
-  [ParamType.TapMultiInf]: displayLinear,
-  [ParamType.TapMulti1]: displayLinear,
+  // [ParamType.TapMulti]: displayLinear,
+  // [ParamType.TapMultiRev]: displayLinear,
+  // [ParamType.TapMultiInf]: displayLinear,
+  // [ParamType.TapMulti1]: displayLinear,
   [ParamType.DelayTimeFaster]: displayLinear,
-  [ParamType.TapMulti2]: displayLinear,
+  // [ParamType.TapMulti2]: displayLinear,
 
   // Pitch
   [ParamType.Note]: (x) => displayNote(convertNoteHz(x)),

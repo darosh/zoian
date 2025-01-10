@@ -131,18 +131,18 @@ DelayTime	31712	1.000 Hz, 1.000 s, 60 BPM	Delay w/ Mod	delay_time		darosh
 DelayTime	40165	0.800 Hz, 1.250 s, 48 BPM	Delay w/ Mod	delay_time		darosh	
 DelayTime	54243	0.600 Hz, 1.666 s, 36 BPM	Delay w/ Mod	delay_time		darosh	
 DelayTime	65535	0.500 Hz, 2.000 s, 30 BPM	Delay w/ Mod	delay_time		darosh	
-TapMulti	0	0.500 Hz	Delay w/ Mod	tap_tempo_in		darosh	
-TapMulti	65535	10.000 Hz	Delay w/ Mod	tap_tempo_in		darosh	
-TapMultiRev	0	10.000 Hz	Ping Pong Delay	tap_tempo_in		darosh	
-TapMultiRev	65535	0.500 Hz	Ping Pong Delay	tap_tempo_in		darosh	
-TapMultiInf	0	0 ms	Flanger	tap_tempo_in		darosh	
-TapMultiInf	65535	8000 ms	Flanger	tap_tempo_in		darosh	
-TapMulti1	0	10.000 Hz	Vibrato	tap_tempo_in		darosh	
-TapMulti1	65535	0.125 Hz	Vibrato	tap_tempo_in		darosh	
-DelayTimeFaster	0	62.5 ms	Reverse Delay	delay_time		darosh	
-DelayTimeFaster	65535	1250 ms	Reverse Delay	delay_time		darosh	
-TapMulti2	0	10.0 Hz	Reverse Delay	tap_tempo_in		darosh	
-TapMulti2	65535	0.8 Hz	Reverse Delay	tap_tempo_in		darosh	
+// TapMulti	0	0.500 Hz	Delay w/ Mod	tap_tempo_in		darosh	
+// TapMulti	65535	10.000 Hz	Delay w/ Mod	tap_tempo_in		darosh	
+// TapMultiRev	0	10.000 Hz	Ping Pong Delay	tap_tempo_in		darosh	
+// TapMultiRev	65535	0.500 Hz	Ping Pong Delay	tap_tempo_in		darosh	
+// TapMultiInf	0	0 ms	Flanger	tap_tempo_in		darosh	
+// TapMultiInf	65535	8000 ms	Flanger	tap_tempo_in		darosh	
+// TapMulti1	0	10.000 Hz	Vibrato	tap_tempo_in		darosh	
+// TapMulti1	65535	0.125 Hz	Vibrato	tap_tempo_in		darosh	
+DelayTimeFaster	0	16.000 Hz, 62.5 ms, 960 BPM	Reverse Delay	delay_time		darosh	
+DelayTimeFaster	65535	0.800 Hz, 1.250 s, 48 BPM	Reverse Delay	delay_time		darosh	
+// TapMulti2	0	10.0 Hz	Reverse Delay	tap_tempo_in		darosh	
+// TapMulti2	65535	0.8 Hz	Reverse Delay	tap_tempo_in		darosh	
 // Pitch							
 Note	0	A0	Keyboard	note		darosh	
 Note	65535	A10	Keyboard	note		darosh	

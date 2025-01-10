@@ -1,8 +1,3 @@
-> ⚠️ WORK IN PROGRESS
->
-> This application is under active development. Some features may be incomplete or not working as intended. Feel free to
-> report an issue.
-
 # ZOIA/Euroburo Patch Explorer
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
@@ -13,7 +8,7 @@
 
 ZOIA and ZOIA Euroburo are modular digital effect pedals and Eurorack modules manufactured by Empress Effects. This
 application, deployed at [darosh.github.io/zoian](https://darosh.github.io/zoian/) allows users to explore their .BIN
-patch files.
+patch files. 
 
 ### Features
 
@@ -29,10 +24,12 @@ patch files.
 - CPU utilization overview
 - Share patches via link
 - Download shared user .BIN files
+- Module options and parameters
 - Controls
     - <kbd>Right-click</kbd> for context menu
     - <kbd>Left-click</kbd> show/hide tooltip
     - <kbd>Esc</kbd> Reset selection
+    - <kbd>Shift</kbd> Hold to temporarily disable mouse over function
 - Hotkeys / Context menu
     - <kbd>N</kbd> Previous patch
     - <kbd>M</kbd> Next patch
@@ -60,7 +57,11 @@ Access factory patch sets directly in the web explorer.
 Blocks and their connections may be displayed incorrectly (incorrect blocks and/or their incorrect order,
 see [./lib/README.md](./lib/README.md) for more information)
 
+The displayed parameter value and the dot on the slider represent the base setting of the parameter, independent of any CV modulation. When CV connections are active, the actual value on the device may differ from this base value as it's being dynamically modified by the incoming CV signal, such parameters are marked with approximately equal sign `≈`. The visual slider's dot position should match the circle position on your ZOIA device, both showing the base value before CV modulation is applied.
+
 So far only tested with Chrome browser.
+
+Feel free to report any issue.
 
 ## Development
 

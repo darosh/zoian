@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024-01-10
+
+- Adding module options and block params to the tooltip
+
 ## 2024-01-03
 
 - Fixing Euroburo missing block names in Euroburo mode

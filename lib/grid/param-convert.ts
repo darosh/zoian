@@ -112,3 +112,32 @@ export const timeV2 = createTimeConverter([0.02, 6.38, 2000])
 export const timeV4 = createTimeConverter([0.02, 9.00, 4000])
 export const timeV8 = createTimeConverter([0.02, 12.7, 8000])
 export const timeV16 = createTimeConverter([0.02, 18.0, 16000])
+
+export function createFrequencyConverter([min, mid, max]: [number, number, number]) {
+  const CENTER_VALUE = 31619
+  const scale = Math.log2(max / mid) / (65535 - CENTER_VALUE)
+
+  return (value: number): number => {
+    if (value <= 0) {
+      return 0
+    }
+
+    const octavesFromCenter = (value - CENTER_VALUE) * scale
+
+    return Math.max(Math.min(mid * Math.pow(2, octavesFromCenter), max), min)
+  }
+}
+
+export function createInverseFrequencyConverter([max, min]: [number, number]) {
+  return (value: number): number => {
+    return Math.max(Math.min(16 / (1 + 0.0004731 * value), max), min)
+  }
+}
+
+export function hzToMs(hz: number): number {
+  return hz > 0 ? 1000 / hz : Infinity
+}
+
+export function hZtoBpm(hz: number): number {
+  return hz * 60
+}

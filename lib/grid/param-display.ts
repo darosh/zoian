@@ -65,7 +65,7 @@ export const PARAM_DISPLAY: Record<ParamType, Display> = {
 
   // BPM
   [ParamType.FreqLow]: displayLinear,
-  [ParamType.ClockTime]: displayLinear,
+  // [ParamType.ClockTime]: displayLinear,
   [ParamType.DelayTime]: displayLinear,
   [ParamType.TapMulti]: displayLinear,
   [ParamType.TapMultiRev]: displayLinear,
@@ -142,15 +142,32 @@ export function displayLinear(value: number, range: Range | Range[]): number | s
     let v
 
     if (typeof r[0] === 'function') {
-      v = (<(x: number) => number> r[0])(first)
+      v = (<(x: number) => number> r[0])(first ?? value)
+      first = typeof first === 'undefined' ? v : first
     } else {
       v = (value / UINT16_MAX) * (r[1] - r[0]) + r[0]
       first = typeof first === 'undefined' ? v : first
     }
 
+    if (r[2] === 'delay-time') {
+      return formatDelayTime(v)
+    }
+
     return `${r[2] && r[2].at(-1) === '=' ? r[2] : ''}${format(v, r[2], r[3])}${(r[2] && r[2].at(-1) !== '=') ? `\u202F${r[2]}` : ''}`
       .replace('Infinity', 'inf')
   }).join(', ')
+}
+
+function formatDelayTime(v: number) {
+  let unit = 'ms'
+
+  if (v >= 1000) {
+    v /= 1000
+    unit = 's'
+    return `${v.toFixed(3)}\u202F${unit}`
+  }
+
+  return `${v.toFixed(1)}\u202F${unit}`
 }
 
 function formatTime(unit: string, v: number, digits: number) {

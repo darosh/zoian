@@ -53,10 +53,13 @@ Deno.test('params', async () => {
     try {
       assertEquals(
         display
-          .replace('\u202F', ' ')
-          .replace('−', '-')
-          .split(',').shift(),
-        expected,
+          .replaceAll('\u202F', ' ')
+          .replaceAll('−', '-')
+          .split(',')
+          .shift(),
+        expected
+          .split(',')
+          .shift()
       )
     } catch (error: unknown) {
       if (cols[7] === 'approx') {

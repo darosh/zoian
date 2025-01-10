@@ -1,4 +1,5 @@
 import type { ModuleSpec } from '../spec/types.ts'
+import { createFrequencyConverter, createInverseFrequencyConverter, hZtoBpm, hzToMs } from './param-convert.ts'
 
 export enum ParamType {
   // Simple
@@ -61,7 +62,7 @@ export enum ParamType {
 
   // BPM
   FreqLow,
-  ClockTime,
+  // ClockTime,
   DelayTime,
   TapMulti,
   TapMultiRev,
@@ -158,9 +159,10 @@ export const PARAM_RANGE: Record<ParamType, Range | Range[]> = {
   [ParamType.HzLow]: [0, 39.998, 'Hz', 3],
 
   // BPM
-  [ParamType.FreqLow]: [[0.000, 39.998, 'Hz', 3], [(x) => 1000 / x, 0, 'ms', 1], [0, 2400, 'BPM', 0]],
-  [ParamType.ClockTime]: [[89478.480, 0.025, 's', 3], [0, 2400, 'BPM', 0], [0.000, 40.000, 'Hz', 3]],
-  [ParamType.DelayTime]: [[62.5, 2000, 'ms'], [960, 30, 'BPM'], [16.000, 0.500, 'Hz']],
+  // [ParamType.FreqLow]: [[0.000, 39.998, 'Hz', 3], [(x) => 1000 / x, 0, 'ms', 1], [0, 2400, 'BPM', 0]],
+  [ParamType.FreqLow]: [[createFrequencyConverter([0.000, 5.000, 39.998]), 0, 'Hz', 3], [hzToMs, 0, 'ms', 1], [hZtoBpm, 0, 'BPM', 0]],
+  // [ParamType.ClockTime]: [[89478.480, 0.025, 's', 3], [0, 2400, 'BPM', 0], [0.000, 40.000, 'Hz', 3]],
+  [ParamType.DelayTime]: [[createInverseFrequencyConverter([16.000, 0.500]), 0, 'Hz', 3], [hzToMs, 0, 'delay-time', 3], [hZtoBpm, 0, 'BPM', 0]],
   [ParamType.TapMulti]: [[0.500, 10.000, 'Hz', 3], [2000, 100, 'ms'], [30, 600, 'BPM']],
   [ParamType.TapMultiRev]: [[10.000, 0.500, 'Hz', 3], [100, 2000, 'ms'], [600, 30, 'BPM']],
   [ParamType.TapMultiInf]: [[0, 8000, 'ms', 0], [(x) => 1000 / x, 0, 'Hz'], [(x) => 60000 / x, 0, 'BPM']],
@@ -246,7 +248,7 @@ export const TYPE_MAP: Record<string, (TypeSpec | TypesSpec)[]> = {
   ],
   cv_in: [
     { type: ParamType.One, modules: ['ADSR', 'Sample and Hold', 'CV Invert', 'Steps', 'Slew Limiter', 'Multiplier', 'Quantizer', 'In Switch', 'Out Switch', 'CV Delay', 'CV Loop', 'CV Filter', 'CV Rectify', 'Trigger', 'CPort CV Out', 'CV Flip Flop', 'Pixel', 'Euro CV Out 4', 'Euro CV Out 1', 'Euro CV Out 2', 'Euro CV Out 3', 'CV Mixer'] },
-    { type: ParamType.ClockTime, modules: ['Clock Divider'] },
+    { type: ParamType.Ignored, modules: ['Clock Divider'] },
   ],
   attack: [
     { type: ParamType.Env, modules: ['ADSR', 'Gate'] },

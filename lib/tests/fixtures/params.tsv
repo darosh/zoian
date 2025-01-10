@@ -118,12 +118,19 @@ HzOnly	65535	23999.0 Hz	Env Filter	min_freq		darosh
 HzLow	0	0.000 Hz	Delay w/ Mod	mod_rate		darosh	
 HzLow	65535	39.998 Hz	Delay w/ Mod	mod_rate		darosh	
 // BPM							
-FreqLow	0	0.000 Hz	Phaser	rate		darosh	
-FreqLow	65535	39.998 Hz	Phaser	rate		darosh	
-ClockTime	0	89478.480 s	Clock Divider	cv_in		darosh	
-ClockTime	65535	0.025 s	Clock Divider	cv_in		darosh	
-DelayTime	0	62.5 ms	Delay w/ Mod	delay_time		darosh	
-DelayTime	65535	2000 ms	Delay w/ Mod	delay_time		darosh	
+FreqLow	0	0.000 Hz, inf ms, 0 BPM	Phaser	rate		darosh	
+FreqLow	31619	5.000 Hz, 200.0 ms, 300 BPM	Phaser	rate		darosh	
+FreqLow	65535	39.998 Hz, 25.0 ms, 2400 BPM	Phaser	rate		darosh	
+// ClockTime	0	89478.480 s	Clock Divider	cv_in		darosh	
+// ClockTime	65535	0.025 s	Clock Divider	cv_in		darosh	
+DelayTime	0	16.000 Hz, 62.5 ms, 960 BPM	Delay w/ Mod	delay_time		darosh	
+DelayTime	2114	8.001 Hz, 125.0 ms, 480 BPM	Delay w/ Mod	delay_time		darosh	approx
+DelayTime	6342	4.000 Hz, 250.0 ms, 240 BPM	Delay w/ Mod	delay_time		darosh	
+DelayTime	14795	2.000 Hz, 499.9 ms, 120 BPM	Delay w/ Mod	delay_time		darosh	approx
+DelayTime	31712	1.000 Hz, 1.000 s, 60 BPM	Delay w/ Mod	delay_time		darosh	
+DelayTime	40165	0.800 Hz, 1.250 s, 48 BPM	Delay w/ Mod	delay_time		darosh	
+DelayTime	54243	0.600 Hz, 1.666 s, 36 BPM	Delay w/ Mod	delay_time		darosh	
+DelayTime	65535	0.500 Hz, 2.000 s, 30 BPM	Delay w/ Mod	delay_time		darosh	
 TapMulti	0	0.500 Hz	Delay w/ Mod	tap_tempo_in		darosh	
 TapMulti	65535	10.000 Hz	Delay w/ Mod	tap_tempo_in		darosh	
 TapMultiRev	0	10.000 Hz	Ping Pong Delay	tap_tempo_in		darosh	

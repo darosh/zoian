@@ -59,7 +59,7 @@ Deno.test('params', async () => {
           .shift(),
         expected
           .split(',')
-          .shift()
+          .shift(),
       )
     } catch (error: unknown) {
       if (cols[7] === 'approx') {

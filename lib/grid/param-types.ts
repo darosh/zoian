@@ -429,6 +429,7 @@ export const TYPE_MAP: Record<string, (TypeSpec | TypesSpec)[]> = {
   atten: [{ type: ParamType.Norm, modules: ['CV Mixer'] }],
   tap_ratio: [{ type: ParamType.TapRatio, modules: ['Reverse Delay'] }],
   pitch: [{ type: ParamType.PitchCents, modules: ['Reverse Delay'] }],
+  tap_input: [{ type: ParamType.Ignored, modules: ['Tap to CV'] }],
 }
 
 export function getParamType(blockName: string, module: ModuleSpec): ParamType | [ParamType, string, string][] {
@@ -446,11 +447,14 @@ export function getParamType(blockName: string, module: ModuleSpec): ParamType |
 
 export function getParamInfo(blockName: string, module: ModuleSpec): string {
   const pt = getParamType(blockName, module)
-
   const ptt = Array.isArray(pt) ? pt : [[pt]]
 
   return ptt
     .map((x) => {
+      if (!PARAM_RANGE[x[0]]?.join) {
+        return '<UNDEFINED>'
+      }
+
       return `${ParamType[x[0]]}: [${PARAM_RANGE[x[0]].join(', ')}]`
     })
     .join(', ')

@@ -442,7 +442,7 @@ export function getParamType(blockName: string, module: ModuleSpec): ParamType |
 
   const t = <TypeSpec | TypesSpec> value?.find((set) => set.modules.includes(module.name))
 
-  return (<TypeSpec> t)?.type || (<TypesSpec> t)?.types
+  return (<TypeSpec> t)?.type ?? (<TypesSpec> t)?.types
 }
 
 export function getParamInfo(blockName: string, module: ModuleSpec): string {

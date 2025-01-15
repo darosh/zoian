@@ -1,5 +1,9 @@
 # Changelog
 
+## 2024-01-15
+
+- Fixing parameter not displayed in few cases
+
 ## 2024-01-10
 
 - Adding module options and block params to the tooltip
